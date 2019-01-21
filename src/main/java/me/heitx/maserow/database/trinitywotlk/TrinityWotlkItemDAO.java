@@ -134,7 +134,7 @@ public class TrinityWotlkItemDAO extends SqlDatabase implements ItemDAO {
 						.select("*")
 						.from("item_template")
 						.where("entry = " + entry)
-						.or("name = " + name)
+						.or("name LIKE '%" + name + "%'")
 						.limit(limit);
 
 				PreparedStatement ps = conn.prepareStatement(query.buildSQL());
