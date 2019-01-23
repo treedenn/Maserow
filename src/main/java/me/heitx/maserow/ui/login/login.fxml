@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.login.LoginController">
+    <children>
+        <StackPane VBox.vgrow="ALWAYS">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" text="MaseroW" textAlignment="CENTER" StackPane.alignment="CENTER">
+                    <font>
+                        <Font name="Microsoft JhengHei Light" size="40.0" />
+                    </font>
+                    <StackPane.margin>
+                        <Insets />
+                    </StackPane.margin>
+                </Label>
+            </children>
+        </StackPane>
+        <Separator prefWidth="200.0">
+            <VBox.margin>
+                <Insets left="10.0" right="10.0" />
+            </VBox.margin>
+        </Separator>
+        <GridPane hgap="20.0" prefHeight="200.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            </rowConstraints>
+            <children>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                    <children>
+                        <TextField fx:id="tfHostname" promptText="Hostname" text="127.0.0.1" />
+                        <TextField fx:id="tfUsername" promptText="Username" text="root" />
+                        <PasswordField fx:id="tfPassword" promptText="Password" text="toor" />
+                        <TextField fx:id="tfPort" promptText="Port" text="3306" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.columnIndex="2">
+                    <children>
+                        <TextField fx:id="tfAuth" promptText="AuthDB" text="auth" />
+                        <TextField fx:id="tfCharacters" promptText="CharactersDB" text="characters" />
+                        <TextField fx:id="tfWorld" promptText="WorldDB" text="world" />
+                    </children>
+                </VBox>
+                <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="1" />
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+        </GridPane>
+        <HBox alignment="CENTER" spacing="15.0">
+            <children>
+                <CheckBox fx:id="cbSave" mnemonicParsing="false" text="Save" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="50.0" spacing="15.0">
+            <children>
+                <Button fx:id="btnExit" mnemonicParsing="false" prefWidth="80.0" text="Exit" />
+                <Button fx:id="btnDefault" mnemonicParsing="false" prefWidth="80.0" text="Default" />
+                <Button fx:id="btnLogin" mnemonicParsing="false" prefWidth="80.0" text="Login" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

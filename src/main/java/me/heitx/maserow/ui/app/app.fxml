@@ -2,8 +2,11 @@
 
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="bpApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.app.AppController">
+<BorderPane fx:id="bpApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@app.css" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.app.AppController">
    <left>
       <fx:include fx:id="sm" source="../sidemenu/sidemenu.fxml" />
    </left>
+   <center>
+      <fx:include source="../login/login.fxml" />
+   </center>
 </BorderPane>

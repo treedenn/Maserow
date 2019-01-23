@@ -1,0 +1,44 @@
+
+
+#vboxSidemenu {
+    -fx-background-color: #303030;
+}
+
+#labelTitle {
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10px 0 10px 0;
+    -fx-opacity: 0.7;
+}
+
+#vboxSidemenu > Button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-padding: 10px 0 10px 10px;
+    -fx-background-radius: 0;
+}
+
+#vboxSidemenu Button:shrinked {
+    -fx-padding: 10px 0 10px 0px;
+}
+
+#vboxSidemenu > Button:hover {
+    -fx-background-color: #212121;
+    -icons-color: -secondary-color;
+}
+
+#vboxSidemenu > VBox {
+    -fx-background-color: #424242;
+}
+
+#vboxSidemenu > VBox > Button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12;
+    -fx-padding: 10px 0 10px 15px;
+    -fx-background-radius: 0;
+}
+
+#vboxSidemenu > VBox > Button:hover {
+    -fx-background-color: #D65D0E;
+}

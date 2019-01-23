@@ -1,0 +1,119 @@
+
+/* PALETTE */
+.root {
+    -primary-color: #be8c1e;
+    -secondary-color: #1e60be;
+    -bg0-color: #060606;
+    -bg1-color: #121212;
+    -bg2-color: #212121;
+    -bg3-color: #424242;
+    -bg4-color: #616161;
+    -bg5-color: #757575;
+    -icons-color: -primary-color; /* Used for glyph icons */
+}
+
+.glyph-icon {
+    -fx-text-fill: -icons-color;
+    -fx-fill: -icons-color;
+}
+
+.glyph-icon:hover {
+
+}
+
+/* Begin TableView */
+
+.table-view {
+    -fx-background-color: transparent;
+}
+
+.table-view:focused {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -bg2-color;
+}
+
+.table-view .column-header-background .label {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-row-cell {
+    -fx-table-cell-border-color: -bg3-color;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: white;
+    /*
+    -fx-border-color: #424242;
+    -fx-border-width: 0 1 0 0;
+    */
+}
+
+.table-row-cell:even {
+    -fx-background-color: -bg1-color;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: -bg2-color;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: -primary-color;
+}
+
+/* End TableView */
+
+Separator .line {
+    -fx-border-color: -secondary-color;
+    -fx-border-width: 1;
+}
+
+BorderPane {
+    -fx-background-color: -bg1-color;
+}
+
+TextField, PasswordField {
+    -fx-border-radius: 0;
+    -fx-background-color: transparent;
+    -fx-border-color: -primary-color;
+    -fx-text-fill: white;
+    -fx-border-width: 0 0 1 0;
+}
+
+CheckBox {
+    -fx-text-fill: white;
+}
+
+CheckBox .box {
+    -fx-background-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-color: -primary-color;
+}
+
+CheckBox:selected .mark {
+    -fx-background-color: transparent;
+    -fx-border-color: -primary-color;
+}
+
+Button {
+    -fx-text-fill: white;
+    -fx-background-color: -bg3-color;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+
+Button:hover {
+    -fx-background-color: -bg4-color;
+}
+
+Button:pressed {
+    -fx-background-color: -bg2-color;
+}
