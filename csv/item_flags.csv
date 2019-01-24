@@ -1,0 +1,32 @@
+1;UNK1
+2;Conjured item
+4;Openable (can be opened by right-click)
+8;Makes green "Heroic" text appear on item
+16;Deprecated Item
+32;Item can not be destroyed, except by using spell (item can be reagent for spell)
+64;UNK2
+128;No default 30 seconds cooldown when equipped
+256;UNK3
+512;Wrapper : Item can wrap other items
+1024;UNK4
+2048;Item is party loot and can be looted by all
+4096;Item is refundable
+8192;Charter (Arena or Guild)
+16384;UNK5 // comment in code : Only readable items have this (but not all)
+32768;UNK6
+65536;UNK7
+131072;UNK8
+262144;Item can be prospected
+524288;Unique equipped (player can only have one equipped at the same time)
+1048576;UNK9
+2097152;Item can be used during arena match
+4194304;Throwable (for tooltip ingame)
+8388608;Item can be used in shapeshift forms
+16777216;UNK10
+33554432;Profession recipes: can only be looted if you meet requirements and don't already know it
+67108864;Item cannot be used in arena
+134217728;Bind to Account (Also needs Quality = 7 set)
+268435456;Spell is cast with triggered flag
+536870912;Millable
+1073741824;UNK11
+2147483648;Bind on Pickup tradeable

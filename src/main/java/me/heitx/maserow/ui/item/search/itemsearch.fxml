@@ -13,10 +13,10 @@
    <children>
       <HBox spacing="5.0">
          <children>
-            <TextField fx:id="tfEntry" minWidth="75.0" prefWidth="75.0" promptText="Entry" />
+            <TextField fx:id="tfEntry" minWidth="75.0" prefWidth="75.0" promptText="Entry" text="0" />
             <TextField fx:id="tfName" prefWidth="200.0" promptText="Name" />
             <Pane HBox.hgrow="ALWAYS" />
-            <Button fx:id="btnSearch" mnemonicParsing="false" prefWidth="75.0" text="Search" />
+            <Button fx:id="btnSearch" defaultButton="true" mnemonicParsing="false" prefWidth="75.0" text="Search" />
          </children>
       </HBox>
       <TableView fx:id="tvSearch" VBox.vgrow="ALWAYS">

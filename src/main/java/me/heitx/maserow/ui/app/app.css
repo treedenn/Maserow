@@ -1,6 +1,8 @@
 
 /* PALETTE */
 .root {
+    -fx-background-color: -bg1-color;
+
     -primary-color: #be8c1e;
     -secondary-color: #1e60be;
     -bg0-color: #060606;
@@ -10,6 +12,11 @@
     -bg4-color: #616161;
     -bg5-color: #757575;
     -icons-color: -primary-color; /* Used for glyph icons */
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-fill: white;
 }
 
 .glyph-icon {
@@ -70,16 +77,12 @@
 
 /* End TableView */
 
-Separator .line {
+.separator .line {
     -fx-border-color: -secondary-color;
     -fx-border-width: 1;
 }
 
-BorderPane {
-    -fx-background-color: -bg1-color;
-}
-
-TextField, PasswordField {
+.text-field, .password-field {
     -fx-border-radius: 0;
     -fx-background-color: transparent;
     -fx-border-color: -primary-color;
@@ -87,22 +90,22 @@ TextField, PasswordField {
     -fx-border-width: 0 0 1 0;
 }
 
-CheckBox {
+.check-box {
     -fx-text-fill: white;
 }
 
-CheckBox .box {
+.check-box .box {
     -fx-background-color: transparent;
     -fx-border-width: 1;
     -fx-border-color: -primary-color;
 }
 
-CheckBox:selected .mark {
+.check-box:selected .mark {
     -fx-background-color: transparent;
     -fx-border-color: -primary-color;
 }
 
-Button {
+.button {
     -fx-text-fill: white;
     -fx-background-color: -bg3-color;
     -fx-background-radius: 0;
@@ -110,10 +113,46 @@ Button {
     -fx-border-color: transparent;
 }
 
-Button:hover {
+.button:hover {
     -fx-background-color: -bg4-color;
 }
 
-Button:pressed {
+.button:pressed {
     -fx-background-color: -bg2-color;
+}
+
+.button:default {
+    -fx-background-color: -primary-color;
+}
+
+.button:default:hover {
+    -fx-opacity: 0.7;
+}
+
+.button:default:pressed {
+    -fx-background-color: -secondary-color;
+}
+
+.menu-button {
+    -fx-background-color: -bg3-color;
+}
+
+.menu-button:hover {
+    -fx-background-color: -bg4-color;;
+}
+
+.menu-button .arrow-button .arrow {
+    -fx-background-color: -secondary-color;
+}
+
+.menu-item {
+    -fx-background-color: -bg4-color;
+}
+
+.menu-item:hover .label {
+    -fx-text-fill: -primary-color;
+}
+
+.context-menu {
+    -fx-background-color: -bg4-color;
 }

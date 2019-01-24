@@ -12,7 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import me.heitx.maserow.ui.ICallback;
+import me.heitx.maserow.ui.Callback;
 import me.heitx.maserow.ui.NodeUtil;
 
 import java.net.URL;
@@ -29,13 +29,13 @@ public class SidemenuController implements Initializable {
 	@FXML private Label labelTitle;
 	@FXML private Button btnLogin;
 	@FXML private Button btnItem;
+	@FXML private Button btnSQL;
 	@FXML private Button btnSettings;
 	@FXML private Button btnToggle;
 
 	@FXML private VBox vboxItem;
 	@FXML private Button btnItemSearch;
 	@FXML private Button btnItemTemplate;
-	@FXML private Button btnItemSQL;
 
 	private boolean isShrinked;
 	private VBox selectedVBox;
@@ -62,19 +62,22 @@ public class SidemenuController implements Initializable {
 				btnItem,
 				btnItemSearch,
 				btnItemTemplate,
-				btnItemSQL,
+				btnSQL,
 				btnSettings,
 				btnToggle
 		};
+
+		btnSettings.setDisable(true);
+		btnSQL.setDisable(true);
 
 		NodeUtil.hide(vboxItem);
 
 		// new MaterialIconView(MaterialIcon.MENU)
 		setIcon(btnLogin, new MaterialDesignIconView(MaterialDesignIcon.DATABASE), MENU_ICON_SIZE);
 		setIcon(btnItem, new MaterialDesignIconView(MaterialDesignIcon.SWORD), MENU_ICON_SIZE);
+		setIcon(btnSQL, new MaterialDesignIconView(MaterialDesignIcon.DATABASE_PLUS), MENU_ICON_SIZE);
 		setIcon(btnItemSearch, new MaterialIconView(MaterialIcon.SEARCH), SUBMENU_ICON_SIZE);
 		setIcon(btnItemTemplate, new MaterialIconView(MaterialIcon.EDIT), SUBMENU_ICON_SIZE);
-		setIcon(btnItemSQL, new MaterialDesignIconView(MaterialDesignIcon.DATABASE_PLUS), SUBMENU_ICON_SIZE);
 
 		setIcon(btnSettings, new MaterialIconView(MaterialIcon.SETTINGS), MENU_ICON_SIZE);
 		setIcon(btnToggle, toggleExpand, MENU_ICON_SIZE);
@@ -112,7 +115,7 @@ public class SidemenuController implements Initializable {
 
 	// SETS
 
-	private void setButtonAction(Button btn, ICallback callback) {
+	private void setButtonAction(Button btn, Callback callback) {
 		btn.setOnAction(actionEvent -> {
 			if(selectedVBox != null) {
 				NodeUtil.hide(selectedVBox);
@@ -123,7 +126,7 @@ public class SidemenuController implements Initializable {
 		});
 	}
 
-	private void setCategoryAction(Button btn, VBox vbox, ICallback callback) {
+	private void setCategoryAction(Button btn, VBox vbox, Callback callback) {
 		btn.setOnAction(actionEvent -> {
 			if(selectedVBox != null && selectedVBox != vbox) {
 				NodeUtil.hide(selectedVBox);
@@ -147,23 +150,22 @@ public class SidemenuController implements Initializable {
 
 	// SETS CALLBACKS
 
-	public void setLoginCallback(ICallback callback) {
+	public void setLoginCallback(Callback callback) {
 		setButtonAction(btnLogin, callback);
 	}
-	public void setItemCallback(ICallback callback) {
+	public void setItemCallback(Callback callback) {
 		setCategoryAction(btnItem, vboxItem, callback);
 	}
-	public void setSettingsCallback(ICallback callback) {
-		setButtonAction(btnSettings, callback);
-	}
-
-	public void setItemSearchCallback(ICallback callback) {
+	public void setItemSearchCallback(Callback callback) {
 		setButtonAction(btnItemSearch, callback);
 	}
-	public void setItemTemplateCallback(ICallback callback) {
+	public void setItemTemplateCallback(Callback callback) {
 		setButtonAction(btnItemTemplate, callback);
 	}
-	public void setItemSQLCallback(ICallback callback) {
-		setButtonAction(btnItemSQL, callback);
+	public void setSQLCallback(Callback callback) {
+		setButtonAction(btnSQL, callback);
+	}
+	public void setSettingsCallback(Callback callback) {
+		setButtonAction(btnSettings, callback);
 	}
 }

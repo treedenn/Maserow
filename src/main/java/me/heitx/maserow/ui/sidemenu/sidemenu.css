@@ -41,4 +41,5 @@
 
 #vboxSidemenu > VBox > Button:hover {
     -fx-background-color: #D65D0E;
+    -icons-color: white;
 }

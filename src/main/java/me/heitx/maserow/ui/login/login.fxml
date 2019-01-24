@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.login.LoginController">
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.login.LoginController">
     <children>
-        <StackPane VBox.vgrow="ALWAYS">
+        <StackPane prefHeight="100.0" VBox.vgrow="SOMETIMES">
             <children>
                 <Label alignment="CENTER" contentDisplay="CENTER" text="MaseroW" textAlignment="CENTER" StackPane.alignment="CENTER">
                     <font>
@@ -46,17 +46,17 @@
             <children>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                     <children>
-                        <TextField fx:id="tfHostname" promptText="Hostname" text="127.0.0.1" />
-                        <TextField fx:id="tfUsername" promptText="Username" text="root" />
-                        <PasswordField fx:id="tfPassword" promptText="Password" text="toor" />
-                        <TextField fx:id="tfPort" promptText="Port" text="3306" />
+                        <TextField fx:id="tfHostname" maxWidth="200.0" promptText="Hostname" text="127.0.0.1" />
+                        <TextField fx:id="tfUsername" maxWidth="200.0" promptText="Username" text="root" />
+                        <PasswordField fx:id="pfPassword" maxWidth="200.0" promptText="Password" text="toor" />
+                        <TextField fx:id="tfPort" maxWidth="200.0" promptText="Port" text="3306" />
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.columnIndex="2">
                     <children>
-                        <TextField fx:id="tfAuth" promptText="AuthDB" text="auth" />
-                        <TextField fx:id="tfCharacters" promptText="CharactersDB" text="characters" />
-                        <TextField fx:id="tfWorld" promptText="WorldDB" text="world" />
+                        <TextField fx:id="tfAuth" maxWidth="200.0" promptText="AuthDB" text="auth" />
+                        <TextField fx:id="tfCharacters" maxWidth="200.0" promptText="CharactersDB" text="characters" />
+                        <TextField fx:id="tfWorld" maxWidth="200.0" promptText="WorldDB" text="world" />
                     </children>
                 </VBox>
                 <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="1" />
@@ -79,5 +79,9 @@
                 <Button fx:id="btnLogin" mnemonicParsing="false" prefWidth="80.0" text="Login" />
             </children>
         </HBox>
+      <Label fx:id="labelResponse" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textOverrun="CLIP" wrapText="true" VBox.vgrow="ALWAYS">
+         <font>
+            <Font size="12.0" />
+         </font></Label>
     </children>
 </VBox>

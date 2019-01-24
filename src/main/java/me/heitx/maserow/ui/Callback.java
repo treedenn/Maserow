@@ -1,5 +1,5 @@
 package me.heitx.maserow.ui;
 
-public interface ICallback {
+public interface Callback {
 	void call();
 }

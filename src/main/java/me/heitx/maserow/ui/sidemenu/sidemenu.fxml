@@ -31,9 +31,9 @@
                   <Insets />
                </VBox.margin></Button>
             <Button fx:id="btnItemTemplate" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Template" />
-            <Button fx:id="btnItemSQL" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="SQL" />
          </children>
       </VBox>
+      <Button fx:id="btnSQL" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="SQL" />
       <Pane prefHeight="100.0" VBox.vgrow="ALWAYS" />
       <Button fx:id="btnSettings" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Settings" />
       <Button fx:id="btnToggle" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="‌‌ " />

@@ -1,5 +1,6 @@
-package me.heitx.maserow.database;
+package me.heitx.maserow.database.dao;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,9 +13,9 @@ public interface ItemDAO {
 
 	Map<String, Object> get(int entry);
 
-	Set<Map<String, Object>> getAll(int limit);
+	List<Map<String, Object>> getAll(int limit);
 
-	Set<Map<String, Object>> search(int entry, String name, int limit);
+	List<Map<String, Object>> search(int entry, String name, int limit);
 
 	boolean exists(int entry);
 

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="vboxBuild" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="350.0" spacing="2.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.item.template.build.ItemBuildController">
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelEntry" maxHeight="-Infinity" maxWidth="-Infinity" text="entry" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelName" text="name" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelBonding" text="bonding" />
+            </children>
+        </HBox>
+        <AnchorPane fx:id="anchorSlotAndType">
+            <children>
+                <HBox alignment="CENTER_LEFT" AnchorPane.leftAnchor="0.0">
+                    <children>
+                        <Label fx:id="labelSlot" text="slot" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" layoutX="20.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <Label fx:id="labelType" alignment="CENTER_RIGHT" text="type" />
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="anchorDamageAndDelay">
+            <children>
+                <HBox alignment="CENTER_LEFT" AnchorPane.leftAnchor="0.0">
+                    <children>
+                        <Label fx:id="labelDamage" text="damage" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" layoutX="20.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <Label fx:id="labelDelay" alignment="CENTER_RIGHT" text="delay" />
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelArmor" text="armor" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelBlock" text="block" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelStats" text="stats" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelResistance" text="resistance" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelSocket" text="socket" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelClasses" text="classes" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelRaces" text="races" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelDurability" text="durability" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelRequiredLevel" text="required level" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelItemLevel" text="item level" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelBuySell" text="buy &amp; sell" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+                <Label fx:id="labelDescription" text="description" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

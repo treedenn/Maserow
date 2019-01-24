@@ -1,0 +1,44 @@
+0;Mana
+1;Health
+3;Agility
+4;Strength
+5;Intellect
+6;Spirit
+7;Stamina
+12;Defense Skill Rating
+13;Dodge Rating
+14;Parry Rating
+15;Block Rating
+16;Hit Melee Rating
+17;Hit Ranged Rating
+18;Hit Spell Rating
+19;Crit Melee Rating
+20;Crit Ranged Rating
+21;Crit Spell Rating
+22;Hit Taken Melee Rating
+23;Hit Taken Ranged Rating
+24;Hit Taken Spell Rating
+25;Crit Taken Melee Rating
+26;Crit Taken Ranged Rating
+27;Crit Taken Spell Rating
+28;Haste Melee Rating
+29;Haste Ranged Rating
+30;Haste Spell Rating
+31;Hit Rating
+32;Crit Rating
+33;Hit Taken Rating
+34;Crit Taken Rating
+35;Resilience Rating
+36;Haste Rating
+37;Expertise Rating
+38;Attack Power
+39;Ranged Attack Power
+40;Feral Attack Power (not used as of 3.3)
+41;Spell Healing Done
+42;Spell Damage Done
+43;Mana Regeneration
+44;Armor Penetration Rating
+45;Spell Power
+46;Health Regen
+47;Spell Penetration
+48;Block Value

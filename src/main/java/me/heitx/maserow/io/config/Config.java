@@ -1,4 +1,4 @@
-package me.heitx.maserow.configs;
+package me.heitx.maserow.io.config;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,30 +21,23 @@ public class Config {
 		file = new File("." + File.separator + "config" + File.separator + fileName);
 		properties = new LinkedProperties();
 
-		// default values
-		properties.setProperty("db-hostname", "127.0.0.1");
-		properties.setProperty("db-username", "root");
-		properties.setProperty("db-password", "toor");
-		properties.setProperty("db-port", "3306");
-		properties.setProperty("db-auth", "auth");
-		properties.setProperty("db-character", "character");
-		properties.setProperty("db-world", "world");
-		properties.setProperty("save-info", String.valueOf(false));
-		properties.setProperty("save-pass", String.valueOf(false));
+		for(ConfigKey key : ConfigKey.values()) {
+			properties.setProperty(key.getKey(), key.getDefaultValue());
+		}
 	}
 
-	public String get(String key) {
-		String s = null;
-		if(properties.containsKey(key)) {
-			s = properties.getProperty(key);
-		}
-		return s;
+	public String get(ConfigKey key) {
+		return properties.getProperty(key.getKey());
+	}
+
+	public String getDefault(ConfigKey key) {
+		return key.getDefaultValue();
 	}
 
 	// TODO: Perhaps change key to enum..
-	public void update(String key, String value) {
-		if(properties.containsKey(key)) {
-			properties.setProperty(key, value);
+	public void update(ConfigKey key, String value) {
+		if(properties.containsKey(key.getKey())) {
+			properties.setProperty(key.getKey(), value);
 		}
 	}
 

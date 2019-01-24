@@ -1,7 +1,7 @@
 package me.heitx.maserow.database.trinitywotlk;
 
 import me.heitx.maserow.database.IClient;
-import me.heitx.maserow.database.ItemDAO;
+import me.heitx.maserow.database.dao.ItemDAO;
 import me.heitx.maserow.database.SqlDatabase;
 import me.heitx.maserow.query.Query;
 import me.heitx.maserow.query.TrinityItemQuery;
@@ -9,14 +9,16 @@ import me.heitx.maserow.query.TrinityItemQuery;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class TrinityWotlkItemDAO extends SqlDatabase implements ItemDAO {
+	public TrinityWotlkItemDAO(IClient client) {
+		super(client, client.getWorld());
+	}
+
 	public TrinityWotlkItemDAO(IClient client, String database) {
 		super(client, database);
 	}
@@ -44,7 +46,6 @@ public class TrinityWotlkItemDAO extends SqlDatabase implements ItemDAO {
 		try {
 			execute(conn -> {
 				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getUpdateItemQuery(item, true));
-				System.out.println(ps.toString());
 				atomic.set(ps.executeUpdate() > 0);
 			});
 		} catch(SQLException e) {
@@ -98,8 +99,8 @@ public class TrinityWotlkItemDAO extends SqlDatabase implements ItemDAO {
 	}
 
 	@Override
-	public Set<Map<String, Object>> getAll(int limit) {
-		Set<Map<String, Object>> set = new HashSet<>();
+	public List<Map<String, Object>> getAll(int limit) {
+		List<Map<String, Object>> set = new ArrayList<>();
 
 		try {
 			execute(conn -> {
@@ -124,8 +125,8 @@ public class TrinityWotlkItemDAO extends SqlDatabase implements ItemDAO {
 	}
 
 	@Override
-	public Set<Map<String, Object>> search(int entry, String name, int limit) {
-		Set<Map<String, Object>> set = new HashSet<>();
+	public List<Map<String, Object>> search(int entry, String name, int limit) {
+		List<Map<String, Object>> set = new ArrayList<>();
 
 		try {
 			execute(conn -> {

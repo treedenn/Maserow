@@ -210,9 +210,13 @@ public class Query {
 		String wherePiece = "";
 
 		if(where != null && !where.isEmpty()) {
-			wherePiece = "WHERE ".concat(where)
-					.concat(String.join(" AND ", andList))
-					.concat(String.join(" OR ", orList));
+			wherePiece = "WHERE ".concat(where);
+			if(andList.size() > 0) {
+				wherePiece = wherePiece.concat(" AND " + String.join(" AND ", andList));
+			}
+			if(orList.size() > 0) {
+				wherePiece = wherePiece.concat(" OR " + String.join(" OR ", orList));
+			}
 		}
 
 		// Adds the: LIMIT X

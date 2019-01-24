@@ -5,13 +5,22 @@ import me.heitx.maserow.model.ItemSpell;
 import me.heitx.maserow.model.ItemStat;
 import me.heitx.maserow.model.Resistance;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class TrinityWotlkConverter {
-	public static Item toItem(Map<String, Object> attributes) {
+public class TrinityWotlkConverter implements IConverter {
+	@Override
+	public List<Item> toItems(List<Map<String, Object>> attributesList) {
+		List<Item> set = new ArrayList<>();
+
+		for(Map<String, Object> map : attributesList) {
+			set.add(toItem(map));
+		}
+
+		return set;
+	}
+
+	@Override
+	public Item toItem(Map<String, Object> attributes) {
 		Item item = new Item();
 		List<ItemStat> stats = new ArrayList<>();
 		List<ItemSpell> spells = new ArrayList<>();
@@ -117,7 +126,8 @@ public class TrinityWotlkConverter {
 		return item;
 	}
 
-	public static Map<String, Object> toMap(Item item) {
+	@Override
+	public Map<String, Object> toMap(Item item) {
 		Map<String, Object> attributes = new LinkedHashMap<>();
 
 		attributes.put("entry", item.getEntry());

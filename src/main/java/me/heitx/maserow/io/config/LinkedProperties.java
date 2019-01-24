@@ -1,4 +1,4 @@
-package me.heitx.maserow.configs;
+package me.heitx.maserow.io.config;
 
 import java.util.*;
 
@@ -6,6 +6,11 @@ public class LinkedProperties extends Properties {
 	private final HashSet<Object> keys;
 
 	public LinkedProperties() {
+		this(null);
+	}
+
+	public LinkedProperties(Properties properties) {
+		super(properties);
 		keys = new LinkedHashSet<>();
 	}
 
