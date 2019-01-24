@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.io.CSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
@@ -19,6 +18,7 @@ import me.heitx.maserow.model.Item;
 import me.heitx.maserow.model.Resistance;
 import me.heitx.maserow.ui.Callback;
 import me.heitx.maserow.ui.NodeUtil;
+import me.heitx.maserow.utils.MoneyUtil;
 import org.controlsfx.control.CheckComboBox;
 
 import java.net.URL;
@@ -86,7 +86,6 @@ public class ItemBuildController implements Initializable {
 	}
 
 	private void onMouseClickLabelEntry(MouseEvent event) {
-		System.out.println(item.getName());
 		TextField tf = new TextField(String.valueOf(item.getEntry()));
 		CheckBox cb = new CheckBox("Auto Generate Entry");
 		cb.setDisable(true);
@@ -201,7 +200,7 @@ public class ItemBuildController implements Initializable {
 	}
 
 	private void onMouseClickLabelDelay(MouseEvent event) {
-		TextField tf = new TextField();
+		TextField tf = new TextField(String.valueOf(item.getDelay()));
 
 		handleNodes(event, () -> {
 			item.setDelay(Integer.parseInt(tf.getText()));
@@ -209,7 +208,7 @@ public class ItemBuildController implements Initializable {
 	}
 
 	private void onMouseClickLabelArmor(MouseEvent event) {
-		TextField tf = new TextField();
+		TextField tf = new TextField(String.valueOf(item.getArmor()));
 
 		handleNodes(event, () -> {
 			item.setArmor(Integer.parseInt(tf.getText()));
@@ -217,7 +216,7 @@ public class ItemBuildController implements Initializable {
 	}
 
 	private void onMouseClickLabelBlock(MouseEvent event) {
-		TextField tf = new TextField();
+		TextField tf = new TextField(String.valueOf(item.getBlock()));
 
 		handleNodes(event, () -> {
 			item.setBlock(Integer.parseInt(tf.getText()));

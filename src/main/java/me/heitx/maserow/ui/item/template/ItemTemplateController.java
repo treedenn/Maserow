@@ -19,8 +19,8 @@ import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.dao.ItemDAO;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.query.TrinityItemQuery;
-import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.ui.NodeUtil;
+import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.ui.item.template.build.ItemBuildController;
 import me.heitx.maserow.ui.item.template.preview.ItemPreviewController;
 

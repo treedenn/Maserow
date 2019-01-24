@@ -92,6 +92,7 @@
 
 .check-box {
     -fx-text-fill: white;
+    -fx-background-radius: 0;
 }
 
 .check-box .box {
@@ -103,6 +104,39 @@
 .check-box:selected .mark {
     -fx-background-color: transparent;
     -fx-border-color: -primary-color;
+}
+
+.combo-box {
+    -fx-background-color: -bg3-color;
+    -fx-background-radius: 0;
+}
+
+.combo-box .scroll-bar {
+    -fx-background-radius: 0;
+    -fx-background-color: -bg3-color;
+}
+
+.combo-box .scroll-bar .thumb {
+    -fx-background-color: -bg1-color;
+    -fx-background-radius: 0;
+}
+
+.combo-box .arrow {
+    -fx-background-color: -secondary-color;
+}
+
+.combo-box .list-view {
+    -fx-background-color: -bg3-color;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: -bg3-color;
+    -fx-text-fill: white;
+}
+
+.combo-box .label {
+    -fx-text-fill: white;
 }
 
 .button {
@@ -135,6 +169,7 @@
 
 .menu-button {
     -fx-background-color: -bg3-color;
+    -fx-background-radius: 0;
 }
 
 .menu-button:hover {
@@ -147,6 +182,7 @@
 
 .menu-item {
     -fx-background-color: -bg4-color;
+    -fx-background-radius: 0;
 }
 
 .menu-item:hover .label {
@@ -155,4 +191,17 @@
 
 .context-menu {
     -fx-background-color: -bg4-color;
+}
+
+.radio-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.radio-button .radio {
+    -fx-background-color: -bg2-color;
+}
+
+.radio-button:selected .radio .dot {
+    -fx-background-color: -secondary-color;
 }

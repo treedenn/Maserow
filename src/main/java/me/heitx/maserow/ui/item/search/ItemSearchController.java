@@ -1,18 +1,14 @@
 package me.heitx.maserow.ui.item.search;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import me.heitx.maserow.converter.Converter;
-import me.heitx.maserow.converter.TrinityWotlkConverter;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.ui.Updateable;
@@ -21,7 +17,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 public class ItemSearchController implements Initializable, Updateable {
 	@FXML private TextField tfEntry;

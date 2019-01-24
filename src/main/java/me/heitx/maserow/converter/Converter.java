@@ -1,8 +1,5 @@
 package me.heitx.maserow.converter;
 
-import me.heitx.maserow.database.Database;
-import me.heitx.maserow.database.TrinityDatabase;
-
 public class Converter {
 	private static IConverter ourInstance;
 

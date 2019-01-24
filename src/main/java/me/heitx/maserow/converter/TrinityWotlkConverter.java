@@ -5,7 +5,10 @@ import me.heitx.maserow.model.ItemSpell;
 import me.heitx.maserow.model.ItemStat;
 import me.heitx.maserow.model.Resistance;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TrinityWotlkConverter implements IConverter {
 	@Override

@@ -1,15 +1,17 @@
 package me.heitx.maserow.database.trinitywotlk;
 
 import me.heitx.maserow.database.IClient;
-import me.heitx.maserow.database.dao.ItemDAO;
 import me.heitx.maserow.database.SqlDatabase;
+import me.heitx.maserow.database.dao.ItemDAO;
 import me.heitx.maserow.query.Query;
 import me.heitx.maserow.query.TrinityItemQuery;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;

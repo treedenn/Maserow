@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="maserow:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/maserow_jar</output-path>
+    <root id="archive" name="maserow.jar">
+      <element id="module-output" name="maserow" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/jensd/fontawesomefx-fontawesome/4.7.0-5/fontawesomefx-fontawesome-4.7.0-5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/controlsfx/controlsfx/8.40.14/controlsfx-8.40.14.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/jensd/fontawesomefx-materialdesignfont/1.7.22-4/fontawesomefx-materialdesignfont-1.7.22-4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.13/mysql-connector-java-8.0.13.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/jensd/fontawesomefx-materialstackicons/2.1-5/fontawesomefx-materialstackicons-2.1-5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.6.1/protobuf-java-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/jensd/fontawesomefx-commons/8.15/fontawesomefx-commons-8.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/jensd/fontawesomefx-materialicons/2.2.0-5/fontawesomefx-materialicons-2.2.0-5.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -8,9 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import me.heitx.maserow.ui.Updateable;
-import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.io.CSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
@@ -18,6 +15,8 @@ import me.heitx.maserow.model.Item;
 import me.heitx.maserow.model.ItemStat;
 import me.heitx.maserow.model.Resistance;
 import me.heitx.maserow.ui.NodeUtil;
+import me.heitx.maserow.ui.Updateable;
+import me.heitx.maserow.utils.MoneyUtil;
 
 import java.net.URL;
 import java.util.List;
@@ -74,22 +73,22 @@ public class ItemPreviewController implements Initializable, Updateable {
 
 	@FXML private Label labelDescription;
 
-	private static final String[] hexQualities = new String[] {
-			"#9d9d9d",
-			"#ffffff",
-			"#1eff00",
-			"#0070dd",
-			"#a335ee",
-			"#ff8000",
-			"#e6cc80",
-			"#00ccff"
+	private static final String[] QUALITY_HEX = new String[] {
+		"#9d9d9d",
+		"#ffffff",
+		"#1eff00",
+		"#0070dd",
+		"#a335ee",
+		"#ff8000",
+		"#e6cc80",
+		"#00ccff"
 	};
 
 	private Item item;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		labelDescription.setTextFill(Color.LIMEGREEN);
+		labelDescription.setStyle("-fx-text-fill: limegreen;");
 
 		String path = "currency/money-";
 		ivSellGold.setImage(new Image(getClass().getClassLoader().getResource(path + "gold.png").toExternalForm()));
@@ -140,10 +139,10 @@ public class ItemPreviewController implements Initializable, Updateable {
 				Label label = new Label(itemStat.getDisplayText(Identifier.findById(identifiers, itemStat.getType()).getName()));
 
 				if(itemStat.getType() <= 7) {
-					label.setTextFill(Color.WHITE);
+					label.setStyle("-fx-text-fill: white;");
 					vboxStats.getChildren().add(label);
 				} else {
-					label.setTextFill(Color.LIMEGREEN);
+					label.setStyle("-fx-text-fill: limegreen;");
 					vboxEquipStats.getChildren().add(label);
 				}
 			}
@@ -158,7 +157,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 		if(resistance.allSame()) {
 			if(resistance.getHoly() != 0) {
 				Label l = new Label("+" + resistance.getHoly() + " All Resistance");
-				l.setTextFill(Color.WHITE);
+				l.setStyle("-fx-text-fill: white;");
 				vboxResistance.getChildren().add(l);
 			}
 		} else {
@@ -170,7 +169,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 			for(int i = 0; i < resistValues.length; i++) {
 				if(resistValues[i] != 0) {
 					Label l = new Label("+" + resistValues[i] + " " + Resistance.NAMES[i] + " Resistance");
-					l.setTextFill(Color.WHITE);
+					l.setStyle("-fx-text-fill: white;");
 					vboxResistance.getChildren().add(l);
 				}
 			}
@@ -269,7 +268,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 		String durability = String.valueOf(item.getMaxDurability());
 
 		labelName.setText(item.getName());
-		labelName.setTextFill(Color.web(hexQualities[item.getQuality()]));
+		labelName.setStyle("-fx-text-fill: " + QUALITY_HEX[item.getQuality()] + ";");
 		labelBonding.setText(Identifier.findById(bondings, item.getBonding()).getName());
 		labelUnique.setText(item.getMaxCount() == 1 ? "Unique" : "Unique (" + item.getMaxCount() + ")");
 		labelSlot.setText(Identifier.findById(inventoryType, item.getInventoryType()).getName());
