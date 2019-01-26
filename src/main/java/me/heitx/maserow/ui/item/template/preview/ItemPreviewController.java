@@ -90,13 +90,16 @@ public class ItemPreviewController implements Initializable, Updateable {
 	public void initialize(URL location, ResourceBundle resources) {
 		labelDescription.setStyle("-fx-text-fill: limegreen;");
 
-		String path = "currency/money-";
-		ivSellGold.setImage(new Image(getClass().getClassLoader().getResource(path + "gold.png").toExternalForm()));
-		ivBuyGold.setImage(new Image(getClass().getClassLoader().getResource(path + "gold.png").toExternalForm()));
-		ivSellSilver.setImage(new Image(getClass().getClassLoader().getResource(path + "silver.png").toExternalForm()));
-		ivBuySilver.setImage(new Image(getClass().getClassLoader().getResource(path + "silver.png").toExternalForm()));
-		ivSellCopper.setImage(new Image(getClass().getClassLoader().getResource(path + "copper.png").toExternalForm()));
-		ivBuyCopper.setImage(new Image(getClass().getClassLoader().getResource(path + "copper.png").toExternalForm()));
+		Image goldCoin = new Image(getClass().getClassLoader().getResource("currency/money-gold.png").toExternalForm());
+		Image silverCoin = new Image(getClass().getClassLoader().getResource("currency/money-silver.png").toExternalForm());
+		Image copperCoin = new Image(getClass().getClassLoader().getResource("currency/money-copper.png").toExternalForm());
+
+		ivSellGold.setImage(goldCoin);
+		ivSellSilver.setImage(silverCoin);
+		ivSellCopper.setImage(copperCoin);
+		ivBuyGold.setImage(goldCoin);
+		ivBuySilver.setImage(silverCoin);
+		ivBuyCopper.setImage(copperCoin);
 	}
 
 	@Override

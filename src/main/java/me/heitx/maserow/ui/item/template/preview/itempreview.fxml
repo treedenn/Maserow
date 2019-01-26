@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox fx:id="vboxPreview" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@itempreview.css" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.item.template.preview.ItemPreviewController">
+
+<VBox fx:id="vboxPreview" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@itempreview.css" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.item.template.preview.ItemPreviewController">
     <children>
         <HBox spacing="5.0">
             <children>
@@ -22,7 +27,7 @@
             </children>
         </HBox>
         <Label fx:id="labelUnique" text="unique" textFill="WHITE" />
-        <GridPane fx:id="gpSlotType" hgap="5.0">
+        <GridPane fx:id="gpSlotType" hgap="5.0" maxHeight="1.7976931348623157E308">
             <columnConstraints>
                 <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" />
                 <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" />
@@ -43,9 +48,9 @@
                 </HBox>
             </children>
         </GridPane>
-        <GridPane fx:id="paneDamage" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+        <GridPane fx:id="paneDamage" hgap="5.0" maxHeight="1.7976931348623157E308">
             <columnConstraints>
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
             </columnConstraints>
             <rowConstraints>

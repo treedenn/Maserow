@@ -1,16 +1,21 @@
 package me.heitx.maserow.ui.item.template.build;
 
+import de.jensd.fx.glyphs.materialicons.MaterialIcon;
+import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.util.StringConverter;
 import me.heitx.maserow.io.CSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
@@ -22,455 +27,673 @@ import me.heitx.maserow.utils.MoneyUtil;
 import org.controlsfx.control.CheckComboBox;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @SuppressWarnings("Duplicates")
 public class ItemBuildController implements Initializable {
-	@FXML VBox vboxBuild;
-	@FXML private Label labelEntry;
-	@FXML private Label labelName;
-	@FXML private Label labelBonding;
-	@FXML private AnchorPane anchorSlotAndType;
-	@FXML private Label labelSlot;
-	@FXML private Label labelType;
-	@FXML private AnchorPane anchorDamageAndDelay;
-	@FXML private Label labelDamage;
-	@FXML private Label labelDelay;
-	@FXML private Label labelArmor;
-	@FXML private Label labelBlock;
-	@FXML private Label labelStats;
-	@FXML private Label labelResistance;
-	@FXML private Label labelSocket;
-	@FXML private Label labelClasses;
-	@FXML private Label labelRaces;
-	@FXML private Label labelDurability;
-	@FXML private Label labelRequiredLevel;
-	@FXML private Label labelItemLevel;
-	@FXML private Label labelBuySell;
-	@FXML private Label labelDescription;
+	@FXML private VBox vboxPreview;
+	@FXML private VBox vboxSelection;
+	@FXML private HBox hboxEntry;
+	@FXML private HBox hboxName;
+	@FXML private HBox hboxBonding;
+	@FXML private AnchorPane apSlotType;
+	@FXML private AnchorPane apDamageSpeed;
+	@FXML private HBox hboxArmor;
+	@FXML private HBox hboxBlock;
+	@FXML private HBox hboxStats;
+	@FXML private HBox hboxResistance;
+	@FXML private HBox hboxSockets;
+	@FXML private HBox hboxClasses;
+	@FXML private HBox hboxRaces;
+	@FXML private HBox hboxDurability;
+	@FXML private HBox hboxReqLevel;
+	@FXML private HBox hboxItemLevel;
+	@FXML private HBox hboxSellPrice;
+	@FXML private HBox hboxBuyPrice;
+	@FXML private HBox hboxDescription;
+
+	@FXML private GridPane gpEdit;
+
+	@FXML private ImageView ivSellGold;
+	@FXML private ImageView ivSellSilver;
+	@FXML private ImageView ivSellCopper;
+	@FXML private ImageView ivBuyGold;
+	@FXML private ImageView ivBuySilver;
+	@FXML private ImageView ivBuyCopper;
 
 	private Item item;
 
+	private Set<String> editing;
 	private boolean autoGeneratingEntry;
-	private boolean editing;
 
-	@SuppressWarnings("Duplicates")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		labelEntry.setOnMouseClicked(this::onMouseClickLabelEntry);
-		labelName.setOnMouseClicked(this::onMouseClickLabelName);
-		labelBonding.setOnMouseClicked(this::onMouseClickLabelBonding);
-		labelSlot.setOnMouseClicked(this::onMouseClickLabelSlot);
-		labelType.setOnMouseClicked(this::onMouseClickLabelType);
-		labelDamage.setOnMouseClicked(this::onMouseClickLabelDamage);
-		labelDelay.setOnMouseClicked(this::onMouseClickLabelDelay);
-		labelArmor.setOnMouseClicked(this::onMouseClickLabelArmor);
-		labelBlock.setOnMouseClicked(this::onMouseClickLabelBlock);
-		labelStats.setOnMouseClicked(this::onMouseClickLabelStats);
-		labelResistance.setOnMouseClicked(this::onMouseClickLabelResistance);
-		labelSocket.setOnMouseClicked(this::onMouseClickLabelSocket);
-		labelClasses.setOnMouseClicked(this::onMouseClickLabelClasses);
-		labelRaces.setOnMouseClicked(this::onMouseClickLabelRaces);
-		labelDurability.setOnMouseClicked(this::onMouseClickLabelDurability);
-		labelRequiredLevel.setOnMouseClicked(this::onMouseClickLabelRequiredLevel);
-		labelItemLevel.setOnMouseClicked(this::onMouseClickLabelItemLevel);
-		labelBuySell.setOnMouseClicked(this::onMouseClickLabelBuySell);
-		labelDescription.setOnMouseClicked(this::onMouseClickLabelDescription);
+		editing = new HashSet<>();
+
+		hboxEntry.setOnMouseClicked(this::onMouseClickEntry);
+		hboxName.setOnMouseClicked(this::onMouseClickName);
+		hboxBonding.setOnMouseClicked(this::onMouseClickBonding);
+		apSlotType.setOnMouseClicked(this::onMouseClickSlotType);
+		apDamageSpeed.setOnMouseClicked(this::onMouseClickDamageSpeed);
+		hboxArmor.setOnMouseClicked(this::onMouseClickArmor);
+		hboxBlock.setOnMouseClicked(this::onMouseClickBlock);
+		hboxStats.setOnMouseClicked(this::onMouseClickStats);
+		hboxResistance.setOnMouseClicked(this::onMouseClickResistance);
+		hboxSockets.setOnMouseClicked(this::onMouseClickSockets);
+		hboxClasses.setOnMouseClicked(this::onMouseClickClasses);
+		hboxRaces.setOnMouseClicked(this::onMouseClickRaces);
+		hboxDurability.setOnMouseClicked(this::onMouseClickDurability);
+		hboxReqLevel.setOnMouseClicked(this::onMouseClickRequiredLevel);
+		hboxItemLevel.setOnMouseClicked(this::onMouseClickItemLevel);
+		hboxSellPrice.setOnMouseClicked(this::onMouseClickSellPrice);
+		hboxBuyPrice.setOnMouseClicked(this::onMouseClickBuyPrice);
+		hboxDescription.setOnMouseClicked(this::onMouseClickDescription);
+
+		Image goldCoin = new Image(getClass().getClassLoader().getResource("currency/money-gold.png").toExternalForm());
+		Image silverCoin = new Image(getClass().getClassLoader().getResource("currency/money-silver.png").toExternalForm());
+		Image copperCoin = new Image(getClass().getClassLoader().getResource("currency/money-copper.png").toExternalForm());
+
+		ivSellGold.setImage(goldCoin);
+		ivSellSilver.setImage(silverCoin);
+		ivSellCopper.setImage(copperCoin);
+		ivBuyGold.setImage(goldCoin);
+		ivBuySilver.setImage(silverCoin);
+		ivBuyCopper.setImage(copperCoin);
 	}
 
 	public void setItem(Item item) {
 		this.item = item;
 	}
 
-	private void onMouseClickLabelEntry(MouseEvent event) {
-		TextField tf = new TextField(String.valueOf(item.getEntry()));
-		CheckBox cb = new CheckBox("Auto Generate Entry");
-		cb.setDisable(true);
+	private void onMouseClickEntry(MouseEvent event) {
+		final String s = "Entry:";
 
-		handleNodes(event, () -> {
-			item.setEntry(Integer.parseInt(tf.getText()));
-		}, tf, cb);
+		if(!editing.contains(s)) {
+			editing.add(s);
+			Label l = new Label(s);
+			TextField tf = new TextField(String.valueOf(item.getEntry()));
+			tf.positionCaret(tf.getText().length());
+
+			addRow(l, tf, () -> { item.setEntry(Integer.parseInt(tf.getText())); });
+		}
 	}
 
-	private void onMouseClickLabelName(MouseEvent event) {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_QUALITY);
+	private void onMouseClickName(MouseEvent event) {
+		final String name = "Name:";
+		final String display = "Display:";
+		final String quality = "Quality:";
 
-		TextField tfName = new TextField(item.getName());
-		TextField tfDisplay = new TextField(String.valueOf(item.getDisplayId()));
-		ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
-		cb.getSelectionModel().select(Identifier.findById(identifiers, item.getQuality()));
+		if(!editing.contains(name)) {
+			editing.add(name);
+			Label l = new Label(name);
+			TextField tf = new TextField(item.getName());
+			tf.positionCaret(tf.getText().length());
 
-		NodeUtil.showOnlyNameOnCombobox(cb);
+			addRow(l, tf, () -> item.setName(tf.getText()));
+		}
 
-		handleNodes(event, () -> {
-			item.setName(tfName.getText());
-			item.setDisplayId(Integer.parseInt(tfDisplay.getText()));
-			item.setQuality(cb.getSelectionModel().getSelectedItem().getId());
-		}, tfName, tfDisplay, cb);
+		if(!editing.contains(display)) {
+			editing.add(display);
+			Label l = new Label(display);
+			TextField tf = new TextField(String.valueOf(item.getDisplayId()));
+			tf.positionCaret(tf.getText().length());
+
+			addRow(l, tf, () -> item.setDisplayId(Integer.parseInt(tf.getText())));
+		}
+
+		if(!editing.contains(quality)) {
+			editing.add(quality);
+			Label l = new Label(quality);
+
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_QUALITY);
+			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
+			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getQuality()));
+			cb.setMaxWidth(Double.MAX_VALUE);
+			NodeUtil.showOnlyNameOnCombobox(cb);
+
+			addRow(l, cb, () -> item.setQuality(cb.getSelectionModel().getSelectedItem().getId()));
+		}
 	}
 
-	private void onMouseClickLabelBonding(MouseEvent event) {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_BONDING);
+	private void onMouseClickBonding(MouseEvent event) {
+		final String s = "Bonding:";
 
-		ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
-		cb.getSelectionModel().select(Identifier.findById(identifiers, item.getBonding()));
-		NodeUtil.showOnlyNameOnCombobox(cb);
+		if(!editing.contains(s)) {
+			editing.add(s);
+			Label l = new Label(s);
 
-		handleNodes(event, () -> {
-			item.setBonding(cb.getSelectionModel().getSelectedItem().getId());
-			// System.out.println("Bonding: " + cb.getSelectionModel().getSelectedItem().getName());
-		}, cb);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_BONDING);
+			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
+			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getBonding()));
+			cb.setMaxWidth(Double.MAX_VALUE);
+			NodeUtil.showOnlyNameOnCombobox(cb);
+
+			addRow(l, cb, () -> item.setBonding(cb.getSelectionModel().getSelectedItem().getId()));
+		}
 	}
 
-	private void onMouseClickLabelSlot(MouseEvent event) {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_INVENTORY_TYPE);
+	private void onMouseClickSlotType(MouseEvent event) {
+		final String slot = "Slot:";
+		final String type = "Type:";
 
-		ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
-		cb.getSelectionModel().select(Identifier.findById(identifiers, item.getInventoryType()));
-		NodeUtil.showOnlyNameOnCombobox(cb);
+		if(!editing.contains(slot)) {
+			editing.add(slot);
+			Label l = new Label(slot);
 
-		handleNodes(event, () -> {
-			item.setInventoryType(cb.getSelectionModel().getSelectedItem().getId());
-			// System.out.println("Slot: " + cb.getSelectionModel().getSelectedItem().getName());
-		}, cb);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_INVENTORY_TYPE);
+			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
+			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getInventoryType()));
+			cb.setMaxWidth(Double.MAX_VALUE);
+			NodeUtil.showOnlyNameOnCombobox(cb);
+
+			addRow(l, cb, () -> item.setInventoryType(cb.getSelectionModel().getSelectedItem().getId()));
+		}
+
+		if(!editing.contains(type)) {
+			editing.add(type);
+			Label l = new Label(type);
+
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_CLASSES);
+			List<Identifier> subIdentifiers = DelimiterReader.getSubclasses(item.getiClass());
+
+			ComboBox<Identifier> cbClasses = new ComboBox<>(FXCollections.observableArrayList(identifiers));
+			ComboBox<Identifier> cbSubclasses = new ComboBox<>(FXCollections.observableArrayList(subIdentifiers));
+
+			cbClasses.getSelectionModel().select(Identifier.findById(identifiers, item.getiClass()));
+			cbSubclasses.getSelectionModel().select(Identifier.findByValue(subIdentifiers, item.getSubclass()));
+
+			NodeUtil.showOnlyNameOnCombobox(cbClasses);
+			NodeUtil.showOnlyNameOnCombobox(cbSubclasses);
+
+			cbClasses.setOnAction(event1 -> {
+				// Gets the subclasses of the selected class
+				List<Identifier> clickedIdentifier = DelimiterReader.getSubclasses(cbClasses.getSelectionModel().getSelectedItem().getId());
+
+				cbSubclasses.getItems().clear();
+				cbSubclasses.getItems().addAll(clickedIdentifier);
+				cbSubclasses.getSelectionModel().select(0);
+			});
+
+			HBox hbox = new HBox(2, cbClasses, cbSubclasses);
+
+			addRow(l, hbox, () -> {
+				item.setiClass(cbClasses.getSelectionModel().getSelectedItem().getId());
+				item.setSubclass((int) cbSubclasses.getSelectionModel().getSelectedItem().getValue());
+			});
+		}
 	}
 
-	private void onMouseClickLabelType(MouseEvent event) {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_CLASSES);
-		List<Identifier> subIdentifiers = DelimiterReader.getSubclasses(item.getiClass());
+	private void onMouseClickDamageSpeed(MouseEvent event) {
+		final String damageType1 = "Damage Type 1:";
+		final String damageType2 = "Damage Type 2:";
+		final String damage1 = "Damage 1:";
+		final String damage2 = "Damage 2:";
+		final String speed = "Speed (ms):";
 
-		ComboBox<Identifier> cbClasses = new ComboBox<>(FXCollections.observableArrayList(identifiers));
-		ComboBox<Identifier> cbSubclasses = new ComboBox<>(FXCollections.observableArrayList(subIdentifiers));
-
-		cbClasses.getSelectionModel().select(Identifier.findById(identifiers, item.getiClass()));
-		cbSubclasses.getSelectionModel().select(Identifier.findByValue(subIdentifiers, item.getSubclass()));
-
-		NodeUtil.showOnlyNameOnCombobox(cbClasses);
-		NodeUtil.showOnlyNameOnCombobox(cbSubclasses);
-
-		cbClasses.setOnAction(event1 -> {
-			// Gets the subclasses of the selected class
-			List<Identifier> clickedIdentifier = DelimiterReader.getSubclasses(cbClasses.getSelectionModel().getSelectedItem().getId());
-
-			cbSubclasses.getItems().clear();
-			cbSubclasses.getItems().addAll(clickedIdentifier);
-			cbSubclasses.getSelectionModel().select(0);
-		});
-
-		handleNodes(event, () -> {
-			item.setiClass(cbClasses.getSelectionModel().getSelectedItem().getId());
-			item.setSubclass((int) cbSubclasses.getSelectionModel().getSelectedItem().getValue());
-		}, cbClasses, cbSubclasses);
-	}
-
-	private void onMouseClickLabelDamage(MouseEvent event) {
 		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_DAMAGE_TYPE);
 
-		ComboBox<Identifier> cbDamageType1 = new ComboBox<>(FXCollections.observableArrayList(identifiers));
-		ComboBox<Identifier> cbDamageType2 = new ComboBox<>(FXCollections.observableArrayList(identifiers));
+		if(!editing.contains(damageType1)) {
+			editing.add(damageType1);
+			Label l = new Label(damageType1);
 
-		NodeUtil.showOnlyNameOnCombobox(cbDamageType1);
-		NodeUtil.showOnlyNameOnCombobox(cbDamageType2);
+			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
+			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getDamageType1()));
+			cb.setMaxWidth(Double.MAX_VALUE);
+			NodeUtil.showOnlyNameOnCombobox(cb);
 
-		cbDamageType1.getSelectionModel().select(Identifier.findById(identifiers, item.getDamageType1()));
-		cbDamageType2.getSelectionModel().select(Identifier.findById(identifiers, item.getDamageType2()));
+			addRow(l, cb, () -> item.setDamageType1(cb.getSelectionModel().getSelectedItem().getId()));
+		}
 
-		TextField tfDamageMin1 = new TextField(String.valueOf(item.getDamageMinimum1()));
-		TextField tfDamageMin2 = new TextField(String.valueOf(item.getDamageMinimum2()));
+		if(!editing.contains(damageType2)) {
+			editing.add(damageType2);
+			Label l = new Label(damageType2);
 
-		TextField tfDamageMax1 = new TextField(String.valueOf(item.getDamageMaximum1()));
-		TextField tfDamageMax2 = new TextField(String.valueOf(item.getDamageMaximum2()));
+			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
+			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getDamageType2()));
+			cb.setMaxWidth(Double.MAX_VALUE);
+			NodeUtil.showOnlyNameOnCombobox(cb);
 
-		HBox hboxDamageContainer1 = new HBox(5, cbDamageType1, tfDamageMin1, new Label(" - "), tfDamageMax1);
-		HBox hboxDamageContainer2 = new HBox(5, cbDamageType2, tfDamageMin2, new Label(" - "), tfDamageMax2);
+			addRow(l, cb, () -> item.setDamageType2(cb.getSelectionModel().getSelectedItem().getId()));
+		}
 
-		VBox container = new VBox(5, hboxDamageContainer1, hboxDamageContainer2);
+		if(!editing.contains(damage1)) {
+			editing.add(damage1);
+			Label l = new Label(damage1);
 
-		handleNodes(event, () -> {
-			item.setDamageType1(cbDamageType1.getSelectionModel().getSelectedItem().getId());
-			item.setDamageType2(cbDamageType2.getSelectionModel().getSelectedItem().getId());
-			item.setDamageMinimum1(Float.parseFloat(tfDamageMin1.getText()));
-			item.setDamageMinimum2(Float.parseFloat(tfDamageMin2.getText()));
-			item.setDamageMaximum1(Float.parseFloat(tfDamageMax1.getText()));
-			item.setDamageMaximum2(Float.parseFloat(tfDamageMax2.getText()));
-		}, container);
+			TextField tfMinimum = new TextField(String.valueOf(item.getDamageMinimum1()));
+			TextField tfMaximum = new TextField(String.valueOf(item.getDamageMaximum1()));
+			tfMinimum.positionCaret(tfMinimum.getText().length());
+			tfMaximum.positionCaret(tfMaximum.getText().length());
+
+			HBox hbox = new HBox(5, tfMinimum, new Label(" - "), tfMaximum);
+
+			addRow(l, hbox, () -> {
+				item.setDamageMinimum1(Float.parseFloat(tfMinimum.getText()));
+				item.setDamageMaximum1(Float.parseFloat(tfMaximum.getText()));
+			});
+		}
+
+		if(!editing.contains(damage2)) {
+			editing.add(damage2);
+			Label l = new Label(damage2);
+
+			TextField tfMinimum = new TextField(String.valueOf(item.getDamageMinimum2()));
+			TextField tfMaximum = new TextField(String.valueOf(item.getDamageMaximum2()));
+			tfMinimum.positionCaret(tfMinimum.getText().length());
+			tfMaximum.positionCaret(tfMaximum.getText().length());
+
+			HBox hbox = new HBox(5, tfMinimum, new Label(" - "), tfMaximum);
+
+			addRow(l, hbox, () -> {
+				item.setDamageMinimum2(Float.parseFloat(tfMinimum.getText()));
+				item.setDamageMaximum2(Float.parseFloat(tfMaximum.getText()));
+			});
+		}
+
+		if(!editing.contains(speed)) {
+			editing.add(speed);
+			Label l = new Label(speed);
+			TextField tf = new TextField(String.valueOf(item.getDelay()));
+
+			addRow(l, tf, () -> item.setDelay(Integer.parseInt(tf.getText())));
+		}
 	}
 
-	private void onMouseClickLabelDelay(MouseEvent event) {
-		TextField tf = new TextField(String.valueOf(item.getDelay()));
+	private void onMouseClickArmor(MouseEvent event) {
+		final String armor = "Armor:";
 
-		handleNodes(event, () -> {
-			item.setDelay(Integer.parseInt(tf.getText()));
-		}, tf);
+		if(!editing.contains(armor)) {
+			editing.add(armor);
+			Label l = new Label(armor);
+			TextField tf = new TextField(String.valueOf(item.getArmor()));
+			tf.positionCaret(tf.getText().length());
+
+			addRow(l, tf, () -> item.setArmor(Integer.parseInt(tf.getText())));
+		}
+	}
+	private void onMouseClickBlock(MouseEvent event) {
+		final String block = "Block:";
+
+		if(!editing.contains(block)) {
+			editing.add(block);
+			Label l = new Label(block);
+			TextField tf = new TextField(String.valueOf(item.getBlock()));
+			tf.positionCaret(tf.getText().length());
+
+			addRow(l, tf, () -> item.setBlock(Integer.parseInt(tf.getText())));
+		}
 	}
 
-	private void onMouseClickLabelArmor(MouseEvent event) {
-		TextField tf = new TextField(String.valueOf(item.getArmor()));
+	private void onMouseClickStats(MouseEvent event) {
+		final String stats = "Stats:";
 
-		handleNodes(event, () -> {
-			item.setArmor(Integer.parseInt(tf.getText()));
-		}, tf);
+		if(!editing.contains(stats)) {
+			editing.add(stats);
+			Label l = new Label(stats);
+			StatsContainer statsContainer = new StatsContainer(item.getStats());
+
+			addRow(l, statsContainer, () -> {
+				item.setStats(statsContainer.getItemStats());
+				item.setStatsCount(statsContainer.getStatsCount());
+			});
+		}
 	}
 
-	private void onMouseClickLabelBlock(MouseEvent event) {
-		TextField tf = new TextField(String.valueOf(item.getBlock()));
+	private void onMouseClickResistance(MouseEvent event) {
+		final String resistance = "Resistance:";
 
-		handleNodes(event, () -> {
-			item.setBlock(Integer.parseInt(tf.getText()));
-		}, tf);
+		if(!editing.contains(resistance)) {
+			editing.add(resistance);
+			Label l = new Label(resistance);
+
+			int[] resistanceValues = new int[] {
+					item.getResistance().getHoly(), item.getResistance().getShadow(), item.getResistance().getFire(),
+					item.getResistance().getFrost(), item.getResistance().getNature(), item.getResistance().getArcane()
+			};
+
+			TextField[] tfs = new TextField[resistanceValues.length];
+
+			VBox container = new VBox(5);
+			for(int i = 0; i < resistanceValues.length / 3; i++) {
+				HBox hboxRow = new HBox(15);
+
+				for(int j = 0; j < resistanceValues.length / 2; j++) {
+					int index = i * 3 + j;
+
+					HBox hbox = new HBox();
+
+					tfs[index] = new TextField(String.valueOf(resistanceValues[index]));
+					tfs[index].positionCaret(tfs[index].getText().length());
+
+					String path = "resistance/" + Resistance.NAMES[index].toLowerCase() + ".png";
+					ImageView image = new ImageView(getClass().getClassLoader().getResource(path).toExternalForm());
+					image.setFitWidth(24);
+					image.setFitHeight(24);
+
+					hbox.getChildren().addAll(tfs[index], image);
+
+					hboxRow.getChildren().addAll(hbox);
+				}
+
+				container.getChildren().add(hboxRow);
+			}
+
+			addRow(l, container, () -> {
+				item.getResistance().setHoly(Integer.parseInt(tfs[0].getText()));
+				item.getResistance().setShadow(Integer.parseInt(tfs[1].getText()));
+				item.getResistance().setFire(Integer.parseInt(tfs[2].getText()));
+				item.getResistance().setFrost(Integer.parseInt(tfs[3].getText()));
+				item.getResistance().setNature(Integer.parseInt(tfs[4].getText()));
+				item.getResistance().setArcane(Integer.parseInt(tfs[5].getText()));
+			});
+		}
 	}
 
-	private void onMouseClickLabelStats(MouseEvent event) {
-		StatsContainer statsContainer = new StatsContainer(item.getStats());
+	private void onMouseClickSockets(MouseEvent event) {
+		final String sockets = "Sockets:";
 
-		handleNodes(event, () -> {
-			item.setStats(statsContainer.getItemStats());
-			item.setStatsCount(statsContainer.getStatsCount());
-		}, statsContainer);
-	}
+		if(!editing.contains(sockets)) {
+			editing.add(sockets);
+			Label l = new Label(sockets);
 
-	private void onMouseClickLabelResistance(MouseEvent event) {
-		int[] resistanceValues = new int[] {
-				item.getResistance().getHoly(), item.getResistance().getShadow(), item.getResistance().getFire(),
-				item.getResistance().getFrost(), item.getResistance().getNature(), item.getResistance().getArcane()
-		};
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_SOCKET_COLOR);
 
-		TextField[] tfs = new TextField[resistanceValues.length];
+			GridPane gridPane = new GridPane();
+			gridPane.setHgap(10);
+			gridPane.setVgap(5);
 
-		VBox container = new VBox(5);
-		for(int i = 0; i < resistanceValues.length / 3; i++) {
-			HBox hboxRow = new HBox(15);
+			// links a radio button to a identifier for receiving a value for a given radio button
+			Map<Toggle, Identifier> linker = new HashMap<>();
 
-			for(int j = 0; j < resistanceValues.length / 2; j++) {
-				int index = i * 3 + j;
+			ToggleGroup[] toggleGroups = new ToggleGroup[3];
+			for(int i = 0; i < identifiers.size(); i++) {
+				// Label title = new Label(identifiers.get(i).getName());
 
-				HBox hbox = new HBox();
-
-				tfs[index] = new TextField(String.valueOf(resistanceValues[index]));
-
-				String path = "resistance/" + Resistance.NAMES[index].toLowerCase() + ".png";
-				ImageView image = new ImageView(getClass().getClassLoader().getResource(path).toExternalForm());
+				ImageView image = new ImageView(getClass().getClassLoader().getResource("socket/" + identifiers.get(i).getName().toLowerCase() + ".png").toExternalForm());
 				image.setFitWidth(24);
 				image.setFitHeight(24);
 
-				hbox.getChildren().addAll(tfs[index], image);
+				HBox hbox = new HBox(5);
+				hbox.getChildren().addAll(/*title, */image);
 
-				hboxRow.getChildren().addAll(hbox);
+				gridPane.add(hbox, i, 0);
+
+				// centers the node within a column
+				ColumnConstraints cc = new ColumnConstraints();
+				cc.setHalignment(HPos.CENTER);
+				gridPane.getColumnConstraints().add(cc);
 			}
 
-			container.getChildren().add(hboxRow);
-		}
+			for(int i = 0; i < toggleGroups.length; i++) {
+				ToggleGroup tg = toggleGroups[i] = new ToggleGroup();
 
-		handleNodes(event, () -> {
-			item.getResistance().setHoly(Integer.parseInt(tfs[0].getText()));
-			item.getResistance().setShadow(Integer.parseInt(tfs[1].getText()));
-			item.getResistance().setFire(Integer.parseInt(tfs[2].getText()));
-			item.getResistance().setFrost(Integer.parseInt(tfs[3].getText()));
-			item.getResistance().setNature(Integer.parseInt(tfs[4].getText()));
-			item.getResistance().setArcane(Integer.parseInt(tfs[5].getText()));
-		}, container);
-	}
+				for(int j = 0; j < identifiers.size(); j++) {
+					RadioButton rd = new RadioButton();
+					rd.setToggleGroup(tg);
+					gridPane.add(rd, j, i + 1);
 
-	private void onMouseClickLabelSocket(MouseEvent event) {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_SOCKET_COLOR);
-
-		GridPane gridPane = new GridPane();
-		gridPane.setHgap(10);
-		gridPane.setVgap(5);
-
-		// links a radio button to a identifier for receiving a value for a given radio button
-		Map<Toggle, Identifier> linker = new HashMap<>();
-
-		ToggleGroup[] toggleGroups = new ToggleGroup[3];
-		for(int i = 0; i < identifiers.size(); i++) {
-			// Label title = new Label(identifiers.get(i).getName());
-
-			ImageView image = new ImageView(getClass().getClassLoader().getResource("socket/" + identifiers.get(i).getName().toLowerCase() + ".png").toExternalForm());
-			image.setFitWidth(24);
-			image.setFitHeight(24);
-
-			HBox hbox = new HBox(5);
-			hbox.getChildren().addAll(/*title, */image);
-
-			gridPane.add(hbox, i, 0);
-
-			// centers the node within a column
-			ColumnConstraints cc = new ColumnConstraints();
-			cc.setHalignment(HPos.CENTER);
-			gridPane.getColumnConstraints().add(cc);
-		}
-
-		for(int i = 0; i < toggleGroups.length; i++) {
-			ToggleGroup tg = toggleGroups[i] = new ToggleGroup();
-
-			for(int j = 0; j < identifiers.size(); j++) {
-				RadioButton rd = new RadioButton();
-				rd.setToggleGroup(tg);
-				gridPane.add(rd, j, i + 1);
-
-				linker.put(rd, identifiers.get(j));
-			}
-		}
-
-		int[] socketColors = new int[] {
-				item.getSocketColor_1(),
-				item.getSocketColor_2(),
-				item.getSocketColor_3(),
-		};
-
-		for(int i = 0; i < socketColors.length; i++) {
-			toggleGroups[i].getToggles().get(identifiers.indexOf(Identifier.findByValue(identifiers, socketColors[i]))).setSelected(true);
-		}
-
-		handleNodes(event, () -> {
-			item.setSocketColor_1((int) linker.get(toggleGroups[0].getSelectedToggle()).getValue());
-			item.setSocketColor_2((int) linker.get(toggleGroups[1].getSelectedToggle()).getValue());
-			item.setSocketColor_3((int) linker.get(toggleGroups[2].getSelectedToggle()).getValue());
-		}, gridPane);
-	}
-
-	private void onMouseClickLabelClasses(MouseEvent event) {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.CLASSES);
-
-		List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableClass());
-
-		CheckComboBox<Identifier> ccb = new CheckComboBox<>();
-		ccb.getItems().addAll(identifiers);
-
-		for(Integer id : ids) {
-			ccb.getCheckModel().check(id);
-		}
-
-		handleNodes(event, () -> {
-			int value = (int) Identifier.calculateValue(ccb.getCheckModel().getCheckedItems(), identifiers);
-			item.setAllowableClass(value);
-		}, ccb);
-	}
-
-	private void onMouseClickLabelRaces(MouseEvent event) {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.RACES);
-
-		List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableRace());
-
-		CheckComboBox<Identifier> ccb = new CheckComboBox<>();
-		ccb.getItems().addAll(identifiers);
-
-		for(Integer id : ids) {
-			ccb.getCheckModel().check(id);
-		}
-
-		handleNodes(event, () -> {
-			int value = (int) Identifier.calculateValue(ccb.getCheckModel().getCheckedItems(), identifiers);
-			item.setAllowableRace(value);
-		}, ccb);
-	}
-
-	private void onMouseClickLabelDurability(MouseEvent event) {
-		TextField tf = new TextField(String.valueOf(item.getMaxDurability()));
-
-		handleNodes(event, () -> {
-			item.setMaxDurability(Integer.parseInt(tf.getText()));
-		}, tf);
-	}
-
-	private void onMouseClickLabelRequiredLevel(MouseEvent event) {
-		TextField tf = new TextField(String.valueOf(item.getRequiredLevel()));
-
-		handleNodes(event, () -> {
-			item.setRequiredLevel(Integer.parseInt(tf.getText()));
-		}, tf);
-	}
-
-	private void onMouseClickLabelItemLevel(MouseEvent event) {
-		TextField tf = new TextField(String.valueOf(item.getItemLevel()));
-
-		handleNodes(event, () -> {
-			item.setItemLevel(Integer.parseInt(tf.getText()));
-		}, tf);
-	}
-
-	private void onMouseClickLabelBuySell(MouseEvent event) {
-		String[] strings = new String[] { "Buy: ", "Sell: " };
-		String[] moneyStrings = new String[] { "gold", "silver", "copper" };
-
-		TextField[][] textFields = new TextField[strings.length][moneyStrings.length];
-		long[][] money = new long[][] {
-				MoneyUtil.totalToGSC(item.getBuyPrice()),
-				MoneyUtil.totalToGSC(item.getSellPrice())
-		};
-
-		VBox container = new VBox(5);
-		for(int i = 0; i < strings.length; i++) {
-			HBox hbox = new HBox(5);
-			hbox.setAlignment(Pos.CENTER_LEFT);
-
-			Label label = new Label(strings[i]);
-			label.setMinWidth(Region.USE_PREF_SIZE);
-			hbox.getChildren().add(label);
-
-			for(int j = 0; j < moneyStrings.length; j++) {
-				ImageView iv = new ImageView(getClass().getClassLoader().getResource("currency/money-" + moneyStrings[j] + ".png").toExternalForm());
-				TextField tf = new TextField(String.valueOf(money[i][j]));
-
-				textFields[i][j] = tf;
-
-				hbox.getChildren().addAll(tf, iv);
+					linker.put(rd, identifiers.get(j));
+				}
 			}
 
-			container.getChildren().add(hbox);
-		}
+			int[] socketColors = new int[] {
+					item.getSocketColor_1(),
+					item.getSocketColor_2(),
+					item.getSocketColor_3(),
+			};
 
-		handleNodes(event, () -> {
-			long buyTotal = MoneyUtil.gscToTotal(Long.parseLong(textFields[0][0].getText()), Integer.parseInt(textFields[0][1].getText()), Integer.parseInt(textFields[0][2].getText()));
-			long sellTotal = MoneyUtil.gscToTotal(Long.parseLong(textFields[1][0].getText()), Integer.parseInt(textFields[1][1].getText()), Integer.parseInt(textFields[1][2].getText()));
+			for(int i = 0; i < socketColors.length; i++) {
+				toggleGroups[i].getToggles().get(identifiers.indexOf(Identifier.findByValue(identifiers, socketColors[i]))).setSelected(true);
+			}
 
-			item.setBuyPrice(buyTotal);
-			item.setSellPrice(sellTotal);
-		}, container);
-	}
-
-
-	private void onMouseClickLabelDescription(MouseEvent event) {
-		TextField tf = new TextField(item.getDescription());
-
-		handleNodes(event, () -> {
-			item.setDescription(tf.getText());
-		}, tf);
-	}
-
-	/* Methods to use for the label clicking */
-
-	private void handleNodes(MouseEvent event, Callback callback, Node... nodesToAdd) {
-		if(!editing) {
-			editing = true;
-
-			Label label = (Label) event.getSource();
-			HBox container = (HBox) label.getParent();
-
-			container.getChildren().clear();
-			container.getChildren().addAll(nodesToAdd);
-			nodesToAdd[0].requestFocus();
-
-			onKeyPressedEnter(label, container, callback);
+			addRow(l, gridPane, () -> {
+				item.setSocketColor_1((int) linker.get(toggleGroups[0].getSelectedToggle()).getValue());
+				item.setSocketColor_2((int) linker.get(toggleGroups[1].getSelectedToggle()).getValue());
+				item.setSocketColor_3((int) linker.get(toggleGroups[2].getSelectedToggle()).getValue());
+			});
 		}
 	}
 
-	private void onKeyPressedEnter(Label labelHolder, Pane container, Callback callback) {
-		container.setOnKeyPressed(event -> {
-			if(event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.ESCAPE) {
-				if(event.getCode() == KeyCode.ENTER) {
-					callback.call();
+	private void onMouseClickClasses(MouseEvent event) {
+		final String classes = "Classes:";
+
+		if(!editing.contains(classes)) {
+			editing.add(classes);
+			Label l = new Label(classes);
+
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.CLASSES);
+			List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableClass());
+			CheckComboBox<Identifier> ccb = new CheckComboBox<>();
+			ccb.setPrefWidth(300);
+			ccb.setConverter(new StringConverter<Identifier>() {
+				@Override
+				public String toString(Identifier identifier) {
+					return identifier.getName();
 				}
 
-				editing = false;
+				@Override
+				public Identifier fromString(String s) {
+					return null;
+				}
+			});
+			ccb.getItems().addAll(identifiers);
 
-				container.getChildren().clear();
-				container.getChildren().addAll(labelHolder);
-				container.setOnKeyPressed(null);
+			for(Integer id : ids) {
+				ccb.getCheckModel().check(id);
+			}
+
+			addRow(l, ccb, () -> {
+				int value = (int) Identifier.calculateValue(ccb.getCheckModel().getCheckedItems(), identifiers);
+				item.setAllowableClass(value);
+			});
+		}
+	}
+
+	private void onMouseClickRaces(MouseEvent event) {
+		final String races = "Races:";
+
+		if(!editing.contains(races)) {
+			editing.add(races);
+			Label l = new Label(races);
+
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.RACES);
+			List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableRace());
+			CheckComboBox<Identifier> ccb = new CheckComboBox<>();
+			ccb.setPrefWidth(300);
+			ccb.setConverter(new StringConverter<Identifier>() {
+				@Override
+				public String toString(Identifier identifier) {
+					return identifier.getName();
+				}
+
+				@Override
+				public Identifier fromString(String s) {
+					return null;
+				}
+			});
+			ccb.getItems().addAll(identifiers);
+
+			for(Integer id : ids) {
+				ccb.getCheckModel().check(id);
+			}
+
+			addRow(l, ccb, () -> {
+				int value = (int) Identifier.calculateValue(ccb.getCheckModel().getCheckedItems(), identifiers);
+				item.setAllowableRace(value);
+			});
+		}
+	}
+
+	private void onMouseClickDurability(MouseEvent event) {
+		final String durability = "Durability:";
+
+		if(!editing.contains(durability)) {
+			editing.add(durability);
+			Label l = new Label(durability);
+			TextField tf = new TextField(String.valueOf(item.getMaxDurability()));
+			tf.positionCaret(tf.getText().length());
+
+			addRow(l, tf, () -> item.setMaxDurability(Integer.parseInt(tf.getText())));
+		}
+	}
+
+	private void onMouseClickRequiredLevel(MouseEvent event) {
+		final String reqLevel = "Req Level:";
+
+		if(!editing.contains(reqLevel)) {
+			editing.add(reqLevel);
+			Label l = new Label(reqLevel);
+			TextField tf = new TextField(String.valueOf(item.getRequiredLevel()));
+			tf.positionCaret(tf.getText().length());
+
+			addRow(l, tf, () -> item.setRequiredLevel(Integer.parseInt(tf.getText())));
+		}
+	}
+
+	private void onMouseClickItemLevel(MouseEvent event) {
+		final String itemLevel = "Item Level:";
+
+		if(!editing.contains(itemLevel)) {
+			editing.add(itemLevel);
+			Label l = new Label(itemLevel);
+			TextField tf = new TextField(String.valueOf(item.getItemLevel()));
+			tf.positionCaret(tf.getText().length());
+
+			addRow(l, tf, () -> item.setItemLevel(Integer.parseInt(tf.getText())));
+		}
+	}
+
+	private void onMouseClickSellPrice(MouseEvent event) {
+		final String sell = "Sell:";
+
+		if(!editing.contains(sell)) {
+			editing.add(sell);
+			Label l = new Label(sell);
+			long[] money = MoneyUtil.totalToGSC(item.getSellPrice());
+
+			moneyLayout(l, money, newTotal -> {
+				item.setSellPrice(newTotal);
+				return null;
+			});
+		}
+	}
+
+	private void onMouseClickBuyPrice(MouseEvent event) {
+		final String buy = "Buy:";
+
+		if(!editing.contains(buy)) {
+			editing.add(buy);
+			Label l = new Label(buy);
+			long[] money = MoneyUtil.totalToGSC(item.getBuyPrice());
+
+			moneyLayout(l, money, newTotal -> {
+				item.setBuyPrice(newTotal);
+				return null;
+			});
+		}
+	}
+
+	private void onMouseClickDescription(MouseEvent event) {
+		final String description = "Description:";
+
+		if(!editing.contains(description)) {
+			editing.add(description);
+			Label l = new Label(description);
+			TextArea ta = new TextArea(item.getDescription());
+			ta.positionCaret(ta.getText().length());
+			ta.setWrapText(true);
+			ta.setPrefWidth(300);
+			ta.setPrefHeight(45);
+
+			addRow(l, ta, () -> item.setDescription(ta.getText()));
+		}
+	}
+
+	private void moneyLayout(Label l, long[] money, javafx.util.Callback<Long, Void> callback) {
+		String[] moneyStrings = new String[] { "gold", "silver", "copper" };
+
+		HBox hbox = new HBox(5);
+		hbox.setAlignment(Pos.CENTER_LEFT);
+
+		TextField[] tfMoney = new TextField[moneyStrings.length];
+		for(int i = 0; i < tfMoney.length; i++) {
+			tfMoney[i] = new TextField(String.valueOf(money[i]));
+			ImageView iv = new ImageView(getClass().getClassLoader().getResource("currency/money-" + moneyStrings[i] + ".png").toExternalForm());
+
+			if(i == 0) {
+				tfMoney[i].setPrefWidth(100);
+			} else {
+				tfMoney[i].setPrefWidth(25);
+			}
+
+			hbox.getChildren().addAll(tfMoney[i], iv);
+		}
+
+		addRow(l, hbox, () -> {
+			long newTotal = MoneyUtil.gscToTotal(Long.parseLong(tfMoney[0].getText()),
+					Integer.parseInt(tfMoney[1].getText()),
+					Integer.parseInt(tfMoney[2].getText()));
+
+			callback.call(newTotal);
+		});
+	}
+
+	private void addRow(Label l, Node middleNode, Callback onSaveCallback) {
+		int newIndex = gpEdit.getRowConstraints().size();
+
+		Button btnEscape = new Button("", new MaterialIconView(MaterialIcon.CLEAR));
+		Button btnSave = new Button("", new MaterialIconView(MaterialIcon.EDIT));
+
+		HBox hbox = new HBox(2, btnEscape, btnSave);
+		hbox.setAlignment(Pos.CENTER);
+		btnEscape.setOnAction(actionEvent -> {
+			editing.remove(l.getText());
+			removeRow(GridPane.getRowIndex(l));
+		});
+		btnSave.setOnAction(actionEvent -> {
+			onSaveCallback.call();
+			editing.remove(l.getText());
+			removeRow(GridPane.getRowIndex(l));
+		});
+		middleNode.setOnKeyPressed(event -> {
+			if(event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.ESCAPE) {
+				if(event.getCode() == KeyCode.ENTER) {
+					onSaveCallback.call();
+				}
+
+				editing.remove(l.getText());
+				removeRow(GridPane.getRowIndex(l));
 			}
 		});
+
+		RowConstraints rc = new RowConstraints();
+		rc.setValignment(VPos.CENTER);
+
+		gpEdit.getRowConstraints().add(rc);
+
+		gpEdit.add(l, 0, newIndex);
+		gpEdit.add(middleNode, 1, newIndex);
+		gpEdit.add(hbox, 2, newIndex);
+
+		middleNode.requestFocus();
+	}
+
+	private void removeRow(int row) {
+		Set<Node> deleteNodes = new HashSet<>();
+
+		for(Node child : gpEdit.getChildren()) {
+			Integer rowIndex = GridPane.getRowIndex(child);
+
+			rowIndex = rowIndex == null ? 0 : rowIndex;
+
+			if(rowIndex > row) {
+				GridPane.setRowIndex(child, rowIndex - 1);
+			} else if (rowIndex == row){
+				deleteNodes.add(child);
+			}
+		}
+
+		gpEdit.getChildren().removeAll(deleteNodes);
+		gpEdit.getRowConstraints().remove(row);
 	}
 }
