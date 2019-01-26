@@ -18,7 +18,7 @@ public class Config {
 	}
 
 	private Config() {
-		file = new File("." + File.separator + "config" + File.separator + fileName);
+		file = new File("." + File.separator + fileName);
 		properties = new LinkedProperties();
 
 		for(ConfigKey key : ConfigKey.values()) {
