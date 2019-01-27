@@ -1,9 +1,6 @@
 package me.heitx.maserow.io;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +10,16 @@ public final class DelimiterReader {
 
 	public static List<Identifier> getSubclasses(int itemClassId) {
 		String idAsTwoDecimals = String.format("%02d", itemClassId);
-		String path = "./csv/item_subclasses/item_subclass_" + idAsTwoDecimals + ".csv";
+		String[] folders = new String[] {
+				".", ICSV.CSV_FOLDER_NAME, ItemCSV.ITEM_CSV_FOLDER, "item_subclasses", "item_subclass_"
+		};
+		String path = String.join(File.separator, folders) + idAsTwoDecimals + ".csv";
 
 		return DelimiterReader.readColumns(path, true, true);
 	}
 
-	public static List<Identifier> readColumns(CSV csv) {
-		return readColumns(csv.getFile(), csv.isId(), csv.isValue());
+	public static List<Identifier> readColumns(ICSV csv) {
+		return readColumns(csv.getFile(), csv.hasId(), csv.hasValue());
 	}
 
 	public static List<Identifier> readColumns(String file, boolean hasId, boolean hasValue) {

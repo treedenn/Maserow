@@ -8,9 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import me.heitx.maserow.io.CSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
+import me.heitx.maserow.io.ItemCSV;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.model.ItemStat;
 import me.heitx.maserow.model.Resistance;
@@ -132,7 +132,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private void handleStats() {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_STAT_TYPES);
+		List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_STAT_TYPES);
 
 		vboxStats.getChildren().clear();
 		vboxEquipStats.getChildren().clear();
@@ -180,7 +180,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private void handleSocket() {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_SOCKET_COLOR);
+		List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_SOCKET_COLOR);
 
 		vboxSocket.getChildren().clear();
 
@@ -226,7 +226,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private String getCharacterClasses() {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.CLASSES);
+		List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.CLASSES);
 
 		StringBuilder builder = new StringBuilder();
 
@@ -237,7 +237,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private String getCharacterRaces() {
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.RACES);
+		List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.RACES);
 
 		StringBuilder builder = new StringBuilder();
 
@@ -261,8 +261,8 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private void updateContent() {
-		List<Identifier> bondings = DelimiterReader.readColumns(CSV.ITEM_BONDING);
-		List<Identifier> inventoryType = DelimiterReader.readColumns(CSV.ITEM_INVENTORY_TYPE);
+		List<Identifier> bondings = DelimiterReader.readColumns(ItemCSV.ITEM_BONDING);
+		List<Identifier> inventoryType = DelimiterReader.readColumns(ItemCSV.ITEM_INVENTORY_TYPE);
 		List<Identifier> subclass = DelimiterReader.getSubclasses(item.getiClass());
 
 		long[] sellMoney = MoneyUtil.totalToGSC(item.getSellPrice());

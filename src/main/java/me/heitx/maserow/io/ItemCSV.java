@@ -1,7 +1,8 @@
 package me.heitx.maserow.io;
 
-// Taken from an old project ..
-public enum CSV {
+import java.io.File;
+
+public enum ItemCSV implements ICSV {
 	CLASSES("classes", true, true),
 	EXPANSIONS("expansions", true, false),
 	ITEM_BAG_FAMILY("item_bag_family", false, true),
@@ -40,31 +41,35 @@ public enum CSV {
 	ITEM_SUBCLASS_15("item_subclass_15", true, true),
 	ITEM_SUBCLASS_16("item_subclass_16", true, true);
 
-	private static final String csvFolderName = "csv";
+	public static final String ITEM_CSV_FOLDER = "item";
 
-	private String name;
-	private boolean id;
-	private boolean value;
+	private String fileName;
+	private boolean hasId;
+	private boolean hasValue;
 
-	CSV(String name, boolean id, boolean value) {
-		this.name = name;
-		this.id = id;
-		this.value = value;
+	ItemCSV(String fileName, boolean hasId, boolean hasValue) {
+		this.fileName = fileName;
+		this.hasId = hasId;
+		this.hasValue = hasValue;
 	}
 
-	public String getName() {
-		return name;
+	@Override
+	public String getFileName() {
+		return fileName;
 	}
 
-	public boolean isId() {
-		return id;
+	@Override
+	public boolean hasId() {
+		return hasId;
 	}
 
-	public boolean isValue() {
-		return value;
+	@Override
+	public boolean hasValue() {
+		return hasValue;
 	}
 
+	@Override
 	public String getFile() {
-		return csvFolderName + "/" + getName() + ".csv";
+		return ICSV.CSV_FOLDER_NAME + File.separator + ITEM_CSV_FOLDER + File.separator + fileName + ".csv";
 	}
 }

@@ -16,9 +16,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.StringConverter;
-import me.heitx.maserow.io.CSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
+import me.heitx.maserow.io.ItemCSV;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.model.Resistance;
 import me.heitx.maserow.ui.Callback;
@@ -145,7 +145,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(quality);
 			Label l = new Label(quality);
 
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_QUALITY);
+			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_QUALITY);
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getQuality()));
 			cb.setMaxWidth(Double.MAX_VALUE);
@@ -162,7 +162,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(s);
 			Label l = new Label(s);
 
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_BONDING);
+			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_BONDING);
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getBonding()));
 			cb.setMaxWidth(Double.MAX_VALUE);
@@ -180,7 +180,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(slot);
 			Label l = new Label(slot);
 
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_INVENTORY_TYPE);
+			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_INVENTORY_TYPE);
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getInventoryType()));
 			cb.setMaxWidth(Double.MAX_VALUE);
@@ -193,7 +193,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(type);
 			Label l = new Label(type);
 
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_CLASSES);
+			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_CLASSES);
 			List<Identifier> subIdentifiers = DelimiterReader.getSubclasses(item.getiClass());
 
 			ComboBox<Identifier> cbClasses = new ComboBox<>(FXCollections.observableArrayList(identifiers));
@@ -230,7 +230,7 @@ public class ItemBuildController implements Initializable {
 		final String damage2 = "Damage 2:";
 		final String speed = "Speed (ms):";
 
-		List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_DAMAGE_TYPE);
+		List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_DAMAGE_TYPE);
 
 		if(!editing.contains(damageType1)) {
 			editing.add(damageType1);
@@ -396,7 +396,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(sockets);
 			Label l = new Label(sockets);
 
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.ITEM_SOCKET_COLOR);
+			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_SOCKET_COLOR);
 
 			GridPane gridPane = new GridPane();
 			gridPane.setHgap(10);
@@ -461,7 +461,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(classes);
 			Label l = new Label(classes);
 
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.CLASSES);
+			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.CLASSES);
 			List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableClass());
 			CheckComboBox<Identifier> ccb = new CheckComboBox<>();
 			ccb.setPrefWidth(300);
@@ -496,7 +496,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(races);
 			Label l = new Label(races);
 
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSV.RACES);
+			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.RACES);
 			List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableRace());
 			CheckComboBox<Identifier> ccb = new CheckComboBox<>();
 			ccb.setPrefWidth(300);

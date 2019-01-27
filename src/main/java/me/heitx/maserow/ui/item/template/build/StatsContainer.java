@@ -9,9 +9,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import me.heitx.maserow.io.CSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
+import me.heitx.maserow.io.ItemCSV;
 import me.heitx.maserow.model.ItemStat;
 import me.heitx.maserow.ui.NodeUtil;
 
@@ -27,7 +27,7 @@ public class StatsContainer extends VBox {
 	private List<ItemStat> stats;
 
 	public StatsContainer(List<ItemStat> stats) {
-		this.statTypes = DelimiterReader.readColumns(CSV.ITEM_STAT_TYPES);
+		this.statTypes = DelimiterReader.readColumns(ItemCSV.ITEM_STAT_TYPES);
 		this.stats = stats;
 		this.linkedChildren = new LinkedList<>();
 
