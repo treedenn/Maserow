@@ -28,6 +28,15 @@
 
 }
 
+.scroll-pane, .split-pane, VBox, HBox, GridPane {
+    -fx-background-color: -bg2-color;
+    -fx-border-color: -bg2-color;
+}
+
+.split-pane-divider {
+    -fx-background-color: -bg1-color;
+}
+
 /* Begin TableView */
 
 .table-view {
@@ -82,12 +91,17 @@
     -fx-border-width: 1;
 }
 
-.text-field, .password-field {
+.text-field, .password-field, .text-area {
     -fx-border-radius: 0;
     -fx-background-color: transparent;
     -fx-border-color: -primary-color;
     -fx-text-fill: white;
     -fx-border-width: 0 0 1 0;
+}
+
+.text-area .content {
+    -fx-background-color: -bg2-color;
+    -fx-background-radius: 0;
 }
 
 .check-box {

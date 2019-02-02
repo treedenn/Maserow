@@ -15,8 +15,11 @@ public class App extends Application {
 		FXMLLoader loader = new FXMLLoader(AppController.class.getResource("app.fxml"));
 		Pane root = loader.load();
 
+		Scene scene = new Scene(root, root.getWidth(), root.getHeight());
+		scene.getStylesheets().add(getClass().getResource("darktheme.css").toExternalForm());
+
 		stage.setTitle("MaseroW v0.0.1 - Created by Heitx");
-		stage.setScene(new Scene(root, root.getWidth(), root.getHeight()));
+		stage.setScene(scene);
 
 		stage.setOnCloseRequest(windowEvent -> {
 			Config.getInstance().save();

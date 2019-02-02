@@ -9,6 +9,8 @@ import me.heitx.maserow.model.Item;
 import me.heitx.maserow.ui.item.search.ItemSearchController;
 import me.heitx.maserow.ui.item.template.ItemTemplateController;
 import me.heitx.maserow.ui.login.LoginController;
+import me.heitx.maserow.ui.quest.search.QuestSearchController;
+import me.heitx.maserow.ui.quest.template.QuestTemplateController;
 import me.heitx.maserow.ui.sidemenu.SidemenuController;
 
 import java.io.IOException;
@@ -25,6 +27,10 @@ public class AppController implements Initializable {
 	private ItemSearchController itemSearchController;
 	private Parent itemTemplate;
 	private ItemTemplateController itemTemplateController;
+	private Parent questSearch;
+	private QuestSearchController questSearchController;
+	private Parent questTemplate;
+	private QuestTemplateController questTemplateController;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -32,6 +38,7 @@ public class AppController implements Initializable {
 	}
 
 	private void setupSidemenu() {
+		// Login
 		smController.setLoginCallback(() -> {
 			if(login == null) {
 				create(LoginController.class, "login", (p, c) -> {
@@ -43,6 +50,7 @@ public class AppController implements Initializable {
 			bpApp.setCenter(login);
 		});
 
+		// Item -> ItemSearch and ItemTemplate
 		smController.setItemSearchCallback(() -> {
 			if(itemSearch == null) {
 				create(ItemSearchController.class, "itemsearch", (p, c) -> {
@@ -50,7 +58,7 @@ public class AppController implements Initializable {
 					itemSearchController = c;
 				});
 
-				itemSearchController.setRowSelectionCallback(item -> {
+				itemSearchController.setDoubleClickRowCallback(item -> {
 					createOrUpdateItemTemplate();
 					itemTemplateController.setItem(item);
 					bpApp.setCenter(itemTemplate);
@@ -72,6 +80,35 @@ public class AppController implements Initializable {
 				itemTemplateController.setItem(new Item());
 			}
 		});
+
+		// Quest -> QuestSearch and QuestTemplate
+		smController.setQuestSearchCallback(() -> {
+			if(questSearch == null) {
+				create(QuestSearchController.class, "questsearch", (p, c) -> {
+					questSearch = p;
+					questSearchController = c;
+				});
+
+				questSearchController.setDoubleClickRowCallback(quest -> {
+					createOrUpdateQuestTemplate();
+
+
+
+					bpApp.setCenter(questSearch);
+					return null;
+				});
+			} else {
+				questSearchController.update();
+			}
+
+			bpApp.setCenter(questSearch);
+		});
+
+		smController.setQuestTemplateCallback(() -> {
+			createOrUpdateQuestTemplate();
+
+			bpApp.setCenter(questTemplate);
+		});
 	}
 
 	private void createOrUpdateItemTemplate() {
@@ -82,6 +119,17 @@ public class AppController implements Initializable {
 			});
 		} else {
 			itemTemplateController.update();
+		}
+	}
+
+	private void createOrUpdateQuestTemplate() {
+		if(questTemplate == null) {
+			create(QuestTemplateController.class, "questtemplate", (p, c) -> {
+				questTemplate = p;
+				questTemplateController = c;
+			});
+		} else {
+			questTemplateController.update();
 		}
 	}
 
