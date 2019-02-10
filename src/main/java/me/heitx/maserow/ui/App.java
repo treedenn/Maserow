@@ -18,7 +18,7 @@ public class App extends Application {
 		Scene scene = new Scene(root, root.getWidth(), root.getHeight());
 		scene.getStylesheets().add(getClass().getResource("darktheme.css").toExternalForm());
 
-		stage.setTitle("MaseroW v0.0.1 - Created by Heitx");
+		stage.setTitle("MaseroW v0.0.2 - Created by Heitx");
 		stage.setScene(scene);
 
 		stage.setOnCloseRequest(windowEvent -> {

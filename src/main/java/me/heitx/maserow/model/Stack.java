@@ -2,11 +2,11 @@ package me.heitx.maserow.model;
 
 public class Stack {
 	private int id;
-	private int amount;
+	private int quantity;
 
-	public Stack(int id, int amount) {
+	public Stack(int id, int quantity) {
 		this.id = id;
-		this.amount = amount;
+		this.quantity = quantity;
 	}
 
 	public int getId() {
@@ -17,11 +17,11 @@ public class Stack {
 		this.id = id;
 	}
 
-	public int getAmount() {
-		return amount;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 }
