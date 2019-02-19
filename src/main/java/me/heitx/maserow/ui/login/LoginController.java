@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import me.heitx.maserow.converter.Converter;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.IClient;
 import me.heitx.maserow.database.IDatabase;

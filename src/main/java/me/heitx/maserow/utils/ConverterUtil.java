@@ -1,4 +1,4 @@
-package me.heitx.maserow.converter;
+package me.heitx.maserow.utils;
 
 import me.heitx.maserow.model.Column;
 import me.heitx.maserow.model.Quest;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Converter {
+public class ConverterUtil {
 	public static <T> List<T> toObjects(Class<T> tClass, List<Map<String, Object>> attributesList) {
 		List<T> oList = new ArrayList<>();
 

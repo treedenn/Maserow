@@ -13,8 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import me.heitx.maserow.converter.Converter;
-import me.heitx.maserow.converter.IConverter;
+import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.dao.IItemDAO;
 import me.heitx.maserow.model.Item;
@@ -84,7 +83,7 @@ public class ItemTemplateController implements Initializable, Updateable {
 	private void onButtonExecuteAction(ActionEvent event) {
 		if(item != null) {
 			IItemDAO dao = Database.getInstance().getItemDAO();
-			Map<String, Object> attributes = Converter.toAttributes(item);
+			Map<String, Object> attributes = ConverterUtil.toAttributes(item);
 
 			if(dao.exists(item.getEntry())) {
 				dao.update(attributes);
@@ -95,7 +94,7 @@ public class ItemTemplateController implements Initializable, Updateable {
 	}
 
 	private void onMenuButtonAction(ActionEvent event) {
-		Map<String, Object> attributes = Converter.toAttributes(item);
+		Map<String, Object> attributes = ConverterUtil.toAttributes(item);
 
 		if(event.getSource() == miInsert) {
 			saveSql("Save Insert Query", TrinityItemQuery.getInsertQuery(attributes, true));
