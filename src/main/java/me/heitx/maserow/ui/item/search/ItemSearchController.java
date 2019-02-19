@@ -42,7 +42,7 @@ public class ItemSearchController extends SearchController<Item> {
 			search = Database.getInstance().getItemDAO().search(Integer.parseInt(tfEntry.getText()), tfName.getText(), 100);
 		}
 
-		items = Converter.getInstance().toItems(search);
+		items = Converter.toObjects(Item.class, search);
 		tvSearch.setItems(FXCollections.observableList(items));
 	}
 }

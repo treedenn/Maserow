@@ -2,9 +2,9 @@ package me.heitx.maserow.database.trinitywotlk;
 
 import me.heitx.maserow.database.IClient;
 import me.heitx.maserow.database.SqlDatabase;
-import me.heitx.maserow.database.dao.ItemDAO;
+import me.heitx.maserow.database.dao.IItemDAO;
 import me.heitx.maserow.query.Query;
-import me.heitx.maserow.query.TrinityItemQuery;
+import me.heitx.maserow.utils.query.TrinityItemQuery;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,13 +16,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class TrinityWotlkItemDAO extends SqlDatabase implements ItemDAO {
-	public TrinityWotlkItemDAO(IClient client) {
+public class ItemDAO extends SqlDatabase implements IItemDAO {
+	public ItemDAO(IClient client) {
 		super(client, client.getWorld());
-	}
-
-	public TrinityWotlkItemDAO(IClient client, String database) {
-		super(client, database);
 	}
 
 	@Override
@@ -31,7 +27,7 @@ public class TrinityWotlkItemDAO extends SqlDatabase implements ItemDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getInsertItemQuery(item, true));
+				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getInsertQuery(item, true));
 				atomic.set(ps.executeUpdate() > 0);
 			});
 		} catch(SQLException e) {
@@ -47,7 +43,7 @@ public class TrinityWotlkItemDAO extends SqlDatabase implements ItemDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getUpdateItemQuery(item, true));
+				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getUpdateQuery(item, true));
 				atomic.set(ps.executeUpdate() > 0);
 			});
 		} catch(SQLException e) {
@@ -63,7 +59,7 @@ public class TrinityWotlkItemDAO extends SqlDatabase implements ItemDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getDeleteItemQuery(entry, true));
+				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getDeleteQuery(entry, true));
 				atomic.set(ps.executeUpdate() > 0);
 			});
 		} catch(SQLException e) {

@@ -16,9 +16,9 @@ import javafx.stage.FileChooser;
 import me.heitx.maserow.converter.Converter;
 import me.heitx.maserow.converter.IConverter;
 import me.heitx.maserow.database.Database;
-import me.heitx.maserow.database.dao.ItemDAO;
+import me.heitx.maserow.database.dao.IItemDAO;
 import me.heitx.maserow.model.Item;
-import me.heitx.maserow.query.TrinityItemQuery;
+import me.heitx.maserow.utils.query.TrinityItemQuery;
 import me.heitx.maserow.ui.NodeUtil;
 import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.ui.item.template.build.ItemBuildController;
@@ -83,8 +83,8 @@ public class ItemTemplateController implements Initializable, Updateable {
 
 	private void onButtonExecuteAction(ActionEvent event) {
 		if(item != null) {
-			ItemDAO dao = Database.getInstance().getItemDAO();
-			Map<String, Object> attributes = Converter.getInstance().toMap(item);
+			IItemDAO dao = Database.getInstance().getItemDAO();
+			Map<String, Object> attributes = Converter.toAttributes(item);
 
 			if(dao.exists(item.getEntry())) {
 				dao.update(attributes);
@@ -95,15 +95,14 @@ public class ItemTemplateController implements Initializable, Updateable {
 	}
 
 	private void onMenuButtonAction(ActionEvent event) {
-		IConverter converter = Converter.getInstance();
-		Map<String, Object> attributes = converter.toMap(item);
+		Map<String, Object> attributes = Converter.toAttributes(item);
 
 		if(event.getSource() == miInsert) {
-			saveSql("Save Insert Query", TrinityItemQuery.getInsertItemQuery(attributes, true));
+			saveSql("Save Insert Query", TrinityItemQuery.getInsertQuery(attributes, true));
 		} else if(event.getSource() == miUpdate) {
-			saveSql("Save Update Query", TrinityItemQuery.getInsertItemQuery(attributes, true));
+			saveSql("Save Update Query", TrinityItemQuery.getInsertQuery(attributes, true));
 		} else if(event.getSource() == miDelete) {
-			saveSql("Save Delete Query", TrinityItemQuery.getInsertItemQuery(attributes, true));
+			saveSql("Save Delete Query", TrinityItemQuery.getInsertQuery(attributes, true));
 		}
 	}
 

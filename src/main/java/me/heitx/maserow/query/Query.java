@@ -1,9 +1,6 @@
 package me.heitx.maserow.query;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class Query {
 	private QueryType type;
@@ -74,6 +71,14 @@ public class Query {
 		return this;
 	}
 
+	public Query values(Map<String, Object> columnValueMap) {
+		for(Map.Entry<String, Object> entry : columnValueMap.entrySet()) {
+			columns.add(entry.getKey());
+			values.add(entry.getValue());
+		}
+		return this;
+	}
+
 	// SELECT METHODS
 
 	public Query select(String... columns) {
@@ -99,9 +104,11 @@ public class Query {
 	}
 
 	public Query set(String column, Object value) {
-		columns.add(column);
-		values.add(value);
-		return this;
+		return values(column, value);
+	}
+
+	public Query set(Map<String, Object> columnValueMap) {
+		return values(columnValueMap);
 	}
 
 	// DELETE METHODS

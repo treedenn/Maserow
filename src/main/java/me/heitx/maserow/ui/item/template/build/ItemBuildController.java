@@ -20,10 +20,10 @@ import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
 import me.heitx.maserow.model.Item;
-import me.heitx.maserow.model.Resistance;
 import me.heitx.maserow.ui.Callback;
 import me.heitx.maserow.ui.NodeUtil;
 import me.heitx.maserow.utils.MoneyUtil;
+import me.heitx.maserow.utils.ResourceUtil;
 import org.controlsfx.control.CheckComboBox;
 
 import java.net.URL;
@@ -194,12 +194,12 @@ public class ItemBuildController implements Initializable {
 			Label l = new Label(type);
 
 			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_CLASSES);
-			List<Identifier> subIdentifiers = DelimiterReader.getSubclasses(item.getiClass());
+			List<Identifier> subIdentifiers = DelimiterReader.getSubclasses(item.get_class());
 
 			ComboBox<Identifier> cbClasses = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			ComboBox<Identifier> cbSubclasses = new ComboBox<>(FXCollections.observableArrayList(subIdentifiers));
 
-			cbClasses.getSelectionModel().select(Identifier.findById(identifiers, item.getiClass()));
+			cbClasses.getSelectionModel().select(Identifier.findById(identifiers, item.get_class()));
 			cbSubclasses.getSelectionModel().select(Identifier.findByValue(subIdentifiers, item.getSubclass()));
 
 			NodeUtil.showOnlyNameOnCombobox(cbClasses);
@@ -217,7 +217,7 @@ public class ItemBuildController implements Initializable {
 			HBox hbox = new HBox(2, cbClasses, cbSubclasses);
 
 			addRow(l, hbox, () -> {
-				item.setiClass(cbClasses.getSelectionModel().getSelectedItem().getId());
+				item.set_class(cbClasses.getSelectionModel().getSelectedItem().getId());
 				item.setSubclass((int) cbSubclasses.getSelectionModel().getSelectedItem().getValue());
 			});
 		}
@@ -330,10 +330,23 @@ public class ItemBuildController implements Initializable {
 		if(!editing.contains(stats)) {
 			editing.add(stats);
 			Label l = new Label(stats);
-			StatsContainer statsContainer = new StatsContainer(item.getStats());
+
+			StatsContainer statsContainer = new StatsContainer(item.getStatTypes(), item.getStatValues());
 
 			addRow(l, statsContainer, () -> {
-				item.setStats(statsContainer.getItemStats());
+				int[] newTypes = statsContainer.getTypes();
+				int[] newValues = statsContainer.getValues();
+
+				item.setStatType1(newTypes[0]); item.setStatType2(newTypes[1]); item.setStatType3(newTypes[2]);
+				item.setStatType4(newTypes[3]); item.setStatType5(newTypes[4]); item.setStatType6(newTypes[5]);
+				item.setStatType7(newTypes[6]); item.setStatType8(newTypes[7]); item.setStatType9(newTypes[8]);
+				item.setStatType10(newTypes[9]);
+
+				item.setStatValue1(newValues[0]); item.setStatValue2(newValues[1]); item.setStatValue3(newValues[2]);
+				item.setStatValue4(newValues[3]); item.setStatValue5(newValues[4]); item.setStatValue6(newValues[5]);
+				item.setStatValue7(newValues[6]); item.setStatValue8(newValues[7]); item.setStatValue9(newValues[8]);
+				item.setStatValue10(newValues[9]);
+
 				item.setStatsCount(statsContainer.getStatsCount());
 			});
 		}
@@ -347,8 +360,8 @@ public class ItemBuildController implements Initializable {
 			Label l = new Label(resistance);
 
 			int[] resistanceValues = new int[] {
-					item.getResistance().getHoly(), item.getResistance().getShadow(), item.getResistance().getFire(),
-					item.getResistance().getFrost(), item.getResistance().getNature(), item.getResistance().getArcane()
+					item.getHolyRes(), item.getFireRes(), item.getFrostRes(),
+					item.getNatureRes(), item.getShadowRes(), item.getArcaneRes()
 			};
 
 			TextField[] tfs = new TextField[resistanceValues.length];
@@ -365,7 +378,7 @@ public class ItemBuildController implements Initializable {
 					tfs[index] = new TextField(String.valueOf(resistanceValues[index]));
 					tfs[index].positionCaret(tfs[index].getText().length());
 
-					String path = "resistance/" + Resistance.NAMES[index].toLowerCase() + ".png";
+					String path = ResourceUtil.getResistancePath(index);
 					ImageView image = new ImageView(getClass().getClassLoader().getResource(path).toExternalForm());
 					image.setFitWidth(24);
 					image.setFitHeight(24);
@@ -379,12 +392,12 @@ public class ItemBuildController implements Initializable {
 			}
 
 			addRow(l, container, () -> {
-				item.getResistance().setHoly(Integer.parseInt(tfs[0].getText()));
-				item.getResistance().setShadow(Integer.parseInt(tfs[1].getText()));
-				item.getResistance().setFire(Integer.parseInt(tfs[2].getText()));
-				item.getResistance().setFrost(Integer.parseInt(tfs[3].getText()));
-				item.getResistance().setNature(Integer.parseInt(tfs[4].getText()));
-				item.getResistance().setArcane(Integer.parseInt(tfs[5].getText()));
+				item.setHolyRes(Integer.parseInt(tfs[0].getText()));
+				item.setShadowRes(Integer.parseInt(tfs[1].getText()));
+				item.setFireRes(Integer.parseInt(tfs[2].getText()));
+				item.setFrostRes(Integer.parseInt(tfs[3].getText()));
+				item.setNatureRes(Integer.parseInt(tfs[4].getText()));
+				item.setArcaneRes(Integer.parseInt(tfs[5].getText()));
 			});
 		}
 	}
