@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
@@ -239,7 +240,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private String getCharacterClasses() {
-		List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.CLASSES);
+		List<Identifier> identifiers = DelimiterReader.readColumns(CommonCSV.CLASSES);
 
 		StringBuilder builder = new StringBuilder();
 
@@ -250,7 +251,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private String getCharacterRaces() {
-		List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.RACES);
+		List<Identifier> identifiers = DelimiterReader.readColumns(CommonCSV.RACES);
 
 		StringBuilder builder = new StringBuilder();
 
@@ -285,7 +286,6 @@ public class ItemPreviewController implements Initializable, Updateable {
 
 		labelName.setText(item.getName());
 		labelName.setStyle("-fx-text-fill: " + QUALITY_HEX[item.getQuality()] + ";");
-		System.out.println(labelName.getStyle());
 		labelBonding.setText(Identifier.findById(bondings, item.getBonding()).getName());
 		labelUnique.setText(item.getMaxCount() == 1 ? "Unique" : "Unique (" + item.getMaxCount() + ")");
 		labelSlot.setText(Identifier.findById(inventoryType, item.getInventoryType()).getName());

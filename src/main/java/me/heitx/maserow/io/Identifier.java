@@ -79,14 +79,18 @@ public class Identifier {
 	}
 
 	public static List<Integer> findIdsByValue(List<Identifier> identifiers, long totalValue) {
+		return findIdsByValue(identifiers, totalValue, false);
+	}
+
+	public static List<Integer> findIdsByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll) {
 		List<Integer> ids = new ArrayList<>();
 
-		if(totalValue >= 0) {
-			for(int i = identifiers.size() - 1; i >= 0; i--) {
+		if(totalValue >= (valueZeroEqualsAll ? 1 : 0)) {
+			for(int i = identifiers.size() - 1; i > 0; i--) {
 				Identifier identifier = identifiers.get(i);
 
 				if(totalValue >= identifier.getValue()) {
-					ids.add(i);
+					ids.add(identifier.id);
 					totalValue -= identifier.getValue();
 				}
 
@@ -106,10 +110,14 @@ public class Identifier {
 	}
 
 	public static long calculateValue(List<Identifier> identifiers, List<Identifier> match) {
+		return calculateValue(identifiers, match, -1);
+	}
+
+	public static long calculateValue(List<Identifier> identifiers, List<Identifier> match, long ifMatchSetValue) {
 		long value = 0;
 
 		if(match != null && identifiers.size() == match.size()) {
-			value = -1;
+			value = ifMatchSetValue;
 		} else {
 			for(Identifier identifier : identifiers) {
 				value += identifier.getValue();

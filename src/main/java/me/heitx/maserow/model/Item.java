@@ -142,8 +142,8 @@ public class Item {
 	@Column("ScriptName") private String scriptName;
 	@Column("DisenchantID") private int disenchantID;
 	@Column("FoodType") private int foodType;
-	@Column("minMoneyLoot") private long minMoneyLoot;
-	@Column("maxMoneyLoot") private long maxMoneyLoot;
+	@Column("minMoneyLoot") private int minMoneyLoot;
+	@Column("maxMoneyLoot") private int maxMoneyLoot;
 	@Column("flagsCustom") private long flagsCustom;
 
 	public Item() {

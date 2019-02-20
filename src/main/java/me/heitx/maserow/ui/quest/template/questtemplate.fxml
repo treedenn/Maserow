@@ -39,7 +39,7 @@
       </HBox>
    </top>
    <right>
-      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="325.0" BorderPane.alignment="CENTER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="300.0" BorderPane.alignment="CENTER">
          <content>
             <VBox minHeight="-Infinity" minWidth="-Infinity">
                <children>
@@ -51,9 +51,14 @@
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
@@ -63,89 +68,99 @@
                     </rowConstraints>
                      <children>
                         <Label text="ID:" />
-                        <Label text="Quest Level:" GridPane.rowIndex="3" />
-                        <Label text="Min Level:" GridPane.rowIndex="4" />
-                        <Label text="Next Quest:" GridPane.rowIndex="1" />
-                        <Label text="Quest Type:" GridPane.rowIndex="2" />
-                        <TextField text="0" GridPane.columnIndex="1" />
-                        <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Sort ID:" GridPane.rowIndex="5" />
-                        <Label text="Info ID:" GridPane.rowIndex="6" />
-                        <Label text="Suggested Group:" GridPane.rowIndex="7" />
-                        <Label text="Start Item:" GridPane.rowIndex="8" />
-                        <Label text="Flags:" GridPane.rowIndex="9" />
+                        <Label text="Quest Type:" GridPane.rowIndex="1" />
+                        <Label text="Quest Level:" GridPane.rowIndex="2" />
+                        <Label text="Min Level:" GridPane.rowIndex="3" />
+                        <Label text="Sort ID:" GridPane.rowIndex="4" />
+                        <Label text="Info ID:" GridPane.rowIndex="5" />
+                        <Label text="Flags:" GridPane.rowIndex="6" />
+                        <Label text="Races:" GridPane.rowIndex="7" />
+                        <Label text="Suggested Group:" GridPane.rowIndex="8" />
+                        <Label text="Start Item ID:" GridPane.rowIndex="9" />
                         <Label text="Req Player Kills:" GridPane.rowIndex="10" />
-                        <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                        <CheckComboBox maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <ComboBox maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <ComboBox maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Completion Log:" GridPane.rowIndex="11" />
+                        <Label text="Objective Text 1:" GridPane.rowIndex="12" />
+                        <Label text="Objective Text 2:" GridPane.rowIndex="13" />
+                        <Label text="Objective Text 3:" GridPane.rowIndex="14" />
+                        <Label text="Objective Text 4:" GridPane.rowIndex="15" />
+                        <TextField fx:id="tfEntry" text="0" GridPane.columnIndex="1" />
+                        <ComboBox fx:id="cbQuestType" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfQuestLevel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfMinLevel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="tfSortId" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="cbInfoID" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <CheckComboBox fx:id="ccbFlags" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <CheckComboBox fx:id="ccbRaces" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="tfSuggestedGroup" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="tfStartItem" text="0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <TextField fx:id="tfReqPlayerKills" text="0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <TextField fx:id="tfCompletionLog" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <TextField fx:id="tfObjectiveText1" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="tfObjectiveText2" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <TextField fx:id="tfObjectiveText3" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <TextField fx:id="tfObjectiveText4" GridPane.columnIndex="1" GridPane.rowIndex="15" />
                      </children>
                   </GridPane>
-                  <TitledPane expanded="false" minHeight="-Infinity" minWidth="-Infinity" text="Required Items">
+                  <TitledPane expanded="false" minHeight="-Infinity" minWidth="-Infinity" text="Req Creatures / Game Objects">
                      <content>
-                        <GridPane>
+                        <GridPane hgap="5.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="25.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="25.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="25.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="25.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="25.0" prefHeight="30.0" />
                            </rowConstraints>
                            <children>
-                              <Label text="Req Item ID" />
-                              <Label text="Quantity" GridPane.columnIndex="1" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="1" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="2" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="3" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="4" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="5" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="6" />
+                              <Label text="Creature or Go ID" />
+                              <TextField fx:id="tfCreatureOrGameObjectId1" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="1" />
+                              <TextField fx:id="tfCreatureOrGameObjectId2" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="2" />
+                              <TextField fx:id="tfCreatureOrGameObjectId3" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="3" />
+                              <TextField fx:id="tfCreatureOrGameObjectId4" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="4" />
+                              <Label text="Count" GridPane.columnIndex="1" />
+                              <TextField fx:id="tfCreatureOrGameObjectCount1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="tfCreatureOrGameObjectCount2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="tfCreatureOrGameObjectCount3" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="tfCreatureOrGameObjectCount4" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
                      </content>
                   </TitledPane>
-                  <TitledPane expanded="false" minHeight="-Infinity" minWidth="-Infinity" text="Required Creatures">
+                  <TitledPane expanded="false" minHeight="-Infinity" minWidth="-Infinity" text="Req Items">
                      <content>
-                        <GridPane>
+                        <GridPane hgap="5.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints minHeight="25.0" prefHeight="30.0" />
-                              <RowConstraints minHeight="25.0" prefHeight="30.0" />
-                              <RowConstraints minHeight="25.0" prefHeight="30.0" />
-                              <RowConstraints minHeight="25.0" prefHeight="30.0" />
-                              <RowConstraints minHeight="25.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
                            </rowConstraints>
                            <children>
-                              <Label text="Req Creature ID" />
+                              <Label text="Item ID" />
+                              <TextField fx:id="tfRequiredItemId1" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="1" />
+                              <TextField fx:id="tfRequiredItemId2" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="2" />
+                              <TextField fx:id="tfRequiredItemId3" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="3" />
+                              <TextField fx:id="tfRequiredItemId4" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="4" />
+                              <TextField fx:id="tfRequiredItemId5" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="5" />
+                              <TextField fx:id="tfRequiredItemId6" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="6" />
                               <Label text="Quantity" GridPane.columnIndex="1" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="1" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="2" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="3" />
-                              <TextField maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="4" />
+                              <TextField fx:id="tfRequiredItemCount1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="tfRequiredItemCount2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="tfRequiredItemCount3" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="tfRequiredItemCount4" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="tfRequiredItemCount5" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="tfRequiredItemCount6" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                            </children>
                         </GridPane>
                      </content>
@@ -452,50 +467,6 @@
                                           <Label fx:id="labelRewardId4" text="0" />
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="hboxReward5" alignment="CENTER_LEFT" spacing="5.0">
-                                       <children>
-                                          <StackPane alignment="BOTTOM_RIGHT">
-                                             <children>
-                                                <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@/question-mark.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Label fx:id="labelRewardQuantity5" text="0">
-                                                   <StackPane.margin>
-                                                      <Insets bottom="2.0" right="2.0" />
-                                                   </StackPane.margin>
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </StackPane>
-                                          <Label fx:id="labelRewardId5" text="0" />
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="hboxReward6" alignment="CENTER_LEFT" spacing="5.0">
-                                       <children>
-                                          <StackPane alignment="BOTTOM_RIGHT">
-                                             <children>
-                                                <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@/question-mark.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Label fx:id="labelRewardQuantity6" text="0">
-                                                   <StackPane.margin>
-                                                      <Insets bottom="2.0" right="2.0" />
-                                                   </StackPane.margin>
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </StackPane>
-                                          <Label fx:id="labelRewardId6" text="0" />
-                                       </children>
-                                    </HBox>
                                  </children>
                               </FlowPane>
                            </children>
@@ -508,6 +479,7 @@
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>
                                 <rowConstraints>
+                                    <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -516,18 +488,20 @@
                                     <RowConstraints minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Talents:" />
-                                    <Label text="Honor Points:" GridPane.rowIndex="1" />
-                                    <Label text="Honor Kills:" GridPane.rowIndex="2" />
-                                    <Label text="Arena Points:" GridPane.rowIndex="3" />
-                                    <Label text="Title ID:" GridPane.rowIndex="4" />
-                                    <Label text="Display Spell:" GridPane.rowIndex="5" />
-                                    <TextField fx:id="tfRewardTitle" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" />
-                                    <TextField fx:id="tfRewardHonorPoints" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="tfRewardHonorKills" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="tfRewardArenaPoints" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <TextField fx:id="tfRewardTitle" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <TextField fx:id="tfRewardDisplaySpell" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label text="Quest ID:" />
+                                    <Label text="Talents:" GridPane.rowIndex="1" />
+                                    <Label text="Honor Points:" GridPane.rowIndex="2" />
+                                    <Label text="Honor Kills:" GridPane.rowIndex="3" />
+                                    <Label text="Arena Points:" GridPane.rowIndex="4" />
+                                    <Label text="Title ID:" GridPane.rowIndex="5" />
+                                    <Label text="Display Spell:" GridPane.rowIndex="6" />
+                                    <TextField fx:id="tfNextQuest" text="0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="tfRewardTalents" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="tfRewardHonorPoints" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="tfRewardHonorKills" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="tfRewardArenaPoints" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="tfRewardTitle" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="tfRewardDisplaySpell" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                  </children>
                               </GridPane>
                            </content>

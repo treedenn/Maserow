@@ -6,5 +6,4 @@ public interface ICSV {
 	boolean hasId();
 	boolean hasValue();
 	String getFile();
-	String getFileName();
 }

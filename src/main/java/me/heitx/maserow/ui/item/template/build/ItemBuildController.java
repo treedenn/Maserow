@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.StringConverter;
+import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
@@ -474,22 +475,12 @@ public class ItemBuildController implements Initializable {
 			editing.add(classes);
 			Label l = new Label(classes);
 
-			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.CLASSES);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CommonCSV.CLASSES);
 			List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableClass());
 			CheckComboBox<Identifier> ccb = new CheckComboBox<>();
 			ccb.setPrefWidth(300);
-			ccb.setConverter(new StringConverter<Identifier>() {
-				@Override
-				public String toString(Identifier identifier) {
-					return identifier.getName();
-				}
-
-				@Override
-				public Identifier fromString(String s) {
-					return null;
-				}
-			});
 			ccb.getItems().addAll(identifiers);
+			NodeUtil.showOnlyNameOnCombobox(ccb);
 
 			for(Integer id : ids) {
 				ccb.getCheckModel().check(id);
@@ -509,22 +500,12 @@ public class ItemBuildController implements Initializable {
 			editing.add(races);
 			Label l = new Label(races);
 
-			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.RACES);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CommonCSV.RACES);
 			List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableRace());
 			CheckComboBox<Identifier> ccb = new CheckComboBox<>();
 			ccb.setPrefWidth(300);
-			ccb.setConverter(new StringConverter<Identifier>() {
-				@Override
-				public String toString(Identifier identifier) {
-					return identifier.getName();
-				}
-
-				@Override
-				public Identifier fromString(String s) {
-					return null;
-				}
-			});
 			ccb.getItems().addAll(identifiers);
+			NodeUtil.showOnlyNameOnCombobox(ccb);
 
 			for(Integer id : ids) {
 				ccb.getCheckModel().check(id);
@@ -643,7 +624,7 @@ public class ItemBuildController implements Initializable {
 		}
 
 		addRow(l, hbox, () -> {
-			long newTotal = MoneyUtil.gscToTotal(Long.parseLong(tfMoney[0].getText()),
+			long newTotal = MoneyUtil.gscToTotal(Integer.parseInt(tfMoney[0].getText()),
 					Integer.parseInt(tfMoney[1].getText()),
 					Integer.parseInt(tfMoney[2].getText()));
 
