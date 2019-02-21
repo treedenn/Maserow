@@ -15,14 +15,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.util.StringConverter;
 import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.ui.Callback;
-import me.heitx.maserow.ui.NodeUtil;
+import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.utils.ResourceUtil;
 import org.controlsfx.control.CheckComboBox;
@@ -150,7 +149,7 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getQuality()));
 			cb.setMaxWidth(Double.MAX_VALUE);
-			NodeUtil.showOnlyNameOnCombobox(cb);
+			UtilityUI.showOnlyNameOnCombobox(cb);
 
 			addRow(l, cb, () -> item.setQuality(cb.getSelectionModel().getSelectedItem().getId()));
 		}
@@ -167,7 +166,7 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getBonding()));
 			cb.setMaxWidth(Double.MAX_VALUE);
-			NodeUtil.showOnlyNameOnCombobox(cb);
+			UtilityUI.showOnlyNameOnCombobox(cb);
 
 			addRow(l, cb, () -> item.setBonding(cb.getSelectionModel().getSelectedItem().getId()));
 		}
@@ -185,7 +184,7 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getInventoryType()));
 			cb.setMaxWidth(Double.MAX_VALUE);
-			NodeUtil.showOnlyNameOnCombobox(cb);
+			UtilityUI.showOnlyNameOnCombobox(cb);
 
 			addRow(l, cb, () -> item.setInventoryType(cb.getSelectionModel().getSelectedItem().getId()));
 		}
@@ -203,8 +202,8 @@ public class ItemBuildController implements Initializable {
 			cbClasses.getSelectionModel().select(Identifier.findById(identifiers, item.get_class()));
 			cbSubclasses.getSelectionModel().select(Identifier.findByValue(subIdentifiers, item.getSubclass()));
 
-			NodeUtil.showOnlyNameOnCombobox(cbClasses);
-			NodeUtil.showOnlyNameOnCombobox(cbSubclasses);
+			UtilityUI.showOnlyNameOnCombobox(cbClasses);
+			UtilityUI.showOnlyNameOnCombobox(cbSubclasses);
 
 			cbClasses.setOnAction(event1 -> {
 				// Gets the subclasses of the selected class
@@ -240,7 +239,7 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getDamageType1()));
 			cb.setMaxWidth(Double.MAX_VALUE);
-			NodeUtil.showOnlyNameOnCombobox(cb);
+			UtilityUI.showOnlyNameOnCombobox(cb);
 
 			addRow(l, cb, () -> item.setDamageType1(cb.getSelectionModel().getSelectedItem().getId()));
 		}
@@ -252,7 +251,7 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getDamageType2()));
 			cb.setMaxWidth(Double.MAX_VALUE);
-			NodeUtil.showOnlyNameOnCombobox(cb);
+			UtilityUI.showOnlyNameOnCombobox(cb);
 
 			addRow(l, cb, () -> item.setDamageType2(cb.getSelectionModel().getSelectedItem().getId()));
 		}
@@ -476,11 +475,11 @@ public class ItemBuildController implements Initializable {
 			Label l = new Label(classes);
 
 			List<Identifier> identifiers = DelimiterReader.readColumns(CommonCSV.CLASSES);
-			List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableClass());
+			List<Integer> ids = Identifier.findIndicesByValue(identifiers, item.getAllowableClass());
 			CheckComboBox<Identifier> ccb = new CheckComboBox<>();
 			ccb.setPrefWidth(300);
 			ccb.getItems().addAll(identifiers);
-			NodeUtil.showOnlyNameOnCombobox(ccb);
+			UtilityUI.showOnlyNameOnCombobox(ccb);
 
 			for(Integer id : ids) {
 				ccb.getCheckModel().check(id);
@@ -501,11 +500,11 @@ public class ItemBuildController implements Initializable {
 			Label l = new Label(races);
 
 			List<Identifier> identifiers = DelimiterReader.readColumns(CommonCSV.RACES);
-			List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableRace());
+			List<Integer> ids = Identifier.findIndicesByValue(identifiers, item.getAllowableRace());
 			CheckComboBox<Identifier> ccb = new CheckComboBox<>();
 			ccb.setPrefWidth(300);
 			ccb.getItems().addAll(identifiers);
-			NodeUtil.showOnlyNameOnCombobox(ccb);
+			UtilityUI.showOnlyNameOnCombobox(ccb);
 
 			for(Integer id : ids) {
 				ccb.getCheckModel().check(id);

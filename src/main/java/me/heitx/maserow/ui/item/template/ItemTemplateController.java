@@ -13,19 +13,19 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.dao.IItemDAO;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.utils.query.TrinityItemQuery;
-import me.heitx.maserow.ui.NodeUtil;
+import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.ui.item.template.build.ItemBuildController;
 import me.heitx.maserow.ui.item.template.preview.ItemPreviewController;
 
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
@@ -50,7 +50,7 @@ public class ItemTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		NodeUtil.hide(preview);
+		UtilityUI.hide(preview);
 
 		update();
 
@@ -95,24 +95,26 @@ public class ItemTemplateController implements Initializable, Updateable {
 
 	private void onMenuButtonAction(ActionEvent event) {
 		Map<String, Object> attributes = ConverterUtil.toAttributes(item);
+		final String initialFileName = item.getName().replaceAll(" ", "-") + ":" + item.getEntry();
+		final Window window = btnExecute.getScene().getWindow();
 
 		if(event.getSource() == miInsert) {
-			saveSql("Save Insert Query", TrinityItemQuery.getInsertQuery(attributes, true));
+			UtilityUI.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
 		} else if(event.getSource() == miUpdate) {
-			saveSql("Save Update Query", TrinityItemQuery.getInsertQuery(attributes, true));
+			UtilityUI.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
 		} else if(event.getSource() == miDelete) {
-			saveSql("Save Delete Query", TrinityItemQuery.getInsertQuery(attributes, true));
+			UtilityUI.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
 		}
 	}
 
 	private void onCheckBoxPreviewAction(ActionEvent event) {
 		if(cbPreview.isSelected()) {
 			previewController.update();
-			NodeUtil.show(preview);
-			NodeUtil.hide(build);
+			UtilityUI.show(preview);
+			UtilityUI.hide(build);
 		} else {
-			NodeUtil.show(build);
-			NodeUtil.hide(preview);
+			UtilityUI.show(build);
+			UtilityUI.hide(preview);
 		}
 	}
 
@@ -132,29 +134,6 @@ public class ItemTemplateController implements Initializable, Updateable {
 			try {
 				WritableImage snapshot = preview.snapshot(new SnapshotParameters(), null);
 				ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", selectedFile);
-			} catch(IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	private void saveSql(String title, String query) {
-		FileChooser fc = new FileChooser();
-		fc.setTitle(title);
-		fc.setInitialFileName(item.getName().replaceAll(" ", "-") + ":" + item.getEntry());
-		fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Structured Query Language", "*.sql"));
-
-		File selectedFile = fc.showSaveDialog(vboxTemplate.getScene().getWindow());
-		if(selectedFile != null) {
-			if(!selectedFile.getName().endsWith(".sql")) {
-				selectedFile = new File(selectedFile + ".sql");
-			}
-
-			try {
-				FileOutputStream fos = new FileOutputStream(selectedFile);
-				fos.write(query.getBytes());
-				fos.flush();
-				fos.close();
 			} catch(IOException e) {
 				e.printStackTrace();
 			}

@@ -24,7 +24,6 @@ public abstract class SearchController<T> implements Initializable, Updateable {
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		update();
 
-		btnSearch.setDefaultButton(true);
 		btnSearch.setOnAction(this::onButtonSearchAction);
 		tvSearch.setRowFactory(this::onTableViewRowSelection);
 	}

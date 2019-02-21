@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
-import me.heitx.maserow.ui.NodeUtil;
+import me.heitx.maserow.ui.UtilityUI;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -134,7 +134,7 @@ public class StatsContainer extends VBox {
 			iconRemove.setOnMouseClicked(this::onMouseClickIconRemove);
 			iconAdd.setOnMouseClicked(this::onMouseClickIconAdd);
 
-			NodeUtil.showOnlyNameOnCombobox(cbStatType);
+			UtilityUI.showOnlyNameOnCombobox(cbStatType);
 
 			cbStatType.getSelectionModel().select(Identifier.findById(statTypes, type));
 			tfStatValue.setText(String.valueOf(value));

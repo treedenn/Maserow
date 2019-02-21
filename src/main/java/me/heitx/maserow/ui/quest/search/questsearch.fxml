@@ -38,13 +38,13 @@
                   <Label text="Quest End:" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <Button fx:id="btnSearch" mnemonicParsing="false" text="Search" />
+            <Button fx:id="btnSearch" defaultButton="true" mnemonicParsing="false" text="Search" />
          </children>
       </VBox>
       <TableView fx:id="tvSearch" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
         <columns>
-          <TableColumn fx:id="tcEntry" prefWidth="75.0" text="entry" />
-          <TableColumn fx:id="tcTitle" prefWidth="75.0" text="logTitle" />
+          <TableColumn fx:id="tcEntry" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="entry" />
+          <TableColumn fx:id="tcTitle" maxWidth="1500.0" minWidth="75.0" prefWidth="75.0" text="logTitle" />
             <TableColumn fx:id="tcDescription" prefWidth="75.0" text="logDescription" />
         </columns>
          <columnResizePolicy>

@@ -78,11 +78,23 @@ public class Identifier {
 		return result;
 	}
 
+	public static List<Integer> findIndicesByValue(List<Identifier> identifiers, long totalValue) {
+		return findXByValue(identifiers, totalValue, false, true);
+	}
+
+	public static List<Integer> findIndicesByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll) {
+		return findXByValue(identifiers, totalValue, valueZeroEqualsAll, true);
+	}
+
 	public static List<Integer> findIdsByValue(List<Identifier> identifiers, long totalValue) {
-		return findIdsByValue(identifiers, totalValue, false);
+		return findXByValue(identifiers, totalValue, false, false);
 	}
 
 	public static List<Integer> findIdsByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll) {
+		return findXByValue(identifiers, totalValue, valueZeroEqualsAll, false);
+	}
+
+	public static List<Integer> findXByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll, boolean findIndexes) {
 		List<Integer> ids = new ArrayList<>();
 
 		if(totalValue >= (valueZeroEqualsAll ? 1 : 0)) {
@@ -90,7 +102,7 @@ public class Identifier {
 				Identifier identifier = identifiers.get(i);
 
 				if(totalValue >= identifier.getValue()) {
-					ids.add(identifier.id);
+					ids.add(findIndexes ? i : identifier.id);
 					totalValue -= identifier.getValue();
 				}
 

@@ -16,7 +16,7 @@ import javafx.scene.control.Labeled;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import me.heitx.maserow.ui.Callback;
-import me.heitx.maserow.ui.NodeUtil;
+import me.heitx.maserow.ui.UtilityUI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -81,8 +81,8 @@ public class SidemenuController implements Initializable {
 		btnSettings.setDisable(true);
 		btnSQL.setDisable(true);
 
-		NodeUtil.hide(vboxItem);
-		NodeUtil.hide(vboxQuest);
+		UtilityUI.hide(vboxItem);
+		UtilityUI.hide(vboxQuest);
 
 		setIcon(btnLogin, new MaterialDesignIconView(MaterialDesignIcon.DATABASE), MENU_ICON_SIZE);
 		setIcon(btnItem, new MaterialDesignIconView(MaterialDesignIcon.SWORD), MENU_ICON_SIZE);
@@ -109,7 +109,7 @@ public class SidemenuController implements Initializable {
 				labeled.pseudoClassStateChanged(SHRINKED_PSEUDO, false);
 			}
 
-			NodeUtil.show(labelTitle);
+			UtilityUI.show(labelTitle);
 			setIcon(btnToggle, toggleExpand, MENU_ICON_SIZE);
 			vboxSidemenu.setPrefWidth(EXPAND_WIDTH);
 		} else {
@@ -119,7 +119,7 @@ public class SidemenuController implements Initializable {
 				labeled.pseudoClassStateChanged(SHRINKED_PSEUDO, true);
 			}
 
-			NodeUtil.hide(labelTitle);
+			UtilityUI.hide(labelTitle);
 			setIcon(btnToggle, toggleShrink, MENU_ICON_SIZE);
 			vboxSidemenu.setPrefWidth(SHRINK_WIDTH);
 		}
@@ -132,7 +132,7 @@ public class SidemenuController implements Initializable {
 	private void setButtonAction(Button btn, Callback callback) {
 		btn.setOnAction(actionEvent -> {
 			if(selectedVBox != null) {
-				NodeUtil.hide(selectedVBox);
+				UtilityUI.hide(selectedVBox);
 				selectedVBox = null;
 			}
 
@@ -143,10 +143,10 @@ public class SidemenuController implements Initializable {
 	private void setCategoryAction(Button btn, VBox vbox, Callback callback) {
 		btn.setOnAction(actionEvent -> {
 			if(selectedVBox != null && selectedVBox != vbox) {
-				NodeUtil.hide(selectedVBox);
-				NodeUtil.show(vbox);
+				UtilityUI.hide(selectedVBox);
+				UtilityUI.show(vbox);
 			} else {
-				NodeUtil.toggle(vbox, !vbox.isVisible());
+				UtilityUI.toggle(vbox, !vbox.isVisible());
 			}
 
 			selectedVBox = vbox;

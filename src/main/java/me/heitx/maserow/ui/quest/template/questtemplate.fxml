@@ -27,7 +27,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnExecute" mnemonicParsing="false" text="Execute" />
+            <Button fx:id="btnExecute" defaultButton="true" mnemonicParsing="false" text="Execute" />
             <MenuButton mnemonicParsing="false" text="Save as SQL">
                <items>
                   <MenuItem fx:id="miInsert" mnemonicParsing="false" text="Insert" />

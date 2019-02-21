@@ -13,7 +13,7 @@ import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
 import me.heitx.maserow.model.Item;
-import me.heitx.maserow.ui.NodeUtil;
+import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.utils.NumberUtil;
@@ -314,26 +314,26 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private void updateVisibility() {
-		NodeUtil.toggle(labelBonding, item.getBonding() != 0); // 0 = NO_BOUNDS
-		NodeUtil.toggle(labelUnique, item.getMaxCount() != 0); // no max count
-		NodeUtil.toggle(labelSlot, item.getInventoryType() != 0); // 0 = NON_EQUIPABLE
-		NodeUtil.toggle(labelType, item.get_class() != 12); //
-		NodeUtil.toggle(gpSlotType, labelSlot.isVisible() || labelType.isVisible());
-		NodeUtil.toggle(paneDamage, item.get_class() == 2); // 2 = WEAPON
-		NodeUtil.toggle(labelDPS, item.get_class() == 2); // 2 = WEAPON
-		NodeUtil.toggle(hboxArmor, item.getArmor() != 0);
-		NodeUtil.toggle(hboxBlock, item.getBlock() != 0);
-		NodeUtil.toggle(vboxStats, item.getStatsCount() != 0);
-		NodeUtil.toggle(vboxEquipStats, !hideEquipStats());
-		NodeUtil.toggle(vboxResistance, !hideResistance());
-		NodeUtil.toggle(vboxSocket, !hideSocket());
-		NodeUtil.toggle(hboxClasses, item.getAllowableClass() != -1); // -1 = all classes
-		NodeUtil.toggle(hboxRaces, item.getAllowableRace() != -1); // -1 = all races
-		NodeUtil.toggle(hboxDurability, item.getMaxDurability() > 0);
-		NodeUtil.toggle(hboxRequiredLevel, item.getRequiredLevel() > 0);
-		NodeUtil.toggle(hboxItemLevel, item.getRequiredLevel() > 0);
-		NodeUtil.toggle(hboxSellPrice, item.getSellPrice() > 0);
-		NodeUtil.toggle(hboxBuyPrice, item.getBuyPrice() > 0);
-		NodeUtil.toggle(labelDescription, !item.getDescription().isEmpty());
+		UtilityUI.toggle(labelBonding, item.getBonding() != 0); // 0 = NO_BOUNDS
+		UtilityUI.toggle(labelUnique, item.getMaxCount() != 0); // no max count
+		UtilityUI.toggle(labelSlot, item.getInventoryType() != 0); // 0 = NON_EQUIPABLE
+		UtilityUI.toggle(labelType, item.get_class() != 12); //
+		UtilityUI.toggle(gpSlotType, labelSlot.isVisible() || labelType.isVisible());
+		UtilityUI.toggle(paneDamage, item.get_class() == 2); // 2 = WEAPON
+		UtilityUI.toggle(labelDPS, item.get_class() == 2); // 2 = WEAPON
+		UtilityUI.toggle(hboxArmor, item.getArmor() != 0);
+		UtilityUI.toggle(hboxBlock, item.getBlock() != 0);
+		UtilityUI.toggle(vboxStats, item.getStatsCount() != 0);
+		UtilityUI.toggle(vboxEquipStats, !hideEquipStats());
+		UtilityUI.toggle(vboxResistance, !hideResistance());
+		UtilityUI.toggle(vboxSocket, !hideSocket());
+		UtilityUI.toggle(hboxClasses, item.getAllowableClass() != -1); // -1 = all classes
+		UtilityUI.toggle(hboxRaces, item.getAllowableRace() != -1); // -1 = all races
+		UtilityUI.toggle(hboxDurability, item.getMaxDurability() > 0);
+		UtilityUI.toggle(hboxRequiredLevel, item.getRequiredLevel() > 0);
+		UtilityUI.toggle(hboxItemLevel, item.getRequiredLevel() > 0);
+		UtilityUI.toggle(hboxSellPrice, item.getSellPrice() > 0);
+		UtilityUI.toggle(hboxBuyPrice, item.getBuyPrice() > 0);
+		UtilityUI.toggle(labelDescription, !item.getDescription().isEmpty());
 	}
 }
