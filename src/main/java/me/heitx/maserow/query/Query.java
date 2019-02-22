@@ -125,7 +125,9 @@ public class Query {
 
 		for(Object value : values) {
 			if(value instanceof String) {
-				valuesAsString.add("'" + value + "'");
+				String s = (String) value;
+				System.out.println("'" + s.replaceAll("'", "''") + "'");
+				valuesAsString.add("'" + s.replaceAll("'", "''") + "'");
 			} else if(value instanceof Number) {
 				valuesAsString.add(String.valueOf(value));
 			}

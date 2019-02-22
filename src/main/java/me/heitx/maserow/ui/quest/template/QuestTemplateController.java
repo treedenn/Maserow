@@ -29,6 +29,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class QuestTemplateController implements Initializable, Updateable {
@@ -215,11 +216,16 @@ public class QuestTemplateController implements Initializable, Updateable {
 
 	private void onExecuteButtonAction(ActionEvent event) {
 		if(quest != null) {
+			updateModel();
 			IQuestDAO dao = Database.getInstance().getQuestDAO();
 			Map<String, Object> attributes = ConverterUtil.toAttributes(quest);
 
 			if(dao.exists(quest.getId())) {
-				dao.update(attributes);
+				Optional<ButtonType> alert = UtilityUI.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already a quest with given identifier! " +
+						"Do you want to overwrite the old quest with the new one?", ButtonType.NO, ButtonType.YES);
+				if(alert.isPresent() && alert.get() == ButtonType.YES) {
+					dao.update(attributes);
+				}
 			} else {
 				dao.insert(attributes);
 			}
@@ -227,8 +233,10 @@ public class QuestTemplateController implements Initializable, Updateable {
 	}
 
 	private void onSaveSqlButtonAction(ActionEvent event) {
+		updateModel();
+
 		Map<String, Object> attributes = ConverterUtil.toAttributes(quest);
-		final String initialFileName = quest.getLogTitle().replaceAll(" ", "-") + ":" + quest.getId();
+		final String initialFileName = "quest:" + quest.getLogTitle().replaceAll(" ", "-") + ":" + quest.getId();
 		final Window window = btnExecute.getScene().getWindow();
 
 		if(event.getSource() == miInsert) {

@@ -12,7 +12,7 @@
    <children>
       <HBox alignment="CENTER_LEFT" spacing="5.0">
          <children>
-            <Button fx:id="btnExecute" defaultButton="true" mnemonicParsing="false" text="Execute" />
+            <Button fx:id="btnExecute" mnemonicParsing="false" text="Execute" />
             <Button fx:id="btnScreenshot" mnemonicParsing="false" text="Save as Image" />
             <MenuButton fx:id="mbSQL" mnemonicParsing="false" text="Save as SQL">
               <items>

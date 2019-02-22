@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -29,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ItemTemplateController implements Initializable, Updateable {
@@ -86,7 +84,11 @@ public class ItemTemplateController implements Initializable, Updateable {
 			Map<String, Object> attributes = ConverterUtil.toAttributes(item);
 
 			if(dao.exists(item.getEntry())) {
-				dao.update(attributes);
+				Optional<ButtonType> alert = UtilityUI.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already an item with given identifier! " +
+						"Do you want to overwrite the old item with the new one?", ButtonType.NO, ButtonType.YES);
+				if(alert.isPresent() && alert.get() == ButtonType.YES) {
+					dao.update(attributes);
+				}
 			} else {
 				dao.insert(attributes);
 			}
@@ -95,7 +97,7 @@ public class ItemTemplateController implements Initializable, Updateable {
 
 	private void onMenuButtonAction(ActionEvent event) {
 		Map<String, Object> attributes = ConverterUtil.toAttributes(item);
-		final String initialFileName = item.getName().replaceAll(" ", "-") + ":" + item.getEntry();
+		final String initialFileName = "item:" + item.getName().replaceAll(" ", "-") + ":" + item.getEntry();
 		final Window window = btnExecute.getScene().getWindow();
 
 		if(event.getSource() == miInsert) {
