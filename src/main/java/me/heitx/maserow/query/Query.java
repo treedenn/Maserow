@@ -1,9 +1,6 @@
 package me.heitx.maserow.query;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class Query {
 	private QueryType type;
@@ -37,12 +34,14 @@ public class Query {
 	}
 
 	public Query and(String condition) {
-		andList.add(condition);
+		if(where != null) andList.add(condition);
+		else where(condition);
 		return this;
 	}
 
 	public Query or(String condition) {
-		orList.add(condition);
+		if(where != null) orList.add(condition);
+		else where(condition);
 		return this;
 	}
 
@@ -74,6 +73,14 @@ public class Query {
 		return this;
 	}
 
+	public Query values(Map<String, Object> columnValueMap) {
+		for(Map.Entry<String, Object> entry : columnValueMap.entrySet()) {
+			columns.add(entry.getKey());
+			values.add(entry.getValue());
+		}
+		return this;
+	}
+
 	// SELECT METHODS
 
 	public Query select(String... columns) {
@@ -99,9 +106,11 @@ public class Query {
 	}
 
 	public Query set(String column, Object value) {
-		columns.add(column);
-		values.add(value);
-		return this;
+		return values(column, value);
+	}
+
+	public Query set(Map<String, Object> columnValueMap) {
+		return values(columnValueMap);
 	}
 
 	// DELETE METHODS
@@ -118,7 +127,8 @@ public class Query {
 
 		for(Object value : values) {
 			if(value instanceof String) {
-				valuesAsString.add("'" + value + "'");
+				String s = (String) value;
+				valuesAsString.add("'" + s.replaceAll("'", "''") + "'");
 			} else if(value instanceof Number) {
 				valuesAsString.add(String.valueOf(value));
 			}

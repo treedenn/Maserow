@@ -1,0 +1,33 @@
+0;None
+1;Stay Alive
+2;Party Accept
+4;Exploration
+8;Sharable
+16;Has Condition
+32;Hide Reward Poi
+64;Raid
+128;Tbc
+256;No Money From Xp
+512;Hidden Rewards
+1024;Tracking
+2048;Deprecate Reputation
+4096;Daily
+8192;Flags PvP
+16384;Weekly
+32768;Unavailable
+65536;Autocomplete
+131072;Display Item In Tracker
+262144;Obj Text
+524288;Auto Accept
+1048576;Player Cast On Accept
+2097152;Player Cast On Complete
+4194304;Update Phase Shift
+8388608;Sor Whitelist
+16777216;Launch Gossip Complete
+33554432;Remove Extra Get Items
+67108864;Hide Until Discovered
+134217728;Portrait In Quest Log
+268435456;Show Item When Completed
+536870912;Launch Gossip Accept
+1073741824;Items Glow When Done
+2147483648;Fail On Logout

@@ -13,7 +13,11 @@ public class MoneyUtil {
 		return money;
 	}
 
-	public static long gscToTotal(long gold, int silver, int copper) {
+	public static int gscToTotal(String gold, String silver, String copper) {
+		return gscToTotal(Integer.parseInt(gold), Integer.parseInt(silver), Integer.parseInt(copper));
+	}
+
+	public static int gscToTotal(int gold, int silver, int copper) {
 		return gold * 10000 + silver * 100 + copper;
 	}
 }

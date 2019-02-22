@@ -91,10 +91,8 @@ public class AppController implements Initializable {
 
 				questSearchController.setDoubleClickRowCallback(quest -> {
 					createOrUpdateQuestTemplate();
-
-
-
-					bpApp.setCenter(questSearch);
+					questTemplateController.setQuest(quest);
+					bpApp.setCenter(questTemplate);
 					return null;
 				});
 			} else {

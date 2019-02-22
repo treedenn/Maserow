@@ -1,18 +1,18 @@
-
-
 #vboxSidemenu {
-    -fx-background-color: #303030;
+    -fx-background-color: -bg0-color;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
 }
 
 #labelTitle {
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: -text-color;
     -fx-padding: 10px 0 10px 0;
     -fx-opacity: 0.7;
 }
 
 #vboxSidemenu > Button {
     -fx-background-color: transparent;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: -text-color;
     -fx-font-size: 16;
     -fx-padding: 10px 0 10px 10px;
     -fx-background-radius: 0;
@@ -23,23 +23,25 @@
 }
 
 #vboxSidemenu > Button:hover {
-    -fx-background-color: #212121;
+    -fx-background-color: -bg1-color;
     -icons-color: -secondary-color;
 }
 
 #vboxSidemenu > VBox {
-    -fx-background-color: #424242;
+    -fx-background-color: -bg1-color;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
 }
 
 #vboxSidemenu > VBox > Button {
     -fx-background-color: transparent;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: -text-color;
     -fx-font-size: 12;
     -fx-padding: 10px 0 10px 15px;
     -fx-background-radius: 0;
 }
 
 #vboxSidemenu > VBox > Button:hover {
-    -fx-background-color: #D65D0E;
-    -icons-color: white;
+    -fx-background-color: -bg2-color;
+    -icons-color: -secondary-color;
 }

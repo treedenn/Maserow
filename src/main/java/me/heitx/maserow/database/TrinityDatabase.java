@@ -1,15 +1,18 @@
 package me.heitx.maserow.database;
 
-import me.heitx.maserow.database.dao.ItemDAO;
-import me.heitx.maserow.database.trinitywotlk.TrinityWotlkItemDAO;
+import me.heitx.maserow.database.dao.IItemDAO;
+import me.heitx.maserow.database.dao.IQuestDAO;
+import me.heitx.maserow.database.trinitywotlk.ItemDAO;
+import me.heitx.maserow.database.trinitywotlk.QuestDAO;
 
 public class TrinityDatabase implements IDatabase {
 	private IClient client;
 
-	private ItemDAO itemDAO;
+	private IItemDAO itemDAO;
+	private IQuestDAO questDAO;
 
 	TrinityDatabase() {
-		this.itemDAO = null;
+
 	}
 
 	@Override
@@ -23,8 +26,14 @@ public class TrinityDatabase implements IDatabase {
 	}
 
 	@Override
-	public ItemDAO getItemDAO() {
-		if(Database.isIsLoggedIn() && itemDAO == null) itemDAO = new TrinityWotlkItemDAO(client);
+	public IItemDAO getItemDAO() {
+		if(Database.isIsLoggedIn() && itemDAO == null) itemDAO = new ItemDAO(client);
 		return itemDAO;
+	}
+
+	@Override
+	public IQuestDAO getQuestDAO() {
+		if(Database.isIsLoggedIn() && questDAO == null) questDAO = new QuestDAO(client);
+		return questDAO;
 	}
 }

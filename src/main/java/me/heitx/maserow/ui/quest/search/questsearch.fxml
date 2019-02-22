@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.quest.search.QuestSearchController">
+   <children>
+      <VBox alignment="CENTER">
+         <children>
+            <GridPane prefWidth="300.0" VBox.vgrow="ALWAYS">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="105.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+              </rowConstraints>
+               <children>
+                  <Label text="Entry:" />
+                  <Label text="Title:" GridPane.rowIndex="1" />
+                  <Label text="Quest Giver:" GridPane.rowIndex="2" />
+                  <TextField fx:id="tfEntry" text="0" GridPane.columnIndex="1" />
+                  <TextField fx:id="tfTitle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Quest End:" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+            <Button fx:id="btnSearch" defaultButton="true" mnemonicParsing="false" text="Search" />
+         </children>
+      </VBox>
+      <TableView fx:id="tvSearch" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+        <columns>
+          <TableColumn fx:id="tcEntry" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="entry" />
+          <TableColumn fx:id="tcTitle" maxWidth="1500.0" minWidth="75.0" prefWidth="75.0" text="logTitle" />
+            <TableColumn fx:id="tcDescription" prefWidth="75.0" text="logDescription" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</HBox>

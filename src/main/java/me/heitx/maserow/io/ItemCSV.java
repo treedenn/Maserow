@@ -3,8 +3,6 @@ package me.heitx.maserow.io;
 import java.io.File;
 
 public enum ItemCSV implements ICSV {
-	CLASSES("classes", true, true),
-	EXPANSIONS("expansions", true, false),
 	ITEM_BAG_FAMILY("item_bag_family", false, true),
 	ITEM_BONDING("item_bonding", true, false),
 	ITEM_CLASSES("item_classes", true, false),
@@ -22,7 +20,6 @@ public enum ItemCSV implements ICSV {
 	ITEM_SPELL_TRIGGER("item_spell_trigger", true, false),
 	ITEM_STAT_TYPES("item_stat_types", true, false),
 	ITEM_TOTEM_CATEGORY("item_totem_category", true, false),
-	RACES("races", true, true),
 	ITEM_SUBCLASS_00("item_subclass_00", true, true),
 	ITEM_SUBCLASS_01("item_subclass_01", true, true),
 	ITEM_SUBCLASS_02("item_subclass_02", true, true),
@@ -51,11 +48,6 @@ public enum ItemCSV implements ICSV {
 		this.fileName = fileName;
 		this.hasId = hasId;
 		this.hasValue = hasValue;
-	}
-
-	@Override
-	public String getFileName() {
-		return fileName;
 	}
 
 	@Override

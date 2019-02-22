@@ -1,22 +1,23 @@
 
-/* PALETTE */
-.root {
-    -fx-background-color: -bg1-color;
 
-    -primary-color: #be8c1e;
-    -secondary-color: #1e60be;
+.root {
+    /* PALETTE */
+    -primary-color: #ff9100;
+    -secondary-color: #03a9f4;
     -bg0-color: #060606;
     -bg1-color: #121212;
     -bg2-color: #212121;
     -bg3-color: #424242;
     -bg4-color: #616161;
     -bg5-color: #757575;
-    -icons-color: -primary-color; /* Used for glyph icons */
-}
+    -bg6-color: #9e9e9e;
+    -bg7-color: #bdbdbd;
+    -bg8-color: #e0e0e0;
+    -bg9-color: #eeeeee;
+    -text-color: #FFFFFF;
 
-.label {
-    -fx-text-fill: white;
-    -fx-fill: white;
+    -icons-color: -primary-color; /* Used for glyph icons */
+    -fx-background-color: -bg1-color;
 }
 
 .glyph-icon {
@@ -28,13 +29,18 @@
 
 }
 
+.label {
+    -fx-text-fill: -text-color;
+    -fx-fill: -text-color;
+}
+
 .scroll-pane, .split-pane, VBox, HBox, GridPane {
-    -fx-background-color: -bg2-color;
-    -fx-border-color: -bg2-color;
+    -fx-background-color: -bg1-color;
+    -fx-border-color: -bg1-color;
 }
 
 .split-pane-divider {
-    -fx-background-color: -bg1-color;
+    -fx-background-color: -bg2-color;
 }
 
 /* Begin TableView */
@@ -91,21 +97,34 @@
     -fx-border-width: 1;
 }
 
+/* TEXT-, PASS-, TEXTAREA- FIELDS */
+
 .text-field, .password-field, .text-area {
-    -fx-border-radius: 0;
-    -fx-background-color: transparent;
-    -fx-border-color: -primary-color;
-    -fx-text-fill: white;
-    -fx-border-width: 0 0 1 0;
+    -fx-text-fill: -text-color;
+    -fx-background-radius: 0;
+    -fx-background-color: -bg3-color;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
 }
 
 .text-area .content {
-    -fx-background-color: -bg2-color;
+    -fx-background-color: -bg3-color;
     -fx-background-radius: 0;
 }
 
+.text-area .scroll-pane {
+    -fx-padding: 0;
+}
+
+.text-area:focused {
+    -fx-background-color: transparent;
+    -fx-padding: 0px;
+}
+
+/* CHECKBOX */
+
 .check-box {
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
     -fx-background-radius: 0;
 }
 
@@ -120,6 +139,8 @@
     -fx-border-color: -primary-color;
 }
 
+/* COMBOBOX */
+
 .combo-box {
     -fx-background-color: -bg3-color;
     -fx-background-radius: 0;
@@ -131,7 +152,7 @@
 }
 
 .combo-box .scroll-bar .thumb {
-    -fx-background-color: -bg1-color;
+    -fx-background-color: -bg3-color;
     -fx-background-radius: 0;
 }
 
@@ -146,27 +167,29 @@
 
 .combo-box .list-cell {
     -fx-background-color: -bg3-color;
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
 
 .combo-box .label {
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
 
+/* BUTTON */
+
 .button {
-    -fx-text-fill: white;
-    -fx-background-color: -bg3-color;
+    -fx-text-fill: -text-color;
+    -fx-background-color: -bg2-color;
     -fx-background-radius: 0;
     -fx-border-width: 0;
     -fx-border-color: transparent;
 }
 
 .button:hover {
-    -fx-background-color: -bg4-color;
+    -fx-background-color: -bg3-color;
 }
 
 .button:pressed {
-    -fx-background-color: -bg2-color;
+    -fx-background-color: -bg4-color;
 }
 
 .button:default {
@@ -180,6 +203,8 @@
 .button:default:pressed {
     -fx-background-color: -secondary-color;
 }
+
+/* MENU ELEMENTS */
 
 .menu-button {
     -fx-background-color: -bg3-color;
@@ -207,9 +232,11 @@
     -fx-background-color: -bg4-color;
 }
 
+/* RADIO BUTTON */
+
 .radio-button {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
 
 .radio-button .radio {
@@ -217,5 +244,28 @@
 }
 
 .radio-button:selected .radio .dot {
+    -fx-background-color: -secondary-color;
+}
+
+/* TITLED PANE */
+
+.titled-pane {
+    -fx-background-color: -bg2-color;
+}
+
+.titled-pane .title {
+    -fx-background-color: -bg2-color;
+    -fx-background-radius: 0;
+}
+
+.titled-pane .content {
+    -fx-border-color: -bg2-color;
+}
+
+.titled-pane .text {
+    -fx-fill: -text-color;
+}
+
+.titled-pane .arrow {
     -fx-background-color: -secondary-color;
 }

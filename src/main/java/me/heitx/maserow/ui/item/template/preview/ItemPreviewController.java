@@ -8,15 +8,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
 import me.heitx.maserow.model.Item;
-import me.heitx.maserow.model.ItemStat;
-import me.heitx.maserow.model.Resistance;
-import me.heitx.maserow.ui.NodeUtil;
 import me.heitx.maserow.ui.Updateable;
+import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.utils.MoneyUtil;
+import me.heitx.maserow.utils.NumberUtil;
+import me.heitx.maserow.utils.ResourceUtil;
 
 import java.net.URL;
 import java.util.List;
@@ -90,6 +91,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	public void initialize(URL location, ResourceBundle resources) {
 		labelDescription.setStyle("-fx-text-fill: limegreen;");
 
+		// TODO: make so the fxml reads correctly!
 		Image goldCoin = new Image(getClass().getClassLoader().getResource("currency/money-gold.png").toExternalForm());
 		Image silverCoin = new Image(getClass().getClassLoader().getResource("currency/money-silver.png").toExternalForm());
 		Image copperCoin = new Image(getClass().getClassLoader().getResource("currency/money-copper.png").toExternalForm());
@@ -137,11 +139,27 @@ public class ItemPreviewController implements Initializable, Updateable {
 		vboxStats.getChildren().clear();
 		vboxEquipStats.getChildren().clear();
 
-		for(ItemStat itemStat : item.getStats()) {
-			if(itemStat.getValue() != 0) {
-				Label label = new Label(itemStat.getDisplayText(Identifier.findById(identifiers, itemStat.getType()).getName()));
+		int[] types = item.getStatTypes();
+		int[] values = item.getStatValues();
 
-				if(itemStat.getType() <= 7) {
+		for(int i = 0; i < types.length; i++) {
+			int type = types[i];
+			int value = values[i];
+
+			if(value != 0) {
+				String typeName = Identifier.findById(identifiers, type).getName();
+				String s;
+
+				if(type <= 7) {
+					s = "+" + value + " " + typeName;
+				} else {
+					String word = type < 37 ? "Improves " : "Increases ";
+					s = "Equip: " + word + typeName.toLowerCase() + " by " + value + ".";
+				}
+
+				Label label = new Label(s);
+
+				if(type <= 7) {
 					label.setStyle("-fx-text-fill: white;");
 					vboxStats.getChildren().add(label);
 				} else {
@@ -155,23 +173,18 @@ public class ItemPreviewController implements Initializable, Updateable {
 	private void handleResistance() {
 		vboxResistance.getChildren().clear();
 
-		Resistance resistance = item.getResistance();
+		int[] resistance = item.getResistance();
 
-		if(resistance.allSame()) {
-			if(resistance.getHoly() != 0) {
-				Label l = new Label("+" + resistance.getHoly() + " All Resistance");
+		if(NumberUtil.isAllSameNumber(resistance)) {
+			if(resistance[0] != 0) {
+				Label l = new Label("+" + resistance[0] + " All Resistance");
 				l.setStyle("-fx-text-fill: white;");
 				vboxResistance.getChildren().add(l);
 			}
 		} else {
-			int[] resistValues = new int[] {
-					resistance.getHoly(), resistance.getShadow(), resistance.getFire(),
-					resistance.getFrost(), resistance.getNature(), resistance.getArcane()
-			};
-
-			for(int i = 0; i < resistValues.length; i++) {
-				if(resistValues[i] != 0) {
-					Label l = new Label("+" + resistValues[i] + " " + Resistance.NAMES[i] + " Resistance");
+			for(int i = 0; i < resistance.length; i++) {
+				if(resistance[i] != 0) {
+					Label l = new Label("+" + resistance[i] + " " + ResourceUtil.RESISTANCE_NAMES[i] + " Resistance");
 					l.setStyle("-fx-text-fill: white;");
 					vboxResistance.getChildren().add(l);
 				}
@@ -205,8 +218,8 @@ public class ItemPreviewController implements Initializable, Updateable {
 	private boolean hideEquipStats() {
 		boolean hide = true;
 
-		for(ItemStat itemStat : item.getStats()) {
-			if(itemStat.getType() > 7) {
+		for(int type : item.getStatTypes()) {
+			if(type > 7) {
 				hide = false;
 				break;
 			}
@@ -216,7 +229,8 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private boolean hideResistance() {
-		return item.getResistance().allZero();
+		int[] resistance = item.getResistance();
+		return resistance[0] == 0 && NumberUtil.isAllSameNumber(resistance);
 	}
 
 	private boolean hideSocket() {
@@ -226,7 +240,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private String getCharacterClasses() {
-		List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.CLASSES);
+		List<Identifier> identifiers = DelimiterReader.readColumns(CommonCSV.CLASSES);
 
 		StringBuilder builder = new StringBuilder();
 
@@ -237,7 +251,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private String getCharacterRaces() {
-		List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.RACES);
+		List<Identifier> identifiers = DelimiterReader.readColumns(CommonCSV.RACES);
 
 		StringBuilder builder = new StringBuilder();
 
@@ -263,7 +277,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	private void updateContent() {
 		List<Identifier> bondings = DelimiterReader.readColumns(ItemCSV.ITEM_BONDING);
 		List<Identifier> inventoryType = DelimiterReader.readColumns(ItemCSV.ITEM_INVENTORY_TYPE);
-		List<Identifier> subclass = DelimiterReader.getSubclasses(item.getiClass());
+		List<Identifier> subclass = DelimiterReader.getSubclasses(item.get_class());
 
 		long[] sellMoney = MoneyUtil.totalToGSC(item.getSellPrice());
 		long[] buyMoney = MoneyUtil.totalToGSC(item.getBuyPrice());
@@ -300,26 +314,26 @@ public class ItemPreviewController implements Initializable, Updateable {
 	}
 
 	private void updateVisibility() {
-		NodeUtil.toggle(labelBonding, item.getBonding() != 0); // 0 = NO_BOUNDS
-		NodeUtil.toggle(labelUnique, item.getMaxCount() != 0); // no max count
-		NodeUtil.toggle(labelSlot, item.getInventoryType() != 0); // 0 = NON_EQUIPABLE
-		NodeUtil.toggle(labelType, item.getiClass() != 12); //
-		NodeUtil.toggle(gpSlotType, labelSlot.isVisible() || labelType.isVisible());
-		NodeUtil.toggle(paneDamage, item.getiClass() == 2); // 2 = WEAPON
-		NodeUtil.toggle(labelDPS, item.getiClass() == 2); // 2 = WEAPON
-		NodeUtil.toggle(hboxArmor, item.getArmor() != 0);
-		NodeUtil.toggle(hboxBlock, item.getBlock() != 0);
-		NodeUtil.toggle(vboxStats, item.getStatsCount() != 0);
-		NodeUtil.toggle(vboxEquipStats, !hideEquipStats());
-		NodeUtil.toggle(vboxResistance, !hideResistance());
-		NodeUtil.toggle(vboxSocket, !hideSocket());
-		NodeUtil.toggle(hboxClasses, item.getAllowableClass() != -1); // -1 = all classes
-		NodeUtil.toggle(hboxRaces, item.getAllowableRace() != -1); // -1 = all races
-		NodeUtil.toggle(hboxDurability, item.getMaxDurability() > 0);
-		NodeUtil.toggle(hboxRequiredLevel, item.getRequiredLevel() > 0);
-		NodeUtil.toggle(hboxItemLevel, item.getRequiredLevel() > 0);
-		NodeUtil.toggle(hboxSellPrice, item.getSellPrice() > 0);
-		NodeUtil.toggle(hboxBuyPrice, item.getBuyPrice() > 0);
-		NodeUtil.toggle(labelDescription, !item.getDescription().isEmpty());
+		UtilityUI.toggle(labelBonding, item.getBonding() != 0); // 0 = NO_BOUNDS
+		UtilityUI.toggle(labelUnique, item.getMaxCount() != 0); // no max count
+		UtilityUI.toggle(labelSlot, item.getInventoryType() != 0); // 0 = NON_EQUIPABLE
+		UtilityUI.toggle(labelType, item.get_class() != 12); //
+		UtilityUI.toggle(gpSlotType, labelSlot.isVisible() || labelType.isVisible());
+		UtilityUI.toggle(paneDamage, item.get_class() == 2); // 2 = WEAPON
+		UtilityUI.toggle(labelDPS, item.get_class() == 2); // 2 = WEAPON
+		UtilityUI.toggle(hboxArmor, item.getArmor() != 0);
+		UtilityUI.toggle(hboxBlock, item.getBlock() != 0);
+		UtilityUI.toggle(vboxStats, item.getStatsCount() != 0);
+		UtilityUI.toggle(vboxEquipStats, !hideEquipStats());
+		UtilityUI.toggle(vboxResistance, !hideResistance());
+		UtilityUI.toggle(vboxSocket, !hideSocket());
+		UtilityUI.toggle(hboxClasses, item.getAllowableClass() != -1); // -1 = all classes
+		UtilityUI.toggle(hboxRaces, item.getAllowableRace() != -1); // -1 = all races
+		UtilityUI.toggle(hboxDurability, item.getMaxDurability() > 0);
+		UtilityUI.toggle(hboxRequiredLevel, item.getRequiredLevel() > 0);
+		UtilityUI.toggle(hboxItemLevel, item.getRequiredLevel() > 0);
+		UtilityUI.toggle(hboxSellPrice, item.getSellPrice() > 0);
+		UtilityUI.toggle(hboxBuyPrice, item.getBuyPrice() > 0);
+		UtilityUI.toggle(labelDescription, !item.getDescription().isEmpty());
 	}
 }

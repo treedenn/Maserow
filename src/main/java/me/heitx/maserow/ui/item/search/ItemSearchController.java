@@ -4,13 +4,12 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.util.Callback;
-import me.heitx.maserow.converter.Converter;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.ui.common.SearchController;
+import me.heitx.maserow.utils.ConverterUtil;
 
 import java.net.URL;
 import java.util.List;
@@ -42,7 +41,7 @@ public class ItemSearchController extends SearchController<Item> {
 			search = Database.getInstance().getItemDAO().search(Integer.parseInt(tfEntry.getText()), tfName.getText(), 100);
 		}
 
-		items = Converter.getInstance().toItems(search);
+		items = ConverterUtil.toObjects(Item.class, search);
 		tvSearch.setItems(FXCollections.observableList(items));
 	}
 }

@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import me.heitx.maserow.converter.Converter;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.IClient;
 import me.heitx.maserow.database.IDatabase;
@@ -60,7 +59,6 @@ public class LoginController implements Initializable {
 		String world = tfWorld.getText();
 
 		Database.select(Database.Type.TRINITY);
-		Converter.select(Converter.Type.TRINITY);
 
 		IClient client = new MySqlClient(hostname, username, password, port, auth, characters, world);
 		IDatabase db = Database.getInstance();

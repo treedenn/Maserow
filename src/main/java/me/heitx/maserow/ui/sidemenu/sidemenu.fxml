@@ -29,6 +29,17 @@
             <Button fx:id="btnItemTemplate" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Template" />
          </children>
       </VBox>
+      <Button fx:id="btnQuest" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Quest" />
+      <VBox fx:id="vboxQuest">
+         <children>
+            <Button fx:id="btnQuestSearch" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Search">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnQuestTemplate" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Template" />
+         </children>
+      </VBox>
       <Button fx:id="btnSQL" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="SQL" />
       <Pane prefHeight="100.0" VBox.vgrow="ALWAYS" />
       <Button fx:id="btnSettings" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Settings" />

@@ -6,30 +6,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import me.heitx.maserow.converter.Converter;
-import me.heitx.maserow.converter.IConverter;
+import javafx.stage.Window;
 import me.heitx.maserow.database.Database;
-import me.heitx.maserow.database.dao.ItemDAO;
+import me.heitx.maserow.database.dao.IItemDAO;
 import me.heitx.maserow.model.Item;
-import me.heitx.maserow.query.TrinityItemQuery;
-import me.heitx.maserow.ui.NodeUtil;
 import me.heitx.maserow.ui.Updateable;
+import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.ui.item.template.build.ItemBuildController;
 import me.heitx.maserow.ui.item.template.preview.ItemPreviewController;
+import me.heitx.maserow.utils.ConverterUtil;
+import me.heitx.maserow.utils.query.TrinityItemQuery;
 
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ItemTemplateController implements Initializable, Updateable {
@@ -51,7 +48,7 @@ public class ItemTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		NodeUtil.hide(preview);
+		UtilityUI.hide(preview);
 
 		update();
 
@@ -83,11 +80,15 @@ public class ItemTemplateController implements Initializable, Updateable {
 
 	private void onButtonExecuteAction(ActionEvent event) {
 		if(item != null) {
-			ItemDAO dao = Database.getInstance().getItemDAO();
-			Map<String, Object> attributes = Converter.getInstance().toMap(item);
+			IItemDAO dao = Database.getInstance().getItemDAO();
+			Map<String, Object> attributes = ConverterUtil.toAttributes(item);
 
 			if(dao.exists(item.getEntry())) {
-				dao.update(attributes);
+				Optional<ButtonType> alert = UtilityUI.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already an item with given identifier! " +
+						"Do you want to overwrite the old item with the new one?", ButtonType.NO, ButtonType.YES);
+				if(alert.isPresent() && alert.get() == ButtonType.YES) {
+					dao.update(attributes);
+				}
 			} else {
 				dao.insert(attributes);
 			}
@@ -95,26 +96,27 @@ public class ItemTemplateController implements Initializable, Updateable {
 	}
 
 	private void onMenuButtonAction(ActionEvent event) {
-		IConverter converter = Converter.getInstance();
-		Map<String, Object> attributes = converter.toMap(item);
+		Map<String, Object> attributes = ConverterUtil.toAttributes(item);
+		final String initialFileName = "item:" + item.getName().replaceAll(" ", "-") + ":" + item.getEntry();
+		final Window window = btnExecute.getScene().getWindow();
 
 		if(event.getSource() == miInsert) {
-			saveSql("Save Insert Query", TrinityItemQuery.getInsertItemQuery(attributes, true));
+			UtilityUI.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
 		} else if(event.getSource() == miUpdate) {
-			saveSql("Save Update Query", TrinityItemQuery.getInsertItemQuery(attributes, true));
+			UtilityUI.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
 		} else if(event.getSource() == miDelete) {
-			saveSql("Save Delete Query", TrinityItemQuery.getInsertItemQuery(attributes, true));
+			UtilityUI.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
 		}
 	}
 
 	private void onCheckBoxPreviewAction(ActionEvent event) {
 		if(cbPreview.isSelected()) {
 			previewController.update();
-			NodeUtil.show(preview);
-			NodeUtil.hide(build);
+			UtilityUI.show(preview);
+			UtilityUI.hide(build);
 		} else {
-			NodeUtil.show(build);
-			NodeUtil.hide(preview);
+			UtilityUI.show(build);
+			UtilityUI.hide(preview);
 		}
 	}
 
@@ -134,29 +136,6 @@ public class ItemTemplateController implements Initializable, Updateable {
 			try {
 				WritableImage snapshot = preview.snapshot(new SnapshotParameters(), null);
 				ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", selectedFile);
-			} catch(IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	private void saveSql(String title, String query) {
-		FileChooser fc = new FileChooser();
-		fc.setTitle(title);
-		fc.setInitialFileName(item.getName().replaceAll(" ", "-") + ":" + item.getEntry());
-		fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Structured Query Language", "*.sql"));
-
-		File selectedFile = fc.showSaveDialog(vboxTemplate.getScene().getWindow());
-		if(selectedFile != null) {
-			if(!selectedFile.getName().endsWith(".sql")) {
-				selectedFile = new File(selectedFile + ".sql");
-			}
-
-			try {
-				FileOutputStream fos = new FileOutputStream(selectedFile);
-				fos.write(query.getBytes());
-				fos.flush();
-				fos.close();
 			} catch(IOException e) {
 				e.printStackTrace();
 			}

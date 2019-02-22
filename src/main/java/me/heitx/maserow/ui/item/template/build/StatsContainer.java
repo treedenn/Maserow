@@ -12,8 +12,7 @@ import javafx.scene.layout.VBox;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
-import me.heitx.maserow.model.ItemStat;
-import me.heitx.maserow.ui.NodeUtil;
+import me.heitx.maserow.ui.UtilityUI;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,35 +23,48 @@ public class StatsContainer extends VBox {
 	private LinkedList<HBoxStat> linkedChildren;
 	private final int MAX_STATS = 10;
 
-	private List<ItemStat> stats;
+	private int[] types;
+	private int[] values;
 
-	public StatsContainer(List<ItemStat> stats) {
+	public StatsContainer(int[] types, int[] values) {
 		this.statTypes = DelimiterReader.readColumns(ItemCSV.ITEM_STAT_TYPES);
-		this.stats = stats;
+		this.types = types;
+		this.values = values;
 		this.linkedChildren = new LinkedList<>();
 
-		for(ItemStat stat : stats) {
-			if(stat.getValue() != 0) {
-				addHBoxStat(stat);
+		for(int i = 0; i < types.length; i++) {
+			if(values[i] != 0) {
+				addHBoxStat(types[i], values[i]);
 			}
 		}
 
 		if(linkedChildren.size() == 0) {
-			addHBoxStat(null);
+			addHBoxStat(0, 0);
 		}
 	}
 
-	public List<ItemStat> getItemStats() {
-		for(int i = 0; i < linkedChildren.size(); i++) {
-			HBoxStat child = linkedChildren.get(i);
-			stats.set(i, new ItemStat(child.getStatType(), child.getStatValue()));
+	public int[] getTypes() {
+		for(int i = 0; i < MAX_STATS; i++) {
+			if(i < linkedChildren.size()) {
+				types[i] = linkedChildren.get(i).getStatType();
+			} else {
+				types[i] = 0;
+			}
 		}
 
-		for(int i = linkedChildren.size(); i < stats.size(); i++) {
-			stats.set(i, new ItemStat());
+		return types;
+	}
+
+	public int[] getValues() {
+		for(int i = 0; i < MAX_STATS; i++) {
+			if(i < linkedChildren.size()) {
+				values[i] = linkedChildren.get(i).getStatValue();
+			} else {
+				values[i] = 0;
+			}
 		}
 
-		return stats;
+		return values;
 	}
 
 	public int getStatsCount() {
@@ -66,7 +78,7 @@ public class StatsContainer extends VBox {
 		return count;
 	}
 
-	private void addHBoxStat(ItemStat stat) {
+	private void addHBoxStat(int type, int value) {
 		if(linkedChildren.size() < MAX_STATS) {
 			// if a child already exists, then hide the add icon on the previous hbox stat before adding
 			if(linkedChildren.size() > 0) {
@@ -77,7 +89,7 @@ public class StatsContainer extends VBox {
 				linkedChildren.getLast().showRemoveIcon();
 			}
 
-			HBoxStat hbox = new HBoxStat(stat);
+			HBoxStat hbox = new HBoxStat(type, value);
 			this.getChildren().add(hbox);
 			this.linkedChildren.add(hbox);
 
@@ -108,7 +120,7 @@ public class StatsContainer extends VBox {
 		ComboBox<Identifier> cbStatType;
 		TextField tfStatValue;
 
-		public HBoxStat(ItemStat stat) {
+		public HBoxStat(int type, int value) {
 			super(5);
 
 			iconRemove = new FontAwesomeIconView(FontAwesomeIcon.MINUS);
@@ -122,21 +134,16 @@ public class StatsContainer extends VBox {
 			iconRemove.setOnMouseClicked(this::onMouseClickIconRemove);
 			iconAdd.setOnMouseClicked(this::onMouseClickIconAdd);
 
-			NodeUtil.showOnlyNameOnCombobox(cbStatType);
+			UtilityUI.showOnlyNameOnCombobox(cbStatType);
 
-			if(stat != null) {
-				cbStatType.getSelectionModel().select(Identifier.findById(statTypes, stat.getType()));
-				tfStatValue.setText(String.valueOf(stat.getValue()));
-			} else {
-				cbStatType.getSelectionModel().select(0);
-				tfStatValue.setText("0");
-			}
+			cbStatType.getSelectionModel().select(Identifier.findById(statTypes, type));
+			tfStatValue.setText(String.valueOf(value));
 
 			super.getChildren().addAll(new StackPane(iconRemove), new StackPane(iconAdd), cbStatType, tfStatValue);
 		}
 
 		public int getStatType() {
-			return  cbStatType.getSelectionModel().getSelectedItem().getId();
+			return cbStatType.getSelectionModel().getSelectedItem().getId();
 		}
 
 		public int getStatValue() {
@@ -160,7 +167,7 @@ public class StatsContainer extends VBox {
 		}
 
 		private void onMouseClickIconAdd(MouseEvent event) {
-			StatsContainer.this.addHBoxStat(null);
+			StatsContainer.this.addHBoxStat(0, 0);
 		}
 
 		private void onMouseClickIconRemove(MouseEvent event) {

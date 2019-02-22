@@ -1,807 +1,180 @@
 package me.heitx.maserow.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class Item {
-	private int entry;
-	private int iClass;
-	private int subclass;
-	private String name;
-	private int displayId;
-	private int quality;
-	private long itemFlags;
-	private long itemFlagsExtra;
-	private int buyCount;
-	private long buyPrice;
-	private long sellPrice;
-	private int inventoryType;
-	private int allowableClass;
-	private int allowableRace;
-	private int itemLevel;
-	private int requiredLevel;
-	private int requiredSkill;
-	private int requiredSkillRank;
-	private int requiredSpell;
-	private int requiredHonorRank;
-	private int requiredCityRank;
-	private int requiredReputationFaction;
-	private int requiredReputationRank;
-	private int maxCount;
-	private int stackable;
-	private int containerSlots;
-	private int statsCount;
-	private List<ItemStat> stats;
-	private int scalingStatDistribution;
-	private long scalingStatValue;
-	private float damageMinimum1;
-	private float damageMaximum1;
-	private int damageType1;
-	private float damageMinimum2;
-	private float damageMaximum2;
-	private int damageType2;
-	private int armor;
-	private Resistance resistance;
-	private int delay;
-	private int ammoType;
-	private float rangedModRange;
-	private List<ItemSpell> spells;
-	private int bonding;
-	private String description;
-	private int page;
-	private int languageId;
-	private int pageMaterial;
-	private int startQuest;
-	private int lockId;
-	private int material;
-	private int sheath;
-	private int randomProperty;
-	private int randomSuffix;
-	private int block;
-	private int itemSet;
-	private int maxDurability;
-	private int area;
-	private int map;
-	private int bagFamily;
-	private int totemCategory;
-	private int socketColor_1;
-	private int socketContent_1;
-	private int socketColor_2;
-	private int socketContent_2;
-	private int socketColor_3;
-	private int socketContent_3;
-	private int socketBonus;
-	private int gemProperties;
-	private int requiredDisenchantSkill;
-	private float armorDamageModifier;
-	private long duration;
-	private int itemLimitCategory;
-	private long holidayId;
-	private String scriptName;
-	private int disenchantID;
-	private int foodType;
-	private long minMoneyLoot;
-	private long maxMoneyLoot;
-	private long flagsCustom;
+	@Column("entry") private int entry;
+	@Column("class") private int _class;
+	@Column("subclass") private int subclass;
+	@Column("name") private String name;
+	@Column("displayid") private int displayId;
+	@Column("Quality") private int quality;
+	@Column("Flags") private long itemFlags;
+	@Column("FlagsExtra") private long itemFlagsExtra;
+	@Column("BuyCount") private int buyCount;
+	@Column("BuyPrice") private long buyPrice;
+	@Column("SellPrice") private long sellPrice;
+	@Column("InventoryType") private int inventoryType;
+	@Column("AllowableClass") private int allowableClass;
+	@Column("AllowableRace") private int allowableRace;
+	@Column("ItemLevel") private int itemLevel;
+	@Column("RequiredLevel") private int requiredLevel;
+	@Column("RequiredSkill") private int requiredSkill;
+	@Column("RequiredSkillRank") private int requiredSkillRank;
+	@Column("requiredspell") private int requiredSpell;
+	@Column("requiredhonorrank") private int requiredHonorRank;
+	@Column("RequiredCityRank") private int requiredCityRank;
+	@Column("RequiredReputationFaction") private int requiredReputationFaction;
+	@Column("RequiredReputationRank") private int requiredReputationRank;
+	@Column("maxcount") private int maxCount;
+	@Column("stackable") private int stackable;
+	@Column("ContainerSlots") private int containerSlots;
+	@Column("StatsCount") private int statsCount;
+	@Column("stat_type1") private int statType1;
+	@Column("stat_value1") private int statValue1;
+	@Column("stat_type2") private int statType2;
+	@Column("stat_value2") private int statValue2;
+	@Column("stat_type3") private int statType3;
+	@Column("stat_value3") private int statValue3;
+	@Column("stat_type4") private int statType4;
+	@Column("stat_value4") private int statValue4;
+	@Column("stat_type5") private int statType5;
+	@Column("stat_value5") private int statValue5;
+	@Column("stat_type6") private int statType6;
+	@Column("stat_value6") private int statValue6;
+	@Column("stat_type7") private int statType7;
+	@Column("stat_value7") private int statValue7;
+	@Column("stat_type8") private int statType8;
+	@Column("stat_value8") private int statValue8;
+	@Column("stat_type9") private int statType9;
+	@Column("stat_value9") private int statValue9;
+	@Column("stat_type10") private int statType10;
+	@Column("stat_value10") private int statValue10;
+	@Column("ScalingStatDistribution") private int scalingStatDistribution;
+	@Column("ScalingStatValue") private long scalingStatValue;
+	@Column("dmg_min1") private float damageMinimum1;
+	@Column("dmg_max1") private float damageMaximum1;
+	@Column("dmg_type1") private int damageType1;
+	@Column("dmg_min2") private float damageMinimum2;
+	@Column("dmg_max2") private float damageMaximum2;
+	@Column("dmg_type2") private int damageType2;
+	@Column("armor") private int armor;
+	@Column("holy_res") private int holyRes;
+	@Column("fire_res") private int fireRes;
+	@Column("nature_res") private int natureRes;
+	@Column("frost_res") private int frostRes;
+	@Column("shadow_res") private int shadowRes;
+	@Column("arcane_res") private int arcaneRes;
+	@Column("delay") private int delay;
+	@Column("ammo_type") private int ammoType;
+	@Column("RangedModRange") private float rangedModRange;
+	@Column("spellid_1") private int spellId1;
+	@Column("spelltrigger_1") private int spellTrigger1;
+	@Column("spellcharges_1") private int spellCharges1;
+	@Column("spellppmrate_1") private float spellPpmRate1;
+	@Column("spellcooldown_1") private int spellCooldown1;
+	@Column("spellcategory_1") private int spellCategory1;
+	@Column("spellcategorycooldown_1") private int spellCategoryCooldown1;
+	@Column("spellid_2") private int SpellId2;
+	@Column("spelltrigger_2") private int spellTrigger2;
+	@Column("spellcharges_2") private int spellCharges2;
+	@Column("spellppmrate_2") private float spellPpmRate2;
+	@Column("spellcooldown_2") private int spellCooldown2;
+	@Column("spellcategory_2") private int spellCategory2;
+	@Column("spellcategorycooldown_2") private int spellCategoryCooldown2;
+	@Column("spellid_3") private int SpellId3;
+	@Column("spelltrigger_3") private int spellTrigger3;
+	@Column("spellcharges_3") private int spellCharges3;
+	@Column("spellppmrate_3") private float spellPpmRate3;
+	@Column("spellcooldown_3") private int spellCooldown3;
+	@Column("spellcategory_3") private int spellCategory3;
+	@Column("spellcategorycooldown_3") private int spellCategoryCooldown3;
+	@Column("spellid_4") private int SpellId4;
+	@Column("spelltrigger_4") private int spellTrigger4;
+	@Column("spellcharges_4") private int spellCharges4;
+	@Column("spellppmrate_4") private float spellPpmRate4;
+	@Column("spellcooldown_4") private int spellCooldown4;
+	@Column("spellcategory_4") private int spellCategory4;
+	@Column("spellcategorycooldown_4") private int spellCategoryCooldown4;
+	@Column("spellid_5") private int SpellId5;
+	@Column("spelltrigger_5") private int spellTrigger5;
+	@Column("spellcharges_5") private int spellCharges5;
+	@Column("spellppmrate_5") private float spellPpmRate5;
+	@Column("spellcooldown_5") private int spellCooldown5;
+	@Column("spellcategory_5") private int spellCategory5;
+	@Column("spellcategorycooldown_5") private int spellCategoryCooldown5;
+	@Column("bonding") private int bonding;
+	@Column("description") private String description;
+	@Column("PageText") private int page;
+	@Column("LanguageID") private int languageId;
+	@Column("PageMaterial") private int pageMaterial;
+	@Column("startquest") private int startQuest;
+	@Column("lockid") private int lockId;
+	@Column("Material") private int material;
+	@Column("sheath") private int sheath;
+	@Column("RandomProperty") private int randomProperty;
+	@Column("RandomSuffix") private int randomSuffix;
+	@Column("block") private int block;
+	@Column("itemset") private int itemSet;
+	@Column("MaxDurability") private int maxDurability;
+	@Column("area") private int area;
+	@Column("Map") private int map;
+	@Column("BagFamily") private int bagFamily;
+	@Column("TotemCategory") private int totemCategory;
+	@Column("socketColor_1") private int socketColor_1;
+	@Column("socketContent_1") private int socketContent_1;
+	@Column("socketColor_2") private int socketColor_2;
+	@Column("socketContent_2") private int socketContent_2;
+	@Column("socketColor_3") private int socketColor_3;
+	@Column("socketContent_3") private int socketContent_3;
+	@Column("socketBonus") private int socketBonus;
+	@Column("GemProperties") private int gemProperties;
+	@Column("RequiredDisenchantSkill") private int requiredDisenchantSkill;
+	@Column("ArmorDamageModifier") private float armorDamageModifier;
+	@Column("duration") private long duration;
+	@Column("ItemLimitCategory") private int itemLimitCategory;
+	@Column("HolidayId") private long holidayId;
+	@Column("ScriptName") private String scriptName;
+	@Column("DisenchantID") private int disenchantID;
+	@Column("FoodType") private int foodType;
+	@Column("minMoneyLoot") private int minMoneyLoot;
+	@Column("maxMoneyLoot") private int maxMoneyLoot;
+	@Column("flagsCustom") private long flagsCustom;
 
 	public Item() {
 		reset();
 	}
 
-	public int getEntry() {
-		return entry;
-	}
-
-	public Item setEntry(int entry) {
-		this.entry = entry;
-		return this;
-	}
-
-	public int getiClass() {
-		return iClass;
-	}
-
-	public Item setiClass(int iClass) {
-		this.iClass = iClass;
-		return this;
-	}
-
-	public int getSubclass() {
-		return subclass;
-	}
-
-	public Item setSubclass(int subclass) {
-		this.subclass = subclass;
-		return this;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Item setName(String name) {
-		this.name = name;
-		return this;
-	}
-
-	public int getDisplayId() {
-		return displayId;
-	}
-
-	public Item setDisplayId(int displayId) {
-		this.displayId = displayId;
-		return this;
-	}
-
-	public int getQuality() {
-		return quality;
-	}
-
-	public Item setQuality(int quality) {
-		this.quality = quality;
-		return this;
-	}
-
-	public long getItemFlags() {
-		return itemFlags;
-	}
-
-	public Item setItemFlags(long itemFlags) {
-		this.itemFlags = itemFlags;
-		return this;
-	}
-
-	public long getItemFlagsExtra() {
-		return itemFlagsExtra;
-	}
-
-	public Item setItemFlagsExtra(long itemFlagsExtra) {
-		this.itemFlagsExtra = itemFlagsExtra;
-		return this;
-	}
-
-	public int getBuyCount() {
-		return buyCount;
-	}
-
-	public Item setBuyCount(int buyCount) {
-		this.buyCount = buyCount;
-		return this;
-	}
-
-	public long getBuyPrice() {
-		return buyPrice;
-	}
-
-	public Item setBuyPrice(long buyPrice) {
-		this.buyPrice = buyPrice;
-		return this;
-	}
-
-	public long getSellPrice() {
-		return sellPrice;
-	}
-
-	public Item setSellPrice(long sellPrice) {
-		this.sellPrice = sellPrice;
-		return this;
-	}
-
-	public int getInventoryType() {
-		return inventoryType;
-	}
-
-	public Item setInventoryType(int inventoryType) {
-		this.inventoryType = inventoryType;
-		return this;
-	}
-
-	public long getAllowableClass() {
-		return allowableClass;
-	}
-
-	public Item setAllowableClass(int allowableClass) {
-		this.allowableClass = allowableClass;
-		return this;
-	}
-
-	public long getAllowableRace() {
-		return allowableRace;
-	}
-
-	public Item setAllowableRace(int allowableRace) {
-		this.allowableRace = allowableRace;
-		return this;
-	}
-
-	public int getItemLevel() {
-		return itemLevel;
-	}
-
-	public Item setItemLevel(int itemLevel) {
-		this.itemLevel = itemLevel;
-		return this;
-	}
-
-	public int getRequiredLevel() {
-		return requiredLevel;
-	}
-
-	public Item setRequiredLevel(int requiredLevel) {
-		this.requiredLevel = requiredLevel;
-		return this;
-	}
-
-	public int getRequiredSkill() {
-		return requiredSkill;
-	}
-
-	public Item setRequiredSkill(int requiredSkill) {
-		this.requiredSkill = requiredSkill;
-		return this;
-	}
-
-	public int getRequiredSkillRank() {
-		return requiredSkillRank;
-	}
-
-	public Item setRequiredSkillRank(int requiredSkillRank) {
-		this.requiredSkillRank = requiredSkillRank;
-		return this;
-	}
-
-	public int getRequiredSpell() {
-		return requiredSpell;
-	}
-
-	public Item setRequiredSpell(int requiredSpell) {
-		this.requiredSpell = requiredSpell;
-		return this;
-	}
-
-	public int getRequiredHonorRank() {
-		return requiredHonorRank;
-	}
-
-	public Item setRequiredHonorRank(int requiredHonorRank) {
-		this.requiredHonorRank = requiredHonorRank;
-		return this;
-	}
-
-	public int getRequiredCityRank() {
-		return requiredCityRank;
-	}
-
-	public Item setRequiredCityRank(int requiredCityRank) {
-		this.requiredCityRank = requiredCityRank;
-		return this;
-	}
-
-	public int getRequiredReputationFaction() {
-		return requiredReputationFaction;
-	}
-
-	public Item setRequiredReputationFaction(int requiredReputationFaction) {
-		this.requiredReputationFaction = requiredReputationFaction;
-		return this;
-	}
-
-	public int getRequiredReputationRank() {
-		return requiredReputationRank;
-	}
-
-	public Item setRequiredReputationRank(int requiredReputationRank) {
-		this.requiredReputationRank = requiredReputationRank;
-		return this;
-	}
-
-	public int getMaxCount() {
-		return maxCount;
-	}
-
-	public Item setMaxCount(int maxCount) {
-		this.maxCount = maxCount;
-		return this;
-	}
-
-	public int getStackable() {
-		return stackable;
-	}
-
-	public Item setStackable(int stackable) {
-		this.stackable = stackable;
-		return this;
-	}
-
-	public int getContainerSlots() {
-		return containerSlots;
-	}
-
-	public Item setContainerSlots(int containerSlots) {
-		this.containerSlots = containerSlots;
-		return this;
-	}
-
-	public int getStatsCount() {
-		return statsCount;
-	}
-
-	public Item setStatsCount(int statsCount) {
-		this.statsCount = statsCount;
-		return this;
-	}
-
-	public List<ItemStat> getStats() {
-		return stats;
-	}
-
-	public Item setStats(List<ItemStat> stats) {
-		this.stats = stats;
-		return this;
-	}
-
-	public int getScalingStatDistribution() {
-		return scalingStatDistribution;
-	}
-
-	public Item setScalingStatDistribution(int scalingStatDistribution) {
-		this.scalingStatDistribution = scalingStatDistribution;
-		return this;
-	}
-
-	public long getScalingStatValue() {
-		return scalingStatValue;
-	}
-
-	public Item setScalingStatValue(long scalingStatValue) {
-		this.scalingStatValue = scalingStatValue;
-		return this;
-	}
-
-	public float getDamageMinimum1() {
-		return damageMinimum1;
-	}
-
-	public Item setDamageMinimum1(float damageMinimum1) {
-		this.damageMinimum1 = damageMinimum1;
-		return this;
-	}
-
-	public float getDamageMaximum1() {
-		return damageMaximum1;
-	}
-
-	public Item setDamageMaximum1(float damageMaximum1) {
-		this.damageMaximum1 = damageMaximum1;
-		return this;
-	}
-
-	public int getDamageType1() {
-		return damageType1;
-	}
-
-	public Item setDamageType1(int damageType1) {
-		this.damageType1 = damageType1;
-		return this;
-	}
-
-	public float getDamageMinimum2() {
-		return damageMinimum2;
-	}
-
-	public Item setDamageMinimum2(float damageMinimum2) {
-		this.damageMinimum2 = damageMinimum2;
-		return this;
-	}
-
-	public float getDamageMaximum2() {
-		return damageMaximum2;
-	}
-
-	public Item setDamageMaximum2(float damageMaximum2) {
-		this.damageMaximum2 = damageMaximum2;
-		return this;
-	}
-
-	public int getDamageType2() {
-		return damageType2;
-	}
-
-	public Item setDamageType2(int damageType2) {
-		this.damageType2 = damageType2;
-		return this;
-	}
-
-	public int getArmor() {
-		return armor;
-	}
-
-	public Item setArmor(int armor) {
-		this.armor = armor;
-		return this;
-	}
-
-	public Resistance getResistance() {
-		return resistance;
-	}
-
-	public Item setResistance(Resistance resistance) {
-		this.resistance = resistance;
-		return this;
-	}
-
-	public int getDelay() {
-		return delay;
-	}
-
-	public Item setDelay(int delay) {
-		this.delay = delay;
-		return this;
-	}
-
-	public int getAmmoType() {
-		return ammoType;
-	}
-
-	public Item setAmmoType(int ammoType) {
-		this.ammoType = ammoType;
-		return this;
-	}
-
-	public float getRangedModRange() {
-		return rangedModRange;
-	}
-
-	public Item setRangedModRange(float rangedModRange) {
-		this.rangedModRange = rangedModRange;
-		return this;
-	}
-
-	public List<ItemSpell> getSpells() {
-		return spells;
-	}
-
-	public Item setSpells(List<ItemSpell> spells) {
-		this.spells = spells;
-		return this;
-	}
-
-	public int getBonding() {
-		return bonding;
-	}
-
-	public Item setBonding(int bonding) {
-		this.bonding = bonding;
-		return this;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public Item setDescription(String description) {
-		this.description = description;
-		return this;
-	}
-
-	public int getPage() {
-		return page;
-	}
-
-	public Item setPage(int page) {
-		this.page = page;
-		return this;
-	}
-
-	public int getLanguageId() {
-		return languageId;
-	}
-
-	public Item setLanguageId(int languageId) {
-		this.languageId = languageId;
-		return this;
-	}
-
-	public int getPageMaterial() {
-		return pageMaterial;
-	}
-
-	public Item setPageMaterial(int pageMaterial) {
-		this.pageMaterial = pageMaterial;
-		return this;
-	}
-
-	public int getStartQuest() {
-		return startQuest;
-	}
-
-	public Item setStartQuest(int startQuest) {
-		this.startQuest = startQuest;
-		return this;
-	}
-
-	public int getLockId() {
-		return lockId;
-	}
-
-	public Item setLockId(int lockId) {
-		this.lockId = lockId;
-		return this;
-	}
-
-	public int getMaterial() {
-		return material;
-	}
-
-	public Item setMaterial(int material) {
-		this.material = material;
-		return this;
-	}
-
-	public int getSheath() {
-		return sheath;
-	}
-
-	public Item setSheath(int sheath) {
-		this.sheath = sheath;
-		return this;
-	}
-
-	public int getRandomProperty() {
-		return randomProperty;
-	}
-
-	public Item setRandomProperty(int randomProperty) {
-		this.randomProperty = randomProperty;
-		return this;
-	}
-
-	public int getRandomSuffix() {
-		return randomSuffix;
-	}
-
-	public Item setRandomSuffix(int randomSuffix) {
-		this.randomSuffix = randomSuffix;
-		return this;
-	}
-
-	public int getBlock() {
-		return block;
-	}
-
-	public Item setBlock(int block) {
-		this.block = block;
-		return this;
-	}
-
-	public int getItemSet() {
-		return itemSet;
-	}
-
-	public Item setItemSet(int itemSet) {
-		this.itemSet = itemSet;
-		return this;
-	}
-
-	public int getMaxDurability() {
-		return maxDurability;
-	}
-
-	public Item setMaxDurability(int maxDurability) {
-		this.maxDurability = maxDurability;
-		return this;
-	}
-
-	public int getArea() {
-		return area;
-	}
-
-	public Item setArea(int area) {
-		this.area = area;
-		return this;
-	}
-
-	public int getMap() {
-		return map;
-	}
-
-	public Item setMap(int map) {
-		this.map = map;
-		return this;
-	}
-
-	public int getBagFamily() {
-		return bagFamily;
-	}
-
-	public Item setBagFamily(int bagFamily) {
-		this.bagFamily = bagFamily;
-		return this;
-	}
-
-	public int getTotemCategory() {
-		return totemCategory;
-	}
-
-	public Item setTotemCategory(int totemCategory) {
-		this.totemCategory = totemCategory;
-		return this;
-	}
-
-	public int getSocketColor_1() {
-		return socketColor_1;
-	}
-
-	public Item setSocketColor_1(int socketColor_1) {
-		this.socketColor_1 = socketColor_1;
-		return this;
-	}
-
-	public int getSocketContent_1() {
-		return socketContent_1;
-	}
-
-	public Item setSocketContent_1(int socketContent_1) {
-		this.socketContent_1 = socketContent_1;
-		return this;
-	}
-
-	public int getSocketColor_2() {
-		return socketColor_2;
-	}
-
-	public Item setSocketColor_2(int socketColor_2) {
-		this.socketColor_2 = socketColor_2;
-		return this;
-	}
-
-	public int getSocketContent_2() {
-		return socketContent_2;
-	}
-
-	public Item setSocketContent_2(int socketContent_2) {
-		this.socketContent_2 = socketContent_2;
-		return this;
-	}
-
-	public int getSocketColor_3() {
-		return socketColor_3;
-	}
-
-	public Item setSocketColor_3(int socketColor_3) {
-		this.socketColor_3 = socketColor_3;
-		return this;
-	}
-
-	public int getSocketContent_3() {
-		return socketContent_3;
-	}
-
-	public Item setSocketContent_3(int socketContent_3) {
-		this.socketContent_3 = socketContent_3;
-		return this;
-	}
-
-	public int getSocketBonus() {
-		return socketBonus;
-	}
-
-	public Item setSocketBonus(int socketBonus) {
-		this.socketBonus = socketBonus;
-		return this;
-	}
-
-	public int getGemProperties() {
-		return gemProperties;
-	}
-
-	public Item setGemProperties(int gemProperties) {
-		this.gemProperties = gemProperties;
-		return this;
-	}
-
-	public int getRequiredDisenchantSkill() {
-		return requiredDisenchantSkill;
-	}
-
-	public Item setRequiredDisenchantSkill(int requiredDisenchantSkill) {
-		this.requiredDisenchantSkill = requiredDisenchantSkill;
-		return this;
-	}
-
-	public float getArmorDamageModifier() {
-		return armorDamageModifier;
-	}
-
-	public Item setArmorDamageModifier(float armorDamageModifier) {
-		this.armorDamageModifier = armorDamageModifier;
-		return this;
-	}
-
-	public long getDuration() {
-		return duration;
-	}
-
-	public Item setDuration(long duration) {
-		this.duration = duration;
-		return this;
-	}
-
-	public int getItemLimitCategory() {
-		return itemLimitCategory;
-	}
-
-	public Item setItemLimitCategory(int itemLimitCategory) {
-		this.itemLimitCategory = itemLimitCategory;
-		return this;
-	}
-
-	public long getHolidayId() {
-		return holidayId;
-	}
-
-	public Item setHolidayId(long holidayId) {
-		this.holidayId = holidayId;
-		return this;
-	}
-
-	public String getScriptName() {
-		return scriptName;
-	}
-
-	public Item setScriptName(String scriptName) {
-		this.scriptName = scriptName;
-		return this;
-	}
-
-	public int getDisenchantID() {
-		return disenchantID;
-	}
-
-	public Item setDisenchantID(int disenchantID) {
-		this.disenchantID = disenchantID;
-		return this;
-	}
-
-	public int getFoodType() {
-		return foodType;
-	}
-
-	public Item setFoodType(int foodType) {
-		this.foodType = foodType;
-		return this;
-	}
-
-	public long getMinMoneyLoot() {
-		return minMoneyLoot;
-	}
-
-	public Item setMinMoneyLoot(long minMoneyLoot) {
-		this.minMoneyLoot = minMoneyLoot;
-		return this;
-	}
-
-	public long getMaxMoneyLoot() {
-		return maxMoneyLoot;
-	}
-
-	public Item setMaxMoneyLoot(long maxMoneyLoot) {
-		this.maxMoneyLoot = maxMoneyLoot;
-		return this;
-	}
-
-	public long getFlagsCustom() {
-		return flagsCustom;
-	}
-
-	public Item setFlagsCustom(long flagsCustom) {
-		this.flagsCustom = flagsCustom;
-		return this;
+	public int[] getStatTypes() {
+		return new int[] {
+				statType1, statType2, statType3,
+				statType4, statType5, statType6,
+				statType7, statType8, statType9,
+				statType10
+		};
+	}
+
+	public int[] getStatValues() {
+		return new int[] {
+				statValue1, statValue2, statValue3,
+				statValue4, statValue5, statValue6,
+				statValue7, statValue8, statValue9,
+				statValue10
+		};
+	}
+
+	public int[] getResistance() {
+		return new int[] {
+				holyRes, fireRes, frostRes,
+				natureRes, shadowRes, arcaneRes
+		};
 	}
 
 	public void reset() {
 		entry = 0;
-		iClass = 0;
+		_class = 0;
 		subclass = 0;
 		name = "Default Template";
 		displayId = 0;
@@ -827,10 +200,26 @@ public class Item {
 		stackable = 1;
 		containerSlots = 0;
 		statsCount = 0;
-
-		stats = new ArrayList<>();
-		for(int i = 0; i < 10; i++) stats.add(new ItemStat());
-
+		statType1 = 0;
+		statValue1 = 0;
+		statType2 = 0;
+		statValue2 = 0;
+		statType3 = 0;
+		statValue3 = 0;
+		statType4 = 0;
+		statValue4 = 0;
+		statType5 = 0;
+		statValue5 = 0;
+		statType6 = 0;
+		statValue6 = 0;
+		statType7 = 0;
+		statValue7 = 0;
+		statType8 = 0;
+		statValue8 = 0;
+		statType9 = 0;
+		statValue9 = 0;
+		statType10 = 0;
+		statValue10 = 0;
 		scalingStatDistribution = 0;
 		scalingStatValue = 0;
 		damageMinimum1 = 0;
@@ -840,14 +229,50 @@ public class Item {
 		damageMaximum2 = 0;
 		damageType2 = 0;
 		armor = 0;
-		resistance = new Resistance();
+		holyRes = 0;
+		fireRes = 0;
+		natureRes = 0;
+		frostRes = 0;
+		shadowRes = 0;
+		arcaneRes = 0;
 		delay = 1000;
 		ammoType = 0;
 		rangedModRange = 0;
-
-		spells = new ArrayList<>();
-		for(int i = 0; i < 5; i++) spells.add(new ItemSpell());
-
+		spellId1 = 0;
+		spellTrigger1 = 0;
+		spellCharges1 = 0;
+		spellPpmRate1 = 0;
+		spellCooldown1 = -1;
+		spellCategory1 = 0;
+		spellCategoryCooldown1 = -1;
+		SpellId2 = 0;
+		spellTrigger2 = 0;
+		spellCharges2 = 0;
+		spellPpmRate2 = 0;
+		spellCooldown2 = -1;
+		spellCategory2 = 0;
+		spellCategoryCooldown2 = -1;
+		SpellId3 = 0;
+		spellTrigger3 = 0;
+		spellCharges3 = 0;
+		spellPpmRate3 = 0;
+		spellCooldown3 = -1;
+		spellCategory3 = 0;
+		spellCategoryCooldown3 = -1;
+		SpellId4 = 0;
+		spellTrigger4 = 0;
+		spellCharges4 = 0;
+		spellPpmRate4 = 0;
+		spellCooldown4 = -1;
+		spellCategory4 = 0;
+		spellCategoryCooldown4 = -1;
+		SpellId5 = 0;
+		spellTrigger5 = 0;
+		spellCharges5 = 0;
+		spellPpmRate5 = 0;
+		spellCooldown5 = -1;
+		spellCategory5 = 0;
+		spellCategoryCooldown5 = -1;
 		bonding = 0;
 		description = "";
 		page = 0;
