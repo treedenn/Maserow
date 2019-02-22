@@ -4,7 +4,6 @@ import me.heitx.maserow.database.IClient;
 import me.heitx.maserow.database.SqlDatabase;
 import me.heitx.maserow.database.dao.IQuestDAO;
 import me.heitx.maserow.query.Query;
-import me.heitx.maserow.utils.query.TrinityItemQuery;
 import me.heitx.maserow.utils.query.TrinityQuestQuery;
 
 import java.sql.PreparedStatement;
@@ -132,12 +131,16 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 				Query query = new Query()
 						.newlineFormat(true)
 						.select("*")
-						.from("quest_template")
-						.where("ID = " + entry)
-						.or("LogTitle LIKE '%" + name + "%'")
-						.limit(limit);
+						.from("quest_template");
 
-				PreparedStatement ps = conn.prepareStatement(query.buildSQL());
+				if(entry != 0) {
+					query.where("ID = " + entry);
+				}
+				if(!name.isEmpty()) {
+					query.or("LogTitle LIKE '%" + name + "%'");
+				}
+
+				PreparedStatement ps = conn.prepareStatement(query.limit(limit).buildSQL());
 				ResultSet rs = ps.executeQuery();
 
 				while(rs.next()) {

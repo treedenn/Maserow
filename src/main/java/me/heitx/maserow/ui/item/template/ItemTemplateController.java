@@ -11,15 +11,15 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.dao.IItemDAO;
 import me.heitx.maserow.model.Item;
-import me.heitx.maserow.utils.query.TrinityItemQuery;
-import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.ui.Updateable;
+import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.ui.item.template.build.ItemBuildController;
 import me.heitx.maserow.ui.item.template.preview.ItemPreviewController;
+import me.heitx.maserow.utils.ConverterUtil;
+import me.heitx.maserow.utils.query.TrinityItemQuery;
 
 import javax.imageio.ImageIO;
 import java.io.File;

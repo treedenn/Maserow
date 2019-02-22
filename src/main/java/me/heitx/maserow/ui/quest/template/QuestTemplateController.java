@@ -11,17 +11,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Window;
 import me.heitx.maserow.database.Database;
-import me.heitx.maserow.database.dao.IItemDAO;
 import me.heitx.maserow.database.dao.IQuestDAO;
 import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.model.Quest;
-import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.ui.Updateable;
+import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
-import me.heitx.maserow.utils.query.TrinityItemQuery;
 import me.heitx.maserow.utils.query.TrinityQuestQuery;
 import org.controlsfx.control.CheckComboBox;
 

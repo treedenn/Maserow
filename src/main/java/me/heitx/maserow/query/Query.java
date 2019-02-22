@@ -34,12 +34,14 @@ public class Query {
 	}
 
 	public Query and(String condition) {
-		andList.add(condition);
+		if(where != null) andList.add(condition);
+		else where(condition);
 		return this;
 	}
 
 	public Query or(String condition) {
-		orList.add(condition);
+		if(where != null) orList.add(condition);
+		else where(condition);
 		return this;
 	}
 
@@ -126,7 +128,6 @@ public class Query {
 		for(Object value : values) {
 			if(value instanceof String) {
 				String s = (String) value;
-				System.out.println("'" + s.replaceAll("'", "''") + "'");
 				valuesAsString.add("'" + s.replaceAll("'", "''") + "'");
 			} else if(value instanceof Number) {
 				valuesAsString.add(String.valueOf(value));

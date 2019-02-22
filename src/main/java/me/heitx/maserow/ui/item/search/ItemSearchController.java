@@ -4,11 +4,12 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import me.heitx.maserow.utils.ConverterUtil;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.ui.common.SearchController;
+import me.heitx.maserow.utils.ConverterUtil;
 
 import java.net.URL;
 import java.util.List;

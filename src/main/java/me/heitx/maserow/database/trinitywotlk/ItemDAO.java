@@ -131,12 +131,16 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 				Query query = new Query()
 						.newlineFormat(true)
 						.select("*")
-						.from("item_template")
-						.where("entry = " + entry)
-						.or("name LIKE '%" + name + "%'")
-						.limit(limit);
+						.from("item_template");
 
-				PreparedStatement ps = conn.prepareStatement(query.buildSQL());
+				if(entry != 0) {
+					query.where("entry = " + entry);
+				}
+				if(!name.isEmpty()) {
+					query.or("name LIKE '%" + name + "%'");
+				}
+
+				PreparedStatement ps = conn.prepareStatement(query.limit(limit).buildSQL());
 				ResultSet rs = ps.executeQuery();
 
 				while(rs.next()) {
