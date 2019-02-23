@@ -4,7 +4,7 @@ Currently, the entire structure is based on the Trinity core for 3.3.5a.
 However, when all the big features are done and with help, it could be transferred to other cores either by having other branches or be built in the master.
 
 # Suggestions or bugs
-This project is a hobby and a solo project, which means I am developing it on my free time. Simple conclusion, I cannot find all the bugs myself and brainstorming features and layouts with others is not possible.  
+This project is a hobby and a solo project, which means I am developing it in my free time. Simple conclusion, I cannot find all the bugs myself and brainstorming features and layouts with others is not possible.  
 Therefore, it would be great when a bug occurs, thoughts on features or a new idea for a layout comes to mind, you will submit them here. It might help other users.
 
 # Features
