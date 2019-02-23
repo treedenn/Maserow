@@ -45,7 +45,7 @@ public class ConverterUtil {
 	public static Map<String, Object> toAttributes(Object o) {
 		Map<String, Object> attributes = new HashMap<>();
 
-		for(Field field : Quest.class.getDeclaredFields()) {
+		for(Field field : o.getClass().getDeclaredFields()) {
 			Column column = field.getAnnotation(Column.class);
 			if(column != null) {
 				field.setAccessible(true);

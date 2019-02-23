@@ -95,14 +95,14 @@ public class Identifier {
 	}
 
 	public static List<Integer> findXByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll, boolean findIndexes) {
-		List<Integer> ids = new ArrayList<>();
+		List<Integer> integers = new ArrayList<>();
 
 		if(totalValue >= (valueZeroEqualsAll ? 1 : 0)) {
-			for(int i = identifiers.size() - 1; i > 0; i--) {
+			for(int i = identifiers.size() - 1; valueZeroEqualsAll ? i > 0 : i >= 0; i--) {
 				Identifier identifier = identifiers.get(i);
 
 				if(totalValue >= identifier.getValue()) {
-					ids.add(findIndexes ? i : identifier.id);
+					integers.add(findIndexes ? i : identifier.id);
 					totalValue -= identifier.getValue();
 				}
 
@@ -110,11 +110,11 @@ public class Identifier {
 			}
 		} else {
 			for(int i = 0; i < identifiers.size(); i++) {
-				ids.add(i);
+				integers.add(i);
 			}
 		}
 
-		return ids;
+		return integers;
 	}
 
 	public static long calculateValue(List<Identifier> identifiers) {

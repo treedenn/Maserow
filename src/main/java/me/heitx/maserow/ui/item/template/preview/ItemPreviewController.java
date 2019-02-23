@@ -244,8 +244,8 @@ public class ItemPreviewController implements Initializable, Updateable {
 
 		StringBuilder builder = new StringBuilder();
 
-		List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableClass());
-		appendStrings(identifiers, builder, ids);
+		List<Integer> indices = Identifier.findIndicesByValue(identifiers, item.getAllowableClass());
+		appendStrings(identifiers, builder, indices);
 
 		return builder.toString();
 	}
@@ -255,18 +255,18 @@ public class ItemPreviewController implements Initializable, Updateable {
 
 		StringBuilder builder = new StringBuilder();
 
-		List<Integer> ids = Identifier.findIdsByValue(identifiers, item.getAllowableRace());
-		appendStrings(identifiers, builder, ids);
+		List<Integer> indices = Identifier.findIndicesByValue(identifiers, item.getAllowableRace());
+		appendStrings(identifiers, builder, indices);
 
 		return builder.toString();
 	}
 
-	private void appendStrings(List<Identifier> identifiers, StringBuilder builder, List<Integer> ids) {
-		if(ids.size() == identifiers.size()) {
+	private void appendStrings(List<Identifier> identifiers, StringBuilder builder, List<Integer> indices) {
+		if(indices.size() == identifiers.size()) {
 			builder.append("All");
 		} else {
-			for(int i = 0; i < ids.size(); i++) {
-				builder.append(identifiers.get(ids.get(i)).getName());
+			for(Integer id : indices) {
+				builder.append(identifiers.get(id).getName());
 				builder.append(", ");
 			}
 
