@@ -90,6 +90,7 @@
           <include>**/*.css</include>
         </includes>
       </resource>
+
       <resource>
         <directory>src/main/resources</directory>
       </resource>
@@ -132,6 +133,30 @@
     </pluginManagement>
 
     <plugins>
+
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>copy-resources-1</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/csv</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>csv</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>

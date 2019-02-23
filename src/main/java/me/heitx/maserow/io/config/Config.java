@@ -1,5 +1,7 @@
 package me.heitx.maserow.io.config;
 
+import me.heitx.maserow.Main;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,7 +20,7 @@ public class Config {
 	}
 
 	private Config() {
-		file = new File("." + File.separator + fileName);
+		file = new File(Main.jarFile.getParent(), fileName);
 		properties = new LinkedProperties();
 
 		for(ConfigKey key : ConfigKey.values()) {
