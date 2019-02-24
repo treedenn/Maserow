@@ -15,7 +15,7 @@ This is a list of features categorized in different groups.
 - [x] Trinity
 - [x] Cross-platform (developed in Java)
 - [x] Dark theme (only)
-- [ ] Logging
+- [x] Logging
 - [ ] Settings
 - [x] Save Configuration
 
