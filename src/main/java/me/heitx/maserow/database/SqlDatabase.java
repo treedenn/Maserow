@@ -1,13 +1,15 @@
 package me.heitx.maserow.database;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class SqlDatabase {
+	private static final Logger LOGGER = LogManager.getLogger(SqlDatabase.class);
+
 	private IClient client;
 	private String database;
 
@@ -22,17 +24,20 @@ public abstract class SqlDatabase {
 		conn.setAutoCommit(false);
 
 		try {
-			callback.execute(conn);
+			PreparedStatement ps = callback.execute(conn);
+			String query = ps.toString().substring(ps.getClass().getName().length() + 2);
+			LOGGER.info("Executed Query: " + query);
 			conn.commit();
 		} catch(SQLException e) {
 			conn.rollback();
+			LOGGER.error("SQLException: " + e.getMessage());
 			e.printStackTrace();
 		}
 
 		conn.close();
 	}
 
-	public Map<String, Object> convertResultSet(ResultSet rs) throws SQLException {
+	protected Map<String, Object> convertResultSet(ResultSet rs) throws SQLException {
 		Map<String, Object> map = new HashMap<>();
 
 		ResultSetMetaData rsmd = rs.getMetaData();

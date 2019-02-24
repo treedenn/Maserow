@@ -12,7 +12,13 @@ public class MySqlClient implements IClient {
 	private String world;
 
 	public MySqlClient() {
-		this("127.0.0.1", "root", "toor", 3306, "auth", "characters", "world");
+		this("127.0.0.1",
+				"root",
+				"toor",
+				3306,
+				"auth",
+				"characters",
+				"world");
 	}
 
 	public MySqlClient(String hostname, String username, String password, int port, String auth, String characters, String world) {

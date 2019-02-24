@@ -1,6 +1,8 @@
 package me.heitx.maserow.io;
 
 import me.heitx.maserow.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 
 // Taken from an old project ..
 public final class DelimiterReader {
+	private static final Logger LOGGER = LogManager.getLogger(DelimiterReader.class.getName());
 	private static final char DEFAULT_DELIMITER = ';';
 
 	public static List<Identifier> getSubclasses(int itemClassId) {
@@ -41,9 +44,11 @@ public final class DelimiterReader {
 					identifiers.add(new Identifier(id, value, name));
 				}
 			} catch(IOException e) {
+				LOGGER.warn("IOException:" + e.getMessage());
 				e.printStackTrace();
 			}
 		} catch(FileNotFoundException e) {
+			LOGGER.warn("FileNotFoundException:" + e.getMessage());
 			e.printStackTrace();
 		}
 

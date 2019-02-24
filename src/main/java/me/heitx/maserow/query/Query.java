@@ -25,7 +25,7 @@ public class Query {
 		values = new ArrayList<>();
 		selectList = new ArrayList<>();
 
-		newlineFormat = true;
+		newlineFormat = false;
 	}
 
 	public Query where(String condition) {
@@ -217,27 +217,23 @@ public class Query {
 		}
 
 		// Adds the: WHERE ... AND ...
-		String wherePiece = "";
 
 		if(where != null && !where.isEmpty()) {
-			wherePiece = "WHERE ".concat(where);
+			String wherePiece = "WHERE ".concat(where);
 			if(andList.size() > 0) {
 				wherePiece = wherePiece.concat(" AND " + String.join(" AND ", andList));
 			}
 			if(orList.size() > 0) {
 				wherePiece = wherePiece.concat(" OR " + String.join(" OR ", orList));
 			}
+			pieces.add(wherePiece);
 		}
 
 		// Adds the: LIMIT X
-		String limitPiece = "";
 
 		if(limit > 0) {
-			limitPiece = "LIMIT ".concat(String.valueOf(limit));
+			pieces.add("LIMIT ".concat(String.valueOf(limit)));
 		}
-
-		pieces.add(wherePiece);
-		pieces.add(limitPiece);
 
 		return buildSQL(pieces);
 	}

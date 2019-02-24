@@ -27,8 +27,10 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getInsertQuery(item, true));
+				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getInsertQuery(item, false));
 				atomic.set(ps.executeUpdate() > 0);
+
+				return ps;
 			});
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -43,8 +45,10 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getUpdateQuery(item, true));
+				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getUpdateQuery(item, false));
 				atomic.set(ps.executeUpdate() > 0);
+
+				return ps;
 			});
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -59,8 +63,10 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getDeleteQuery(entry, true));
+				PreparedStatement ps = conn.prepareStatement(TrinityItemQuery.getDeleteQuery(entry, false));
 				atomic.set(ps.executeUpdate() > 0);
+
+				return ps;
 			});
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -76,7 +82,6 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 		try {
 			execute(conn -> {
 				Query query = new Query()
-						.newlineFormat(true)
 						.select("*")
 						.from("item_template")
 						.where("entry = " + entry)
@@ -88,6 +93,8 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 				if(rs.next()) {
 					atomic.set(convertResultSet(rs));
 				}
+
+				return ps;
 			});
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -103,7 +110,6 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 		try {
 			execute(conn -> {
 				Query query = new Query()
-						.newlineFormat(true)
 						.select("*")
 						.from("item_template")
 						.limit(limit);
@@ -114,6 +120,8 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 				while(rs.next()) {
 					set.add(convertResultSet(rs));
 				}
+
+				return ps;
 			});
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -129,7 +137,6 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 		try {
 			execute(conn -> {
 				Query query = new Query()
-						.newlineFormat(true)
 						.select("*")
 						.from("item_template");
 
@@ -146,6 +153,8 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 				while(rs.next()) {
 					set.add(convertResultSet(rs));
 				}
+
+				return ps;
 			});
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -165,6 +174,8 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 
 				ResultSet rs = ps.executeQuery();
 				atomic.set(rs.next() && rs.getBoolean(1));
+
+				return ps;
 			});
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -186,6 +197,8 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 
 				ResultSet rs = ps.executeQuery();
 				if(rs.next()) atomic.set(rs.getLong(1));
+
+				return ps;
 			});
 		} catch(SQLException e) {
 			e.printStackTrace();

@@ -1,7 +1,8 @@
 package me.heitx.maserow.utils;
 
 import me.heitx.maserow.model.Column;
-import me.heitx.maserow.model.Quest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ConverterUtil {
+	private static final Logger LOGGER = LogManager.getLogger(ConverterUtil.class.getName());
+
 	public static <T> List<T> toObjects(Class<T> tClass, List<Map<String, Object>> attributesList) {
 		List<T> oList = new ArrayList<>();
 
@@ -36,8 +39,11 @@ public class ConverterUtil {
 				}
 			}
 		} catch(InstantiationException | IllegalAccessException e) {
+			LOGGER.fatal(e.getMessage());
 			e.printStackTrace();
 		}
+
+
 
 		return o;
 	}
@@ -53,6 +59,7 @@ public class ConverterUtil {
 				try {
 					attributes.put(column.value(), field.get(o));
 				} catch(IllegalAccessException e) {
+					LOGGER.fatal(e.getMessage());
 					e.printStackTrace();
 				}
 			}
