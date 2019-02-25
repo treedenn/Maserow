@@ -4,8 +4,8 @@ import me.heitx.maserow.utils.QueryUtil;
 
 import java.util.Map;
 
-public class TrinityItemQuery {
-	public static final String TEMPLATE_TABLE = "item_template";
+public class TrinityCreatureQuery {
+	public static final String TEMPLATE_TABLE = "creature_template";
 
 	public static String getInsertQuery(Map<String, Object> attributes, boolean newlineFormat) {
 		return QueryUtil.simpleInsert(TEMPLATE_TABLE, attributes, newlineFormat);
@@ -16,6 +16,6 @@ public class TrinityItemQuery {
 	}
 
 	public static String getDeleteQuery(int entry, boolean newlineFormat) {
-		return QueryUtil.simpleDelete(TEMPLATE_TABLE, "entry + " + entry, newlineFormat);
+		return QueryUtil.simpleDelete(TEMPLATE_TABLE, "entry = " + entry, newlineFormat);
 	}
 }
