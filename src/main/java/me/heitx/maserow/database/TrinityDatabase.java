@@ -1,7 +1,9 @@
 package me.heitx.maserow.database;
 
+import me.heitx.maserow.database.dao.ICreatureDAO;
 import me.heitx.maserow.database.dao.IItemDAO;
 import me.heitx.maserow.database.dao.IQuestDAO;
+import me.heitx.maserow.database.trinitywotlk.CreatureDAO;
 import me.heitx.maserow.database.trinitywotlk.ItemDAO;
 import me.heitx.maserow.database.trinitywotlk.QuestDAO;
 
@@ -10,6 +12,7 @@ public class TrinityDatabase implements IDatabase {
 
 	private IItemDAO itemDAO;
 	private IQuestDAO questDAO;
+	private ICreatureDAO creatureDAO;
 
 	TrinityDatabase() {
 
@@ -35,5 +38,11 @@ public class TrinityDatabase implements IDatabase {
 	public IQuestDAO getQuestDAO() {
 		if(Database.isIsLoggedIn() && questDAO == null) questDAO = new QuestDAO(client);
 		return questDAO;
+	}
+
+	@Override
+	public ICreatureDAO getCreatureDAO() {
+		if(Database.isIsLoggedIn() && creatureDAO == null) creatureDAO = new CreatureDAO(client);
+		return creatureDAO;
 	}
 }
