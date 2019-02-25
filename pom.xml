@@ -6,7 +6,7 @@
 
   <groupId>me.heitx.maserow</groupId>
   <artifactId>maserow</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
 
   <name>maserow</name>
   <!-- FIXME change it to the project's website -->
@@ -198,6 +198,8 @@
         <configuration>
           <archive>
             <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
               <addClasspath>true</addClasspath>
               <classpathPrefix>libs/</classpathPrefix>
               <mainClass>
