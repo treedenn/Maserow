@@ -21,7 +21,7 @@ import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.ui.Callback;
-import me.heitx.maserow.ui.UtilityUI;
+import me.heitx.maserow.ui.LayoutUtil;
 import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.utils.ResourceUtil;
 import org.controlsfx.control.CheckComboBox;
@@ -149,7 +149,7 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getQuality()));
 			cb.setMaxWidth(Double.MAX_VALUE);
-			UtilityUI.showOnlyNameOnCombobox(cb);
+			LayoutUtil.showOnlyNameOnCombobox(cb);
 
 			addRow(l, cb, () -> item.setQuality(cb.getSelectionModel().getSelectedItem().getId()));
 		}
@@ -166,7 +166,7 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getBonding()));
 			cb.setMaxWidth(Double.MAX_VALUE);
-			UtilityUI.showOnlyNameOnCombobox(cb);
+			LayoutUtil.showOnlyNameOnCombobox(cb);
 
 			addRow(l, cb, () -> item.setBonding(cb.getSelectionModel().getSelectedItem().getId()));
 		}
@@ -184,7 +184,7 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getInventoryType()));
 			cb.setMaxWidth(Double.MAX_VALUE);
-			UtilityUI.showOnlyNameOnCombobox(cb);
+			LayoutUtil.showOnlyNameOnCombobox(cb);
 
 			addRow(l, cb, () -> item.setInventoryType(cb.getSelectionModel().getSelectedItem().getId()));
 		}
@@ -202,8 +202,8 @@ public class ItemBuildController implements Initializable {
 			cbClasses.getSelectionModel().select(Identifier.findById(identifiers, item.get_class()));
 			cbSubclasses.getSelectionModel().select(Identifier.findByValue(subIdentifiers, item.getSubclass()));
 
-			UtilityUI.showOnlyNameOnCombobox(cbClasses);
-			UtilityUI.showOnlyNameOnCombobox(cbSubclasses);
+			LayoutUtil.showOnlyNameOnCombobox(cbClasses);
+			LayoutUtil.showOnlyNameOnCombobox(cbSubclasses);
 
 			cbClasses.setOnAction(event1 -> {
 				// Gets the subclasses of the selected class
@@ -239,7 +239,7 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getDamageType1()));
 			cb.setMaxWidth(Double.MAX_VALUE);
-			UtilityUI.showOnlyNameOnCombobox(cb);
+			LayoutUtil.showOnlyNameOnCombobox(cb);
 
 			addRow(l, cb, () -> item.setDamageType1(cb.getSelectionModel().getSelectedItem().getId()));
 		}
@@ -251,7 +251,7 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getDamageType2()));
 			cb.setMaxWidth(Double.MAX_VALUE);
-			UtilityUI.showOnlyNameOnCombobox(cb);
+			LayoutUtil.showOnlyNameOnCombobox(cb);
 
 			addRow(l, cb, () -> item.setDamageType2(cb.getSelectionModel().getSelectedItem().getId()));
 		}
@@ -479,7 +479,7 @@ public class ItemBuildController implements Initializable {
 			CheckComboBox<Identifier> ccb = new CheckComboBox<>();
 			ccb.setPrefWidth(300);
 			ccb.getItems().addAll(identifiers);
-			UtilityUI.showOnlyNameOnCombobox(ccb);
+			LayoutUtil.showOnlyNameOnCombobox(ccb);
 
 			for(Integer id : ids) {
 				ccb.getCheckModel().check(id);
@@ -504,7 +504,7 @@ public class ItemBuildController implements Initializable {
 			CheckComboBox<Identifier> ccb = new CheckComboBox<>();
 			ccb.setPrefWidth(300);
 			ccb.getItems().addAll(identifiers);
-			UtilityUI.showOnlyNameOnCombobox(ccb);
+			LayoutUtil.showOnlyNameOnCombobox(ccb);
 
 			for(Integer id : ids) {
 				ccb.getCheckModel().check(id);

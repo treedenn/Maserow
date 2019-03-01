@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
-public class UtilityUI {
+public class LayoutUtil {
 	public static void show(Node node) {
 		toggle(node, true);
 	}
@@ -29,7 +29,7 @@ public class UtilityUI {
 	}
 
 	public static void showOnlyNameOnCombobox(ComboBox<Identifier> comboBox) {
-		comboBox.setCellFactory(UtilityUI::call);
+		comboBox.setCellFactory(LayoutUtil::call);
 		comboBox.setButtonCell(call(null));
 	}
 

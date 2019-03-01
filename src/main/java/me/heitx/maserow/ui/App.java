@@ -22,6 +22,8 @@ public class App extends Application {
 		Scene scene = new Scene(root, root.getWidth(), root.getHeight());
 		scene.getStylesheets().add(getClass().getResource("darktheme.css").toExternalForm());
 
+		//stage.setFullScreen(true);
+		stage.setResizable(true);
 		stage.setTitle("MaseroW v" + getClass().getPackage().getImplementationVersion() + " - Created by Heitx");
 		stage.setScene(scene);
 

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox fx:id="vboxSidemenu" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" stylesheets="@sidemenu.css" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.sidemenu.SidemenuController">
+
+<VBox fx:id="vboxSidemenu" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" stylesheets="@sidemenu.css" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.sidemenu.SidemenuController">
    <children>
       <StackPane>
          <children>
@@ -40,9 +44,20 @@
             <Button fx:id="btnQuestTemplate" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Template" />
          </children>
       </VBox>
+      <Button fx:id="btnCreature" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Creature" />
+      <VBox fx:id="vboxCreature">
+         <children>
+            <Button fx:id="btnCreatureSearch" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Search">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnCreatureTemplate" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Template" />
+         </children>
+      </VBox>
       <Button fx:id="btnSQL" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="SQL" />
       <Pane prefHeight="100.0" VBox.vgrow="ALWAYS" />
       <Button fx:id="btnSettings" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Settings" />
-      <Button fx:id="btnToggle" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="‌‌ " />
+      <Button fx:id="btnToggle" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="‌‌ " />
    </children>
 </VBox>

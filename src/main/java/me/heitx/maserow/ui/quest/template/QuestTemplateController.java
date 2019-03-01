@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -17,7 +18,7 @@ import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.model.Quest;
 import me.heitx.maserow.ui.Updateable;
-import me.heitx.maserow.ui.UtilityUI;
+import me.heitx.maserow.ui.LayoutUtil;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.utils.query.TrinityQuestQuery;
@@ -155,22 +156,22 @@ public class QuestTemplateController implements Initializable, Updateable {
 		questType = DelimiterReader.readColumns(csvPath + "questtype.csv", true, false);
 		cbQuestType.setItems(FXCollections.observableList(questType));
 		cbQuestType.getSelectionModel().select(0);
-		UtilityUI.showOnlyNameOnCombobox(cbQuestType);
+		LayoutUtil.showOnlyNameOnCombobox(cbQuestType);
 
 		questInfo = DelimiterReader.readColumns(csvPath + "questinfo.csv", true, false);
 		cbInfoID.setItems(FXCollections.observableList(questInfo));
 		cbInfoID.getSelectionModel().select(0);
-		UtilityUI.showOnlyNameOnCombobox(cbInfoID);
+		LayoutUtil.showOnlyNameOnCombobox(cbInfoID);
 
 		flags = DelimiterReader.readColumns(csvPath + "flags.csv", false, true);
 		ccbFlags.getItems().setAll(flags);
 		ccbFlags.getCheckModel().check(0);
-		UtilityUI.showOnlyNameOnCombobox(ccbFlags);
+		LayoutUtil.showOnlyNameOnCombobox(ccbFlags);
 
 		races = DelimiterReader.readColumns(CommonCSV.RACES);
 		ccbRaces.getItems().setAll(races);
 		ccbRaces.getCheckModel().checkAll();
-		UtilityUI.showOnlyNameOnCombobox(ccbRaces);
+		LayoutUtil.showOnlyNameOnCombobox(ccbRaces);
 
 		HBox[] hboxes = new HBox[] {
 				hboxChoice1, hboxChoice2, hboxChoice3,
@@ -219,7 +220,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 			Map<String, Object> attributes = ConverterUtil.toAttributes(quest);
 
 			if(dao.exists(quest.getId())) {
-				Optional<ButtonType> alert = UtilityUI.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already a quest with given identifier! " +
+				Optional<ButtonType> alert = LayoutUtil.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already a quest with given identifier! " +
 						"Do you want to overwrite the old quest with the new one?", ButtonType.NO, ButtonType.YES);
 				if(alert.isPresent() && alert.get() == ButtonType.YES) {
 					dao.update(attributes);
@@ -238,11 +239,11 @@ public class QuestTemplateController implements Initializable, Updateable {
 		final Window window = btnExecute.getScene().getWindow();
 
 		if(event.getSource() == miInsert) {
-			UtilityUI.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
 		} else if(event.getSource() == miUpdate) {
-			UtilityUI.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
 		} else if(event.getSource() == miDelete) {
-			UtilityUI.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
 		}
 	}
 
@@ -439,6 +440,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 				currQuantity.setText(tfQuantity.getText());
 			});
 			currentPopup.getScene().setRoot(hbox);
+
 			currentPopup.show(owner, event.getScreenX(), event.getScreenY());
 		});
 	}

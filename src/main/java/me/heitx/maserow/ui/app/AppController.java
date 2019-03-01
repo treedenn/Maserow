@@ -6,6 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import me.heitx.maserow.model.Item;
+import me.heitx.maserow.ui.Updateable;
+import me.heitx.maserow.ui.creature.search.CreatureSearchController;
+import me.heitx.maserow.ui.creature.template.CreatureTemplateController;
 import me.heitx.maserow.ui.item.search.ItemSearchController;
 import me.heitx.maserow.ui.item.template.ItemTemplateController;
 import me.heitx.maserow.ui.login.LoginController;
@@ -31,6 +34,10 @@ public class AppController implements Initializable {
 	private QuestSearchController questSearchController;
 	private Parent questTemplate;
 	private QuestTemplateController questTemplateController;
+	private Parent creatureSearch;
+	private CreatureSearchController creatureSearchController;
+	private Parent creatureTemplate;
+	private CreatureTemplateController creatureTemplateController;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,7 +57,7 @@ public class AppController implements Initializable {
 			bpApp.setCenter(login);
 		});
 
-		// Item -> ItemSearch and ItemTemplate
+		// Item -> Search and Template
 		smController.setItemSearchCallback(() -> {
 			if(itemSearch == null) {
 				create(ItemSearchController.class, "itemsearch", (p, c) -> {
@@ -81,7 +88,7 @@ public class AppController implements Initializable {
 			}
 		});
 
-		// Quest -> QuestSearch and QuestTemplate
+		// Quest -> Search and Template
 		smController.setQuestSearchCallback(() -> {
 			if(questSearch == null) {
 				create(QuestSearchController.class, "questsearch", (p, c) -> {
@@ -107,6 +114,33 @@ public class AppController implements Initializable {
 
 			bpApp.setCenter(questTemplate);
 		});
+
+		// Creature -> Search and Template
+		smController.setCreatureSearchCallback(() -> {
+			if(creatureSearch == null) {
+				create(CreatureSearchController.class, "creaturesearch", (p, c) -> {
+					creatureSearch = p;
+					creatureSearchController = c;
+				});
+
+				creatureSearchController.setDoubleClickRowCallback(creature -> {
+					createOrUpdateCreatureTemplate();
+					// questTemplateController.setQuest(quest);
+					bpApp.setCenter(creatureSearch);
+					return null;
+				});
+			} else {
+				creatureSearchController.update();
+			}
+
+			bpApp.setCenter(creatureSearch);
+		});
+
+		smController.setCreatureTemplateCallback(() -> {
+			createOrUpdateCreatureTemplate();
+
+			bpApp.setCenter(creatureTemplate);
+		});
 	}
 
 	private void createOrUpdateItemTemplate() {
@@ -128,6 +162,17 @@ public class AppController implements Initializable {
 			});
 		} else {
 			questTemplateController.update();
+		}
+	}
+
+	private void createOrUpdateCreatureTemplate() {
+		if(creatureTemplate == null) {
+			create(CreatureTemplateController.class, "creaturetemplate", (p, c) -> {
+				creatureTemplate = p;
+				creatureTemplateController = c;
+			});
+		} else {
+			creatureTemplateController.update();
 		}
 	}
 

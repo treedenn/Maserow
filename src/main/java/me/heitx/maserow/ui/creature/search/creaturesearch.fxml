@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.creature.search.CreatureSearchController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.creature.search.CreatureSearchController">
    <children>
       <VBox alignment="CENTER">
          <children>
@@ -31,8 +40,8 @@
       <TableView fx:id="tvSearch" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="tcEntry" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="entry" />
-          <TableColumn fx:id="tcName" maxWidth="1500.0" minWidth="75.0" prefWidth="75.0" text="logTitle" />
-            <TableColumn fx:id="tcSubname" prefWidth="75.0" text="logDescription" />
+          <TableColumn fx:id="tcName" maxWidth="1500.0" minWidth="75.0" prefWidth="75.0" text="name" />
+            <TableColumn fx:id="tcSubname" prefWidth="75.0" text="subname" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
