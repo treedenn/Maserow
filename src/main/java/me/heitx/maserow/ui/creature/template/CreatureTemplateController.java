@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CreatureTemplateController implements Initializable, Updateable {
-	@FXML TilePane tpLayout;
+	@FXML TilePane tpLayout; // TODO: Make change this to a flow pane so the grid panes can be different sizes.
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
