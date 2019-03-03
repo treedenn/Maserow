@@ -33,7 +33,7 @@
             </MenuButton>
          </children>
       </HBox>
-      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1200.0">
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <content>
             <TilePane fx:id="tpLayout" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefColumns="4" prefRows="2" style="-fx-background-color: #101010;" vgap="20.0">
                <children>
@@ -96,15 +96,15 @@
                        <Label text="Mechanic Immune:" GridPane.rowIndex="15" />
                        <Label text="Spell Immune:" GridPane.rowIndex="16" />
                        <Label text="Regen Health:" GridPane.rowIndex="17" />
-                        <TextField fx:id="tfEntry" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfEntry" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" />
                         <TextField fx:id="tfName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="tfSubname" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfModelID1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfModelID2" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="tfModelID3" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="tfModelID4" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                       <TextField fx:id="tfMinLevel" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                       <TextField fx:id="tfMaxLevel" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="tfModelID1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="tfModelID2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="tfModelID3" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="tfModelID4" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                       <TextField fx:id="tfMinLevel" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                       <TextField fx:id="tfMaxLevel" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                          <children>
                            <TextField fx:id="tfMinGold" prefWidth="60.0" text="0" />
@@ -149,13 +149,13 @@
                               </ImageView>
                          </children>
                        </HBox>
-                       <TextField fx:id="tfFaction" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                       <TextField fx:id="tfFaction" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                         <CheckComboBox fx:id="ccbFlags" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                         <CheckComboBox fx:id="ccbFlagsExtra" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                         <CheckComboBox fx:id="ccbDynamicFlags" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="14" />
                         <CheckComboBox fx:id="ccbMechanicImmune" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="15" />
                        <TextField fx:id="tfSpellImmune" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="16" />
-                       <CheckBox fx:id="cbRegenHealth" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                       <CheckBox fx:id="cbRegenHealth" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="17" />
                      </children>
                   </GridPane>
                   <GridPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="400.0">
@@ -202,21 +202,21 @@
                        <Label text="Unit Class:" GridPane.rowIndex="15" />
                        <Label text="Unit Flags:" GridPane.rowIndex="16" />
                        <Label text="Unit Flags2:" GridPane.rowIndex="17" />
-                        <TextField fx:id="tfDifficultyEntry1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
-                        <TextField fx:id="tfDifficultyEntry2" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfDifficultyEntry3" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfKillCredit1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfKillCredit2" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="tfDifficultyEntry1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfDifficultyEntry2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfDifficultyEntry3" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfKillCredit1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="tfKillCredit2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <ComboBox fx:id="cbExpansion" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="tfSpeedWalk" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="tfSpeedRun" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField fx:id="tfScale" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="tfSpeedWalk" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="tfSpeedRun" maxWidth="1.7976931348623157E308" text="1.14286" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="tfScale" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <ComboBox fx:id="cbRank" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <ComboBox fx:id="cbDamageSchool" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                        <TextField fx:id="tfBaseAttackTime" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <TextField fx:id="tfRangeAttackTime" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                        <TextField fx:id="tfBaseVariance" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                        <TextField fx:id="tfRangeVariance" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <TextField fx:id="tfBaseAttackTime" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <TextField fx:id="tfRangeAttackTime" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="tfBaseVariance" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <TextField fx:id="tfRangeVariance" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="14" />
                         <ComboBox fx:id="cbUnitClass" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="15" />
                         <CheckComboBox fx:id="ccbUnitFlags1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="16" />
                         <CheckComboBox fx:id="ccbUnitFlags2" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="17" />
@@ -265,23 +265,23 @@
                        <Label text="Racial Leader:" GridPane.rowIndex="14" />
                        <Label text="Pet Spell DataID:" GridPane.rowIndex="15" />
                        <Label text="Vehicle ID:" GridPane.rowIndex="16" />
-                        <TextField fx:id="tfLootID" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
-                        <TextField fx:id="tfPickpocketID" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfSkinID" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfLootID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfPickpocketID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfSkinID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <ComboBox fx:id="cbFamily" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <CheckComboBox fx:id="ccbTypeFlags" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                       <TextField fx:id="tfMovementID" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                       <TextField fx:id="tfMovementID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <ComboBox fx:id="cbMovementType" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                       <TextField fx:id="tfHoverHeight" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                       <TextField fx:id="tfModifierHealth" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                       <TextField fx:id="tfModifierMana" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                       <TextField fx:id="tfModifierArmor" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                       <TextField fx:id="tfModifierDamage" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                       <TextField fx:id="tfModifierExperience" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                       <TextField fx:id="tfHoverHeight" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                       <TextField fx:id="tfModifierHealth" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                       <TextField fx:id="tfModifierMana" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                       <TextField fx:id="tfModifierArmor" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                       <TextField fx:id="tfModifierDamage" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                       <TextField fx:id="tfModifierExperience" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                        <CheckBox fx:id="cbRacialLeader" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                       <TextField fx:id="tfPetSpellDataID" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                       <TextField fx:id="tfVehicleID" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                       <TextField fx:id="tfPetSpellDataID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                       <TextField fx:id="tfVehicleID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
                      </children>
                   </GridPane>
                   <GridPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="400.0">
@@ -328,20 +328,20 @@
                        <Label text="Icon Name:" GridPane.rowIndex="15" />
                        <Label text="Gossip Menu ID:" GridPane.rowIndex="16" />
                        <Label text="Script Name:" GridPane.rowIndex="17" />
-                        <TextField fx:id="tfHolyResist" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
-                        <TextField fx:id="tfFireResist" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfNatureResist" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfFrostResist" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfShadowResist" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="tfArcaneResist" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="tfSpell1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                         <TextField fx:id="tfSpell2" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                         <TextField fx:id="tfSpell3" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                         <TextField fx:id="tfSpell4" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                         <TextField fx:id="tfSpell5" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                         <TextField fx:id="tfSpell6" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                         <TextField fx:id="tfSpell7" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                       <TextField fx:id="tfSpell8" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <TextField fx:id="tfHolyResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfFireResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfNatureResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfFrostResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="tfShadowResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="tfArcaneResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="tfSpell1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                         <TextField fx:id="tfSpell2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                         <TextField fx:id="tfSpell3" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                         <TextField fx:id="tfSpell4" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                         <TextField fx:id="tfSpell5" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                         <TextField fx:id="tfSpell6" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                         <TextField fx:id="tfSpell7" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                       <TextField fx:id="tfSpell8" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                        <TextField fx:id="tfAIName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="14" />
                        <TextField fx:id="tfIconName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="15" />
                        <TextField fx:id="tfGossipMenu" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="16" />

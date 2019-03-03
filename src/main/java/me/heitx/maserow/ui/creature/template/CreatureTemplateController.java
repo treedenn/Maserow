@@ -236,7 +236,9 @@ public class CreatureTemplateController implements Initializable, Updateable {
 		LayoutUtil.showOnlyNameOnCombobox(cbExpansion, cbRank, cbDamageSchool,
 				cbUnitClass, cbFamily, cbType, cbMovementType);
 
-		LayoutUtil.selectFirstOnComboboxes(cbExpansion, cbRank, cbDamageSchool,
+		cbExpansion.getSelectionModel().select(expansions.size() - 1);
+
+		LayoutUtil.selectFirstOnComboboxes(cbRank, cbDamageSchool,
 				cbUnitClass, cbFamily, cbType, cbMovementType);
 	}
 
