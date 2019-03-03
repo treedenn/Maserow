@@ -14,7 +14,7 @@ public class Database {
 		}
 	}
 
-	public static boolean isIsLoggedIn() {
+	public static boolean isLoggedIn() {
 		return isLoggedIn;
 	}
 

@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -143,6 +142,8 @@ public class QuestTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+		quest = new Quest();
+
 		btnExecute.setOnAction(this::onExecuteButtonAction);
 		miInsert.setOnAction(this::onSaveSqlButtonAction);
 		miUpdate.setOnAction(this::onSaveSqlButtonAction);
@@ -153,17 +154,17 @@ public class QuestTemplateController implements Initializable, Updateable {
 
 		final String csvPath = "csv" + File.separator + "quest" + File.separator;
 
-		questType = DelimiterReader.readColumns(csvPath + "questtype.csv", true, false);
+		questType = DelimiterReader.readColumns(csvPath + "questtype", true, false);
 		cbQuestType.setItems(FXCollections.observableList(questType));
 		cbQuestType.getSelectionModel().select(0);
 		LayoutUtil.showOnlyNameOnCombobox(cbQuestType);
 
-		questInfo = DelimiterReader.readColumns(csvPath + "questinfo.csv", true, false);
+		questInfo = DelimiterReader.readColumns(csvPath + "questinfo", true, false);
 		cbInfoID.setItems(FXCollections.observableList(questInfo));
 		cbInfoID.getSelectionModel().select(0);
 		LayoutUtil.showOnlyNameOnCombobox(cbInfoID);
 
-		flags = DelimiterReader.readColumns(csvPath + "flags.csv", false, true);
+		flags = DelimiterReader.readColumns(csvPath + "flags", false, true);
 		ccbFlags.getItems().setAll(flags);
 		ccbFlags.getCheckModel().check(0);
 		LayoutUtil.showOnlyNameOnCombobox(ccbFlags);
@@ -205,7 +206,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void update() {
-		btnExecute.setDisable(!Database.isIsLoggedIn());
+		btnExecute.setDisable(!Database.isLoggedIn());
 	}
 
 	public void setQuest(Quest quest) {
@@ -232,18 +233,20 @@ public class QuestTemplateController implements Initializable, Updateable {
 	}
 
 	private void onSaveSqlButtonAction(ActionEvent event) {
-		updateModel();
+		if(quest != null) {
+			updateModel();
 
-		Map<String, Object> attributes = ConverterUtil.toAttributes(quest);
-		final String initialFileName = "quest:" + quest.getLogTitle().replaceAll(" ", "-") + ":" + quest.getId();
-		final Window window = btnExecute.getScene().getWindow();
+			Map<String, Object> attributes = ConverterUtil.toAttributes(quest);
+			final String initialFileName = "quest:" + quest.getLogTitle().replaceAll(" ", "-") + ":" + quest.getId();
+			final Window window = btnExecute.getScene().getWindow();
 
-		if(event.getSource() == miInsert) {
-			LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
-		} else if(event.getSource() == miUpdate) {
-			LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
-		} else if(event.getSource() == miDelete) {
-			LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			if(event.getSource() == miInsert) {
+				LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			} else if(event.getSource() == miUpdate) {
+				LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			} else if(event.getSource() == miDelete) {
+				LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			}
 		}
 	}
 

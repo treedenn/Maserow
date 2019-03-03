@@ -29,6 +29,6 @@ public enum CommonCSV implements ICSV {
 
 	@Override
 	public String getFile() {
-		return ICSV.CSV_FOLDER_NAME + File.separator + "common" + File.separator + fileName + ".csv";
+		return ICSV.CSV_FOLDER_NAME + File.separator + "common" + File.separator + fileName;
 	}
 }

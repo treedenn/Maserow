@@ -1,0 +1,24 @@
+1;Gossip
+2;Quest Giver
+16;Trainer
+32;Class Trainer
+64;Profession Trainer
+128;Vendor
+256;Ammo Vendor
+512;Food Vendor
+1024;Poison Vendor
+2048;Reagent Vendor
+4096;Repairer
+8192;Flight Master
+16384;Spirit Healer
+32768;Spirit Guide
+65536;Innkeeper
+131072;Banker
+262144;Petitioner
+524288;Tabard Designer
+1048576;Battlemaster
+2097152;Auctioneer
+4194304;Stable Master
+8388608;Guild Banker
+16777216;Spellclick
+67108864;Mailbox

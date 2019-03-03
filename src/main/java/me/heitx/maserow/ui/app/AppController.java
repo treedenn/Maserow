@@ -80,12 +80,7 @@ public class AppController implements Initializable {
 
 		smController.setItemTemplateCallback(() -> {
 			createOrUpdateItemTemplate();
-
 			bpApp.setCenter(itemTemplate);
-
-			if(itemTemplateController.getItem() == null) {
-				itemTemplateController.setItem(new Item());
-			}
 		});
 
 		// Quest -> Search and Template
@@ -111,7 +106,6 @@ public class AppController implements Initializable {
 
 		smController.setQuestTemplateCallback(() -> {
 			createOrUpdateQuestTemplate();
-
 			bpApp.setCenter(questTemplate);
 		});
 
@@ -125,8 +119,8 @@ public class AppController implements Initializable {
 
 				creatureSearchController.setDoubleClickRowCallback(creature -> {
 					createOrUpdateCreatureTemplate();
-					// questTemplateController.setQuest(quest);
-					bpApp.setCenter(creatureSearch);
+					creatureTemplateController.setCreature(creature);
+					bpApp.setCenter(creatureTemplate);
 					return null;
 				});
 			} else {
@@ -138,7 +132,6 @@ public class AppController implements Initializable {
 
 		smController.setCreatureTemplateCallback(() -> {
 			createOrUpdateCreatureTemplate();
-
 			bpApp.setCenter(creatureTemplate);
 		});
 	}

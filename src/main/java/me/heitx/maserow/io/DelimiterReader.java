@@ -16,9 +16,9 @@ public final class DelimiterReader {
 	public static List<Identifier> getSubclasses(int itemClassId) {
 		String idAsTwoDecimals = String.format("%02d", itemClassId);
 		String[] folders = new String[] {
-				".", ICSV.CSV_FOLDER_NAME, ItemCSV.ITEM_CSV_FOLDER, "item_subclasses", "item_subclass_"
+				ICSV.CSV_FOLDER_NAME, ItemCSV.ITEM_CSV_FOLDER, "item_subclasses", "item_subclass_"
 		};
-		String path = String.join(File.separator, folders) + idAsTwoDecimals + ".csv";
+		String path = String.join(File.separator, folders) + idAsTwoDecimals;
 
 		return DelimiterReader.readColumns(path, true, true);
 	}
@@ -32,7 +32,7 @@ public final class DelimiterReader {
 		File file = new File(Main.jarFile.getParent(), fileString);
 
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+			BufferedReader reader = new BufferedReader(new FileReader(file + ".csv"));
 			String line;
 			try {
 				while((line = reader.readLine()) != null) {

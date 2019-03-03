@@ -30,19 +30,19 @@ public class TrinityDatabase implements IDatabase {
 
 	@Override
 	public IItemDAO getItemDAO() {
-		if(Database.isIsLoggedIn() && itemDAO == null) itemDAO = new ItemDAO(client);
+		if(Database.isLoggedIn() && itemDAO == null) itemDAO = new ItemDAO(client);
 		return itemDAO;
 	}
 
 	@Override
 	public IQuestDAO getQuestDAO() {
-		if(Database.isIsLoggedIn() && questDAO == null) questDAO = new QuestDAO(client);
+		if(Database.isLoggedIn() && questDAO == null) questDAO = new QuestDAO(client);
 		return questDAO;
 	}
 
 	@Override
 	public ICreatureDAO getCreatureDAO() {
-		if(Database.isIsLoggedIn() && creatureDAO == null) creatureDAO = new CreatureDAO(client);
+		if(Database.isLoggedIn() && creatureDAO == null) creatureDAO = new CreatureDAO(client);
 		return creatureDAO;
 	}
 }

@@ -8,7 +8,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.model.Creature;
-import me.heitx.maserow.model.Quest;
 import me.heitx.maserow.ui.common.SearchController;
 import me.heitx.maserow.utils.ConverterUtil;
 
@@ -31,7 +30,7 @@ public class CreatureSearchController extends SearchController<Creature> {
 	public void update() {
 		super.update();
 
-		btnSearch.setDisable(!Database.isIsLoggedIn());
+		btnSearch.setDisable(!Database.isLoggedIn());
 
 		tcEntry.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getEntry()));
 		tcName.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getName()));

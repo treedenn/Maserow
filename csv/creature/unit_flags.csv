@@ -1,0 +1,31 @@
+1;Server controlled
+2;Non attackable
+4;Remove client control
+8;Pvp attackable
+16;Rename
+32;Preparation
+64;Unk 6
+128;Not attackable 1
+256;Immune to PC
+512;Immune to NPC
+1024;Looting
+2048;Pet in combat
+4096;Pvp
+8192;Silenced
+16384;Cannot swim
+32768;Unk 15
+65536;Unk 16
+131072;Pacified
+262144;Stunned
+524288;In combat
+1048576;Taxi flight
+4194304;Confused
+8388608;Fleeing
+16777216;Player controlled
+33554432;Not selectable
+67108864;Skinnable
+134217728;Mount
+268435456;Unk 28
+536870912;Unk 29
+1073741824;Sheathe
+2147483648;Unk 31

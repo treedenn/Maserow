@@ -79,22 +79,22 @@ public class Identifier {
 	}
 
 	public static List<Integer> findIndicesByValue(List<Identifier> identifiers, long totalValue) {
-		return findXByValue(identifiers, totalValue, false, true);
+		return findByValue(identifiers, totalValue, false, true);
 	}
 
 	public static List<Integer> findIndicesByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll) {
-		return findXByValue(identifiers, totalValue, valueZeroEqualsAll, true);
+		return findByValue(identifiers, totalValue, valueZeroEqualsAll, true);
 	}
 
 	public static List<Integer> findIdsByValue(List<Identifier> identifiers, long totalValue) {
-		return findXByValue(identifiers, totalValue, false, false);
+		return findByValue(identifiers, totalValue, false, false);
 	}
 
 	public static List<Integer> findIdsByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll) {
-		return findXByValue(identifiers, totalValue, valueZeroEqualsAll, false);
+		return findByValue(identifiers, totalValue, valueZeroEqualsAll, false);
 	}
 
-	public static List<Integer> findXByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll, boolean findIndexes) {
+	public static List<Integer> findByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll, boolean findIndexes) {
 		List<Integer> integers = new ArrayList<>();
 
 		if(totalValue >= (valueZeroEqualsAll ? 1 : 0)) {

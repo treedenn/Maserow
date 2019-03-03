@@ -28,23 +28,33 @@ public class LayoutUtil {
 		node.setManaged(show);
 	}
 
-	public static void showOnlyNameOnCombobox(ComboBox<Identifier> comboBox) {
-		comboBox.setCellFactory(LayoutUtil::call);
-		comboBox.setButtonCell(call(null));
+	public static void selectFirstOnComboboxes(ComboBox<Identifier> ... comboBoxes) {
+		for(ComboBox<Identifier> comboBox : comboBoxes) {
+			comboBox.getSelectionModel().selectFirst();
+		}
 	}
 
-	public static void showOnlyNameOnCombobox(CheckComboBox<Identifier> comboBox) {
-		comboBox.setConverter(new StringConverter<Identifier>() {
-			@Override
-			public String toString(Identifier identifier) {
-				return identifier.getName();
-			}
+	public static void showOnlyNameOnCombobox(ComboBox<Identifier> ... comboBoxes) {
+		for(ComboBox<Identifier> comboBox : comboBoxes) {
+			comboBox.setCellFactory(LayoutUtil::call);
+			comboBox.setButtonCell(call(null));
+		}
+	}
 
-			@Override
-			public Identifier fromString(String s) {
-				return null;
-			}
-		});
+	public static void showOnlyNameOnCombobox(CheckComboBox<Identifier> ... comboBoxes) {
+		for(CheckComboBox<Identifier> comboBox : comboBoxes) {
+			comboBox.setConverter(new StringConverter<Identifier>() {
+				@Override
+				public String toString(Identifier identifier) {
+					return identifier.getName();
+				}
+
+				@Override
+				public Identifier fromString(String s) {
+					return null;
+				}
+			});
+		}
 	}
 
 	private static ListCell<Identifier> call(ListView<Identifier> param) {

@@ -58,11 +58,15 @@ public class ItemTemplateController implements Initializable, Updateable {
 		miUpdate.setOnAction(this::onMenuButtonAction);
 		miDelete.setOnAction(this::onMenuButtonAction);
 		cbPreview.setOnAction(this::onCheckBoxPreviewAction);
+
+		item = new Item();
+		buildController.setItem(item);
+		previewController.setItem(item);
 	}
 
 	@Override
 	public void update() {
-		btnExecute.setDisable(!Database.isIsLoggedIn());
+		btnExecute.setDisable(!Database.isLoggedIn());
 	}
 
 	public Item getItem() {

@@ -1,0 +1,21 @@
+1;Instance bind
+2;Civilian
+4;No parry
+8;No parry hasten
+16;No block
+32;No crush
+64;No xp at kill
+128;Trigger
+256;No taunt
+512;No move flags update
+1024;Ghost visibility
+16384;Worldevent
+32768;Guard
+131072;No crit
+262144;No skillgain
+524288;Taunt diminish
+1048576;All diminish
+2097152;No player damage req
+268435456;Dungeon boss
+536870912;Ignore pathfinding
+1073741824;Immunity knockback

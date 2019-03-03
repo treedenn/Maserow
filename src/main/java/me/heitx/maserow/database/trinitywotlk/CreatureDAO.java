@@ -142,10 +142,10 @@ public class CreatureDAO extends SqlDatabase implements ICreatureDAO {
 						.from(TrinityCreatureQuery.TEMPLATE_TABLE);
 
 				if(entry != 0) {
-					query.where("ID = " + entry);
+					query.where("entry = " + entry);
 				}
 				if(!name.isEmpty()) {
-					query.or("LogTitle LIKE '%" + name + "%'");
+					query.or("name LIKE '%" + name + "%'");
 				}
 
 				PreparedStatement ps = conn.prepareStatement(query.limit(limit).buildSQL());
@@ -171,7 +171,7 @@ public class CreatureDAO extends SqlDatabase implements ICreatureDAO {
 		try {
 			execute(conn -> {
 				PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT 0 FROM " +
-						TrinityCreatureQuery.TEMPLATE_TABLE + " WHERE ID = ?);");
+						TrinityCreatureQuery.TEMPLATE_TABLE + " WHERE entry = ?);");
 				ps.setLong(1, entry);
 
 				ResultSet rs = ps.executeQuery();
