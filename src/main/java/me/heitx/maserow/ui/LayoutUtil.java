@@ -2,6 +2,7 @@ package me.heitx.maserow.ui;
 
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Window;
@@ -69,6 +70,15 @@ public class LayoutUtil {
 				}
 			}
 		};
+	}
+
+	public static void onAltPrimaryButton(TextField tf, Callback callback) {
+		tf.setOnMouseClicked(event -> {
+			if(event.isAltDown() && event.getButton() == MouseButton.PRIMARY) {
+				callback.call();
+				event.consume();
+			}
+		});
 	}
 
 	public static Optional<ButtonType> showAlert(Alert.AlertType type, String title, String header, String content, ButtonType ... buttons) {

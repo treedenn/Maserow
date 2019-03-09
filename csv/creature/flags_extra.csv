@@ -9,7 +9,7 @@
 256;No taunt
 512;No move flags update
 1024;Ghost visibility
-16384;Worldevent
+16384;World event
 32768;Guard
 131072;No crit
 262144;No skillgain

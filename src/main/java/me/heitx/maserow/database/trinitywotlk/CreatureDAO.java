@@ -5,7 +5,6 @@ import me.heitx.maserow.database.SqlDatabase;
 import me.heitx.maserow.database.dao.ICreatureDAO;
 import me.heitx.maserow.query.Query;
 import me.heitx.maserow.utils.query.TrinityCreatureQuery;
-import me.heitx.maserow.utils.query.TrinityQuestQuery;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

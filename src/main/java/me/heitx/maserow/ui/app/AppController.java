@@ -5,13 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
-import me.heitx.maserow.model.Item;
-import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.ui.creature.search.CreatureSearchController;
 import me.heitx.maserow.ui.creature.template.CreatureTemplateController;
 import me.heitx.maserow.ui.item.search.ItemSearchController;
 import me.heitx.maserow.ui.item.template.ItemTemplateController;
 import me.heitx.maserow.ui.login.LoginController;
+import me.heitx.maserow.ui.lookup.LookupManager;
 import me.heitx.maserow.ui.quest.search.QuestSearchController;
 import me.heitx.maserow.ui.quest.template.QuestTemplateController;
 import me.heitx.maserow.ui.sidemenu.SidemenuController;
@@ -42,6 +41,9 @@ public class AppController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		setupSidemenu();
+
+		LookupManager lm = LookupManager.getInstance();
+		lm.setSidebarContainer(bpApp);
 	}
 
 	private void setupSidemenu() {

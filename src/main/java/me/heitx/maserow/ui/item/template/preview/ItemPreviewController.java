@@ -13,8 +13,8 @@ import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
 import me.heitx.maserow.model.Item;
-import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.ui.LayoutUtil;
+import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.utils.NumberUtil;
 import me.heitx.maserow.utils.ResourceUtil;
@@ -147,7 +147,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 			int value = values[i];
 
 			if(value != 0) {
-				String typeName = Identifier.findById(identifiers, type).getName();
+				String typeName = Identifier.findsById(identifiers, type).getName();
 				String s;
 
 				if(type <= 7) {
@@ -205,7 +205,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 
 		for(int socket : sockets) {
 			if(socket != 0) {
-				String socketName = Identifier.findByValue(identifiers, socket).getName();
+				String socketName = Identifier.findsByValue(identifiers, socket).getName();
 				ImageView image = new ImageView(getClass().getClassLoader().getResource("socket/" + socketName.toLowerCase() + ".png").toString());
 				Label label = new Label(socketName + " Socket");
 
@@ -286,10 +286,10 @@ public class ItemPreviewController implements Initializable, Updateable {
 
 		labelName.setText(item.getName());
 		labelName.setStyle("-fx-text-fill: " + QUALITY_HEX[item.getQuality()] + ";");
-		labelBonding.setText(Identifier.findById(bondings, item.getBonding()).getName());
+		labelBonding.setText(Identifier.findsById(bondings, item.getBonding()).getName());
 		labelUnique.setText(item.getMaxCount() == 1 ? "Unique" : "Unique (" + item.getMaxCount() + ")");
-		labelSlot.setText(Identifier.findById(inventoryType, item.getInventoryType()).getName());
-		labelType.setText(Identifier.findByValue(subclass, item.getSubclass()).getName());
+		labelSlot.setText(Identifier.findsById(inventoryType, item.getInventoryType()).getName());
+		labelType.setText(Identifier.findsByValue(subclass, item.getSubclass()).getName());
 		labelDamageMin.setText(getMinimumDamage());
 		labelDamageMax.setText(getMaximumDamage());
 		labelDelay.setText(String.format(Locale.US, "%.2f", item.getDelay() / 1000.0));

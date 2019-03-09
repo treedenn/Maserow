@@ -16,8 +16,8 @@ import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.model.Quest;
-import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.ui.LayoutUtil;
+import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.utils.query.TrinityQuestQuery;
@@ -253,11 +253,11 @@ public class QuestTemplateController implements Initializable, Updateable {
 	private void updateLayout() {
 		if(quest != null) {
 			tfEntry.setText(String.valueOf(quest.getId()));
-			cbQuestType.getSelectionModel().select(Identifier.findById(questType, quest.getQuestType()));
+			cbQuestType.getSelectionModel().select(Identifier.findsById(questType, quest.getQuestType()));
 			tfQuestLevel.setText(String.valueOf(quest.getQuestLevel()));
 			tfMinLevel.setText(String.valueOf(quest.getMinLevel()));
 			tfSortId.setText(String.valueOf(quest.getQuestSortID()));
-			cbInfoID.getSelectionModel().select(Identifier.findById(questInfo, quest.getQuestInfoID()));
+			cbInfoID.getSelectionModel().select(Identifier.findsById(questInfo, quest.getQuestInfoID()));
 
 			ccbFlags.getCheckModel().clearChecks();
 			List<Integer> flagsIndexes = Identifier.findIndicesByValue(flags, quest.getFlags());

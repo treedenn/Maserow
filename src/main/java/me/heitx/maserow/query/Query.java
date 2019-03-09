@@ -131,7 +131,11 @@ public class Query {
 				valuesAsString.add("'" + s.replaceAll("'", "''") + "'");
 			} else if(value instanceof Number) {
 				valuesAsString.add(String.valueOf(value));
+			} else {
+				valuesAsString.add(String.valueOf(value));
 			}
+
+			System.out.println(value);
 		}
 
 		return valuesAsString;
@@ -174,6 +178,8 @@ public class Query {
 
 			boolean multipleValues = values.size() > 1;
 
+			System.out.println(values.size() + " : " + valuesAsString.size());
+
 			for(int i = 0; i < values.size(); i++) {
 				setBuilder.append(columns.get(i));
 				setBuilder.append(" = ");
@@ -197,7 +203,7 @@ public class Query {
 	}
 
 	public String buildSQL() {
-		if(type == null) return "The Type of the Query is unknown!";
+		if(type == null) return "The SelectionType of the Query is unknown!";
 
 		List<String> pieces = new ArrayList<>();
 

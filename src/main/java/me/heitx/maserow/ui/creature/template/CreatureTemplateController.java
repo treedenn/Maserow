@@ -10,7 +10,6 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Window;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.dao.ICreatureDAO;
-import me.heitx.maserow.database.dao.IQuestDAO;
 import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.ICSV;
@@ -18,10 +17,11 @@ import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.model.Creature;
 import me.heitx.maserow.ui.LayoutUtil;
 import me.heitx.maserow.ui.Updateable;
+import me.heitx.maserow.ui.lookup.LookupManager;
+import me.heitx.maserow.ui.lookup.multiselection.LookupMultiController;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.utils.query.TrinityCreatureQuery;
-import me.heitx.maserow.utils.query.TrinityQuestQuery;
 import org.controlsfx.control.CheckComboBox;
 
 import java.io.File;
@@ -36,6 +36,7 @@ public class CreatureTemplateController implements Initializable, Updateable {
 	@FXML private MenuItem miInsert;
 	@FXML private MenuItem miUpdate;
 	@FXML private MenuItem miDelete;
+	@FXML private Button btnWarning;
 
 	@FXML private TilePane tpLayout; // TODO: Make change this to a flow pane so the grid panes can be different sizes.
 	@FXML private TextField tfEntry;
@@ -55,7 +56,7 @@ public class CreatureTemplateController implements Initializable, Updateable {
 	@FXML private TextField tfMaxCopper;
 	@FXML private TextField tfFaction;
 	@FXML private CheckComboBox<Identifier> ccbFlags;
-	@FXML private CheckComboBox<Identifier> ccbFlagsExtra;
+	@FXML private TextField tfFlagsExtra;
 	@FXML private CheckComboBox<Identifier> ccbDynamicFlags;
 	@FXML private CheckComboBox<Identifier> ccbMechanicImmune;
 	@FXML private TextField tfSpellImmune;
@@ -76,8 +77,8 @@ public class CreatureTemplateController implements Initializable, Updateable {
 	@FXML private TextField tfBaseVariance;
 	@FXML private TextField tfRangeVariance;
 	@FXML private ComboBox<Identifier> cbUnitClass;
-	@FXML private CheckComboBox<Identifier> ccbUnitFlags1;
-	@FXML private CheckComboBox<Identifier> ccbUnitFlags2;
+	@FXML private TextField tfUnitFlags1;
+	@FXML private TextField tfUnitFlags2;
 	@FXML private TextField tfLootID;
 	@FXML private TextField tfPickpocketID;
 	@FXML private TextField tfSkinID;
@@ -142,11 +143,19 @@ public class CreatureTemplateController implements Initializable, Updateable {
 		miUpdate.setOnAction(this::onSaveSqlButtonAction);
 		miDelete.setOnAction(this::onSaveSqlButtonAction);
 
+		btnWarning.setOnAction(actionEvent -> {
+			Alert alert = new Alert(Alert.AlertType.WARNING, "The way the system handles these flags it will not add the value together, if the flags do not exist in the .csv file." + System.lineSeparator() +
+					"As a result, these will be overwritten!" + System.lineSeparator() +
+					"An example would be Illidan Stormrage - Unit Flags2 will be overwritten by the ones selected even though it has more than shown. These are unknown - adding placeholders to the .csv file is simple fix.", ButtonType.OK);
+			alert.show();
+		});
+
 		tpLayout.widthProperty().addListener((observableValue, number, t1) -> {
 			recursiveToFitTilePane(0);
 		});
 
 		loadAllIdentifiers();
+		loadTextboxMouseEvents();
 	}
 
 	@Override
@@ -197,14 +206,12 @@ public class CreatureTemplateController implements Initializable, Updateable {
 
 	private void loadAllIdentifiers() {
 		flags = DelimiterReader.readColumns(csvPath + "npc_flag", false, true);
-		extraFlags = DelimiterReader.readColumns(csvPath + "flags_extra", false, true);
 		dynamicFlags = DelimiterReader.readColumns(csvPath + "dynamic_flags", false, true);
 		mechanicFlags = DelimiterReader.readColumns(csvPath + "mechanic_immune_mask", false, true);
 		expansions = DelimiterReader.readColumns(CommonCSV.EXPANSIONS);
 		ranks = DelimiterReader.readColumns(csvPath + "rank", true, false);
 		damageSchools = DelimiterReader.readColumns(csvPath + "damage_school", true, false);
 		unitClass = DelimiterReader.readColumns(csvPath + "unit_class", false, true);
-		unitFlags = DelimiterReader.readColumns(csvPath + "unit_flags", false, true);
 		unitFlags2 = DelimiterReader.readColumns(csvPath + "unit_flags2", false, true);
 		family = DelimiterReader.readColumns(csvPath + "family", true, false);
 		type = DelimiterReader.readColumns(csvPath + "type", true, false);
@@ -212,23 +219,20 @@ public class CreatureTemplateController implements Initializable, Updateable {
 		movementTypes = DelimiterReader.readColumns(csvPath + "movement_type", true, false);
 
 		ccbFlags.getItems().setAll(flags);
-		ccbFlagsExtra.getItems().setAll(extraFlags);
 		ccbDynamicFlags.getItems().setAll(dynamicFlags);
 		ccbMechanicImmune.getItems().setAll(mechanicFlags);
 		cbExpansion.getItems().setAll(expansions);
 		cbRank.getItems().setAll(ranks);
 		cbDamageSchool.getItems().setAll(damageSchools);
 		cbUnitClass.getItems().setAll(unitClass);
-		ccbUnitFlags1.getItems().setAll(unitFlags);
-		ccbUnitFlags2.getItems().setAll(unitFlags2);
 		cbFamily.getItems().setAll(family);
 		cbType.getItems().setAll(type);
 		ccbTypeFlags.getItems().setAll(typeFlags);
 		cbMovementType.getItems().setAll(movementTypes);
 
 		// ComboCheckboxes
-		LayoutUtil.showOnlyNameOnCombobox(ccbFlags, ccbFlagsExtra, ccbDynamicFlags,
-				ccbMechanicImmune, ccbUnitFlags1, ccbUnitFlags2, ccbTypeFlags);
+		LayoutUtil.showOnlyNameOnCombobox(ccbFlags, ccbDynamicFlags,
+				ccbMechanicImmune, ccbTypeFlags);
 
 		ccbDynamicFlags.getCheckModel().check(0);
 
@@ -242,13 +246,36 @@ public class CreatureTemplateController implements Initializable, Updateable {
 				cbUnitClass, cbFamily, cbType, cbMovementType);
 	}
 
+	private void loadTextboxMouseEvents() {
+		LayoutUtil.onAltPrimaryButton(tfFlagsExtra, () -> {
+			extraFlags = DelimiterReader.readColumns(csvPath + "flags_extra", false, true);
+
+			LookupManager lm = LookupManager.getInstance();
+			lm.showSingleLookup("Extra Flags : Single", "Creature - Extra Flags",
+					false, extraFlags, Identifier.findsIndexByValue(extraFlags, creature.getFlagsExtra()), aLong -> {
+				tfFlagsExtra.setText(String.valueOf(aLong));
+				creature.setFlagsExtra(aLong);
+				return null;
+			});
+		});
+
+		LayoutUtil.onAltPrimaryButton(tfUnitFlags1, () -> {
+			unitFlags = DelimiterReader.readColumns(csvPath + "unit_flags", false, true);
+
+			LookupManager lm = LookupManager.getInstance();
+			lm.showMultiLookup("Unit Flags : Multi", "Creature - Unit Flags", LookupMultiController.CalculateValueMethod.IDENTIFIERS_ONLY,
+					null, unitFlags, Identifier.findIndicesByValue(unitFlags, creature.getUnitFlags()), aLong -> {
+				tfUnitFlags1.setText(String.valueOf(aLong));
+				creature.setUnitFlags(aLong);
+				return null;
+			});
+		});
+	}
+
 	private void updateLayout() {
 		ccbFlags.getCheckModel().clearChecks();
-		ccbFlagsExtra.getCheckModel().clearChecks();
 		ccbDynamicFlags.getCheckModel().clearChecks();
 		ccbMechanicImmune.getCheckModel().clearChecks();
-		ccbUnitFlags1.getCheckModel().clearChecks();
-		ccbUnitFlags2.getCheckModel().clearChecks();
 		ccbTypeFlags.getCheckModel().clearChecks();
 
 		tfEntry.setText(String.valueOf(creature.getEntry()));
@@ -272,7 +299,8 @@ public class CreatureTemplateController implements Initializable, Updateable {
 
 		tfFaction.setText(String.valueOf(creature.getFaction()));
 		ccbFlags.getCheckModel().checkIndices(ConverterUtil.toPrimitive(Identifier.findIndicesByValue(flags, creature.getNpcflag())));
-		ccbFlagsExtra.getCheckModel().checkIndices(ConverterUtil.toPrimitive(Identifier.findIndicesByValue(extraFlags, creature.getFlagsExtra())));
+		tfFlagsExtra.setText(String.valueOf(creature.getFlagsExtra()));
+		ccbDynamicFlags.getCheckModel().checkIndices(ConverterUtil.toPrimitive(Identifier.findIndicesByValue(dynamicFlags, creature.getDynamicflags())));
 		ccbMechanicImmune.getCheckModel().checkIndices(ConverterUtil.toPrimitive(Identifier.findIndicesByValue(mechanicFlags, creature.getMechanicImmuneMask())));
 		tfSpellImmune.setText(String.valueOf(creature.getSpellSchoolImmuneMask()));
 		cbRegenHealth.setSelected(creature.getRegenHealth() > 0);
@@ -281,27 +309,27 @@ public class CreatureTemplateController implements Initializable, Updateable {
 		tfDifficultyEntry3.setText(String.valueOf(creature.getDifficultyEntry3()));
 		tfKillCredit1.setText(String.valueOf(creature.getKillCredit1()));
 		tfKillCredit2.setText(String.valueOf(creature.getKillCredit2()));
-		cbExpansion.getSelectionModel().select(Identifier.findById(expansions, creature.getExp()));
+		cbExpansion.getSelectionModel().select(Identifier.findsById(expansions, creature.getExp()));
 		tfSpeedWalk.setText(String.valueOf(creature.getSpeedWalk()));
 		tfSpeedRun.setText(String.valueOf(creature.getSpeedRun()));
 		tfScale.setText(String.valueOf(creature.getScale()));
-		cbRank.getSelectionModel().select(Identifier.findById(ranks, creature.getRank()));
-		cbDamageSchool.getSelectionModel().select(Identifier.findById(damageSchools, creature.getDmgschool()));
+		cbRank.getSelectionModel().select(Identifier.findsById(ranks, creature.getRank()));
+		cbDamageSchool.getSelectionModel().select(Identifier.findsById(damageSchools, creature.getDmgschool()));
 		tfBaseAttackTime.setText(String.valueOf(creature.getBaseAttackTime()));
 		tfRangeAttackTime.setText(String.valueOf(creature.getRangeAttackTime()));
 		tfBaseVariance.setText(String.valueOf(creature.getBaseVariance()));
 		tfRangeVariance.setText(String.valueOf(creature.getRangeVariance()));
-		cbUnitClass.getSelectionModel().select(Identifier.findById(unitClass, creature.getUnitClass()));
-		ccbUnitFlags1.getCheckModel().checkIndices(ConverterUtil.toPrimitive(Identifier.findIndicesByValue(unitFlags, creature.getUnitFlags())));
-		ccbUnitFlags2.getCheckModel().checkIndices(ConverterUtil.toPrimitive(Identifier.findIndicesByValue(unitFlags2, creature.getUnitFlags2())));
+		cbUnitClass.getSelectionModel().select(Identifier.findsByValue(unitClass, creature.getUnitClass()));
+		tfUnitFlags1.setText(String.valueOf(creature.getUnitFlags()));
+		tfUnitFlags2.setText(String.valueOf(creature.getUnitFlags2()));
 		tfLootID.setText(String.valueOf(creature.getLootid()));
 		tfPickpocketID.setText(String.valueOf(creature.getPickpocketloot()));
 		tfSkinID.setText(String.valueOf(creature.getSkinloot()));
-		cbFamily.getSelectionModel().select(Identifier.findById(family, creature.getFamily()));
-		cbType.getSelectionModel().select(Identifier.findById(type, creature.getType()));
+		cbFamily.getSelectionModel().select(Identifier.findsById(family, creature.getFamily()));
+		cbType.getSelectionModel().select(Identifier.findsById(type, creature.getType()));
 		ccbTypeFlags.getCheckModel().checkIndices(ConverterUtil.toPrimitive(Identifier.findIndicesByValue(typeFlags, creature.getTypeFlags())));
 		tfMovementID.setText(String.valueOf(creature.getMovementId()));
-		cbMovementType.getSelectionModel().select(Identifier.findById(movementTypes, creature.getMovementType()));
+		cbMovementType.getSelectionModel().select(Identifier.findsById(movementTypes, creature.getMovementType()));
 		tfHoverHeight.setText(String.valueOf(creature.getHoverHeight()));
 		tfModifierHealth.setText(String.valueOf(creature.getHealthModifier()));
 		tfModifierMana.setText(String.valueOf(creature.getManaModifier()));
@@ -345,7 +373,7 @@ public class CreatureTemplateController implements Initializable, Updateable {
 		creature.setMaxgold(MoneyUtil.gscToTotal(tfMaxGold.getText(), tfMaxSilver.getText(), tfMaxCopper.getText()));
 		creature.setFaction(Integer.parseInt(tfFaction.getText()));
 		creature.setNpcflag(Identifier.calculateValue(flags, ccbFlags.getCheckModel().getCheckedItems()));
-		creature.setFlagsExtra(Identifier.calculateValue(extraFlags, ccbFlagsExtra.getCheckModel().getCheckedItems()));
+		creature.setFlagsExtra(Long.parseLong(tfFlagsExtra.getText()));
 		creature.setDynamicflags(Identifier.calculateValue(dynamicFlags, ccbDynamicFlags.getCheckModel().getCheckedItems()));
 		creature.setMechanicImmuneMask(Identifier.calculateValue(mechanicFlags, ccbMechanicImmune.getCheckModel().getCheckedItems()));
 		creature.setSpellSchoolImmuneMask(Long.parseLong(tfSpellImmune.getText()));
@@ -366,8 +394,8 @@ public class CreatureTemplateController implements Initializable, Updateable {
 		creature.setBaseVariance(Float.parseFloat(tfBaseVariance.getText()));
 		creature.setRangeVariance(Float.parseFloat(tfRangeVariance.getText()));
 		creature.setUnitClass((int) cbUnitClass.getSelectionModel().getSelectedItem().getValue());
-		creature.setUnitFlags(Identifier.calculateValue(unitFlags, ccbUnitFlags1.getCheckModel().getCheckedItems()));
-		creature.setUnitFlags2(Identifier.calculateValue(unitFlags2, ccbUnitFlags2.getCheckModel().getCheckedItems()));
+		creature.setUnitFlags(Long.parseLong(tfUnitFlags1.getText()));
+		creature.setUnitFlags2(Long.parseLong(tfUnitFlags2.getText()));
 		creature.setLootid(Integer.parseInt(tfLootID.getText()));
 		creature.setPickpocketloot(Integer.parseInt(tfPickpocketID.getText()));
 		creature.setSkinloot(Integer.parseInt(tfSkinID.getText()));
@@ -382,7 +410,7 @@ public class CreatureTemplateController implements Initializable, Updateable {
 		creature.setArmorModifier(Float.parseFloat(tfModifierArmor.getText()));
 		creature.setDamageModifier(Float.parseFloat(tfModifierDamage.getText()));
 		creature.setExperienceModifier(Float.parseFloat(tfModifierExperience.getText()));
-		creature.setRacialLeader(Integer.parseInt(cbRacialLeader.getText()));
+		creature.setRacialLeader(cbRacialLeader.isSelected() ? 1 : 0);
 		creature.setPetSpellDataId(Integer.parseInt(tfPetSpellDataID.getText()));
 		creature.setVehicleId(Integer.parseInt(tfVehicleID.getText()));
 		creature.setResistance1(Integer.parseInt(tfHolyResist.getText()));

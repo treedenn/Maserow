@@ -136,7 +136,7 @@ public class StatsContainer extends VBox {
 
 			LayoutUtil.showOnlyNameOnCombobox(cbStatType);
 
-			cbStatType.getSelectionModel().select(Identifier.findById(statTypes, type));
+			cbStatType.getSelectionModel().select(Identifier.findsById(statTypes, type));
 			tfStatValue.setText(String.valueOf(value));
 
 			super.getChildren().addAll(new StackPane(iconRemove), new StackPane(iconAdd), cbStatType, tfStatValue);

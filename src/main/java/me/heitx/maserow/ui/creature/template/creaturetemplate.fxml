@@ -1,24 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.TilePane?>
-<?import javafx.scene.layout.VBox?>
-<?import org.controlsfx.control.CheckComboBox?>
-
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.*?>
 <VBox xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.creature.template.CreatureTemplateController">
    <children>
       <HBox spacing="5.0">
@@ -31,6 +16,7 @@
                   <MenuItem fx:id="miDelete" mnemonicParsing="false" text="Delete" />
               </items>
             </MenuButton>
+            <Button fx:id="btnWarning" mnemonicParsing="false" text="Click for Warnings!" />
          </children>
       </HBox>
       <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
@@ -151,7 +137,7 @@
                        </HBox>
                        <TextField fx:id="tfFaction" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                         <CheckComboBox fx:id="ccbFlags" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                        <CheckComboBox fx:id="ccbFlagsExtra" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <TextField fx:id="tfFlagsExtra" text="0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                         <CheckComboBox fx:id="ccbDynamicFlags" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="14" />
                         <CheckComboBox fx:id="ccbMechanicImmune" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="15" />
                        <TextField fx:id="tfSpellImmune" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="16" />
@@ -218,8 +204,8 @@
                         <TextField fx:id="tfBaseVariance" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                         <TextField fx:id="tfRangeVariance" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="14" />
                         <ComboBox fx:id="cbUnitClass" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                        <CheckComboBox fx:id="ccbUnitFlags1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="16" />
-                        <CheckComboBox fx:id="ccbUnitFlags2" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                        <TextField fx:id="tfUnitFlags1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                        <TextField fx:id="tfUnitFlags2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="17" />
                      </children>
                   </GridPane>
                   <GridPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="400.0">
@@ -344,7 +330,7 @@
                        <TextField fx:id="tfSpell8" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                        <TextField fx:id="tfAIName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="14" />
                        <TextField fx:id="tfIconName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                       <TextField fx:id="tfGossipMenu" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                       <TextField fx:id="tfGossipMenu" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
                        <TextField fx:id="tfScriptName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="17" />
                      </children>
                   </GridPane>

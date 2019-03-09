@@ -147,7 +147,7 @@ public class ItemBuildController implements Initializable {
 
 			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_QUALITY);
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
-			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getQuality()));
+			cb.getSelectionModel().select(Identifier.findsById(identifiers, item.getQuality()));
 			cb.setMaxWidth(Double.MAX_VALUE);
 			LayoutUtil.showOnlyNameOnCombobox(cb);
 
@@ -164,7 +164,7 @@ public class ItemBuildController implements Initializable {
 
 			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_BONDING);
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
-			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getBonding()));
+			cb.getSelectionModel().select(Identifier.findsById(identifiers, item.getBonding()));
 			cb.setMaxWidth(Double.MAX_VALUE);
 			LayoutUtil.showOnlyNameOnCombobox(cb);
 
@@ -174,7 +174,7 @@ public class ItemBuildController implements Initializable {
 
 	private void onMouseClickSlotType(MouseEvent event) {
 		final String slot = "Slot:";
-		final String type = "Type:";
+		final String type = "SelectionType:";
 
 		if(!editing.contains(slot)) {
 			editing.add(slot);
@@ -182,7 +182,7 @@ public class ItemBuildController implements Initializable {
 
 			List<Identifier> identifiers = DelimiterReader.readColumns(ItemCSV.ITEM_INVENTORY_TYPE);
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
-			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getInventoryType()));
+			cb.getSelectionModel().select(Identifier.findsById(identifiers, item.getInventoryType()));
 			cb.setMaxWidth(Double.MAX_VALUE);
 			LayoutUtil.showOnlyNameOnCombobox(cb);
 
@@ -199,8 +199,8 @@ public class ItemBuildController implements Initializable {
 			ComboBox<Identifier> cbClasses = new ComboBox<>(FXCollections.observableArrayList(identifiers));
 			ComboBox<Identifier> cbSubclasses = new ComboBox<>(FXCollections.observableArrayList(subIdentifiers));
 
-			cbClasses.getSelectionModel().select(Identifier.findById(identifiers, item.get_class()));
-			cbSubclasses.getSelectionModel().select(Identifier.findByValue(subIdentifiers, item.getSubclass()));
+			cbClasses.getSelectionModel().select(Identifier.findsById(identifiers, item.get_class()));
+			cbSubclasses.getSelectionModel().select(Identifier.findsByValue(subIdentifiers, item.getSubclass()));
 
 			LayoutUtil.showOnlyNameOnCombobox(cbClasses);
 			LayoutUtil.showOnlyNameOnCombobox(cbSubclasses);
@@ -224,8 +224,8 @@ public class ItemBuildController implements Initializable {
 	}
 
 	private void onMouseClickDamageSpeed(MouseEvent event) {
-		final String damageType1 = "Damage Type 1:";
-		final String damageType2 = "Damage Type 2:";
+		final String damageType1 = "Damage SelectionType 1:";
+		final String damageType2 = "Damage SelectionType 2:";
 		final String damage1 = "Damage 1:";
 		final String damage2 = "Damage 2:";
 		final String speed = "Speed (ms):";
@@ -237,7 +237,7 @@ public class ItemBuildController implements Initializable {
 			Label l = new Label(damageType1);
 
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
-			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getDamageType1()));
+			cb.getSelectionModel().select(Identifier.findsById(identifiers, item.getDamageType1()));
 			cb.setMaxWidth(Double.MAX_VALUE);
 			LayoutUtil.showOnlyNameOnCombobox(cb);
 
@@ -249,7 +249,7 @@ public class ItemBuildController implements Initializable {
 			Label l = new Label(damageType2);
 
 			ComboBox<Identifier> cb = new ComboBox<>(FXCollections.observableArrayList(identifiers));
-			cb.getSelectionModel().select(Identifier.findById(identifiers, item.getDamageType2()));
+			cb.getSelectionModel().select(Identifier.findsById(identifiers, item.getDamageType2()));
 			cb.setMaxWidth(Double.MAX_VALUE);
 			LayoutUtil.showOnlyNameOnCombobox(cb);
 
@@ -456,7 +456,7 @@ public class ItemBuildController implements Initializable {
 			};
 
 			for(int i = 0; i < socketColors.length; i++) {
-				toggleGroups[i].getToggles().get(identifiers.indexOf(Identifier.findByValue(identifiers, socketColors[i]))).setSelected(true);
+				toggleGroups[i].getToggles().get(identifiers.indexOf(Identifier.findsByValue(identifiers, socketColors[i]))).setSelected(true);
 			}
 
 			addRow(l, gridPane, () -> {

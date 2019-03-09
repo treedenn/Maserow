@@ -1,6 +1,8 @@
 package me.heitx.maserow.ui.sidemenu;
 
 import de.jensd.fx.glyphs.GlyphIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
@@ -94,7 +96,7 @@ public class SidemenuController implements Initializable {
 		setIcon(btnQuest, new MaterialIconView(MaterialIcon.PRIORITY_HIGH), MENU_ICON_SIZE);
 		setIcon(btnQuestSearch, new MaterialIconView(MaterialIcon.SEARCH), SUBMENU_ICON_SIZE);
 		setIcon(btnQuestTemplate, new MaterialIconView(MaterialIcon.EDIT), SUBMENU_ICON_SIZE);
-		setIcon(btnCreature, new MaterialIconView(MaterialIcon.PRIORITY_HIGH), MENU_ICON_SIZE);
+		setIcon(btnCreature, new FontAwesomeIconView(FontAwesomeIcon.BUG), MENU_ICON_SIZE);
 		setIcon(btnCreatureSearch, new MaterialIconView(MaterialIcon.SEARCH), SUBMENU_ICON_SIZE);
 		setIcon(btnCreatureTemplate, new MaterialIconView(MaterialIcon.EDIT), SUBMENU_ICON_SIZE);
 		setIcon(btnSQL, new MaterialDesignIconView(MaterialDesignIcon.DATABASE_PLUS), MENU_ICON_SIZE);

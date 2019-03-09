@@ -27,9 +27,9 @@ public final class DelimiterReader {
 		return readColumns(csv.getFile(), csv.hasId(), csv.hasValue());
 	}
 
-	public static List<Identifier> readColumns(String fileString, boolean hasId, boolean hasValue) {
+	public static List<Identifier> readColumns(String csvFile, boolean hasId, boolean hasValue) {
 		List<Identifier> identifiers = new ArrayList<>();
-		File file = new File(Main.jarFile.getParent(), fileString);
+		File file = new File(Main.jarFile.getParent(), csvFile);
 
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file + ".csv"));
