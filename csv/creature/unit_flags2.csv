@@ -1,0 +1,24 @@
+1;Feign death
+2;Unk1
+4;Ignore reputation
+8;Comprehend lang
+16;Mirror image
+32;Instantly appear model
+64;Force movement
+128;Disarm offhand
+256;Disable pred stats
+1024;Disarm ranged
+2048;Regenerate power
+4096;Restrict party interaction
+8192;Prevent spell click
+16384;Allow enemy interact
+32768;Disable turn
+65536;Unk2
+131072;Play death animation
+262144;Allow cheat spells
+8388608;No Actions
+16777216;Swim Prevent
+33554432;Hide In Combat Log
+67108864;Cannot Switch Targets
+134217728;Ignore Spell Min Range Restrictions
+268435456;Unk3

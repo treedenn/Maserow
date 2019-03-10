@@ -2,6 +2,7 @@ package me.heitx.maserow.ui;
 
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Window;
@@ -14,7 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
-public class UtilityUI {
+public class LayoutUtil {
 	public static void show(Node node) {
 		toggle(node, true);
 	}
@@ -28,23 +29,33 @@ public class UtilityUI {
 		node.setManaged(show);
 	}
 
-	public static void showOnlyNameOnCombobox(ComboBox<Identifier> comboBox) {
-		comboBox.setCellFactory(UtilityUI::call);
-		comboBox.setButtonCell(call(null));
+	public static void selectFirstOnComboboxes(ComboBox<Identifier> ... comboBoxes) {
+		for(ComboBox<Identifier> comboBox : comboBoxes) {
+			comboBox.getSelectionModel().selectFirst();
+		}
 	}
 
-	public static void showOnlyNameOnCombobox(CheckComboBox<Identifier> comboBox) {
-		comboBox.setConverter(new StringConverter<Identifier>() {
-			@Override
-			public String toString(Identifier identifier) {
-				return identifier.getName();
-			}
+	public static void showOnlyNameOnCombobox(ComboBox<Identifier> ... comboBoxes) {
+		for(ComboBox<Identifier> comboBox : comboBoxes) {
+			comboBox.setCellFactory(LayoutUtil::call);
+			comboBox.setButtonCell(call(null));
+		}
+	}
 
-			@Override
-			public Identifier fromString(String s) {
-				return null;
-			}
-		});
+	public static void showOnlyNameOnCombobox(CheckComboBox<Identifier> ... comboBoxes) {
+		for(CheckComboBox<Identifier> comboBox : comboBoxes) {
+			comboBox.setConverter(new StringConverter<Identifier>() {
+				@Override
+				public String toString(Identifier identifier) {
+					return identifier.getName();
+				}
+
+				@Override
+				public Identifier fromString(String s) {
+					return null;
+				}
+			});
+		}
 	}
 
 	private static ListCell<Identifier> call(ListView<Identifier> param) {
@@ -59,6 +70,15 @@ public class UtilityUI {
 				}
 			}
 		};
+	}
+
+	public static void onAltPrimaryButton(TextField tf, Callback callback) {
+		tf.setOnMouseClicked(event -> {
+			if(event.isAltDown() && event.getButton() == MouseButton.PRIMARY) {
+				callback.call();
+				event.consume();
+			}
+		});
 	}
 
 	public static Optional<ButtonType> showAlert(Alert.AlertType type, String title, String header, String content, ButtonType ... buttons) {

@@ -1,5 +1,6 @@
 package me.heitx.maserow.ui;
 
+import com.sun.javafx.css.StyleManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +21,10 @@ public class App extends Application {
 		Pane root = loader.load();
 
 		Scene scene = new Scene(root, root.getWidth(), root.getHeight());
-		scene.getStylesheets().add(getClass().getResource("darktheme.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getClassLoader().getResource("darktheme.css").toExternalForm());
 
+		//stage.setFullScreen(true);
+		stage.setResizable(true);
 		stage.setTitle("MaseroW v" + getClass().getPackage().getImplementationVersion() + " - Created by Heitx");
 		stage.setScene(scene);
 

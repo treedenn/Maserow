@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
-import me.heitx.maserow.model.Item;
+import me.heitx.maserow.ui.creature.search.CreatureSearchController;
+import me.heitx.maserow.ui.creature.template.CreatureTemplateController;
 import me.heitx.maserow.ui.item.search.ItemSearchController;
 import me.heitx.maserow.ui.item.template.ItemTemplateController;
 import me.heitx.maserow.ui.login.LoginController;
+import me.heitx.maserow.ui.lookup.LookupManager;
 import me.heitx.maserow.ui.quest.search.QuestSearchController;
 import me.heitx.maserow.ui.quest.template.QuestTemplateController;
 import me.heitx.maserow.ui.sidemenu.SidemenuController;
@@ -31,10 +33,17 @@ public class AppController implements Initializable {
 	private QuestSearchController questSearchController;
 	private Parent questTemplate;
 	private QuestTemplateController questTemplateController;
+	private Parent creatureSearch;
+	private CreatureSearchController creatureSearchController;
+	private Parent creatureTemplate;
+	private CreatureTemplateController creatureTemplateController;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		setupSidemenu();
+
+		LookupManager lm = LookupManager.getInstance();
+		lm.setSidebarContainer(bpApp);
 	}
 
 	private void setupSidemenu() {
@@ -50,7 +59,7 @@ public class AppController implements Initializable {
 			bpApp.setCenter(login);
 		});
 
-		// Item -> ItemSearch and ItemTemplate
+		// Item -> Search and Template
 		smController.setItemSearchCallback(() -> {
 			if(itemSearch == null) {
 				create(ItemSearchController.class, "itemsearch", (p, c) -> {
@@ -73,15 +82,10 @@ public class AppController implements Initializable {
 
 		smController.setItemTemplateCallback(() -> {
 			createOrUpdateItemTemplate();
-
 			bpApp.setCenter(itemTemplate);
-
-			if(itemTemplateController.getItem() == null) {
-				itemTemplateController.setItem(new Item());
-			}
 		});
 
-		// Quest -> QuestSearch and QuestTemplate
+		// Quest -> Search and Template
 		smController.setQuestSearchCallback(() -> {
 			if(questSearch == null) {
 				create(QuestSearchController.class, "questsearch", (p, c) -> {
@@ -104,8 +108,33 @@ public class AppController implements Initializable {
 
 		smController.setQuestTemplateCallback(() -> {
 			createOrUpdateQuestTemplate();
-
 			bpApp.setCenter(questTemplate);
+		});
+
+		// Creature -> Search and Template
+		smController.setCreatureSearchCallback(() -> {
+			if(creatureSearch == null) {
+				create(CreatureSearchController.class, "creaturesearch", (p, c) -> {
+					creatureSearch = p;
+					creatureSearchController = c;
+				});
+
+				creatureSearchController.setDoubleClickRowCallback(creature -> {
+					createOrUpdateCreatureTemplate();
+					creatureTemplateController.setCreature(creature);
+					bpApp.setCenter(creatureTemplate);
+					return null;
+				});
+			} else {
+				creatureSearchController.update();
+			}
+
+			bpApp.setCenter(creatureSearch);
+		});
+
+		smController.setCreatureTemplateCallback(() -> {
+			createOrUpdateCreatureTemplate();
+			bpApp.setCenter(creatureTemplate);
 		});
 	}
 
@@ -128,6 +157,17 @@ public class AppController implements Initializable {
 			});
 		} else {
 			questTemplateController.update();
+		}
+	}
+
+	private void createOrUpdateCreatureTemplate() {
+		if(creatureTemplate == null) {
+			create(CreatureTemplateController.class, "creaturetemplate", (p, c) -> {
+				creatureTemplate = p;
+				creatureTemplateController = c;
+			});
+		} else {
+			creatureTemplateController.update();
 		}
 	}
 

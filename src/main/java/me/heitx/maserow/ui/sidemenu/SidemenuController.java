@@ -1,6 +1,8 @@
 package me.heitx.maserow.ui.sidemenu;
 
 import de.jensd.fx.glyphs.GlyphIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
@@ -16,7 +18,7 @@ import javafx.scene.control.Labeled;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import me.heitx.maserow.ui.Callback;
-import me.heitx.maserow.ui.UtilityUI;
+import me.heitx.maserow.ui.LayoutUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +35,7 @@ public class SidemenuController implements Initializable {
 	@FXML private Button btnLogin;
 	@FXML private Button btnItem;
 	@FXML private Button btnQuest;
+	@FXML private Button btnCreature;
 	@FXML private Button btnSQL;
 	@FXML private Button btnSettings;
 	@FXML private Button btnToggle;
@@ -44,6 +47,10 @@ public class SidemenuController implements Initializable {
 	@FXML private VBox vboxQuest;
 	@FXML private Button btnQuestSearch;
 	@FXML private Button btnQuestTemplate;
+
+	@FXML private VBox vboxCreature;
+	@FXML private Button btnCreatureSearch;
+	@FXML private Button btnCreatureTemplate;
 
 	private boolean isShrinked;
 	private VBox selectedVBox;
@@ -67,12 +74,9 @@ public class SidemenuController implements Initializable {
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		labeledsTogglable = new Labeled[] {
 				btnLogin,
-				btnItem,
-				btnItemSearch,
-				btnItemTemplate,
-				btnQuest,
-				btnQuestSearch,
-				btnQuestTemplate,
+				btnItem, btnItemSearch, btnItemTemplate,
+				btnQuest, btnQuestSearch, btnQuestTemplate,
+				btnCreature, btnCreatureSearch, btnCreatureTemplate,
 				btnSQL,
 				btnSettings,
 				btnToggle
@@ -81,8 +85,9 @@ public class SidemenuController implements Initializable {
 		btnSettings.setDisable(true);
 		btnSQL.setDisable(true);
 
-		UtilityUI.hide(vboxItem);
-		UtilityUI.hide(vboxQuest);
+		LayoutUtil.hide(vboxItem);
+		LayoutUtil.hide(vboxQuest);
+		LayoutUtil.hide(vboxCreature);
 
 		setIcon(btnLogin, new MaterialDesignIconView(MaterialDesignIcon.DATABASE), MENU_ICON_SIZE);
 		setIcon(btnItem, new MaterialDesignIconView(MaterialDesignIcon.SWORD), MENU_ICON_SIZE);
@@ -91,12 +96,16 @@ public class SidemenuController implements Initializable {
 		setIcon(btnQuest, new MaterialIconView(MaterialIcon.PRIORITY_HIGH), MENU_ICON_SIZE);
 		setIcon(btnQuestSearch, new MaterialIconView(MaterialIcon.SEARCH), SUBMENU_ICON_SIZE);
 		setIcon(btnQuestTemplate, new MaterialIconView(MaterialIcon.EDIT), SUBMENU_ICON_SIZE);
+		setIcon(btnCreature, new FontAwesomeIconView(FontAwesomeIcon.BUG), MENU_ICON_SIZE);
+		setIcon(btnCreatureSearch, new MaterialIconView(MaterialIcon.SEARCH), SUBMENU_ICON_SIZE);
+		setIcon(btnCreatureTemplate, new MaterialIconView(MaterialIcon.EDIT), SUBMENU_ICON_SIZE);
 		setIcon(btnSQL, new MaterialDesignIconView(MaterialDesignIcon.DATABASE_PLUS), MENU_ICON_SIZE);
 		setIcon(btnSettings, new MaterialIconView(MaterialIcon.SETTINGS), MENU_ICON_SIZE);
 		setIcon(btnToggle, toggleExpand, MENU_ICON_SIZE);
 
 		setCategoryAction(btnItem, vboxItem, null);
 		setCategoryAction(btnQuest, vboxQuest, null);
+		setCategoryAction(btnCreature, vboxCreature, null);
 
 		btnToggle.setOnAction(this::onButtonToggleAction);
 	}
@@ -109,7 +118,7 @@ public class SidemenuController implements Initializable {
 				labeled.pseudoClassStateChanged(SHRINKED_PSEUDO, false);
 			}
 
-			UtilityUI.show(labelTitle);
+			LayoutUtil.show(labelTitle);
 			setIcon(btnToggle, toggleExpand, MENU_ICON_SIZE);
 			vboxSidemenu.setPrefWidth(EXPAND_WIDTH);
 		} else {
@@ -119,7 +128,7 @@ public class SidemenuController implements Initializable {
 				labeled.pseudoClassStateChanged(SHRINKED_PSEUDO, true);
 			}
 
-			UtilityUI.hide(labelTitle);
+			LayoutUtil.hide(labelTitle);
 			setIcon(btnToggle, toggleShrink, MENU_ICON_SIZE);
 			vboxSidemenu.setPrefWidth(SHRINK_WIDTH);
 		}
@@ -132,7 +141,7 @@ public class SidemenuController implements Initializable {
 	private void setButtonAction(Button btn, Callback callback) {
 		btn.setOnAction(actionEvent -> {
 			if(selectedVBox != null) {
-				UtilityUI.hide(selectedVBox);
+				LayoutUtil.hide(selectedVBox);
 				selectedVBox = null;
 			}
 
@@ -143,10 +152,10 @@ public class SidemenuController implements Initializable {
 	private void setCategoryAction(Button btn, VBox vbox, Callback callback) {
 		btn.setOnAction(actionEvent -> {
 			if(selectedVBox != null && selectedVBox != vbox) {
-				UtilityUI.hide(selectedVBox);
-				UtilityUI.show(vbox);
+				LayoutUtil.hide(selectedVBox);
+				LayoutUtil.show(vbox);
 			} else {
-				UtilityUI.toggle(vbox, !vbox.isVisible());
+				LayoutUtil.toggle(vbox, !vbox.isVisible());
 			}
 
 			selectedVBox = vbox;
@@ -186,6 +195,16 @@ public class SidemenuController implements Initializable {
 	}
 	public void setQuestTemplateCallback(Callback callback) {
 		setButtonAction(btnQuestTemplate, callback);
+	}
+	// CREATURE
+	public void setCreatureCallback(Callback callback) {
+		setCategoryAction(btnCreature, vboxCreature, callback);
+	}
+	public void setCreatureSearchCallback(Callback callback) {
+		setButtonAction(btnCreatureSearch, callback);
+	}
+	public void setCreatureTemplateCallback(Callback callback) {
+		setButtonAction(btnCreatureTemplate, callback);
 	}
 	// ...
 	public void setSQLCallback(Callback callback) {

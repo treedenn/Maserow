@@ -14,8 +14,8 @@ import javafx.stage.Window;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.dao.IItemDAO;
 import me.heitx.maserow.model.Item;
+import me.heitx.maserow.ui.LayoutUtil;
 import me.heitx.maserow.ui.Updateable;
-import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.ui.item.template.build.ItemBuildController;
 import me.heitx.maserow.ui.item.template.preview.ItemPreviewController;
 import me.heitx.maserow.utils.ConverterUtil;
@@ -48,7 +48,7 @@ public class ItemTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		UtilityUI.hide(preview);
+		LayoutUtil.hide(preview);
 
 		update();
 
@@ -58,11 +58,15 @@ public class ItemTemplateController implements Initializable, Updateable {
 		miUpdate.setOnAction(this::onMenuButtonAction);
 		miDelete.setOnAction(this::onMenuButtonAction);
 		cbPreview.setOnAction(this::onCheckBoxPreviewAction);
+
+		item = new Item();
+		buildController.setItem(item);
+		previewController.setItem(item);
 	}
 
 	@Override
 	public void update() {
-		btnExecute.setDisable(!Database.isIsLoggedIn());
+		btnExecute.setDisable(!Database.isLoggedIn());
 	}
 
 	public Item getItem() {
@@ -84,7 +88,7 @@ public class ItemTemplateController implements Initializable, Updateable {
 			Map<String, Object> attributes = ConverterUtil.toAttributes(item);
 
 			if(dao.exists(item.getEntry())) {
-				Optional<ButtonType> alert = UtilityUI.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already an item with given identifier! " +
+				Optional<ButtonType> alert = LayoutUtil.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already an item with given identifier! " +
 						"Do you want to overwrite the old item with the new one?", ButtonType.NO, ButtonType.YES);
 				if(alert.isPresent() && alert.get() == ButtonType.YES) {
 					dao.update(attributes);
@@ -101,22 +105,22 @@ public class ItemTemplateController implements Initializable, Updateable {
 		final Window window = btnExecute.getScene().getWindow();
 
 		if(event.getSource() == miInsert) {
-			UtilityUI.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
+			LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
 		} else if(event.getSource() == miUpdate) {
-			UtilityUI.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
+			LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
 		} else if(event.getSource() == miDelete) {
-			UtilityUI.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
+			LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
 		}
 	}
 
 	private void onCheckBoxPreviewAction(ActionEvent event) {
 		if(cbPreview.isSelected()) {
 			previewController.update();
-			UtilityUI.show(preview);
-			UtilityUI.hide(build);
+			LayoutUtil.show(preview);
+			LayoutUtil.hide(build);
 		} else {
-			UtilityUI.show(build);
-			UtilityUI.hide(preview);
+			LayoutUtil.show(build);
+			LayoutUtil.hide(preview);
 		}
 	}
 

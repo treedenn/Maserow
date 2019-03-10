@@ -30,7 +30,7 @@ public abstract class SearchController<T> implements Initializable, Updateable {
 
 	@Override
 	public void update() {
-		btnSearch.setDisable(!Database.isIsLoggedIn());
+		btnSearch.setDisable(!Database.isLoggedIn());
 	}
 
 	public SearchController<T> setDoubleClickRowCallback(Callback<T, Void> doubleClickRowCallback) {

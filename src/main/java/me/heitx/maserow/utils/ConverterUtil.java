@@ -5,10 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ConverterUtil {
 	private static final Logger LOGGER = LogManager.getLogger(ConverterUtil.class.getName());
@@ -49,7 +46,7 @@ public class ConverterUtil {
 	}
 
 	public static Map<String, Object> toAttributes(Object o) {
-		Map<String, Object> attributes = new HashMap<>();
+		Map<String, Object> attributes = new LinkedHashMap<>();
 
 		for(Field field : o.getClass().getDeclaredFields()) {
 			Column column = field.getAnnotation(Column.class);
@@ -66,5 +63,13 @@ public class ConverterUtil {
 		}
 
 		return attributes;
+	}
+
+	public static int[] toPrimitive(List<Integer> list) {
+		int[] arr = new int[list.size()];
+		for(int i = 0; i < arr.length; i++) {
+			arr[i] = list.get(i);
+		}
+		return arr;
 	}
 }

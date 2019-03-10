@@ -83,7 +83,7 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 			execute(conn -> {
 				Query query = new Query()
 						.select("*")
-						.from("item_template")
+						.from(TrinityItemQuery.TEMPLATE_TABLE)
 						.where("entry = " + entry)
 						.limit(1);
 
@@ -111,7 +111,7 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 			execute(conn -> {
 				Query query = new Query()
 						.select("*")
-						.from("item_template")
+						.from(TrinityItemQuery.TEMPLATE_TABLE)
 						.limit(limit);
 
 				PreparedStatement ps = conn.prepareStatement(query.buildSQL());
@@ -138,7 +138,7 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 			execute(conn -> {
 				Query query = new Query()
 						.select("*")
-						.from("item_template");
+						.from(TrinityItemQuery.TEMPLATE_TABLE);
 
 				if(entry != 0) {
 					query.where("entry = " + entry);
@@ -169,7 +169,8 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT 0 FROM item_template WHERE entry = ?);");
+				PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT 0 FROM " +
+						TrinityItemQuery.TEMPLATE_TABLE + " WHERE entry = ?);");
 				ps.setLong(1, entry);
 
 				ResultSet rs = ps.executeQuery();
@@ -192,7 +193,7 @@ public class ItemDAO extends SqlDatabase implements IItemDAO {
 			execute(conn -> {
 				PreparedStatement ps = conn.prepareStatement(
 						new Query().select("MAX(entry)")
-								.from("item_template")
+								.from(TrinityItemQuery.TEMPLATE_TABLE)
 								.buildSQL());
 
 				ResultSet rs = ps.executeQuery();

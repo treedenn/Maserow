@@ -16,8 +16,8 @@ import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.model.Quest;
+import me.heitx.maserow.ui.LayoutUtil;
 import me.heitx.maserow.ui.Updateable;
-import me.heitx.maserow.ui.UtilityUI;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.utils.query.TrinityQuestQuery;
@@ -142,6 +142,8 @@ public class QuestTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+		quest = new Quest();
+
 		btnExecute.setOnAction(this::onExecuteButtonAction);
 		miInsert.setOnAction(this::onSaveSqlButtonAction);
 		miUpdate.setOnAction(this::onSaveSqlButtonAction);
@@ -152,25 +154,25 @@ public class QuestTemplateController implements Initializable, Updateable {
 
 		final String csvPath = "csv" + File.separator + "quest" + File.separator;
 
-		questType = DelimiterReader.readColumns(csvPath + "questtype.csv", true, false);
+		questType = DelimiterReader.readColumns(csvPath + "questtype", true, false);
 		cbQuestType.setItems(FXCollections.observableList(questType));
 		cbQuestType.getSelectionModel().select(0);
-		UtilityUI.showOnlyNameOnCombobox(cbQuestType);
+		LayoutUtil.showOnlyNameOnCombobox(cbQuestType);
 
-		questInfo = DelimiterReader.readColumns(csvPath + "questinfo.csv", true, false);
+		questInfo = DelimiterReader.readColumns(csvPath + "questinfo", true, false);
 		cbInfoID.setItems(FXCollections.observableList(questInfo));
 		cbInfoID.getSelectionModel().select(0);
-		UtilityUI.showOnlyNameOnCombobox(cbInfoID);
+		LayoutUtil.showOnlyNameOnCombobox(cbInfoID);
 
-		flags = DelimiterReader.readColumns(csvPath + "flags.csv", false, true);
+		flags = DelimiterReader.readColumns(csvPath + "flags", false, true);
 		ccbFlags.getItems().setAll(flags);
 		ccbFlags.getCheckModel().check(0);
-		UtilityUI.showOnlyNameOnCombobox(ccbFlags);
+		LayoutUtil.showOnlyNameOnCombobox(ccbFlags);
 
 		races = DelimiterReader.readColumns(CommonCSV.RACES);
 		ccbRaces.getItems().setAll(races);
 		ccbRaces.getCheckModel().checkAll();
-		UtilityUI.showOnlyNameOnCombobox(ccbRaces);
+		LayoutUtil.showOnlyNameOnCombobox(ccbRaces);
 
 		HBox[] hboxes = new HBox[] {
 				hboxChoice1, hboxChoice2, hboxChoice3,
@@ -204,7 +206,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void update() {
-		btnExecute.setDisable(!Database.isIsLoggedIn());
+		btnExecute.setDisable(!Database.isLoggedIn());
 	}
 
 	public void setQuest(Quest quest) {
@@ -219,7 +221,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 			Map<String, Object> attributes = ConverterUtil.toAttributes(quest);
 
 			if(dao.exists(quest.getId())) {
-				Optional<ButtonType> alert = UtilityUI.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already a quest with given identifier! " +
+				Optional<ButtonType> alert = LayoutUtil.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already a quest with given identifier! " +
 						"Do you want to overwrite the old quest with the new one?", ButtonType.NO, ButtonType.YES);
 				if(alert.isPresent() && alert.get() == ButtonType.YES) {
 					dao.update(attributes);
@@ -231,29 +233,31 @@ public class QuestTemplateController implements Initializable, Updateable {
 	}
 
 	private void onSaveSqlButtonAction(ActionEvent event) {
-		updateModel();
+		if(quest != null) {
+			updateModel();
 
-		Map<String, Object> attributes = ConverterUtil.toAttributes(quest);
-		final String initialFileName = "quest:" + quest.getLogTitle().replaceAll(" ", "-") + ":" + quest.getId();
-		final Window window = btnExecute.getScene().getWindow();
+			Map<String, Object> attributes = ConverterUtil.toAttributes(quest);
+			final String initialFileName = "quest:" + quest.getLogTitle().replaceAll(" ", "-") + ":" + quest.getId();
+			final Window window = btnExecute.getScene().getWindow();
 
-		if(event.getSource() == miInsert) {
-			UtilityUI.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
-		} else if(event.getSource() == miUpdate) {
-			UtilityUI.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
-		} else if(event.getSource() == miDelete) {
-			UtilityUI.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			if(event.getSource() == miInsert) {
+				LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			} else if(event.getSource() == miUpdate) {
+				LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			} else if(event.getSource() == miDelete) {
+				LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+			}
 		}
 	}
 
 	private void updateLayout() {
 		if(quest != null) {
 			tfEntry.setText(String.valueOf(quest.getId()));
-			cbQuestType.getSelectionModel().select(Identifier.findById(questType, quest.getQuestType()));
+			cbQuestType.getSelectionModel().select(Identifier.findsById(questType, quest.getQuestType()));
 			tfQuestLevel.setText(String.valueOf(quest.getQuestLevel()));
 			tfMinLevel.setText(String.valueOf(quest.getMinLevel()));
 			tfSortId.setText(String.valueOf(quest.getQuestSortID()));
-			cbInfoID.getSelectionModel().select(Identifier.findById(questInfo, quest.getQuestInfoID()));
+			cbInfoID.getSelectionModel().select(Identifier.findsById(questInfo, quest.getQuestInfoID()));
 
 			ccbFlags.getCheckModel().clearChecks();
 			List<Integer> flagsIndexes = Identifier.findIndicesByValue(flags, quest.getFlags());
@@ -350,7 +354,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 			quest.setRewardHonor(Integer.parseInt(tfRewardHonorPoints.getText()));
 			quest.setRewardKillHonor(Float.parseFloat(tfRewardHonorKills.getText()));
 			quest.setStartItem(Integer.parseInt(tfStartItem.getText()));
-			quest.setFlags(Identifier.calculateValue(ccbFlags.getCheckModel().getCheckedItems(), races, 0));
+			quest.setFlags(Identifier.calculateValue(ccbFlags.getCheckModel().getCheckedItems(), races, 0L));
 			quest.setRequiredPlayerKills(Integer.parseInt(tfReqPlayerKills.getText()));
 			quest.setRewardItem1(Integer.parseInt(labelRewardId1.getText()));
 			quest.setRewardAmount1(Integer.parseInt(labelRewardQuantity1.getText()));
@@ -375,7 +379,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 			quest.setRewardTitle(Integer.parseInt(tfRewardTitle.getText()));
 			quest.setRewardTalents(Integer.parseInt(tfRewardTalents.getText()));
 			quest.setRewardArenaPoints(Integer.parseInt(tfRewardArenaPoints.getText()));
-			quest.setAllowableRaces((int) (Identifier.calculateValue(races, ccbRaces.getCheckModel().getCheckedItems(), 0)));
+			quest.setAllowableRaces((int) (Identifier.calculateValue(races, ccbRaces.getCheckModel().getCheckedItems(), 0L)));
 			quest.setLogTitle(tfLogTitle.getText());
 			quest.setLogDescription(taLogDescription.getText());
 			quest.setQuestDescription(taQuestDescription.getText());
@@ -439,6 +443,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 				currQuantity.setText(tfQuantity.getText());
 			});
 			currentPopup.getScene().setRoot(hbox);
+
 			currentPopup.show(owner, event.getScreenX(), event.getScreenY());
 		});
 	}
