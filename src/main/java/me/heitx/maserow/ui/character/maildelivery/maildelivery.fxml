@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.ListSelectionView?>
+
+<FlowPane fx:id="pRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label text="Subject:" />
+                  <TextField fx:id="tfSubject" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <TextArea fx:id="taBody" prefHeight="200.0" prefWidth="200.0" />
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <CheckBox fx:id="cbCOD" mnemonicParsing="false" text="C.O.D" />
+                  <TextField fx:id="tfGold" prefWidth="60.0" text="0" HBox.hgrow="ALWAYS" />
+                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="currency/money-gold.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="tfSilver" prefWidth="42.0" text="0" />
+                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/currency/money-silver.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="tfCopper" prefWidth="42.0" text="0" />
+                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/currency/money-copper.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <ListSelectionView fx:id="lsvItems" />
+         </children>
+      </VBox>
+      <VBox>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label text="Sender:" />
+                  <TextField fx:id="tfSender" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <ListSelectionView fx:id="lsvReceivers" />
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label text="Checked:" />
+                  <TextField fx:id="tfChecked" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</FlowPane>
