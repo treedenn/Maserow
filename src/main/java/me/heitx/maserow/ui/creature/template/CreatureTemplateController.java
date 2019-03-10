@@ -372,10 +372,10 @@ public class CreatureTemplateController implements Initializable, Updateable {
 		creature.setMingold(MoneyUtil.gscToTotal(tfMinGold.getText(), tfMinSilver.getText(), tfMinCopper.getText()));
 		creature.setMaxgold(MoneyUtil.gscToTotal(tfMaxGold.getText(), tfMaxSilver.getText(), tfMaxCopper.getText()));
 		creature.setFaction(Integer.parseInt(tfFaction.getText()));
-		creature.setNpcflag(Identifier.calculateValue(flags, ccbFlags.getCheckModel().getCheckedItems()));
+		creature.setNpcflag(Identifier.calculateValue(ccbFlags.getCheckModel().getCheckedItems()));
 		creature.setFlagsExtra(Long.parseLong(tfFlagsExtra.getText()));
-		creature.setDynamicflags(Identifier.calculateValue(dynamicFlags, ccbDynamicFlags.getCheckModel().getCheckedItems()));
-		creature.setMechanicImmuneMask(Identifier.calculateValue(mechanicFlags, ccbMechanicImmune.getCheckModel().getCheckedItems()));
+		creature.setDynamicflags(Identifier.calculateValue(ccbDynamicFlags.getCheckModel().getCheckedItems()));
+		creature.setMechanicImmuneMask(Identifier.calculateValue(ccbMechanicImmune.getCheckModel().getCheckedItems()));
 		creature.setSpellSchoolImmuneMask(Long.parseLong(tfSpellImmune.getText()));
 		creature.setRegenHealth(cbRegenHealth.isSelected() ? 1 : 0);
 		creature.setDifficultyEntry1(Integer.parseInt(tfDifficultyEntry1.getText()));
@@ -401,7 +401,7 @@ public class CreatureTemplateController implements Initializable, Updateable {
 		creature.setSkinloot(Integer.parseInt(tfSkinID.getText()));
 		creature.setFamily(cbFamily.getSelectionModel().getSelectedItem().getId());
 		creature.setType(cbType.getSelectionModel().getSelectedItem().getId());
-		creature.setTypeFlags(Identifier.calculateValue(typeFlags, ccbTypeFlags.getCheckModel().getCheckedItems()));
+		creature.setTypeFlags(Identifier.calculateValue(ccbTypeFlags.getCheckModel().getCheckedItems()));
 		creature.setMovementId(Long.parseLong(tfMovementID.getText()));
 		creature.setMovementType(cbMovementType.getSelectionModel().getSelectedItem().getId());
 		creature.setHoverHeight(Float.parseFloat(tfHoverHeight.getText()));

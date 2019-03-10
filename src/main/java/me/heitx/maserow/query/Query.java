@@ -134,8 +134,6 @@ public class Query {
 			} else {
 				valuesAsString.add(String.valueOf(value));
 			}
-
-			System.out.println(value);
 		}
 
 		return valuesAsString;

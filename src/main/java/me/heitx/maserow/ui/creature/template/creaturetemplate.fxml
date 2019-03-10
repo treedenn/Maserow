@@ -140,7 +140,7 @@
                         <TextField fx:id="tfFlagsExtra" text="0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                         <CheckComboBox fx:id="ccbDynamicFlags" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="14" />
                         <CheckComboBox fx:id="ccbMechanicImmune" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                       <TextField fx:id="tfSpellImmune" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                       <TextField fx:id="tfSpellImmune" text="0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="16" />
                        <CheckBox fx:id="cbRegenHealth" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="17" />
                      </children>
                   </GridPane>

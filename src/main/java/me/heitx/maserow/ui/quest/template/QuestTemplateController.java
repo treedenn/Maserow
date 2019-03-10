@@ -354,7 +354,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 			quest.setRewardHonor(Integer.parseInt(tfRewardHonorPoints.getText()));
 			quest.setRewardKillHonor(Float.parseFloat(tfRewardHonorKills.getText()));
 			quest.setStartItem(Integer.parseInt(tfStartItem.getText()));
-			quest.setFlags(Identifier.calculateValue(ccbFlags.getCheckModel().getCheckedItems(), races, 0));
+			quest.setFlags(Identifier.calculateValue(ccbFlags.getCheckModel().getCheckedItems(), races, 0L));
 			quest.setRequiredPlayerKills(Integer.parseInt(tfReqPlayerKills.getText()));
 			quest.setRewardItem1(Integer.parseInt(labelRewardId1.getText()));
 			quest.setRewardAmount1(Integer.parseInt(labelRewardQuantity1.getText()));
@@ -379,7 +379,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 			quest.setRewardTitle(Integer.parseInt(tfRewardTitle.getText()));
 			quest.setRewardTalents(Integer.parseInt(tfRewardTalents.getText()));
 			quest.setRewardArenaPoints(Integer.parseInt(tfRewardArenaPoints.getText()));
-			quest.setAllowableRaces((int) (Identifier.calculateValue(races, ccbRaces.getCheckModel().getCheckedItems(), 0)));
+			quest.setAllowableRaces((int) (Identifier.calculateValue(races, ccbRaces.getCheckModel().getCheckedItems(), 0L)));
 			quest.setLogTitle(tfLogTitle.getText());
 			quest.setLogDescription(taLogDescription.getText());
 			quest.setQuestDescription(taQuestDescription.getText());
