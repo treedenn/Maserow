@@ -251,12 +251,12 @@ public class CreatureTemplateController implements Initializable, Updateable {
 			extraFlags = DelimiterReader.readColumns(csvPath + "flags_extra", false, true);
 
 			LookupManager lm = LookupManager.getInstance();
-			lm.showSingleLookup("Extra Flags : Single", "Creature - Extra Flags",
-					false, extraFlags, Identifier.findsIndexByValue(extraFlags, creature.getFlagsExtra()), aLong -> {
-				tfFlagsExtra.setText(String.valueOf(aLong));
-				creature.setFlagsExtra(aLong);
-				return null;
-			});
+			lm.showMultiLookup("Extra Flags : Multi", "Creature - Extra Flags", LookupMultiController.CalculateValueMethod.IDENTIFIERS_ONLY,
+					null, extraFlags, Identifier.findIndicesByValue(extraFlags, creature.getFlagsExtra()), aLong -> {
+						tfFlagsExtra.setText(String.valueOf(aLong));
+						creature.setFlagsExtra(aLong);
+						return null;
+					});
 		});
 
 		LayoutUtil.onAltPrimaryButton(tfUnitFlags1, () -> {
@@ -267,6 +267,18 @@ public class CreatureTemplateController implements Initializable, Updateable {
 					null, unitFlags, Identifier.findIndicesByValue(unitFlags, creature.getUnitFlags()), aLong -> {
 				tfUnitFlags1.setText(String.valueOf(aLong));
 				creature.setUnitFlags(aLong);
+				return null;
+			});
+		});
+
+		LayoutUtil.onAltPrimaryButton(tfUnitFlags2, () -> {
+			unitFlags2 = DelimiterReader.readColumns(csvPath + "unit_flags2", false, true);
+
+			LookupManager lm = LookupManager.getInstance();
+			lm.showMultiLookup("Unit Flags 2 : Multi", "Creature - Unit Flags 2", LookupMultiController.CalculateValueMethod.IDENTIFIERS_ONLY,
+					null, unitFlags2, Identifier.findIndicesByValue(unitFlags2, creature.getUnitFlags2()), aLong -> {
+				tfUnitFlags2.setText(String.valueOf(aLong));
+				creature.setUnitFlags2(aLong);
 				return null;
 			});
 		});

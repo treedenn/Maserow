@@ -77,7 +77,7 @@
                        <Label text="Max Gold:" GridPane.rowIndex="10" />
                        <Label text="Faction:" GridPane.rowIndex="11" />
                        <Label text="Flags:" GridPane.rowIndex="12" />
-                       <Label text="Extra Flags:" GridPane.rowIndex="13" />
+                       <Label text="•Extra Flags:" GridPane.rowIndex="13" />
                        <Label text="Dynamic Flags:" GridPane.rowIndex="14" />
                        <Label text="Mechanic Immune:" GridPane.rowIndex="15" />
                        <Label text="Spell Immune:" GridPane.rowIndex="16" />
@@ -186,8 +186,8 @@
                        <Label text="Base Variance:" GridPane.rowIndex="13" />
                        <Label text="Range Variance:" GridPane.rowIndex="14" />
                        <Label text="Unit Class:" GridPane.rowIndex="15" />
-                       <Label text="Unit Flags:" GridPane.rowIndex="16" />
-                       <Label text="Unit Flags2:" GridPane.rowIndex="17" />
+                       <Label text="•Unit Flags:" GridPane.rowIndex="16" />
+                       <Label text="•Unit Flags2:" GridPane.rowIndex="17" />
                         <TextField fx:id="tfDifficultyEntry1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" />
                         <TextField fx:id="tfDifficultyEntry2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="tfDifficultyEntry3" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
