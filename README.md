@@ -5,10 +5,17 @@ However, when all the big features are done and with help, it could be transferr
 
 # Suggestions or bugs
 This project is a hobby and a solo project, which means I am developing it in my free time. Simple conclusion, I cannot find all the bugs myself and brainstorming features and layouts with others is not possible.  
-Therefore, it would be great when a bug occurs, thoughts on features or a new idea for a layout comes to mind, you will submit them here. It might help other users.
+Therefore, it would be great when a bug occurs, thoughts on features or a new idea for a layout comes to mind, you will submit them here.
+
+# Disclaimer
+The creators of MaseroW are not responsible for any corruption that may occur on a server/database.  
+By using this software, you accept the statement mentioned above.
+**Always do Backups!**
 
 # Features
-This is a list of features categorized in different groups.
+The features are spread around the application, however, in a few cases it is possible to categorized them into different groups.  
+
+v0.0.4 introduced a lookup view. It can be opened when a label has the • symbol  in it by pressing ALT + Primary Mouse Click.  
 
 ### Core
 - [x] Online/Offline mode
@@ -20,12 +27,14 @@ This is a list of features categorized in different groups.
 - [x] Save Configuration
 
 ### Item
+For now it only targets the item_template table in the database.
+
 - [x] Search Tab
 - [x] Upload directly to database
 - [x] Save as SQL (Insert, Update & Delete)
 - [x] Live Preview
 - [x] Simple Editor
-- [x] Helpers (80%)
+- [x] Helpers
 - [ ] Display/Model lookup
 
 ### Quest
@@ -35,13 +44,16 @@ For now it only targets the quest_template table in the database.
 - [x] Upload directly to database
 - [x] Save as SQL (Insert, Update & Delete)
 - [x] Simple Editor
-- [x] Helpers (3)
+- [x] Helpers
 
 ### Creature
-- [x] WIP
+For now it only targets the creature_template in the database.
 
-### Account
-- [ ] WIP
+- [x] Search Tab
+- [x] Upload directly to database
+- [x] Save as SQL (Insert, Update & Delete)
+- [x] Field Editor (Tons of textboxes..)
+- [ ] Creature model lookup
 
 # Images
 The last section is images.
