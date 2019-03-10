@@ -15,7 +15,9 @@ import me.heitx.maserow.ui.lookup.LookupController;
 import me.heitx.maserow.ui.lookup.LookupData;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class LookupMultiController extends LookupController<Long> {
 	@FXML private TableColumn<LookupData, Boolean> tcSelected;

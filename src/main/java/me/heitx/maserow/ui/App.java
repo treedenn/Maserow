@@ -1,6 +1,5 @@
 package me.heitx.maserow.ui;
 
-import com.sun.javafx.css.StyleManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
