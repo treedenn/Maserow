@@ -62,6 +62,6 @@ public enum ItemCSV implements ICSV {
 
 	@Override
 	public String getFile() {
-		return ICSV.CSV_FOLDER_NAME + File.separator + ITEM_CSV_FOLDER + File.separator + fileName + ".csv";
+		return ICSV.CSV_FOLDER_NAME + File.separator + ITEM_CSV_FOLDER + File.separator + fileName;
 	}
 }

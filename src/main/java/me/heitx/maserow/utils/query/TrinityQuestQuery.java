@@ -5,8 +5,8 @@ import me.heitx.maserow.utils.QueryUtil;
 import java.util.Map;
 
 public class TrinityQuestQuery {
-	private static final String TEMPLATE_TABLE = "quest_template";
-	private static final String ADDON_TABLE = "quest_template_addon";
+	public static final String TEMPLATE_TABLE = "quest_template";
+	public static final String ADDON_TABLE = "quest_template_addon";
 
 	public static String getInsertQuery(Map<String, Object> attributes, boolean newlineFormat) {
 		return QueryUtil.simpleInsert(TEMPLATE_TABLE, attributes, newlineFormat);

@@ -1,0 +1,25 @@
+1;Tameable
+2;Ghost
+4;Boss
+8;Do not play wound parry animation
+16;Hide faction tooltip
+32;Unk6
+64;Spell attackable
+128;Dead interact
+256;Herbloot
+512;Miningloot
+1024;Dont log death
+2048;Mounted combat
+4096;Aid players
+8192;Is pet bar used
+16384;Mask uid
+32768;Engineerloot
+65536;Exotic pet
+131072;Use default collision box
+262144;Is siege weapon
+524288;Projectile collision
+1048576;Hide nameplate
+2097152;Do not play mounted animations
+4194304;Is link all
+8388608;Interact only with creator
+134217728;Force gossip

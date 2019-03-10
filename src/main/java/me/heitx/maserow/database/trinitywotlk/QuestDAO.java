@@ -83,7 +83,7 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 			execute(conn -> {
 				Query query = new Query()
 						.select("*")
-						.from("quest_template")
+						.from(TrinityQuestQuery.TEMPLATE_TABLE)
 						.where("ID = " + entry)
 						.limit(1);
 
@@ -111,7 +111,7 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 			execute(conn -> {
 				Query query = new Query()
 						.select("*")
-						.from("quest_template")
+						.from(TrinityQuestQuery.TEMPLATE_TABLE)
 						.limit(limit);
 
 				PreparedStatement ps = conn.prepareStatement(query.buildSQL());
@@ -131,20 +131,20 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> search(int entry, String name, int limit) {
+	public List<Map<String, Object>> search(int entry, String logTitle, int limit) {
 		List<Map<String, Object>> set = new ArrayList<>();
 
 		try {
 			execute(conn -> {
 				Query query = new Query()
 						.select("*")
-						.from("quest_template");
+						.from(TrinityQuestQuery.TEMPLATE_TABLE);
 
 				if(entry != 0) {
 					query.where("ID = " + entry);
 				}
-				if(!name.isEmpty()) {
-					query.or("LogTitle LIKE '%" + name + "%'");
+				if(!logTitle.isEmpty()) {
+					query.or("LogTitle LIKE '%" + logTitle + "%'");
 				}
 
 				PreparedStatement ps = conn.prepareStatement(query.limit(limit).buildSQL());
@@ -169,7 +169,8 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT 0 FROM quest_template WHERE ID = ?);");
+				PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT 0 FROM " +
+						TrinityQuestQuery.TEMPLATE_TABLE + " WHERE ID = ?);");
 				ps.setLong(1, entry);
 
 				ResultSet rs = ps.executeQuery();
@@ -192,7 +193,7 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 			execute(conn -> {
 				PreparedStatement ps = conn.prepareStatement(
 						new Query().select("MAX(ID)")
-								.from("quest_template")
+								.from(TrinityQuestQuery.TEMPLATE_TABLE)
 								.buildSQL());
 
 				ResultSet rs = ps.executeQuery();

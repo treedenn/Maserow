@@ -5,7 +5,7 @@ import me.heitx.maserow.utils.QueryUtil;
 import java.util.Map;
 
 public class TrinityItemQuery {
-	private static final String TEMPLATE_TABLE = "item_template";
+	public static final String TEMPLATE_TABLE = "item_template";
 
 	public static String getInsertQuery(Map<String, Object> attributes, boolean newlineFormat) {
 		return QueryUtil.simpleInsert(TEMPLATE_TABLE, attributes, newlineFormat);

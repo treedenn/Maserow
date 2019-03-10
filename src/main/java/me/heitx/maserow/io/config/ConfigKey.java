@@ -9,7 +9,8 @@ public enum ConfigKey {
 	CHARACTERS("db-characters", "characters"),
 	WORLD("db-world", "world"),
 	SAVE_INFO("save-info", "false"),
-	SAVE_PASS("save-pass", "false");
+	SAVE_PASS("save-pass", "false"),
+	LOOKUP_SIDEBAR("lookup-sidebar", "true");
 
 	private String key;
 	private String defaultValue;

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.CheckComboBox?>
+<VBox xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.ui.creature.template.CreatureTemplateController">
+   <children>
+      <HBox spacing="5.0">
+         <children>
+            <Button fx:id="btnExecute" mnemonicParsing="false" text="Execute" />
+            <MenuButton mnemonicParsing="false" text="Save SQL">
+              <items>
+                <MenuItem fx:id="miInsert" mnemonicParsing="false" text="Insert" />
+                <MenuItem fx:id="miUpdate" mnemonicParsing="false" text="Update" />
+                  <MenuItem fx:id="miDelete" mnemonicParsing="false" text="Delete" />
+              </items>
+            </MenuButton>
+            <Button fx:id="btnWarning" mnemonicParsing="false" text="Click for Warnings!" />
+         </children>
+      </HBox>
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <content>
+            <TilePane fx:id="tpLayout" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefColumns="4" prefRows="2" style="-fx-background-color: #101010;" vgap="20.0">
+               <children>
+                  <GridPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="400.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                       <Label text="Entry:" GridPane.rowIndex="0" />
+                       <Label text="Name:" GridPane.rowIndex="1" />
+                       <Label text="Subname:" GridPane.rowIndex="2" />
+                       <Label text="Model ID1:" GridPane.rowIndex="3" />
+                       <Label text="Model ID2:" GridPane.rowIndex="4" />
+                       <Label text="Model ID3:" GridPane.rowIndex="5" />
+                       <Label text="Model ID4:" GridPane.rowIndex="6" />
+                       <Label text="Min Level:" GridPane.rowIndex="7" />
+                       <Label text="Max Level:" GridPane.rowIndex="8" />
+                       <Label text="Min Gold:" GridPane.rowIndex="9" />
+                       <Label text="Max Gold:" GridPane.rowIndex="10" />
+                       <Label text="Faction:" GridPane.rowIndex="11" />
+                       <Label text="Flags:" GridPane.rowIndex="12" />
+                       <Label text="Extra Flags:" GridPane.rowIndex="13" />
+                       <Label text="Dynamic Flags:" GridPane.rowIndex="14" />
+                       <Label text="Mechanic Immune:" GridPane.rowIndex="15" />
+                       <Label text="Spell Immune:" GridPane.rowIndex="16" />
+                       <Label text="Regen Health:" GridPane.rowIndex="17" />
+                        <TextField fx:id="tfEntry" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfSubname" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfModelID1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="tfModelID2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="tfModelID3" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="tfModelID4" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                       <TextField fx:id="tfMinLevel" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                       <TextField fx:id="tfMaxLevel" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                         <children>
+                           <TextField fx:id="tfMinGold" prefWidth="60.0" text="0" />
+                           <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                               <Image url="currency/money-gold.png" />
+                             </image>
+                              </ImageView>
+                           <TextField fx:id="tfMinSilver" prefWidth="42.0" text="0" />
+                           <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                               <Image url="@/currency/money-silver.png" />
+                             </image>
+                              </ImageView>
+                           <TextField fx:id="tfMinCopper" prefWidth="42.0" text="0" />
+                           <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                               <Image url="@/currency/money-copper.png" />
+                             </image>
+                              </ImageView>
+                         </children>
+                       </HBox>
+                       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                         <children>
+                           <TextField fx:id="tfMaxGold" prefWidth="60.0" text="0" />
+                           <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                               <Image url="currency/money-gold.png" />
+                             </image>
+                              </ImageView>
+                           <TextField fx:id="tfMaxSilver" prefWidth="42.0" text="0" />
+                           <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                               <Image url="@/currency/money-silver.png" />
+                             </image>
+                              </ImageView>
+                           <TextField fx:id="tfMaxCopper" prefWidth="42.0" text="0" />
+                           <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                               <Image url="@/currency/money-copper.png" />
+                             </image>
+                              </ImageView>
+                         </children>
+                       </HBox>
+                       <TextField fx:id="tfFaction" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <CheckComboBox fx:id="ccbFlags" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="tfFlagsExtra" text="0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <CheckComboBox fx:id="ccbDynamicFlags" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <CheckComboBox fx:id="ccbMechanicImmune" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                       <TextField fx:id="tfSpellImmune" text="0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                       <CheckBox fx:id="cbRegenHealth" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                     </children>
+                  </GridPane>
+                  <GridPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="400.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                       <Label text="Difficulty Entry 1:" GridPane.rowIndex="0" />
+                       <Label text="Difficulty Entry 2:" GridPane.rowIndex="1" />
+                       <Label text="Difficulty Entry 3:" GridPane.rowIndex="2" />
+                       <Label text="Kill Credit1:" GridPane.rowIndex="3" />
+                       <Label text="Kill Credit2:" GridPane.rowIndex="4" />
+                       <Label text="Expansion:" GridPane.rowIndex="5" />
+                       <Label text="Speed Walk:" GridPane.rowIndex="6" />
+                       <Label text="Speed Run:" GridPane.rowIndex="7" />
+                       <Label text="Scale:" GridPane.rowIndex="8" />
+                       <Label text="Rank:" GridPane.rowIndex="9" />
+                       <Label text="Damage School:" GridPane.rowIndex="10" />
+                       <Label text="Base Attack Time:" GridPane.rowIndex="11" />
+                       <Label text="Range Attack Time:" GridPane.rowIndex="12" />
+                       <Label text="Base Variance:" GridPane.rowIndex="13" />
+                       <Label text="Range Variance:" GridPane.rowIndex="14" />
+                       <Label text="Unit Class:" GridPane.rowIndex="15" />
+                       <Label text="Unit Flags:" GridPane.rowIndex="16" />
+                       <Label text="Unit Flags2:" GridPane.rowIndex="17" />
+                        <TextField fx:id="tfDifficultyEntry1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfDifficultyEntry2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfDifficultyEntry3" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfKillCredit1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="tfKillCredit2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="cbExpansion" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="tfSpeedWalk" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="tfSpeedRun" maxWidth="1.7976931348623157E308" text="1.14286" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="tfScale" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="cbRank" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <ComboBox fx:id="cbDamageSchool" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <TextField fx:id="tfBaseAttackTime" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <TextField fx:id="tfRangeAttackTime" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="tfBaseVariance" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <TextField fx:id="tfRangeVariance" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <ComboBox fx:id="cbUnitClass" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                        <TextField fx:id="tfUnitFlags1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                        <TextField fx:id="tfUnitFlags2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                     </children>
+                  </GridPane>
+                  <GridPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="400.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                       <Label text="Loot ID:" GridPane.rowIndex="0" />
+                       <Label text="Pickpocket loot ID:" GridPane.rowIndex="1" />
+                       <Label text="Skin loot ID:" GridPane.rowIndex="2" />
+                       <Label text="Family:" GridPane.rowIndex="3" />
+                       <Label text="Type:" GridPane.rowIndex="4" />
+                       <Label text="Type Flags:" GridPane.rowIndex="5" />
+                       <Label text="Movement ID:" GridPane.rowIndex="6" />
+                       <Label text="Movement Type:" GridPane.rowIndex="7" />
+                       <Label text="Hover Height:" GridPane.rowIndex="8" />
+                       <Label text="Health Modifier:" GridPane.rowIndex="9" />
+                       <Label text="Mana Modifier:" GridPane.rowIndex="10" />
+                       <Label text="Armor Modifier:" GridPane.rowIndex="11" />
+                       <Label text="Damage Modifier:" GridPane.rowIndex="12" />
+                       <Label text="Experience Modifier:" GridPane.rowIndex="13" />
+                       <Label text="Racial Leader:" GridPane.rowIndex="14" />
+                       <Label text="Pet Spell DataID:" GridPane.rowIndex="15" />
+                       <Label text="Vehicle ID:" GridPane.rowIndex="16" />
+                        <TextField fx:id="tfLootID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfPickpocketID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfSkinID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="cbFamily" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <CheckComboBox fx:id="ccbTypeFlags" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                       <TextField fx:id="tfMovementID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="cbMovementType" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                       <TextField fx:id="tfHoverHeight" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                       <TextField fx:id="tfModifierHealth" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                       <TextField fx:id="tfModifierMana" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                       <TextField fx:id="tfModifierArmor" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                       <TextField fx:id="tfModifierDamage" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                       <TextField fx:id="tfModifierExperience" maxWidth="1.7976931348623157E308" text="1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                       <CheckBox fx:id="cbRacialLeader" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                       <TextField fx:id="tfPetSpellDataID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                       <TextField fx:id="tfVehicleID" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                     </children>
+                  </GridPane>
+                  <GridPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="400.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                       <Label text="Holy Resist:" GridPane.rowIndex="0" />
+                       <Label text="Fire Resist:" GridPane.rowIndex="1" />
+                       <Label text="Nature Resist:" GridPane.rowIndex="2" />
+                       <Label text="Frost Resist:" GridPane.rowIndex="3" />
+                       <Label text="Shadow Resist:" GridPane.rowIndex="4" />
+                       <Label text="Arcane Resist:" GridPane.rowIndex="5" />
+                       <Label text="Spell 1:" GridPane.rowIndex="6" />
+                       <Label text="Spell 2:" GridPane.rowIndex="7" />
+                       <Label text="Spell 3:" GridPane.rowIndex="8" />
+                       <Label text="Spell 4:" GridPane.rowIndex="9" />
+                       <Label text="Spell 5:" GridPane.rowIndex="10" />
+                       <Label text="Spell 6:" GridPane.rowIndex="11" />
+                       <Label text="Spell 7:" GridPane.rowIndex="12" />
+                       <Label text="Spell 8:" GridPane.rowIndex="13" />
+                       <Label text="AI Name:" GridPane.rowIndex="14" />
+                       <Label text="Icon Name:" GridPane.rowIndex="15" />
+                       <Label text="Gossip Menu ID:" GridPane.rowIndex="16" />
+                       <Label text="Script Name:" GridPane.rowIndex="17" />
+                        <TextField fx:id="tfHolyResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfFireResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfNatureResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfFrostResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="tfShadowResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="tfArcaneResist" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="tfSpell1" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                         <TextField fx:id="tfSpell2" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                         <TextField fx:id="tfSpell3" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                         <TextField fx:id="tfSpell4" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                         <TextField fx:id="tfSpell5" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                         <TextField fx:id="tfSpell6" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                         <TextField fx:id="tfSpell7" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                       <TextField fx:id="tfSpell8" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                       <TextField fx:id="tfAIName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                       <TextField fx:id="tfIconName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                       <TextField fx:id="tfGossipMenu" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                       <TextField fx:id="tfScriptName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                     </children>
+                  </GridPane>
+               </children>
+            </TilePane>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

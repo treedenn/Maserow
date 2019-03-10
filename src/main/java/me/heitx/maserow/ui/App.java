@@ -20,9 +20,11 @@ public class App extends Application {
 		Pane root = loader.load();
 
 		Scene scene = new Scene(root, root.getWidth(), root.getHeight());
-		scene.getStylesheets().add(getClass().getResource("darktheme.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getClassLoader().getResource("darktheme.css").toExternalForm());
 
-		stage.setTitle("MaseroW v0.0.3 - Created by Heitx");
+		//stage.setFullScreen(true);
+		stage.setResizable(true);
+		stage.setTitle("MaseroW v" + getClass().getPackage().getImplementationVersion() + " - Created by Heitx");
 		stage.setScene(scene);
 
 		stage.setOnCloseRequest(windowEvent -> {

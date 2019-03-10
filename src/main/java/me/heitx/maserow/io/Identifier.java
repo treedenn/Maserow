@@ -52,12 +52,21 @@ public class Identifier {
 		return id + " : " + value + " : " + name;
 	}
 
-	public static Identifier findById(List<Identifier> identifiers, int id) {
-		Identifier result = null;
+	public static Integer findsIndexById(List<Identifier> identifiers, int id) {
+		return findsIndexBy(identifiers, id, true);
+	}
 
-		for(Identifier identifier : identifiers) {
-			if(id == identifier.id) {
-				result = identifier;
+	public static Integer findsIndexByValue(List<Identifier> identifiers, long value) {
+		return findsIndexBy(identifiers, value, false);
+	}
+
+	private static Integer findsIndexBy(List<Identifier> identifiers, long by, boolean byId) {
+		Integer result = null;
+
+		for(int i = 0; i < identifiers.size(); i++) {
+			Identifier identifier = identifiers.get(i);
+			if((byId && by == identifier.id) || (!byId && by == identifier.value)) {
+				result = i;
 				break;
 			}
 		}
@@ -65,11 +74,19 @@ public class Identifier {
 		return result;
 	}
 
-	public static Identifier findByValue(List<Identifier> identifiers, long value) {
+	public static Identifier findsById(List<Identifier> identifiers, int id) {
+		return findsBy(identifiers, id, true);
+	}
+
+	public static Identifier findsByValue(List<Identifier> identifiers, long value) {
+		return findsBy(identifiers, value, false);
+	}
+
+	private static Identifier findsBy(List<Identifier> identifiers, long by, boolean byId) {
 		Identifier result = null;
 
 		for(Identifier identifier : identifiers) {
-			if(value == identifier.value) {
+			if((byId && by == identifier.id) || (!byId && by == identifier.value)) {
 				result = identifier;
 				break;
 			}
@@ -79,22 +96,14 @@ public class Identifier {
 	}
 
 	public static List<Integer> findIndicesByValue(List<Identifier> identifiers, long totalValue) {
-		return findXByValue(identifiers, totalValue, false, true);
+		return findByValue(identifiers, totalValue, false, true);
 	}
 
 	public static List<Integer> findIndicesByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll) {
-		return findXByValue(identifiers, totalValue, valueZeroEqualsAll, true);
+		return findByValue(identifiers, totalValue, valueZeroEqualsAll, true);
 	}
 
-	public static List<Integer> findIdsByValue(List<Identifier> identifiers, long totalValue) {
-		return findXByValue(identifiers, totalValue, false, false);
-	}
-
-	public static List<Integer> findIdsByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll) {
-		return findXByValue(identifiers, totalValue, valueZeroEqualsAll, false);
-	}
-
-	public static List<Integer> findXByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll, boolean findIndexes) {
+	private static List<Integer> findByValue(List<Identifier> identifiers, long totalValue, boolean valueZeroEqualsAll, boolean findIndexes) {
 		List<Integer> integers = new ArrayList<>();
 
 		if(totalValue >= (valueZeroEqualsAll ? 1 : 0)) {
