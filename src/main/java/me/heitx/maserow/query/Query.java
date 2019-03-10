@@ -176,8 +176,6 @@ public class Query {
 
 			boolean multipleValues = values.size() > 1;
 
-			System.out.println(values.size() + " : " + valuesAsString.size());
-
 			for(int i = 0; i < values.size(); i++) {
 				setBuilder.append(columns.get(i));
 				setBuilder.append(" = ");
