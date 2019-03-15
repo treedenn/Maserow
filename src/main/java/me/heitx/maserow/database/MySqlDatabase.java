@@ -5,15 +5,16 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public abstract class SqlDatabase {
-	private static final Logger LOGGER = LogManager.getLogger(SqlDatabase.class);
+public abstract class MySqlDatabase {
+	private static final Logger LOGGER = LogManager.getLogger(MySqlDatabase.class);
 
 	private IClient client;
 	private String database;
 
-	public SqlDatabase(IClient client, String database) {
+	public MySqlDatabase(IClient client, String database) {
 		this.client = client;
 		this.database = database;
 	}
@@ -49,5 +50,16 @@ public abstract class SqlDatabase {
 		}
 
 		return map;
+	}
+
+	protected PreparedStatement executeAndConvertResultToSet(List<Map<String, Object>> set, Connection conn, String query) throws SQLException {
+		PreparedStatement ps = conn.prepareStatement(query);
+		ResultSet rs = ps.executeQuery();
+
+		while(rs.next()) {
+			set.add(convertResultSet(rs));
+		}
+
+		return ps;
 	}
 }

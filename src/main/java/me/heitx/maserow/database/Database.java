@@ -1,6 +1,6 @@
 package me.heitx.maserow.database;
 
-public class Database {
+public final class Database {
 	private static IDatabase ourInstance;
 	private static boolean isLoggedIn;
 

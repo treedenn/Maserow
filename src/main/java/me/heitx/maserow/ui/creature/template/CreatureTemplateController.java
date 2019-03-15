@@ -21,7 +21,7 @@ import me.heitx.maserow.ui.lookup.LookupManager;
 import me.heitx.maserow.ui.lookup.multiselection.LookupMultiController;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
-import me.heitx.maserow.utils.query.TrinityCreatureQuery;
+import me.heitx.maserow.utils.Queries;
 import org.controlsfx.control.CheckComboBox;
 
 import java.io.File;
@@ -195,11 +195,11 @@ public class CreatureTemplateController implements Initializable, Updateable {
 			final Window window = btnExecute.getScene().getWindow();
 
 			if(actionEvent.getSource() == miInsert) {
-				LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityCreatureQuery.getInsertQuery(attributes, true));
+				LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, Queries.Creature.insert(true, attributes));
 			} else if(actionEvent.getSource() == miUpdate) {
-				LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityCreatureQuery.getInsertQuery(attributes, true));
+				LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, Queries.Creature.update(true, attributes));
 			} else if(actionEvent.getSource() == miDelete) {
-				LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityCreatureQuery.getInsertQuery(attributes, true));
+				LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName,Queries.Creature.delete(true, (Integer) attributes.get("entry")));
 			}
 		}
 	}

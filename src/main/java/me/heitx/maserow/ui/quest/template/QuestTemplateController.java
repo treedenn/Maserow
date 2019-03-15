@@ -20,7 +20,7 @@ import me.heitx.maserow.ui.LayoutUtil;
 import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
-import me.heitx.maserow.utils.query.TrinityQuestQuery;
+import me.heitx.maserow.utils.Queries;
 import org.controlsfx.control.CheckComboBox;
 
 import java.io.File;
@@ -241,11 +241,11 @@ public class QuestTemplateController implements Initializable, Updateable {
 			final Window window = btnExecute.getScene().getWindow();
 
 			if(event.getSource() == miInsert) {
-				LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+				LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, Queries.Quest.insert(false, attributes));
 			} else if(event.getSource() == miUpdate) {
-				LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+				LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, Queries.Quest.update(false, attributes));
 			} else if(event.getSource() == miDelete) {
-				LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityQuestQuery.getInsertQuery(attributes, true));
+				LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, Queries.Quest.delete(false, (Integer) attributes.get("guid")));
 			}
 		}
 	}

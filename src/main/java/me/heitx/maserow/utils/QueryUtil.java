@@ -1,47 +1,49 @@
 package me.heitx.maserow.utils;
 
-import me.heitx.maserow.query.Query;
-
 import java.util.*;
 
 public class QueryUtil {
-	public static String simpleInsert(String table, Map<String, Object> attributes, boolean newlineFormat) {
-		String[] blocks = new String[] {
-				"INSERT INTO " + table,
-				columns(attributes.keySet(), true),
-				values(attributes.values())
-		};
-
-		return String.join(" " + (newlineFormat ? System.lineSeparator() : ""), blocks);
+	public static List<String> simpleUpdate(String table, String column, Object value, Map<String, Object> attributes) {
+		return update(table, column + " = " + formatValue(value), attributes);
 	}
 
-	public static String simpleUpdate(String table, String where, Map<String, Object> attributes, boolean newlineFormat) {
-		String[] blocks = new String[] {
-				"UPDATE " + table,
-				set(attributes),
-				where
-		};
-
-		return String.join(" " + (newlineFormat ? System.lineSeparator() : ""), blocks);
+	public static List<String> simpleSelect(Collection<String> columns, String table, String column, Object value) {
+		return select(columns, table, column + " = " + formatValue(value));
 	}
 
-	public static String simpleSelect(Collection<String> columns, String table, String where, boolean newlineFormat) {
-		String[] blocks = new String[] {
-				"SELECT " + (columns == null ? "*" : columns(columns, false)),
-				"FROM " + table,
-				where
-		};
-
-		return String.join(" " + (newlineFormat ? System.lineSeparator() : ""), blocks);
+	public static List<String> simpleDelete(String table, String column, Object value) {
+		return delete(table, column + " + " + formatValue(value));
 	}
 
-	public static String simpleDelete(String table, String where, boolean newlineFormat) {
-		String[] blocks = new String[] {
-				"DELETE FROM " + table,
-				where
-		};
+	public static List<String> insert(String table, Map<String, Object> attributes) {
+		List<String> blocks = new ArrayList<>();
+		blocks.add("INSERT INTO " + table);
+		blocks.add(columns(attributes.keySet(), true));
+		blocks.add(values(attributes.values()));
+		return blocks;
+	}
 
-		return String.join(" " + (newlineFormat ? System.lineSeparator() : ""), blocks);
+	public static List<String> update(String table, String where, Map<String, Object> attributes) {
+		List<String> blocks = new ArrayList<>();
+		blocks.add("UPDATE " + table);
+		blocks.add(set(attributes));
+		blocks.add(where);
+		return blocks;
+	}
+
+	public static List<String> select(Collection<String> columns, String table, String where) {
+		List<String> blocks = new ArrayList<>();
+		blocks.add("SELECT " + (columns == null ? "*" : columns(columns, false)));
+		blocks.add("FROM " + table);
+		if(where != null) blocks.add("WHERE " + where);
+		return blocks;
+	}
+
+	public static List<String> delete(String table, String where) {
+		List<String> blocks = new ArrayList<>();
+		blocks.add("DELETE FROM " + table);
+		blocks.add(where);
+		return blocks;
 	}
 
 	/**
@@ -61,13 +63,14 @@ public class QueryUtil {
 	 * @return a formatted string with the VALUES syntax
 	 */
 	public static String values(Collection values) {
-		Collection<String> objectsAsStrings = objectsToStrings(values);
+		Collection<String> objectsAsStrings = objectsToFormattedStrings(values);
 		return "VALUES (" + String.join(", ", objectsAsStrings) + ")";
 	}
 
 	public static String set(Map<String, Object> map) {
 		return set(map.keySet(), map.values());
 	}
+
 
 	public static String set(Collection<String> columns, Collection values) {
 		if(columns.size() != values.size()) return "";
@@ -88,8 +91,7 @@ public class QueryUtil {
 	 * @return a formatted string
 	 */
 	public static String and(Collection objects) {
-		Collection<String> objectsAsStrings = objectsToStrings(objects);
-		return String.join(" AND ", objectsAsStrings);
+		return String.join(" AND ", new LinkedList<String>(objects));
 	}
 
 	/**
@@ -98,8 +100,7 @@ public class QueryUtil {
 	 * @return a formatted string
 	 */
 	public static String or(Collection objects) {
-		Collection<String> objectsAsStrings = objectsToStrings(objects);
-		return String.join(" OR ", objectsAsStrings);
+		return String.join(" OR ", objects);
 	}
 
 	/**
@@ -108,12 +109,12 @@ public class QueryUtil {
 	 * @return a formatted string with sql IN syntax
 	 */
 	public static String in(Collection objects) {
-		Collection<String> objectsAsStrings = objectsToStrings(objects);
+		Collection<String> objectsAsStrings = objectsToFormattedStrings(objects);
 		return "IN (" + String.join(", ", objectsAsStrings) + ")";
 	}
 
 	public static String limit(int limit) {
-		return "LIMIT " + limit;
+		return "LIMIT " + limit + ";";
 	}
 
 	/**
@@ -163,11 +164,19 @@ public class QueryUtil {
 	 * @param objects any object
 	 * @return array for strings from the objects
 	 */
-	private static Collection<String> objectsToStrings(Collection objects) {
-		Collection<String> collection = new LinkedList<>();
+	private static Collection<String> objectsToFormattedStrings(Collection objects) {
+		LinkedList<String> formatted = new LinkedList<>();
 		for(Object object : objects) {
-			collection.add(formatValue(object));
+			formatted.add(formatValue(object));
 		}
-		return collection;
+		return formatted;
+	}
+
+	public static String buildNewLineFormat(boolean newlineFormat, String ... blocks) {
+		return buildNewLineFormat(newlineFormat, Arrays.asList(blocks));
+	}
+
+	public static String buildNewLineFormat(boolean newlineFormat, List<String> blocks) {
+		return String.join(" " + (newlineFormat ? System.lineSeparator() : ""), blocks);
 	}
 }

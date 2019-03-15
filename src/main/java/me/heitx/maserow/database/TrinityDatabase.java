@@ -3,9 +3,9 @@ package me.heitx.maserow.database;
 import me.heitx.maserow.database.dao.ICreatureDAO;
 import me.heitx.maserow.database.dao.IItemDAO;
 import me.heitx.maserow.database.dao.IQuestDAO;
-import me.heitx.maserow.database.trinitywotlk.CreatureDAO;
-import me.heitx.maserow.database.trinitywotlk.ItemDAO;
-import me.heitx.maserow.database.trinitywotlk.QuestDAO;
+import me.heitx.maserow.database.wrappers.CreatureDAO;
+import me.heitx.maserow.database.wrappers.ItemDAO;
+import me.heitx.maserow.database.wrappers.QuestDAO;
 
 public class TrinityDatabase implements IDatabase {
 	private IClient client;

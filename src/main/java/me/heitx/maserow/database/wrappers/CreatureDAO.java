@@ -1,24 +1,34 @@
-package me.heitx.maserow.database.trinitywotlk;
+package me.heitx.maserow.database.wrappers;
 
 import me.heitx.maserow.database.IClient;
-import me.heitx.maserow.database.SqlDatabase;
-import me.heitx.maserow.database.dao.IQuestDAO;
-import me.heitx.maserow.query.Query;
-import me.heitx.maserow.utils.query.TrinityQuestQuery;
+import me.heitx.maserow.database.MySqlDatabase;
+import me.heitx.maserow.database.dao.ICreatureDAO;
+import me.heitx.maserow.utils.Queries;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class QuestDAO extends SqlDatabase implements IQuestDAO {
-	public QuestDAO(IClient client) {
+public class CreatureDAO extends MySqlDatabase implements ICreatureDAO {
+	public CreatureDAO(IClient client) {
 		super(client, client.getWorld());
+	}
+
+	@Override
+	public List<Map<String, Object>> search(int entry, String name, int limit) {
+		List<Map<String, Object>> set = new ArrayList<>();
+
+		try {
+			execute(conn -> executeAndConvertResultToSet(set, conn, Queries.Creature.search(false, entry, name, limit)));
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+
+		return set;
 	}
 
 	@Override
@@ -27,7 +37,7 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement(TrinityQuestQuery.getInsertQuery(map, false));
+				PreparedStatement ps = conn.prepareStatement(Queries.Creature.insert(false, map));
 				atomic.set(ps.executeUpdate() > 0);
 
 				return ps;
@@ -45,7 +55,7 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement(TrinityQuestQuery.getUpdateQuery(map, false));
+				PreparedStatement ps = conn.prepareStatement(Queries.Creature.update(false, map));
 				atomic.set(ps.executeUpdate() > 0);
 
 				return ps;
@@ -63,7 +73,7 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement(TrinityQuestQuery.getDeleteQuery(entry, false));
+				PreparedStatement ps = conn.prepareStatement(Queries.Creature.delete(false, entry));
 				atomic.set(ps.executeUpdate() > 0);
 
 				return ps;
@@ -81,13 +91,7 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 
 		try {
 			execute(conn -> {
-				Query query = new Query()
-						.select("*")
-						.from(TrinityQuestQuery.TEMPLATE_TABLE)
-						.where("ID = " + entry)
-						.limit(1);
-
-				PreparedStatement ps = conn.prepareStatement(query.buildSQL());
+				PreparedStatement ps = conn.prepareStatement(Queries.Creature.get(false, entry));
 				ResultSet rs = ps.executeQuery();
 
 				if(rs.next()) {
@@ -108,54 +112,7 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 		List<Map<String, Object>> set = new ArrayList<>();
 
 		try {
-			execute(conn -> {
-				Query query = new Query()
-						.select("*")
-						.from(TrinityQuestQuery.TEMPLATE_TABLE)
-						.limit(limit);
-
-				PreparedStatement ps = conn.prepareStatement(query.buildSQL());
-				ResultSet rs = ps.executeQuery();
-
-				while(rs.next()) {
-					set.add(convertResultSet(rs));
-				}
-
-				return ps;
-			});
-		} catch(SQLException e) {
-			e.printStackTrace();
-		}
-
-		return set;
-	}
-
-	@Override
-	public List<Map<String, Object>> search(int entry, String logTitle, int limit) {
-		List<Map<String, Object>> set = new ArrayList<>();
-
-		try {
-			execute(conn -> {
-				Query query = new Query()
-						.select("*")
-						.from(TrinityQuestQuery.TEMPLATE_TABLE);
-
-				if(entry != 0) {
-					query.where("ID = " + entry);
-				}
-				if(!logTitle.isEmpty()) {
-					query.or("LogTitle LIKE '%" + logTitle + "%'");
-				}
-
-				PreparedStatement ps = conn.prepareStatement(query.limit(limit).buildSQL());
-				ResultSet rs = ps.executeQuery();
-
-				while(rs.next()) {
-					set.add(convertResultSet(rs));
-				}
-
-				return ps;
-			});
+			execute(conn -> executeAndConvertResultToSet(set, conn, Queries.Creature.getAll(false, limit)));
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -169,9 +126,7 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement("SELECT EXISTS(SELECT 0 FROM " +
-						TrinityQuestQuery.TEMPLATE_TABLE + " WHERE ID = ?);");
-				ps.setLong(1, entry);
+				PreparedStatement ps = conn.prepareStatement(Queries.Creature.exists(false, entry));
 
 				ResultSet rs = ps.executeQuery();
 				atomic.set(rs.next() && rs.getBoolean(1));
@@ -191,10 +146,7 @@ public class QuestDAO extends SqlDatabase implements IQuestDAO {
 
 		try {
 			execute(conn -> {
-				PreparedStatement ps = conn.prepareStatement(
-						new Query().select("MAX(ID)")
-								.from(TrinityQuestQuery.TEMPLATE_TABLE)
-								.buildSQL());
+				PreparedStatement ps = conn.prepareStatement(Queries.Creature.getMaxEntry(false));
 
 				ResultSet rs = ps.executeQuery();
 				if(rs.next()) atomic.set(rs.getLong(1));

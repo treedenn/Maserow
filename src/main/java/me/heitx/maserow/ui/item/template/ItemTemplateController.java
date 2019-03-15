@@ -19,7 +19,7 @@ import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.ui.item.template.build.ItemBuildController;
 import me.heitx.maserow.ui.item.template.preview.ItemPreviewController;
 import me.heitx.maserow.utils.ConverterUtil;
-import me.heitx.maserow.utils.query.TrinityItemQuery;
+import me.heitx.maserow.utils.Queries;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -105,11 +105,11 @@ public class ItemTemplateController implements Initializable, Updateable {
 		final Window window = btnExecute.getScene().getWindow();
 
 		if(event.getSource() == miInsert) {
-			LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
+			LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, Queries.Item.insert(false, attributes));
 		} else if(event.getSource() == miUpdate) {
-			LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
+			LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, Queries.Item.update(false, attributes));
 		} else if(event.getSource() == miDelete) {
-			LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityItemQuery.getInsertQuery(attributes, true));
+			LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, Queries.Item.delete(false, (Integer) attributes.get("entry")));
 		}
 	}
 
