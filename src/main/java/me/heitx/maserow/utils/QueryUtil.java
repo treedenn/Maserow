@@ -27,7 +27,7 @@ public class QueryUtil {
 		List<String> blocks = new ArrayList<>();
 		blocks.add("UPDATE " + table);
 		blocks.add(set(attributes));
-		blocks.add(where);
+		blocks.add("WHERE " + where);
 		return blocks;
 	}
 
@@ -42,7 +42,7 @@ public class QueryUtil {
 	public static List<String> delete(String table, String where) {
 		List<String> blocks = new ArrayList<>();
 		blocks.add("DELETE FROM " + table);
-		blocks.add(where);
+		blocks.add("WHERE " + where);
 		return blocks;
 	}
 

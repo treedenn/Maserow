@@ -24,8 +24,6 @@ public class ItemDAO extends MySqlDatabase implements IItemDAO {
 	public List<Map<String, Object>> search(int entry, String name, int limit) {
 		List<Map<String, Object>> set = new ArrayList<>();
 
-		// TODO: Fix all the DAOs
-
 		try {
 			execute(conn -> {
 				PreparedStatement ps = conn.prepareStatement(Queries.Item.search(false, entry, name, limit));
