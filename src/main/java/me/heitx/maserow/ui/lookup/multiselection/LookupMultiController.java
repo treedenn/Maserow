@@ -19,12 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class LookupMultiController extends LookupController<Long> {
+public class LookupMultiController extends LookupController<List<Long>> {
 	@FXML private TableColumn<LookupData, Boolean> tcSelected;
 	@FXML private Button btnSelect;
-
-	private CalculateValueMethod method;
-	private Long methodValue;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,10 +31,6 @@ public class LookupMultiController extends LookupController<Long> {
 		tcSelected.setCellFactory(tc -> new CheckBoxTableCell<>());
 
 		btnSelect.setOnAction(this::onButtonSelectAction);
-	}
-
-	public void setMethod(CalculateValueMethod method, Long methodValue) {
-		this.method = method;
 	}
 
 	public void select(List<Integer> indices) {
@@ -51,7 +44,12 @@ public class LookupMultiController extends LookupController<Long> {
 
 	private void onButtonSelectAction(ActionEvent event) {
 		if(onSuccess != null) {
-			onSuccess.call(calculateValue());
+			List<Long> selected = new ArrayList<>();
+			for(LookupData item : tvTable.getItems()) {
+				if(item.isSelected()) selected.add(returnEntry ? item.getEntry() : item.getValue());
+			}
+
+			onSuccess.accept(selected);
 			clean();
 			close();
 		}
@@ -67,30 +65,5 @@ public class LookupMultiController extends LookupController<Long> {
 			}
 		});
 		return row;
-	}
-
-	private Long calculateValue() {
-		Long value = 0L;
-
-		List<Identifier> selected = new ArrayList<>();
-		for(LookupData item : tvTable.getItems()) {
-			if(item.isSelected()) selected.add(new Identifier(item.getEntry(), item.getValue(), item.getName()));
-		}
-
-		switch(method) {
-			case IDENTIFIERS_ONLY:
-				value = Identifier.calculateValue(selected);
-				break;
-			case IDENTIFIERS_PLUS_MATCH:
-				value = Identifier.calculateValue(selected, identifiers, methodValue);
-				break;
-		}
-
-		return value;
-	}
-
-	public enum CalculateValueMethod {
-		IDENTIFIERS_ONLY,
-		IDENTIFIERS_PLUS_MATCH,
 	}
 }

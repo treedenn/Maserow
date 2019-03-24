@@ -5,18 +5,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import me.heitx.maserow.database.Database;
-import me.heitx.maserow.database.IClient;
-import me.heitx.maserow.database.IDatabase;
-import me.heitx.maserow.database.MySqlClient;
+import me.heitx.maserow.database.*;
 import me.heitx.maserow.io.config.Config;
 import me.heitx.maserow.io.config.ConfigKey;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+	private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
+
 	@FXML private TextField tfHostname;
 	@FXML private TextField tfUsername;
 	@FXML private PasswordField pfPassword;
@@ -63,16 +65,56 @@ public class LoginController implements Initializable {
 		IClient client = new MySqlClient(hostname, username, password, port, auth, characters, world);
 		IDatabase db = Database.getInstance();
 
-		try {
-			client.getConnection().close();
-			db.setClient(client);
-			Database.setIsLoggedIn(true);
-			save(Config.getInstance());
-			labelResponse.setText("Login Successful!");
-		} catch(SQLException e) {
-			Database.setIsLoggedIn(false);
-			labelResponse.setText(e.getLocalizedMessage());
+		db.setClient(client);
+
+		StringBuilder sb = new StringBuilder();
+
+		attempt(client, auth, Database.Selection.AUTH, sb);
+		sb.append(System.lineSeparator());
+		attempt(client, characters, Database.Selection.CHARACTERS, sb);
+		sb.append(System.lineSeparator());
+		attempt(client, world, Database.Selection.WORLD, sb);
+
+		if(Database.hasAccess(Database.Selection.AUTH)
+				&& Database.hasAccess(Database.Selection.CHARACTERS)
+				&& Database.hasAccess(Database.Selection.WORLD)) {
+			sb.delete(0, sb.length());
+			sb.append("You have access to all databases!");
 		}
+
+		labelResponse.setText(sb.toString());
+	}
+
+	private void attempt(IClient client, String database, Database.Selection selection, StringBuilder sb) {
+		if(database.isEmpty()) {
+			onAccessDenied(selection, sb);
+		} else {
+			try {
+				client.getConnection(selection).close();
+				onAccessGranted(selection, sb);
+			} catch(SQLException e) {
+				onAccessDenied(": " + e.getLocalizedMessage(), selection, sb);
+				LOGGER.info(e.getLocalizedMessage());
+			}
+		}
+	}
+
+	private void onAccessGranted(Database.Selection selection, StringBuilder sb) {
+		String capitalised = selection.name().substring(0, 1).toUpperCase() + selection.name().substring(1).toLowerCase();
+		Database.setAccess(selection, true);
+		sb.append(capitalised);
+		sb.append(" [x]");
+	}
+
+	private void onAccessDenied(String text, Database.Selection selection, StringBuilder sb) {
+		String capitalised = selection.name().substring(0, 1).toUpperCase() + selection.name().substring(1).toLowerCase();
+		Database.setAccess(selection, false);
+		sb.append(capitalised);
+		sb.append(text);
+	}
+
+	private void onAccessDenied(Database.Selection selection, StringBuilder sb) {
+		onAccessDenied(" [  ]", selection, sb);
 	}
 
 	// SAVE/LOAD

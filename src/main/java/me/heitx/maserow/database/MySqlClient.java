@@ -81,7 +81,13 @@ public class MySqlClient implements IClient {
 	}
 
 	@Override
-	public Connection getConnection() throws SQLException {
+	public Connection getConnection(Database.Selection selection) throws SQLException {
+		switch(selection) {
+			case AUTH: ds.setDatabaseName(auth); break;
+			case CHARACTERS: ds.setDatabaseName(characters); break;
+			case WORLD: ds.setDatabaseName(world); break;
+		}
+
 		return ds.getConnection();
 	}
 }

@@ -66,7 +66,7 @@ public class ItemTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void update() {
-		btnExecute.setDisable(!Database.isLoggedIn());
+		btnExecute.setDisable(!Database.hasAccess(Database.Selection.WORLD));
 	}
 
 	public Item getItem() {

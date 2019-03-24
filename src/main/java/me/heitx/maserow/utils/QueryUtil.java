@@ -35,7 +35,7 @@ public class QueryUtil {
 		List<String> blocks = new ArrayList<>();
 		blocks.add("SELECT " + (columns == null ? "*" : columns(columns, false)));
 		blocks.add("FROM " + table);
-		if(where != null) blocks.add("WHERE " + where);
+		if(where != null && !where.isEmpty()) blocks.add("WHERE " + where);
 		return blocks;
 	}
 
@@ -109,8 +109,17 @@ public class QueryUtil {
 	 * @return a formatted string with sql IN syntax
 	 */
 	public static String in(Collection objects) {
+		return in(null, objects);
+	}
+
+	/**
+	 * Formats and separates the objects with comma(s), and surrounds with parenthesis and the sql syntax IN.
+	 * @param objects any array of objects
+	 * @return a formatted string with sql IN syntax
+	 */
+	public static String in(String column, Collection objects) {
 		Collection<String> objectsAsStrings = objectsToFormattedStrings(objects);
-		return "IN (" + String.join(", ", objectsAsStrings) + ")";
+		return (column != null ? column + " " : "") + "IN (" + String.join(", ", objectsAsStrings) + ")";
 	}
 
 	public static String limit(int limit) {
