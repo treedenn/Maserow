@@ -5,9 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.Pair;
-import me.heitx.maserow.database.Database;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.config.Config;
 import me.heitx.maserow.io.config.ConfigKey;
@@ -21,7 +19,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class LookupManager {
 	private static final Logger LOGGER = LogManager.getLogger(LookupManager.class.getName());

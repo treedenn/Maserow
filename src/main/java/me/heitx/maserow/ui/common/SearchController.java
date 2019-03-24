@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.util.Callback;
+import javafx.util.converter.LongStringConverter;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.ui.Updateable;
 
@@ -24,6 +25,7 @@ public abstract class SearchController<T> implements Initializable, Updateable {
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		update();
 
+		tfEntry.setTextFormatter(new TextFormatter<>(new LongStringConverter(), 0L));
 		btnSearch.setOnAction(this::onButtonSearchAction);
 		tvSearch.setRowFactory(this::onTableViewRowSelection);
 	}

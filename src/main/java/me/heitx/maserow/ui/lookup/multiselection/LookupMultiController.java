@@ -10,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
-import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.ui.lookup.LookupController;
 import me.heitx.maserow.ui.lookup.LookupData;
 

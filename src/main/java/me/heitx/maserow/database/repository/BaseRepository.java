@@ -1,7 +1,6 @@
 package me.heitx.maserow.database.repository;
 
 import java.util.List;
-import java.util.Map;
 
 public interface BaseRepository<T> {
 	boolean insert(T type);

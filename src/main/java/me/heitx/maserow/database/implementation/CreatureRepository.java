@@ -8,8 +8,11 @@ import me.heitx.maserow.model.Creature;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.Queries;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;

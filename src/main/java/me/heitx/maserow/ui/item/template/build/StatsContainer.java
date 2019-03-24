@@ -5,10 +5,12 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.IntegerStringConverter;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.ItemCSV;
@@ -127,6 +129,7 @@ public class StatsContainer extends VBox {
 			iconAdd = new FontAwesomeIconView(FontAwesomeIcon.PLUS);
 			cbStatType = new ComboBox<>(FXCollections.observableArrayList(statTypes));
 			tfStatValue = new TextField();
+			tfStatValue.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
 
 			iconRemove.setGlyphSize(20);
 			iconAdd.setGlyphSize(20);

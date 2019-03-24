@@ -9,11 +9,9 @@ import javafx.scene.control.TextField;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.model.Quest;
 import me.heitx.maserow.ui.common.SearchController;
-import me.heitx.maserow.utils.ConverterUtil;
 
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class QuestSearchController extends SearchController<Quest> {

@@ -5,14 +5,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import me.heitx.maserow.database.*;
+import javafx.util.converter.IntegerStringConverter;
+import me.heitx.maserow.database.Database;
+import me.heitx.maserow.database.IClient;
+import me.heitx.maserow.database.IDatabase;
+import me.heitx.maserow.database.MySqlClient;
 import me.heitx.maserow.io.config.Config;
 import me.heitx.maserow.io.config.ConfigKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -40,6 +43,8 @@ public class LoginController implements Initializable {
 		btnExit.setOnAction(this::onButtonExitAction);
 		btnDefault.setOnAction(this::onButtonDefaultAction);
 		btnLogin.setOnAction(this::onButtonLoginAction);
+
+		tfPort.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 3306));
 	}
 
 	private void onButtonExitAction(ActionEvent event) {
