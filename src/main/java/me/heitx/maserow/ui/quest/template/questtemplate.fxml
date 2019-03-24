@@ -179,7 +179,7 @@
                                     <Image url="@/question-mark.png" />
                                   </image>
                                 </ImageView>
-                                <Label fx:id="labelChoiceQuantity1" text="0">
+                                <Label fx:id="labelChoiceQuantity1" text="1">
                                   <StackPane.margin>
                                     <Insets bottom="2.0" right="2.0" />
                                   </StackPane.margin>
@@ -201,7 +201,7 @@
                                     <Image url="@/question-mark.png" />
                                   </image>
                                 </ImageView>
-                                <Label fx:id="labelChoiceQuantity2" text="0">
+                                <Label fx:id="labelChoiceQuantity2" text="1">
                                   <StackPane.margin>
                                     <Insets bottom="2.0" right="2.0" />
                                   </StackPane.margin>
@@ -223,7 +223,7 @@
                                     <Image url="@/question-mark.png" />
                                   </image>
                                 </ImageView>
-                                <Label fx:id="labelChoiceQuantity3" text="0">
+                                <Label fx:id="labelChoiceQuantity3" text="1">
                                   <StackPane.margin>
                                     <Insets bottom="2.0" right="2.0" />
                                   </StackPane.margin>
@@ -245,7 +245,7 @@
                                     <Image url="@/question-mark.png" />
                                   </image>
                                 </ImageView>
-                                <Label fx:id="labelChoiceQuantity4" text="0">
+                                <Label fx:id="labelChoiceQuantity4" text="1">
                                   <StackPane.margin>
                                     <Insets bottom="2.0" right="2.0" />
                                   </StackPane.margin>
@@ -267,7 +267,7 @@
                                     <Image url="@/question-mark.png" />
                                   </image>
                                 </ImageView>
-                                <Label fx:id="labelChoiceQuantity5" text="0">
+                                <Label fx:id="labelChoiceQuantity5" text="1">
                                   <StackPane.margin>
                                     <Insets bottom="2.0" right="2.0" />
                                   </StackPane.margin>
@@ -289,7 +289,7 @@
                                     <Image url="@/question-mark.png" />
                                   </image>
                                 </ImageView>
-                                <Label fx:id="labelChoiceQuantity6" text="0">
+                                <Label fx:id="labelChoiceQuantity6" text="1">
                                   <StackPane.margin>
                                     <Insets bottom="2.0" right="2.0" />
                                   </StackPane.margin>
@@ -371,7 +371,7 @@
                                     <Image url="@/question-mark.png" />
                                   </image>
                                 </ImageView>
-                                <Label fx:id="labelRewardQuantity1" text="0">
+                                <Label fx:id="labelRewardQuantity1" text="1">
                                   <StackPane.margin>
                                     <Insets bottom="2.0" right="2.0" />
                                   </StackPane.margin>
@@ -393,7 +393,7 @@
                                     <Image url="@/question-mark.png" />
                                   </image>
                                 </ImageView>
-                                <Label fx:id="labelRewardQuantity2" text="0">
+                                <Label fx:id="labelRewardQuantity2" text="1">
                                   <StackPane.margin>
                                     <Insets bottom="2.0" right="2.0" />
                                   </StackPane.margin>
@@ -415,7 +415,7 @@
                                     <Image url="@/question-mark.png" />
                                   </image>
                                 </ImageView>
-                                <Label fx:id="labelRewardQuantity3" text="0">
+                                <Label fx:id="labelRewardQuantity3" text="1">
                                   <StackPane.margin>
                                     <Insets bottom="2.0" right="2.0" />
                                   </StackPane.margin>
@@ -437,7 +437,7 @@
                                     <Image url="@/question-mark.png" />
                                   </image>
                                 </ImageView>
-                                <Label fx:id="labelRewardQuantity4" text="0">
+                                <Label fx:id="labelRewardQuantity4" text="1">
                                   <StackPane.margin>
                                     <Insets bottom="2.0" right="2.0" />
                                   </StackPane.margin>

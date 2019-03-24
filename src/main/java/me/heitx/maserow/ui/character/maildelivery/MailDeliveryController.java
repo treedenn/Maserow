@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.FlowPane;
+import javafx.util.converter.IntegerStringConverter;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.repository.ICharacterRepository;
 import me.heitx.maserow.database.repository.IItemRepository;
@@ -21,7 +22,6 @@ import me.heitx.maserow.model.Mail;
 import me.heitx.maserow.model.Stack;
 import me.heitx.maserow.ui.LayoutUtil;
 import me.heitx.maserow.ui.lookup.LookupManager;
-import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
 
 import java.io.File;
@@ -30,7 +30,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.function.Function;
 
 public class MailDeliveryController implements Initializable {
@@ -81,6 +83,15 @@ public class MailDeliveryController implements Initializable {
 		lvSelectedItems.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		lvCharacters.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		lvReceivers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+		tfRaces.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfClasses.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfSender.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfChecked.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfGold.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfSilver.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfCopper.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfItemQuantity.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 1));
 
 		btnItemSearch.setOnAction(this::buttonItemSearchAction);
 		btnItemsTransfer.setOnAction(this::buttonItemsTransferRemoveAction);
