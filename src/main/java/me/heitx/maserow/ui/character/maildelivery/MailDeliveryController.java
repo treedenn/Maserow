@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.FlowPane;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.repository.ICharacterRepository;
@@ -96,6 +97,17 @@ public class MailDeliveryController implements Initializable {
 
 		lvCharacters.setCellFactory(lv -> getListCell(lv, SelectorData::getText));
 		lvReceivers.setCellFactory(lv -> getListCell(lv, SelectorData::getText));
+
+		lvCharacters.setOnMouseClicked(event -> {
+
+			if(event.getButton() == MouseButton.SECONDARY) {
+				SelectorData selectedItem = lvCharacters.getSelectionModel().getSelectedItem();
+
+				if(selectedItem != null) {
+					tfSender.setText(String.valueOf(selectedItem.getValue()));
+				}
+			}
+		});
 
 		dpDelivery.setDateTimeValue(LocalDateTime.now());
 		dpExpire.setDateTimeValue(LocalDateTime.now().plusDays(30));
