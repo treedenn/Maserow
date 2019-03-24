@@ -8,6 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Window;
+import javafx.util.converter.FloatStringConverter;
+import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LongStringConverter;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.repository.ICreatureRepository;
 import me.heitx.maserow.io.CommonCSV;
@@ -133,6 +136,8 @@ public class CreatureTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+		loadTextFormatters();
+
 		creature = new Creature();
 
 		btnExecute.setOnAction(this::onExecuteButtonAction);
@@ -163,6 +168,40 @@ public class CreatureTemplateController implements Initializable, Updateable {
 	public void setCreature(Creature creature) {
 		this.creature = creature;
 		updateLayout();
+	}
+
+	private void loadTextFormatters() {
+		TextField[] integerTextFields = new TextField[] {
+				tfEntry, tfDifficultyEntry1, tfDifficultyEntry2, tfDifficultyEntry3, tfModelID1, tfModelID2, tfModelID3, tfModelID4,
+				tfGossipMenu, tfMinLevel, tfMaxLevel, tfFaction, tfLootID, tfPickpocketID, tfSkinID,
+				tfHolyResist, tfFireResist, tfNatureResist, tfFrostResist, tfShadowResist, tfArcaneResist,
+				tfSpell1, tfSpell2, tfSpell3, tfSpell4, tfSpell5, tfSpell6, tfSpell7, tfSpell8,
+				tfPetSpellDataID, tfVehicleID, tfMinGold, tfMaxGold, tfMinSilver, tfMaxSilver, tfMinCopper, tfMaxCopper,
+				tfMovementID
+		};
+
+		TextField[] longTextFields = new TextField[] {
+				tfKillCredit1, tfKillCredit2, tfFlagsExtra, tfBaseAttackTime, tfRangeAttackTime,
+				tfUnitFlags1, tfUnitFlags2, tfSpellImmune
+		};
+
+		TextField[] floatTextFields = new TextField[] {
+				tfSpeedWalk, tfSpeedRun, tfScale, tfBaseVariance, tfRangeVariance, tfHoverHeight,
+				tfModifierHealth, tfModifierMana, tfModifierArmor, tfModifierDamage, tfModifierExperience
+		};
+
+		for(TextField tf : integerTextFields) {
+			tf.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), Integer.valueOf(tf.getText())));
+		}
+
+		for(TextField tf : longTextFields) {
+			tf.setTextFormatter(new TextFormatter<>(new LongStringConverter(), Long.valueOf(tf.getText())));
+		}
+
+		for(TextField tf : floatTextFields) {
+			tf.setTextFormatter(new TextFormatter<>(new FloatStringConverter(), Float.valueOf(tf.getText())));
+		}
+
 	}
 
 	private void onExecuteButtonAction(ActionEvent actionEvent) {

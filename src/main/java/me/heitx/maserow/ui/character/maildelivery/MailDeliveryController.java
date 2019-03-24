@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.FlowPane;
+import javafx.util.converter.IntegerStringConverter;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.repository.ICharacterRepository;
 import me.heitx.maserow.database.repository.IItemRepository;
@@ -81,6 +82,15 @@ public class MailDeliveryController implements Initializable {
 		lvSelectedItems.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		lvCharacters.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		lvReceivers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+		tfRaces.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfClasses.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfSender.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfChecked.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfGold.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfSilver.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfCopper.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+		tfItemQuantity.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 1));
 
 		btnItemSearch.setOnAction(this::buttonItemSearchAction);
 		btnItemsTransfer.setOnAction(this::buttonItemsTransferRemoveAction);

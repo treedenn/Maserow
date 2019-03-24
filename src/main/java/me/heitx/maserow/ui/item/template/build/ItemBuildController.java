@@ -15,6 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.FloatStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
@@ -112,6 +115,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(s);
 			Label l = new Label(s);
 			TextField tf = new TextField(String.valueOf(item.getEntry()));
+			tf.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
 			tf.positionCaret(tf.getText().length());
 
 			addRow(l, tf, () -> { item.setEntry(Integer.parseInt(tf.getText())); });
@@ -265,6 +269,9 @@ public class ItemBuildController implements Initializable {
 			tfMinimum.positionCaret(tfMinimum.getText().length());
 			tfMaximum.positionCaret(tfMaximum.getText().length());
 
+			tfMinimum.setTextFormatter(new TextFormatter<>(new FloatStringConverter(), 0F));
+			tfMaximum.setTextFormatter(new TextFormatter<>(new FloatStringConverter(), 0F));
+
 			HBox hbox = new HBox(5, tfMinimum, new Label(" - "), tfMaximum);
 
 			addRow(l, hbox, () -> {
@@ -282,6 +289,9 @@ public class ItemBuildController implements Initializable {
 			tfMinimum.positionCaret(tfMinimum.getText().length());
 			tfMaximum.positionCaret(tfMaximum.getText().length());
 
+			tfMinimum.setTextFormatter(new TextFormatter<>(new FloatStringConverter(), 0F));
+			tfMaximum.setTextFormatter(new TextFormatter<>(new FloatStringConverter(), 0F));
+
 			HBox hbox = new HBox(5, tfMinimum, new Label(" - "), tfMaximum);
 
 			addRow(l, hbox, () -> {
@@ -294,6 +304,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(speed);
 			Label l = new Label(speed);
 			TextField tf = new TextField(String.valueOf(item.getDelay()));
+			tf.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 1000));
 
 			addRow(l, tf, () -> item.setDelay(Integer.parseInt(tf.getText())));
 		}
@@ -306,6 +317,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(armor);
 			Label l = new Label(armor);
 			TextField tf = new TextField(String.valueOf(item.getArmor()));
+			tf.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
 			tf.positionCaret(tf.getText().length());
 
 			addRow(l, tf, () -> item.setArmor(Integer.parseInt(tf.getText())));
@@ -318,6 +330,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(block);
 			Label l = new Label(block);
 			TextField tf = new TextField(String.valueOf(item.getBlock()));
+			tf.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
 			tf.positionCaret(tf.getText().length());
 
 			addRow(l, tf, () -> item.setBlock(Integer.parseInt(tf.getText())));
@@ -376,6 +389,7 @@ public class ItemBuildController implements Initializable {
 					HBox hbox = new HBox();
 
 					tfs[index] = new TextField(String.valueOf(resistanceValues[index]));
+					tfs[index].setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
 					tfs[index].positionCaret(tfs[index].getText().length());
 
 					String path = ResourceUtil.getResistancePath(index);
@@ -524,6 +538,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(durability);
 			Label l = new Label(durability);
 			TextField tf = new TextField(String.valueOf(item.getMaxDurability()));
+			tf.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
 			tf.positionCaret(tf.getText().length());
 
 			addRow(l, tf, () -> item.setMaxDurability(Integer.parseInt(tf.getText())));
@@ -537,6 +552,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(reqLevel);
 			Label l = new Label(reqLevel);
 			TextField tf = new TextField(String.valueOf(item.getRequiredLevel()));
+			tf.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
 			tf.positionCaret(tf.getText().length());
 
 			addRow(l, tf, () -> item.setRequiredLevel(Integer.parseInt(tf.getText())));
@@ -550,6 +566,7 @@ public class ItemBuildController implements Initializable {
 			editing.add(itemLevel);
 			Label l = new Label(itemLevel);
 			TextField tf = new TextField(String.valueOf(item.getItemLevel()));
+			tf.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
 			tf.positionCaret(tf.getText().length());
 
 			addRow(l, tf, () -> item.setItemLevel(Integer.parseInt(tf.getText())));
@@ -611,6 +628,8 @@ public class ItemBuildController implements Initializable {
 		TextField[] tfMoney = new TextField[moneyStrings.length];
 		for(int i = 0; i < tfMoney.length; i++) {
 			tfMoney[i] = new TextField(String.valueOf(money[i]));
+			tfMoney[i].setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), 0));
+
 			ImageView iv = new ImageView(getClass().getClassLoader().getResource("currency/money-" + moneyStrings[i] + ".png").toExternalForm());
 
 			if(i == 0) {

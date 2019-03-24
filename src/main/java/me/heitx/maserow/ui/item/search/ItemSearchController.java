@@ -6,6 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LongStringConverter;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.ui.common.SearchController;
@@ -15,6 +19,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 public class ItemSearchController extends SearchController<Item> {
 	@FXML private TextField tfName;

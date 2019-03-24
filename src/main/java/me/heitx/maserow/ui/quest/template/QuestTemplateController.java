@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Window;
+import javafx.util.converter.IntegerStringConverter;
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.repository.IQuestRepository;
 import me.heitx.maserow.io.CommonCSV;
@@ -142,6 +143,8 @@ public class QuestTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+		loadTextFormatters();
+
 		quest = new Quest();
 
 		btnExecute.setOnAction(this::onExecuteButtonAction);
@@ -212,6 +215,22 @@ public class QuestTemplateController implements Initializable, Updateable {
 	public void setQuest(Quest quest) {
 		this.quest = quest;
 		updateLayout();
+	}
+
+	public void loadTextFormatters() {
+		TextField[] integerTextFields = new TextField[] {
+				tfEntry, tfQuestLevel, tfMinLevel, tfSortId, tfSuggestedGroup, tfStartItem, tfReqPlayerKills,
+				tfCreatureOrGameObjectId1, tfCreatureOrGameObjectId2, tfCreatureOrGameObjectId3, tfCreatureOrGameObjectId4,
+				tfCreatureOrGameObjectCount1, tfCreatureOrGameObjectCount2, tfCreatureOrGameObjectCount3, tfCreatureOrGameObjectCount4,
+				tfRequiredItemId1, tfRequiredItemId2, tfRequiredItemId3, tfRequiredItemId4, tfRequiredItemId5, tfRequiredItemId6,
+				tfRequiredItemCount1, tfRequiredItemCount2, tfRequiredItemCount3, tfRequiredItemCount4, tfRequiredItemCount5, tfRequiredItemCount6,
+				tfRewardGold, tfRewardSilver, tfRewardCopper, tfRewardMaxGold, tfRewardMaxSilver, tfRewardMaxCopper, tfExperienceDifficulty,
+				tfNextQuest, tfRewardTalents, tfRewardHonorPoints, tfRewardHonorKills, tfRewardArenaPoints, tfRewardTitle, tfRewardDisplaySpell
+		};
+
+		for(TextField tf : integerTextFields) {
+			tf.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), Integer.valueOf(tf.getText())));
+		}
 	}
 
 	private void onExecuteButtonAction(ActionEvent event) {
@@ -421,6 +440,9 @@ public class QuestTemplateController implements Initializable, Updateable {
 		owner.setOnMouseClicked(event -> {
 			TextField tfId = new TextField(currId.getText());
 			TextField tfQuantity = new TextField(currQuantity.getText());
+
+			tfId.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), Integer.valueOf(tfId.getText())));
+			tfQuantity.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), Integer.valueOf(tfQuantity.getText())));
 
 			VBox vboxId = new VBox(new Label("Item ID"), tfId);
 			VBox vboxAmount = new VBox(new Label("Item Quantity"), tfQuantity);
