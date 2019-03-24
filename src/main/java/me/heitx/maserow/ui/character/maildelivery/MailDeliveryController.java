@@ -190,7 +190,9 @@ public class MailDeliveryController implements Initializable {
 
 	private void buttonItemsTransferRemoveAction(ActionEvent event) {
 		if(event.getSource() == btnItemsTransfer) {
-			alternating(lvAvailableItems, lvSelectedItems, tfItemQuantity);
+			if(lvAvailableItems.getSelectionModel().getSelectedItems().size() + lvSelectedItems.getItems().size() <= 12) {
+				alternating(lvAvailableItems, lvSelectedItems, tfItemQuantity);
+			}
 		} else {
 			alternating(lvSelectedItems, lvAvailableItems, tfItemQuantity);
 		}
