@@ -4,13 +4,15 @@ import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.IClient;
 import me.heitx.maserow.database.MySqlDatabase;
 import me.heitx.maserow.database.repository.IMailRepository;
-import me.heitx.maserow.model.*;
 import me.heitx.maserow.model.Stack;
+import me.heitx.maserow.model.*;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.Queries;
 import me.heitx.maserow.utils.QueryUtil;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 

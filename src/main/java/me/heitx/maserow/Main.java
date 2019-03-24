@@ -1,7 +1,6 @@
 package me.heitx.maserow;
 
 import javafx.application.Application;
-import me.heitx.maserow.database.Database;
 import me.heitx.maserow.io.config.Config;
 import me.heitx.maserow.ui.App;
 import org.apache.logging.log4j.LogManager;

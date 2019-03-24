@@ -22,7 +22,6 @@ import me.heitx.maserow.model.Mail;
 import me.heitx.maserow.model.Stack;
 import me.heitx.maserow.ui.LayoutUtil;
 import me.heitx.maserow.ui.lookup.LookupManager;
-import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
 
 import java.io.File;
@@ -31,7 +30,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.function.Function;
 
 public class MailDeliveryController implements Initializable {
