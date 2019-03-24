@@ -347,25 +347,27 @@ public class CreatureTemplateController implements Initializable, Updateable {
 
 	private void onAltPrimaryButtonModelIds(TextField tf, int number, Consumer<Long> onSuccess) {
 		LayoutUtil.onAltPrimaryButton(tf, () -> {
-			LookupManager lm = LookupManager.getInstance();
-			lm.showSingleLookup("Model ID "+number+" : Single", "Creature Model ID "+number+" : Single", true, s -> {
-				List<Creature> creatures = Database.getInstance().getCreatureDAO().search(-1, s, 100);
-				List<Identifier> identifiers = new ArrayList<>();
+			if(Database.hasAccess(Database.Selection.WORLD)) {
+				LookupManager lm = LookupManager.getInstance();
+				lm.showSingleLookup("Model ID "+number+" : Single", "Creature Model ID "+number+" : Single", true, s -> {
+					List<Creature> creatures = Database.getInstance().getCreatureDAO().search(-1, s, 100);
+					List<Identifier> identifiers = new ArrayList<>();
 
-				for(Creature c : creatures) {
-					if(c.getModelid1() > 0) {
-						identifiers.add(new Identifier(c.getModelid1(), -1, c.getName()));
-					} else if(c.getModelid2() > 0) {
-						identifiers.add(new Identifier(c.getModelid2(), -1, c.getName()));
-					} else if(c.getModelid3() > 0) {
-						identifiers.add(new Identifier(c.getModelid3(), -1, c.getName()));
-					} else if(c.getModelid4() > 0) {
-						identifiers.add(new Identifier(c.getModelid4(), -1, c.getName()));
+					for(Creature c : creatures) {
+						if(c.getModelid1() > 0) {
+							identifiers.add(new Identifier(c.getModelid1(), -1, c.getName()));
+						} else if(c.getModelid2() > 0) {
+							identifiers.add(new Identifier(c.getModelid2(), -1, c.getName()));
+						} else if(c.getModelid3() > 0) {
+							identifiers.add(new Identifier(c.getModelid3(), -1, c.getName()));
+						} else if(c.getModelid4() > 0) {
+							identifiers.add(new Identifier(c.getModelid4(), -1, c.getName()));
+						}
 					}
-				}
 
-				return identifiers;
-			}, onSuccess);
+					return identifiers;
+				}, onSuccess);
+			}
 		});
 	}
 
