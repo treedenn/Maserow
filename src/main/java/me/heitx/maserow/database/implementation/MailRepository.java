@@ -1,9 +1,9 @@
-package me.heitx.maserow.database.wrappers;
+package me.heitx.maserow.database.implementation;
 
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.IClient;
 import me.heitx.maserow.database.MySqlDatabase;
-import me.heitx.maserow.database.dao.IMailDAO;
+import me.heitx.maserow.database.repository.IMailRepository;
 import me.heitx.maserow.model.*;
 import me.heitx.maserow.model.Stack;
 import me.heitx.maserow.utils.ConverterUtil;
@@ -14,10 +14,8 @@ import java.sql.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static me.heitx.maserow.utils.QueryUtil.*;
-
-public class MailDAO extends MySqlDatabase implements IMailDAO {
-	public MailDAO(IClient client) {
+public class MailRepository extends MySqlDatabase implements IMailRepository {
+	public MailRepository(IClient client) {
 		super(client);
 	}
 

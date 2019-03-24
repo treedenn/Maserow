@@ -3,13 +3,16 @@ package me.heitx.maserow.database;
 import me.heitx.maserow.database.function.BiFunction;
 import me.heitx.maserow.database.function.Function;
 import me.heitx.maserow.database.function.TriFunction;
+import me.heitx.maserow.utils.ConverterUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class MySqlDatabase {
 	private static final Logger LOGGER = LogManager.getLogger(MySqlDatabase.class);
@@ -78,6 +81,37 @@ public abstract class MySqlDatabase {
 		}
 	}
 
+	protected <T> PreparedStatement executeAndConvertRow(String query, Connection conn, Class<T> type, AtomicReference<T> atomic) throws SQLException {
+		PreparedStatement ps = conn.prepareStatement(query);
+		ResultSet rs = ps.executeQuery();
+
+		atomic.set(convertRow(type, rs));
+
+		return ps;
+	}
+
+	protected <T> PreparedStatement executeAndConvertRows(String query, Connection conn, Class<T> type, List<T> list) throws SQLException {
+		PreparedStatement ps = conn.prepareStatement(query);
+		ResultSet rs = ps.executeQuery();
+
+		list.addAll(convertRows(type, rs));
+
+		return ps;
+	}
+
+	protected <T> T convertRow(Class<T> type, ResultSet rs) throws SQLException {
+		T objects = null;
+		if(rs.next()) objects = ConverterUtil.toObject(type, convertResultSet(rs));
+		return objects;
+	}
+
+	protected <T> List<T> convertRows(Class<T> type, ResultSet rs) throws SQLException {
+		List<T> objects = new ArrayList<>();
+		while(rs.next()) objects.add(ConverterUtil.toObject(type, convertResultSet(rs)));
+
+		return objects;
+	}
+
 	protected Map<String, Object> convertResultSet(ResultSet rs) throws SQLException {
 		Map<String, Object> map = new HashMap<>();
 
@@ -90,16 +124,5 @@ public abstract class MySqlDatabase {
 		}
 
 		return map;
-	}
-
-	protected PreparedStatement executeAndConvertResultToSet(List<Map<String, Object>> set, Connection conn, String query) throws SQLException {
-		PreparedStatement ps = conn.prepareStatement(query);
-		ResultSet rs = ps.executeQuery();
-
-		while(rs.next()) {
-			set.add(convertResultSet(rs));
-		}
-
-		return ps;
 	}
 }

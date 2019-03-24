@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Window;
 import me.heitx.maserow.database.Database;
-import me.heitx.maserow.database.dao.ICreatureDAO;
+import me.heitx.maserow.database.repository.ICreatureRepository;
 import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.ICSV;
@@ -18,7 +18,6 @@ import me.heitx.maserow.model.Creature;
 import me.heitx.maserow.ui.LayoutUtil;
 import me.heitx.maserow.ui.Updateable;
 import me.heitx.maserow.ui.lookup.LookupManager;
-import me.heitx.maserow.ui.lookup.multiselection.LookupMultiController;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
 import me.heitx.maserow.utils.Queries;
@@ -28,8 +27,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class CreatureTemplateController implements Initializable, Updateable {
 	@FXML private Button btnExecute;
@@ -171,17 +168,16 @@ public class CreatureTemplateController implements Initializable, Updateable {
 	private void onExecuteButtonAction(ActionEvent actionEvent) {
 		if(creature != null) {
 			updateModel();
-			ICreatureDAO dao = Database.getInstance().getCreatureDAO();
-			Map<String, Object> attributes = ConverterUtil.toAttributes(creature);
+			ICreatureRepository dao = Database.getInstance().getCreatureDAO();
 
 			if(dao.exists(creature.getEntry())) {
 				Optional<ButtonType> alert = LayoutUtil.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already a creature with given identifier! " +
 						"Do you want to overwrite the old creature with the new one?", ButtonType.NO, ButtonType.YES);
 				if(alert.isPresent() && alert.get() == ButtonType.YES) {
-					dao.update(attributes);
+					dao.update(creature);
 				}
 			} else {
-				dao.insert(attributes);
+				dao.insert(creature);
 			}
 		}
 	}
@@ -314,8 +310,7 @@ public class CreatureTemplateController implements Initializable, Updateable {
 		LayoutUtil.onAltPrimaryButton(tf, () -> {
 			LookupManager lm = LookupManager.getInstance();
 			lm.showSingleLookup("Model ID "+number+" : Single", "Creature Model ID "+number+" : Single", true, s -> {
-				List<Map<String, Object>> search = Database.getInstance().getCreatureDAO().search(-1, s, 100);
-				List<Creature> creatures = ConverterUtil.toObjects(Creature.class, search);
+				List<Creature> creatures = Database.getInstance().getCreatureDAO().search(-1, s, 100);
 				List<Identifier> identifiers = new ArrayList<>();
 
 				for(Creature c : creatures) {

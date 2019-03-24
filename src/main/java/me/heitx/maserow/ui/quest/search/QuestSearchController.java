@@ -39,15 +39,13 @@ public class QuestSearchController extends SearchController<Quest> {
 
 	@Override
 	protected void onButtonSearchAction(ActionEvent event) {
-		List<Map<String, Object>> search;
+		List<Quest> quests;
 
 		if(tfEntry.getText().isEmpty() && tfTitle.getText().isEmpty()) {
-			search = Database.getInstance().getQuestDAO().getAll(100);
+			quests = Database.getInstance().getQuestDAO().getAll(100);
 		} else {
-			search = Database.getInstance().getQuestDAO().search(Integer.parseInt(tfEntry.getText()), tfTitle.getText(), 100);
+			quests = Database.getInstance().getQuestDAO().search(Integer.parseInt(tfEntry.getText()), tfTitle.getText(), 100);
 		}
-
-		List<Quest> quests = ConverterUtil.toObjects(Quest.class, search);
 
 		tvSearch.setItems(FXCollections.observableList(quests));
 	}

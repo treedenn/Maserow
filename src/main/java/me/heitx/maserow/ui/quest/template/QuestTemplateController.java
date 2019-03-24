@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Window;
 import me.heitx.maserow.database.Database;
-import me.heitx.maserow.database.dao.IQuestDAO;
+import me.heitx.maserow.database.repository.IQuestRepository;
 import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.Identifier;
@@ -217,17 +217,16 @@ public class QuestTemplateController implements Initializable, Updateable {
 	private void onExecuteButtonAction(ActionEvent event) {
 		if(quest != null) {
 			updateModel();
-			IQuestDAO dao = Database.getInstance().getQuestDAO();
-			Map<String, Object> attributes = ConverterUtil.toAttributes(quest);
+			IQuestRepository dao = Database.getInstance().getQuestDAO();
 
 			if(dao.exists(quest.getId())) {
 				Optional<ButtonType> alert = LayoutUtil.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already a quest with given identifier! " +
 						"Do you want to overwrite the old quest with the new one?", ButtonType.NO, ButtonType.YES);
 				if(alert.isPresent() && alert.get() == ButtonType.YES) {
-					dao.update(attributes);
+					dao.update(quest);
 				}
 			} else {
-				dao.insert(attributes);
+				dao.insert(quest);
 			}
 		}
 	}

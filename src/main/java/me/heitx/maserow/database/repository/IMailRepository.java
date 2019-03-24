@@ -1,11 +1,10 @@
-package me.heitx.maserow.database.dao;
+package me.heitx.maserow.database.repository;
 
 import me.heitx.maserow.model.Mail;
 import me.heitx.maserow.model.Stack;
 
 import java.util.List;
-import java.util.Map;
 
-public interface IMailDAO {
+public interface IMailRepository {
 	boolean send(Mail mail, List<Stack> items, List<Long> receiverGuids, List<Integer> races, List<Integer> classes);
 }
