@@ -36,6 +36,7 @@ public class SidemenuController implements Initializable {
 	@FXML private Button btnItem;
 	@FXML private Button btnQuest;
 	@FXML private Button btnCreature;
+	@FXML private Button btnCharacter;
 	@FXML private Button btnSQL;
 	@FXML private Button btnSettings;
 	@FXML private Button btnToggle;
@@ -51,6 +52,9 @@ public class SidemenuController implements Initializable {
 	@FXML private VBox vboxCreature;
 	@FXML private Button btnCreatureSearch;
 	@FXML private Button btnCreatureTemplate;
+
+	@FXML private VBox vboxCharacter;
+	@FXML private Button btnCharacterMailDelivery;
 
 	private boolean isShrinked;
 	private VBox selectedVBox;
@@ -77,6 +81,7 @@ public class SidemenuController implements Initializable {
 				btnItem, btnItemSearch, btnItemTemplate,
 				btnQuest, btnQuestSearch, btnQuestTemplate,
 				btnCreature, btnCreatureSearch, btnCreatureTemplate,
+				btnCharacter, btnCharacterMailDelivery,
 				btnSQL,
 				btnSettings,
 				btnToggle
@@ -88,6 +93,7 @@ public class SidemenuController implements Initializable {
 		LayoutUtil.hide(vboxItem);
 		LayoutUtil.hide(vboxQuest);
 		LayoutUtil.hide(vboxCreature);
+		LayoutUtil.hide(vboxCharacter);
 
 		setIcon(btnLogin, new MaterialDesignIconView(MaterialDesignIcon.DATABASE), MENU_ICON_SIZE);
 		setIcon(btnItem, new MaterialDesignIconView(MaterialDesignIcon.SWORD), MENU_ICON_SIZE);
@@ -99,6 +105,8 @@ public class SidemenuController implements Initializable {
 		setIcon(btnCreature, new FontAwesomeIconView(FontAwesomeIcon.BUG), MENU_ICON_SIZE);
 		setIcon(btnCreatureSearch, new MaterialIconView(MaterialIcon.SEARCH), SUBMENU_ICON_SIZE);
 		setIcon(btnCreatureTemplate, new MaterialIconView(MaterialIcon.EDIT), SUBMENU_ICON_SIZE);
+		setIcon(btnCharacter, new FontAwesomeIconView(FontAwesomeIcon.USER), MENU_ICON_SIZE);
+		setIcon(btnCharacterMailDelivery, new MaterialIconView(MaterialIcon.MAIL), SUBMENU_ICON_SIZE);
 		setIcon(btnSQL, new MaterialDesignIconView(MaterialDesignIcon.DATABASE_PLUS), MENU_ICON_SIZE);
 		setIcon(btnSettings, new MaterialIconView(MaterialIcon.SETTINGS), MENU_ICON_SIZE);
 		setIcon(btnToggle, toggleExpand, MENU_ICON_SIZE);
@@ -106,6 +114,7 @@ public class SidemenuController implements Initializable {
 		setCategoryAction(btnItem, vboxItem, null);
 		setCategoryAction(btnQuest, vboxQuest, null);
 		setCategoryAction(btnCreature, vboxCreature, null);
+		setCategoryAction(btnCharacter, vboxCharacter, null);
 
 		btnToggle.setOnAction(this::onButtonToggleAction);
 	}
@@ -205,6 +214,13 @@ public class SidemenuController implements Initializable {
 	}
 	public void setCreatureTemplateCallback(Callback callback) {
 		setButtonAction(btnCreatureTemplate, callback);
+	}
+	// CHARACTER
+	public void setCharacterCallback(Callback callback) {
+		setCategoryAction(btnCreature, vboxCreature, callback);
+	}
+	public void setCharacterMailDeliveryCallback(Callback callback) {
+		setButtonAction(btnCharacterMailDelivery, callback);
 	}
 	// ...
 	public void setSQLCallback(Callback callback) {

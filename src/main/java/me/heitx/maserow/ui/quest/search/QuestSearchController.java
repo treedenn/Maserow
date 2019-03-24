@@ -30,7 +30,7 @@ public class QuestSearchController extends SearchController<Quest> {
 	public void update() {
 		super.update();
 
-		btnSearch.setDisable(!Database.isLoggedIn());
+		btnSearch.setDisable(!Database.hasAccess(Database.Selection.WORLD));
 
 		tcEntry.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getId()));
 		tcTitle.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getLogTitle()));

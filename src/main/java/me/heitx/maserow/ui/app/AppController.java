@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
+import me.heitx.maserow.ui.character.maildelivery.MailDeliveryController;
 import me.heitx.maserow.ui.creature.search.CreatureSearchController;
 import me.heitx.maserow.ui.creature.template.CreatureTemplateController;
 import me.heitx.maserow.ui.item.search.ItemSearchController;
@@ -37,6 +38,8 @@ public class AppController implements Initializable {
 	private CreatureSearchController creatureSearchController;
 	private Parent creatureTemplate;
 	private CreatureTemplateController creatureTemplateController;
+	private Parent characterMailDelivery;
+	private MailDeliveryController characterDeliveryController;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -135,6 +138,21 @@ public class AppController implements Initializable {
 		smController.setCreatureTemplateCallback(() -> {
 			createOrUpdateCreatureTemplate();
 			bpApp.setCenter(creatureTemplate);
+		});
+
+		// Character -> Mail Delivery
+		smController.setCharacterMailDeliveryCallback(() -> {
+			if(characterMailDelivery == null) {
+				create(MailDeliveryController.class, "maildelivery", (p, c) -> {
+					characterMailDelivery = p;
+					characterDeliveryController = c;
+				});
+
+			} else {
+				// characterDeliveryController.update();
+			}
+
+			bpApp.setCenter(characterMailDelivery);
 		});
 	}
 

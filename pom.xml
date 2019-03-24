@@ -6,7 +6,7 @@
 
   <groupId>me.heitx.maserow</groupId>
   <artifactId>maserow</artifactId>
-  <version>0.0.4</version>
+  <version>0.0.5</version>
 
   <name>maserow</name>
   <!-- FIXME change it to the project's website -->
@@ -61,6 +61,12 @@
       <artifactId>controlsfx</artifactId>
       <version>8.40.14</version>
     </dependency>
+
+    <!--<dependency>-->
+      <!--<groupId>com.jfoenix</groupId>-->
+      <!--<artifactId>jfoenix</artifactId>-->
+      <!--<version>8.0.8</version>-->
+    <!--</dependency>-->
 
     <!-- https://bintray.com/jerady/maven/FontAwesomeFX/8.15 -->
     <dependency>

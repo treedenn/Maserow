@@ -12,12 +12,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Callback;
 import me.heitx.maserow.io.Identifier;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public abstract class LookupController<T> implements Initializable {
 	@FXML protected VBox vbRoot;
@@ -32,11 +34,18 @@ public abstract class LookupController<T> implements Initializable {
 	@FXML protected CheckBox cbEntryColumn;
 	@FXML protected CheckBox cbValueColumn;
 
+	// Same as the sidebarContainer in LookupManager
+	protected Pane parent;
+
+	protected boolean returnEntry;
+	// Returns a List of Identifiers and provides a string (name)
+	protected Function<String, List<Identifier>> filterFunction;
+
+	// Used for the identifier lookup and filter
 	protected List<Identifier> identifiers;
 	protected ObservableList<LookupData> lookupData;
-	protected Pane parent;
-	protected Callback<T, Void> onSuccess;
-	protected Callback<Void, Void> onClose;
+
+	protected Consumer<T> onSuccess;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,21 +68,8 @@ public abstract class LookupController<T> implements Initializable {
 		this.parent = parent;
 	}
 
-	protected void clean() {
-		identifiers = null;
-		lookupData = null;
-	}
-
-	protected void close() {
-		clean();
-
-		if(vbRoot.getScene() != parent.getScene()) {
-			Stage stage = (Stage) vbRoot.getScene().getWindow();
-			stage.getOnCloseRequest().handle(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
-			stage.close();
-		} else {
-			parent.getChildren().remove(vbRoot);
-		}
+	public void setReturnEntry(boolean returnEntry) {
+		this.returnEntry = returnEntry;
 	}
 
 	public void setIdentifiers(List<Identifier> identifierList) {
@@ -90,21 +86,20 @@ public abstract class LookupController<T> implements Initializable {
 
 	protected abstract TableRow<LookupData> onTableRowMouseClick(TableView<LookupData> table);
 
-	private void onButtonEscapeAction(ActionEvent event) {
-		clean();
-		close();
-	}
-
 	private void onButtonFilterAction(ActionEvent event) {
 		tvTable.getItems().clear();
 
-		String filter = tfFilter.getText();
-		if(filter.isEmpty()) {
-			tvTable.setItems(lookupData);
+		if(filterFunction != null) {
+			setIdentifiers(filterFunction.apply(tfFilter.getText()));
 		} else {
-			for(LookupData td : lookupData) {
-				if(td.getName().contains(filter)) {
-					tvTable.getItems().add(td);
+			String filter = tfFilter.getText();
+			if(filter.isEmpty()) {
+				tvTable.setItems(lookupData);
+			} else {
+				for(LookupData td : lookupData) {
+					if(td.getName().contains(filter)) {
+						tvTable.getItems().add(td);
+					}
 				}
 			}
 		}
@@ -126,6 +121,28 @@ public abstract class LookupController<T> implements Initializable {
 			cols.add(i == -1 ? 0 : ++i, tcValue);
 		} else {
 			cols.remove(tcValue);
+		}
+	}
+
+	private void onButtonEscapeAction(ActionEvent event) {
+		clean();
+		close();
+	}
+
+	protected void clean() {
+		identifiers = null;
+		lookupData = null;
+	}
+
+	protected void close() {
+		clean();
+
+		if(vbRoot.getScene() != parent.getScene()) {
+			Stage stage = (Stage) vbRoot.getScene().getWindow();
+			stage.getOnCloseRequest().handle(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+			stage.close();
+		} else {
+			parent.getChildren().remove(vbRoot);
 		}
 	}
 }

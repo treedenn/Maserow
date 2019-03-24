@@ -30,7 +30,7 @@ public class CreatureSearchController extends SearchController<Creature> {
 	public void update() {
 		super.update();
 
-		btnSearch.setDisable(!Database.isLoggedIn());
+		btnSearch.setDisable(!Database.hasAccess(Database.Selection.WORLD));
 
 		tcEntry.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getEntry()));
 		tcName.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getName()));

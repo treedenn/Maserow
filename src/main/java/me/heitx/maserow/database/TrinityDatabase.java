@@ -1,11 +1,7 @@
 package me.heitx.maserow.database;
 
-import me.heitx.maserow.database.dao.ICreatureDAO;
-import me.heitx.maserow.database.dao.IItemDAO;
-import me.heitx.maserow.database.dao.IQuestDAO;
-import me.heitx.maserow.database.trinitywotlk.CreatureDAO;
-import me.heitx.maserow.database.trinitywotlk.ItemDAO;
-import me.heitx.maserow.database.trinitywotlk.QuestDAO;
+import me.heitx.maserow.database.dao.*;
+import me.heitx.maserow.database.wrappers.*;
 
 public class TrinityDatabase implements IDatabase {
 	private IClient client;
@@ -13,10 +9,11 @@ public class TrinityDatabase implements IDatabase {
 	private IItemDAO itemDAO;
 	private IQuestDAO questDAO;
 	private ICreatureDAO creatureDAO;
+	private ICharacterDAO characterDAO;
+	private IItemInstanceDAO itemInstanceDAO;
+	private IMailDAO mailDAO;
 
-	TrinityDatabase() {
-
-	}
+	TrinityDatabase() { }
 
 	@Override
 	public IClient getClient() {
@@ -26,23 +23,42 @@ public class TrinityDatabase implements IDatabase {
 	@Override
 	public void setClient(IClient client) {
 		this.client = client;
+
+		itemDAO = new ItemDAO(client);
+		questDAO = new QuestDAO(client);
+		creatureDAO = new CreatureDAO(client);
+		characterDAO = new CharacterDAO(client);
+		itemInstanceDAO = new ItemInstanceDAO(client);
+		mailDAO = new MailDAO(client);
 	}
 
 	@Override
 	public IItemDAO getItemDAO() {
-		if(Database.isLoggedIn() && itemDAO == null) itemDAO = new ItemDAO(client);
 		return itemDAO;
 	}
 
 	@Override
 	public IQuestDAO getQuestDAO() {
-		if(Database.isLoggedIn() && questDAO == null) questDAO = new QuestDAO(client);
 		return questDAO;
 	}
 
 	@Override
 	public ICreatureDAO getCreatureDAO() {
-		if(Database.isLoggedIn() && creatureDAO == null) creatureDAO = new CreatureDAO(client);
 		return creatureDAO;
+	}
+
+	@Override
+	public ICharacterDAO getCharacterDAO() {
+		return characterDAO;
+	}
+
+	@Override
+	public IItemInstanceDAO getItemInstanceDAO() {
+		return itemInstanceDAO;
+	}
+
+	@Override
+	public IMailDAO getMailDAO() {
+		return mailDAO;
 	}
 }

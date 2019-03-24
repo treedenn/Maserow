@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import me.heitx.maserow.database.Database;
 import me.heitx.maserow.io.Identifier;
 import me.heitx.maserow.io.config.Config;
 import me.heitx.maserow.io.config.ConfigKey;
@@ -18,6 +19,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class LookupManager {
 	private static final Logger LOGGER = LogManager.getLogger(LookupManager.class.getName());
@@ -44,13 +48,27 @@ public class LookupManager {
 		return currentPopup != null || sidebarContainer.getRight() != null;
 	}
 
-	public void showSingleLookup(String title, String stageTitle, boolean useEntry, List<Identifier> identifiers, Integer selectedIndex, Callback<Long, Void> onSuccess) {
+	public void showSingleLookup(String title, String stageTitle, boolean returnEntry, Function<String, List<Identifier>> filter, Consumer<Long> onSuccess) {
 		Pair<Parent, LookupSingleController> pair = loadSingleLayout();
 		if(pair != null) {
 			LookupSingleController controller = pair.getValue();
 			controller.labelTitle.setText(title);
 			controller.setParent(sidebarContainer);
-			controller.setUseEntry(useEntry);
+			controller.setReturnEntry(returnEntry);
+			controller.filterFunction = filter;
+			controller.onSuccess = onSuccess;
+
+			show(stageTitle, pair.getKey(), controller);
+		}
+	}
+
+	public void showSingleLookup(String title, String stageTitle, boolean returnEntry, List<Identifier> identifiers, Integer selectedIndex, Consumer<Long> onSuccess) {
+		Pair<Parent, LookupSingleController> pair = loadSingleLayout();
+		if(pair != null) {
+			LookupSingleController controller = pair.getValue();
+			controller.labelTitle.setText(title);
+			controller.setParent(sidebarContainer);
+			controller.setReturnEntry(returnEntry);
 			controller.setIdentifiers(identifiers);
 			controller.setSelected(selectedIndex);
 			controller.onSuccess = onSuccess;
@@ -59,13 +77,27 @@ public class LookupManager {
 		}
 	}
 
-	public void showMultiLookup(String title, String stageTitle, LookupMultiController.CalculateValueMethod method, Long methodValue, List<Identifier> identifiers, List<Integer> selectedIndices, Callback<Long, Void> onSuccess) {
+	public void showMultiLookup(String title, String stageTitle, boolean returnEntry, Function<String, List<Identifier>> filter, Consumer<List<Long>> onSuccess) {
 		Pair<Parent, LookupMultiController> pair = loadMultiLayout();
 		if(pair != null) {
 			LookupMultiController controller = pair.getValue();
 			controller.labelTitle.setText(title);
 			controller.setParent(sidebarContainer);
-			controller.setMethod(method, methodValue);
+			controller.setReturnEntry(returnEntry);
+			controller.filterFunction = filter;
+			controller.onSuccess = onSuccess;
+
+			show(stageTitle, pair.getKey(), controller);
+		}
+	}
+
+	public void showMultiLookup(String title, String stageTitle, boolean returnEntry, List<Identifier> identifiers, List<Integer> selectedIndices, Consumer<List<Long>> onSuccess) {
+		Pair<Parent, LookupMultiController> pair = loadMultiLayout();
+		if(pair != null) {
+			LookupMultiController controller = pair.getValue();
+			controller.labelTitle.setText(title);
+			controller.setParent(sidebarContainer);
+			controller.setReturnEntry(returnEntry);
 			controller.setIdentifiers(identifiers);
 			controller.select(selectedIndices);
 			controller.onSuccess = onSuccess;

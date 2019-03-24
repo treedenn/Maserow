@@ -68,6 +68,12 @@ public class ConverterUtil {
 		return attributes;
 	}
 
+	public static List<String> toStrings(int[] integers) {
+		List<String> strings = new ArrayList<>();
+		for(Integer integer : integers) strings.add(String.valueOf(integer));
+		return strings;
+	}
+
 	public static int[] toPrimitive(List<Integer> list) {
 		int[] arr = new int[list.size()];
 		for(int i = 0; i < arr.length; i++) {
