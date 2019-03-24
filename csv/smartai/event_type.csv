@@ -1,0 +1,67 @@
+0;Update in combat
+1;Update out of combat
+2;Healt pct
+3;Mana pct
+4;Aggro
+5;Kill
+6;Death
+7;Evade
+8;Spellhit
+9;Range
+10;Ooc los
+11;Respawn
+12;Target health pct
+13;Victim casting
+14;Friendly health
+15;Friendly is cc
+16;Friendly missing buff
+17;Summoned unit
+18;Target mana pct
+19;Accepted quest
+20;Reward quest
+21;Reached home
+22;Receive emote
+23;Has aura
+24;Target buffed
+25;Reset
+26;Ic los
+27;Passenger boarded
+28;Passenger removed
+29;Charmed
+30;Charmed target
+31;Spellhit target
+32;Damaged
+33;Damaged target
+34;Movementinform
+35;Summon despawned
+36;Corpse removed
+37;Ai init
+38;Data set
+39;Waypoint start
+40;Waypoint reached
+52;Text over
+53;Receive heal
+54;Just summoned
+55;Waypoint paused
+56;Waypoint resumed
+57;Waypoint stopped
+58;Waypoint ended
+59;Timed event triggered
+60;Update
+61;Link
+62;Gossip select
+63;Just created
+64;Gossip hello
+65;Follow completed
+66;Event phase change
+67;Is behind target
+68;Game event start
+69;Game event end
+70;Go loot state changed
+71;Go event inform
+72;Action done
+73;On spellclick
+74;Friendly health pct
+75;Distance creature
+76;Distance gameobject
+77;Counter set

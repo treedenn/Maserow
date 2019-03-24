@@ -1,0 +1,10 @@
+1;Not repeatable
+2;Difficulty 0
+4;Difficulty 1
+8;Difficulty 2
+16;Difficulty 3
+32;Reserved 5
+64;Reserved 6
+128;Debug only
+256;Dont reset
+512;While charmed

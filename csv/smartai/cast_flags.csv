@@ -1,0 +1,7 @@
+1;Smart cast interrupt previous
+2;Smart cast triggered
+4;Cast force cast
+8;Cast no melee if out of mana or range
+16;Cast force target self
+32;Cast aura not present
+64;Smart cast combat move

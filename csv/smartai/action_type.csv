@@ -1,0 +1,135 @@
+0;None
+1;Talk
+2;Set faction
+3;Morph to entry or model
+4;Sound
+5;Play emote
+6;Fail quest
+7;Offer quest
+8;Set react state
+9;Activate gobject
+10;Random emote
+11;Cast
+12;Summon creature
+13;Threat single pct
+14;Threat all pct
+15;Call areaexploredoreventhappens
+16;Set ingame phase id
+17;Set emote state
+18;Set unit flag
+19;Remove unit flag
+20;Auto attack
+21;Allow combat movement
+22;Set event phase
+23;Inc event phase
+24;Evade
+25;Flee for assist
+26;Call groupeventhappens
+27;Combat stop
+28;Removeaurasfromspell
+29;Follow
+30;Random phase
+31;Random phase range
+32;Reset gobject
+33;Call killedmonster
+34;Set inst data
+35;Set inst data64
+36;Update template
+37;Die
+38;Set in combat with zone
+39;Call for help
+40;Set sheath
+41;Force despawn
+42;Set invincibility hp level
+43;Mount to entry or model
+44;Set ingame phase mask
+45;Set data
+46;Unused 46
+47;Set visibility
+48;Set active
+49;Attack start
+50;Summon go
+51;Kill unit
+52;Activate taxi
+53;Wp start
+54;Wp pause
+55;Wp stop
+56;Add item
+57;Remove item
+58;Install ai template
+59;Set run
+60;Set disable gravity
+61;Set swim
+62;Teleport
+63;Set counter
+64;Store target list
+65;Wp resume
+66;Set orientation
+67;Create timed event
+68;Playmovie
+69;Move to pos
+70;Enable temp gobj
+71;Equip
+72;Close gossip
+73;Trigger timed event
+74;Remove timed event
+75;Add aura
+76;Override script base object
+77;Reset script base object
+78;Call script reset
+79;Set ranged movement
+80;Call timed actionlist
+81;Set npc flag
+82;Add npc flag
+83;Remove npc flag
+84;Simple talk
+85;Self cast
+86;Cross cast
+87;Call random timed actionlist
+88;Call random range timed actionlist
+89;Random move
+90;Set unit field bytes 1
+91;Remove unit field bytes 1
+92;Interrupt spell
+93;Send go custom anim
+94;Set dynamic flag
+95;Add dynamic flag
+96;Remove dynamic flag
+97;Jump to pos
+98;Send gossip menu
+99;Go set loot state
+100;Send target to target
+101;Set home pos
+102;Set health regen
+103;Set root
+104;Set go flag
+105;Add go flag
+106;Remove go flag
+107;Summon creature group
+108;Set power
+109;Add power
+110;Remove power
+111;Game event stop
+112;Game event start
+113;Start closest waypoint
+114;Move offset
+115;Random sound
+116;Set corpse delay
+117;Disable evade
+118;Go set go state
+119;Set can fly
+120;Remove auras by type
+121;Set sight dist
+122;Flee
+123;Add threat
+124;Load equipment
+125;Trigger random timed event
+126;Remove all gameobjects
+127;Remove movement
+128;Play animkit
+129;Scene play
+130;Scene cancel
+131;Spawn spawngroup
+132;Despawn spawngroup
+133;Respawn by spawnid
+134;Invoker cast

@@ -1,0 +1,30 @@
+0;None
+1;Self
+2;Victim
+3;Hostile second aggro
+4;Hostile last aggro
+5;Hostile random
+6;Hostile random not top
+7;Action invoker
+8;Position
+9;Creature range
+10;Creature guid
+11;Creature distance
+12;Stored
+13;Gameobject range
+14;Gameobject guid
+15;Gameobject distance
+16;Invoker party
+17;Player range
+18;Player distance
+19;Closest creature
+20;Closest gameobject
+21;Closest player
+22;Action invoker vehicle
+23;Owner or summoner
+24;Threat list
+25;Closest enemy
+26;Closest friendly
+27;Loot recipients
+28;Farthest
+29;Vehicle accessory

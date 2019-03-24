@@ -1,0 +1,10 @@
+0;Creature
+1;Gameobject
+2;Areatrigger
+3;Event
+4;Gossip
+5;Quest
+6;Spell
+7;Transport
+8;Instance
+9;Timed Actionlist
