@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import me.heitx.maserow.database.Database;
-import me.heitx.maserow.database.dao.IItemDAO;
+import me.heitx.maserow.database.repository.IItemRepository;
 import me.heitx.maserow.model.Item;
 import me.heitx.maserow.ui.LayoutUtil;
 import me.heitx.maserow.ui.Updateable;
@@ -84,17 +84,16 @@ public class ItemTemplateController implements Initializable, Updateable {
 
 	private void onButtonExecuteAction(ActionEvent event) {
 		if(item != null) {
-			IItemDAO dao = Database.getInstance().getItemDAO();
-			Map<String, Object> attributes = ConverterUtil.toAttributes(item);
+			IItemRepository dao = Database.getInstance().getItemDAO();
 
 			if(dao.exists(item.getEntry())) {
 				Optional<ButtonType> alert = LayoutUtil.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already an item with given identifier! " +
 						"Do you want to overwrite the old item with the new one?", ButtonType.NO, ButtonType.YES);
 				if(alert.isPresent() && alert.get() == ButtonType.YES) {
-					dao.update(attributes);
+					dao.update(item);
 				}
 			} else {
-				dao.insert(attributes);
+				dao.insert(item);
 			}
 		}
 	}

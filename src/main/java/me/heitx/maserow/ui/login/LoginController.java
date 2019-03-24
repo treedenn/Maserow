@@ -60,8 +60,6 @@ public class LoginController implements Initializable {
 		String characters = tfCharacters.getText();
 		String world = tfWorld.getText();
 
-		Database.select(Database.Type.TRINITY);
-
 		IClient client = new MySqlClient(hostname, username, password, port, auth, characters, world);
 		IDatabase db = Database.getInstance();
 

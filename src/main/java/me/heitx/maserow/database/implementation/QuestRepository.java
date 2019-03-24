@@ -1,14 +1,16 @@
-package me.heitx.maserow.database.wrappers;
+package me.heitx.maserow.database.implementation;
 
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.IClient;
 import me.heitx.maserow.database.MySqlDatabase;
-import me.heitx.maserow.database.dao.IItemDAO;
+import me.heitx.maserow.database.repository.IQuestRepository;
+import me.heitx.maserow.model.Item;
+import me.heitx.maserow.model.Quest;
+import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.Queries;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,35 +19,36 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ItemDAO extends MySqlDatabase implements IItemDAO {
-	public ItemDAO(IClient client) {
+public class QuestRepository extends MySqlDatabase implements IQuestRepository {
+	private static final Class<Quest> TYPE = Quest.class;
+
+	public QuestRepository(IClient client) {
 		super(client);
 	}
 
 	@Override
-	public List<Map<String, Object>> search(int entry, String name, int limit) {
-		List<Map<String, Object>> set = new ArrayList<>();
+	public List<Quest> search(int entry, String logTitle, int limit) {
+		List<Quest> list = new ArrayList<>();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Item.search(false, entry, name, limit));
-			ResultSet rs = ps.executeQuery();
+			String query = Queries.Quest.search(false, entry, logTitle, limit);
 
-			while(rs.next()) {
-				set.add(convertResultSet(rs));
-			}
+			PreparedStatement ps = executeAndConvertRows(query, conn, TYPE, list);
 
 			return new Statement[] { ps };
 		});
 
-		return set;
+		return list;
 	}
 
 	@Override
-	public boolean insert(Map<String, Object> item) {
+	public boolean insert(Quest quest) {
 		AtomicBoolean atomic = new AtomicBoolean();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Item.insert(false, item));
+			String query = Queries.Quest.insert(false, ConverterUtil.toAttributes(quest));
+
+			PreparedStatement ps = conn.prepareStatement(query);
 			atomic.set(ps.executeUpdate() > 0);
 
 			return new Statement[] { ps };
@@ -55,11 +58,13 @@ public class ItemDAO extends MySqlDatabase implements IItemDAO {
 	}
 
 	@Override
-	public boolean update(Map<String, Object> item) {
+	public boolean update(Quest quest) {
 		AtomicBoolean atomic = new AtomicBoolean();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Item.update(false, item));
+			String query = Queries.Quest.update(false, ConverterUtil.toAttributes(quest));
+
+			PreparedStatement ps = conn.prepareStatement(query);
 			atomic.set(ps.executeUpdate() > 0);
 
 			return new Statement[] { ps };
@@ -73,7 +78,9 @@ public class ItemDAO extends MySqlDatabase implements IItemDAO {
 		AtomicBoolean atomic = new AtomicBoolean();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Item.delete(false, entry));
+			String query = Queries.Quest.delete(false, entry);
+
+			PreparedStatement ps = conn.prepareStatement(query);
 			atomic.set(ps.executeUpdate() > 0);
 
 			return new Statement[] { ps };
@@ -83,16 +90,13 @@ public class ItemDAO extends MySqlDatabase implements IItemDAO {
 	}
 
 	@Override
-	public Map<String, Object> get(int entry) {
-		AtomicReference<Map<String, Object>> atomic = new AtomicReference<>();
+	public Quest get(int entry) {
+		AtomicReference<Quest> atomic = new AtomicReference<>();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Item.get(false, entry));
-			ResultSet rs = ps.executeQuery();
+			String query = Queries.Quest.get(false, entry);
 
-			if(rs.next()) {
-				atomic.set(convertResultSet(rs));
-			}
+			PreparedStatement ps = executeAndConvertRow(query, conn, TYPE, atomic);
 
 			return new Statement[] { ps };
 		});
@@ -101,21 +105,18 @@ public class ItemDAO extends MySqlDatabase implements IItemDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> getAll(int limit) {
-		List<Map<String, Object>> set = new ArrayList<>();
+	public List<Quest> getAll(int limit) {
+		List<Quest> list = new ArrayList<>();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Item.getAll(false, limit));
-			ResultSet rs = ps.executeQuery();
+			String query = Queries.Quest.getAll(false, limit);
 
-			while(rs.next()) {
-				set.add(convertResultSet(rs));
-			}
+			PreparedStatement ps = executeAndConvertRows(query, conn, TYPE, list);
 
 			return new Statement[] { ps };
 		});
 
-		return set;
+		return list;
 	}
 
 	@Override
@@ -123,7 +124,9 @@ public class ItemDAO extends MySqlDatabase implements IItemDAO {
 		AtomicBoolean atomic = new AtomicBoolean();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Item.exists(false, entry));
+			String query = Queries.Quest.exists(false, entry);
+
+			PreparedStatement ps = conn.prepareStatement(query);
 
 			ResultSet rs = ps.executeQuery();
 			atomic.set(rs.next() && rs.getBoolean(1));
@@ -139,7 +142,9 @@ public class ItemDAO extends MySqlDatabase implements IItemDAO {
 		AtomicLong atomic = new AtomicLong(-1);
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Item.getMaxEntry(false));
+			String query = Queries.Quest.getMaxEntry(false);
+
+			PreparedStatement ps = conn.prepareStatement(query);
 
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) atomic.set(rs.getLong(1));

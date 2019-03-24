@@ -17,7 +17,6 @@ public class Main {
 	public static void main(String[] args) {
 		LOGGER.info("--------- New Session ---------");
 		Config.getInstance().load();
-		Database.select(Database.Type.TRINITY);
 
 		LOGGER.info("Initialized config, default database selected and application started.");
 		Application.launch(App.class, args);

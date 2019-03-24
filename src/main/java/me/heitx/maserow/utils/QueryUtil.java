@@ -128,6 +128,7 @@ public class QueryUtil {
 
 	/**
 	 * Simplifies the {@link #exist(String, String)} by having an equal sign between column and value.
+	 * In addition, it formats the value.
 	 * @param table name of the table to target
 	 * @param column any column
 	 * @param value any value
@@ -140,6 +141,7 @@ public class QueryUtil {
 	/**
 	 * Returns a query with the keyword EXISTS to check if a condition exists.
 	 * Does not contain a semicolon at the end.
+	 * Manual format value required.
 	 * The where sentence could be 'GUID = 5'.
 	 * @param table name of the table to target
 	 * @param where any where clause

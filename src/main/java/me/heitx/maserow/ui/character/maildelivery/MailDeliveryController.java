@@ -7,9 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import me.heitx.maserow.database.Database;
-import me.heitx.maserow.database.dao.ICharacterDAO;
-import me.heitx.maserow.database.dao.IItemDAO;
-import me.heitx.maserow.database.dao.IMailDAO;
+import me.heitx.maserow.database.repository.ICharacterRepository;
+import me.heitx.maserow.database.repository.IItemRepository;
+import me.heitx.maserow.database.repository.IMailRepository;
 import me.heitx.maserow.io.CommonCSV;
 import me.heitx.maserow.io.DelimiterReader;
 import me.heitx.maserow.io.ICSV;
@@ -27,11 +27,8 @@ import java.io.File;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 import java.util.function.Function;
 
@@ -142,14 +139,13 @@ public class MailDeliveryController implements Initializable {
 
 	private void buttonItemSearchAction(ActionEvent event) {
 		if(Database.hasAccess(Database.Selection.WORLD)) {
-			List<SelectorData> data = new ArrayList<>();
-
-			IItemDAO dao = Database.getInstance().getItemDAO();
-
 			int entry = Integer.parseInt(tfItemSearchEntry.getText());
 
-			List<Map<String, Object>> search = dao.search(entry, tfItemSearchName.getText(), 100);
-			for(Item item : ConverterUtil.toObjects(Item.class, search)) {
+			IItemRepository dao = Database.getInstance().getItemDAO();
+			List<Item> items = dao.search(entry, tfItemSearchName.getText(), 100);
+
+			List<SelectorData> data = new ArrayList<>();
+			for(Item item : items) {
 				data.add(new SelectorData(item.getEntry(), item.getName()));
 			}
 
@@ -179,13 +175,14 @@ public class MailDeliveryController implements Initializable {
 
 	private void buttonCharacterSearchAction(ActionEvent event) {
 		if(Database.hasAccess(Database.Selection.CHARACTERS)) {
+
+
+			ICharacterRepository dao = Database.getInstance().getCharacterDAO();
+			List<Character> characters = dao.search(0, tfCharacterName.getText(), new int[0], new int[0], 100);
+
 			List<SelectorData> data = new ArrayList<>();
-
-			ICharacterDAO dao = Database.getInstance().getCharacterDAO();
-
-			List<Map<String, Object>> search = dao.search(0, tfCharacterName.getText(), new int[0], new int[0], 100);
-			for(Character c : ConverterUtil.toObjects(Character.class, search)) {
-				data.add(new SelectorData(c.getGuid(), c.getName()));
+			for(Character character : characters) {
+				data.add(new SelectorData(character.getGuid(), character.getName()));
 			}
 
 			lvCharacters.getItems().clear();
@@ -241,7 +238,7 @@ public class MailDeliveryController implements Initializable {
 				classes.add(classIdentifiers.get(index).getId());
 			}
 
-			IMailDAO mailDAO = Database.getInstance().getMailDAO();
+			IMailRepository mailDAO = Database.getInstance().getMailDAO();
 			mailDAO.send(getMail(), items, receivers, races, classes);
 		}
 	}

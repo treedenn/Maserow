@@ -33,15 +33,13 @@ public class ItemSearchController extends SearchController<Item> {
 	@Override
 	protected void onButtonSearchAction(ActionEvent event) {
 		List<Item> items;
-		List<Map<String, Object>> search;
 
 		if(tfEntry.getText().isEmpty() && tfName.getText().isEmpty()) {
-			search = Database.getInstance().getItemDAO().getAll(100);
+			items = Database.getInstance().getItemDAO().getAll(100);
 		} else {
-			search = Database.getInstance().getItemDAO().search(Integer.parseInt(tfEntry.getText()), tfName.getText(), 100);
+			items = Database.getInstance().getItemDAO().search(Integer.parseInt(tfEntry.getText()), tfName.getText(), 100);
 		}
 
-		items = ConverterUtil.toObjects(Item.class, search);
 		tvSearch.setItems(FXCollections.observableList(items));
 	}
 }

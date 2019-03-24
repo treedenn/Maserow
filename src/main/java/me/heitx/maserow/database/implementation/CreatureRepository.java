@@ -1,43 +1,49 @@
-package me.heitx.maserow.database.wrappers;
+package me.heitx.maserow.database.implementation;
 
 import me.heitx.maserow.database.Database;
 import me.heitx.maserow.database.IClient;
 import me.heitx.maserow.database.MySqlDatabase;
-import me.heitx.maserow.database.dao.ICreatureDAO;
+import me.heitx.maserow.database.repository.ICreatureRepository;
+import me.heitx.maserow.model.Creature;
+import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.Queries;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class CreatureDAO extends MySqlDatabase implements ICreatureDAO {
-	public CreatureDAO(IClient client) {
+public class CreatureRepository extends MySqlDatabase implements ICreatureRepository {
+	private static final Class<Creature> TYPE = Creature.class;
+
+	public CreatureRepository(IClient client) {
 		super(client);
 	}
 
 	@Override
-	public List<Map<String, Object>> search(int entry, String name, int limit) {
-		List<Map<String, Object>> set = new ArrayList<>();
+	public List<Creature> search(int entry, String name, int limit) {
+		List<Creature> list = new ArrayList<>();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = executeAndConvertResultToSet(set, conn, Queries.Creature.search(false, entry, name, limit));
+			String query = Queries.Creature.search(false, entry, name, limit);
+
+			PreparedStatement ps = executeAndConvertRows(query, conn, TYPE, list);
+
 			return new Statement[] { ps };
 		});
 
-		return set;
+		return list;
 	}
 
 	@Override
-	public boolean insert(Map<String, Object> map) {
+	public boolean insert(Creature creature) {
 		AtomicBoolean atomic = new AtomicBoolean();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Creature.insert(false, map));
+			String query = Queries.Creature.insert(false, ConverterUtil.toAttributes(creature));
+
+			PreparedStatement ps = conn.prepareStatement(query);
 			atomic.set(ps.executeUpdate() > 0);
 
 			return new Statement[] { ps };
@@ -47,11 +53,13 @@ public class CreatureDAO extends MySqlDatabase implements ICreatureDAO {
 	}
 
 	@Override
-	public boolean update(Map<String, Object> map) {
+	public boolean update(Creature creature) {
 		AtomicBoolean atomic = new AtomicBoolean();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Creature.update(false, map));
+			String query = Queries.Creature.update(false, ConverterUtil.toAttributes(creature));
+
+			PreparedStatement ps = conn.prepareStatement(query);
 			atomic.set(ps.executeUpdate() > 0);
 
 			return new Statement[] { ps };
@@ -65,7 +73,9 @@ public class CreatureDAO extends MySqlDatabase implements ICreatureDAO {
 		AtomicBoolean atomic = new AtomicBoolean();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Creature.delete(false, entry));
+			String query = Queries.Creature.delete(false, entry);
+
+			PreparedStatement ps = conn.prepareStatement(query);
 			atomic.set(ps.executeUpdate() > 0);
 
 			return new Statement[] { ps };
@@ -75,16 +85,13 @@ public class CreatureDAO extends MySqlDatabase implements ICreatureDAO {
 	}
 
 	@Override
-	public Map<String, Object> get(int entry) {
-		AtomicReference<Map<String, Object>> atomic = new AtomicReference<>();
+	public Creature get(int entry) {
+		AtomicReference<Creature> atomic = new AtomicReference<>();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = conn.prepareStatement(Queries.Creature.get(false, entry));
-			ResultSet rs = ps.executeQuery();
+			String query = Queries.Creature.get(false, entry);
 
-			if(rs.next()) {
-				atomic.set(convertResultSet(rs));
-			}
+			PreparedStatement ps = executeAndConvertRow(query, conn, TYPE, atomic);
 
 			return new Statement[] { ps };
 		});
@@ -93,15 +100,18 @@ public class CreatureDAO extends MySqlDatabase implements ICreatureDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> getAll(int limit) {
-		List<Map<String, Object>> set = new ArrayList<>();
+	public List<Creature> getAll(int limit) {
+		List<Creature> list = new ArrayList<>();
 
 		execute(Database.Selection.WORLD, conn -> {
-			PreparedStatement ps = executeAndConvertResultToSet(set, conn, Queries.Creature.getAll(false, limit));
+			String query = Queries.Creature.getAll(false, limit);
+
+			PreparedStatement ps = executeAndConvertRows(query, conn, TYPE, list);
+
 			return new Statement[] { ps };
 		});
 
-		return set;
+		return list;
 	}
 
 	@Override

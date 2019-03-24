@@ -39,15 +39,13 @@ public class CreatureSearchController extends SearchController<Creature> {
 
 	@Override
 	protected void onButtonSearchAction(ActionEvent event) {
-		List<Map<String, Object>> search;
+		List<Creature> creatures;
 
 		if(tfEntry.getText().isEmpty() && tfName.getText().isEmpty()) {
-			search = Database.getInstance().getCreatureDAO().getAll(100);
+			creatures = Database.getInstance().getCreatureDAO().getAll(100);
 		} else {
-			search = Database.getInstance().getCreatureDAO().search(Integer.parseInt(tfEntry.getText()), tfName.getText(), 100);
+			creatures = Database.getInstance().getCreatureDAO().search(Integer.parseInt(tfEntry.getText()), tfName.getText(), 100);
 		}
-
-		List<Creature> creatures = ConverterUtil.toObjects(Creature.class, search);
 
 		tvSearch.setItems(FXCollections.observableList(creatures));
 	}
