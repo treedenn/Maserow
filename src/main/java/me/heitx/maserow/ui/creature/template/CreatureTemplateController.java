@@ -21,15 +21,15 @@ import me.heitx.maserow.ui.lookup.LookupManager;
 import me.heitx.maserow.ui.lookup.multiselection.LookupMultiController;
 import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.MoneyUtil;
-import me.heitx.maserow.utils.query.TrinityCreatureQuery;
+import me.heitx.maserow.utils.Queries;
 import org.controlsfx.control.CheckComboBox;
 
 import java.io.File;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class CreatureTemplateController implements Initializable, Updateable {
 	@FXML private Button btnExecute;
@@ -160,7 +160,7 @@ public class CreatureTemplateController implements Initializable, Updateable {
 
 	@Override
 	public void update() {
-		btnExecute.setDisable(!Database.isLoggedIn());
+		btnExecute.setDisable(!Database.hasAccess(Database.Selection.WORLD));
 	}
 
 	public void setCreature(Creature creature) {
@@ -195,11 +195,11 @@ public class CreatureTemplateController implements Initializable, Updateable {
 			final Window window = btnExecute.getScene().getWindow();
 
 			if(actionEvent.getSource() == miInsert) {
-				LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, TrinityCreatureQuery.getInsertQuery(attributes, true));
+				LayoutUtil.showSaveSqlWindow(window, "Save Insert Query", initialFileName, Queries.Creature.insert(true, attributes));
 			} else if(actionEvent.getSource() == miUpdate) {
-				LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, TrinityCreatureQuery.getInsertQuery(attributes, true));
+				LayoutUtil.showSaveSqlWindow(window, "Save Update Query", initialFileName, Queries.Creature.update(true, attributes));
 			} else if(actionEvent.getSource() == miDelete) {
-				LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName, TrinityCreatureQuery.getInsertQuery(attributes, true));
+				LayoutUtil.showSaveSqlWindow(window, "Save Delete Query", initialFileName,Queries.Creature.delete(true, (Integer) attributes.get("entry")));
 			}
 		}
 	}
@@ -247,27 +247,51 @@ public class CreatureTemplateController implements Initializable, Updateable {
 	}
 
 	private void loadTextboxMouseEvents() {
+		onAltPrimaryButtonModelIds(tfModelID1, 1, modelid -> {
+			tfModelID1.setText(String.valueOf(modelid));
+			creature.setModelid1(Math.toIntExact(modelid));
+		});
+
+		onAltPrimaryButtonModelIds(tfModelID2, 2, modelid -> {
+			tfModelID2.setText(String.valueOf(modelid));
+			creature.setModelid2(Math.toIntExact(modelid));
+		});
+
+		onAltPrimaryButtonModelIds(tfModelID3, 3, modelid -> {
+			tfModelID3.setText(String.valueOf(modelid));
+			creature.setModelid1(Math.toIntExact(modelid));
+		});
+
+		onAltPrimaryButtonModelIds(tfModelID4, 4, modelid -> {
+			tfModelID4.setText(String.valueOf(modelid));
+			creature.setModelid1(Math.toIntExact(modelid));
+		});
+
 		LayoutUtil.onAltPrimaryButton(tfFlagsExtra, () -> {
 			extraFlags = DelimiterReader.readColumns(csvPath + "flags_extra", false, true);
 
 			LookupManager lm = LookupManager.getInstance();
-			lm.showMultiLookup("Extra Flags : Multi", "Creature - Extra Flags", LookupMultiController.CalculateValueMethod.IDENTIFIERS_ONLY,
-					null, extraFlags, Identifier.findIndicesByValue(extraFlags, creature.getFlagsExtra()), aLong -> {
-						tfFlagsExtra.setText(String.valueOf(aLong));
-						creature.setFlagsExtra(aLong);
-						return null;
-					});
+			lm.showMultiLookup("Extra Flags : Multi", "Creature - Extra Flags", false,
+					extraFlags, Identifier.findIndicesByValue(extraFlags, creature.getFlagsExtra()), values -> {
+					long totalValue = 0;
+					for(Long aLong : values) totalValue += aLong;
+
+					tfFlagsExtra.setText(String.valueOf(totalValue));
+					creature.setFlagsExtra(totalValue);
+			});
 		});
 
 		LayoutUtil.onAltPrimaryButton(tfUnitFlags1, () -> {
 			unitFlags = DelimiterReader.readColumns(csvPath + "unit_flags", false, true);
 
 			LookupManager lm = LookupManager.getInstance();
-			lm.showMultiLookup("Unit Flags : Multi", "Creature - Unit Flags", LookupMultiController.CalculateValueMethod.IDENTIFIERS_ONLY,
-					null, unitFlags, Identifier.findIndicesByValue(unitFlags, creature.getUnitFlags()), aLong -> {
-				tfUnitFlags1.setText(String.valueOf(aLong));
-				creature.setUnitFlags(aLong);
-				return null;
+			lm.showMultiLookup("Unit Flags : Multi", "Creature - Unit Flags", false,
+					unitFlags, Identifier.findIndicesByValue(unitFlags, creature.getUnitFlags()), values -> {
+					long totalValue = 0;
+					for(Long aLong : values) totalValue += aLong;
+
+					tfUnitFlags1.setText(String.valueOf(totalValue));
+					creature.setUnitFlags(totalValue);
 			});
 		});
 
@@ -275,12 +299,39 @@ public class CreatureTemplateController implements Initializable, Updateable {
 			unitFlags2 = DelimiterReader.readColumns(csvPath + "unit_flags2", false, true);
 
 			LookupManager lm = LookupManager.getInstance();
-			lm.showMultiLookup("Unit Flags 2 : Multi", "Creature - Unit Flags 2", LookupMultiController.CalculateValueMethod.IDENTIFIERS_ONLY,
-					null, unitFlags2, Identifier.findIndicesByValue(unitFlags2, creature.getUnitFlags2()), aLong -> {
-				tfUnitFlags2.setText(String.valueOf(aLong));
-				creature.setUnitFlags2(aLong);
-				return null;
+			lm.showMultiLookup("Unit Flags 2 : Multi", "Creature - Unit Flags 2", false,
+					unitFlags2, Identifier.findIndicesByValue(unitFlags2, creature.getUnitFlags2()), values -> {
+						long totalValue = 0;
+						for(Long aLong : values) totalValue += aLong;
+
+						tfUnitFlags2.setText(String.valueOf(totalValue));
+						creature.setUnitFlags2(totalValue);
 			});
+		});
+	}
+
+	private void onAltPrimaryButtonModelIds(TextField tf, int number, Consumer<Long> onSuccess) {
+		LayoutUtil.onAltPrimaryButton(tf, () -> {
+			LookupManager lm = LookupManager.getInstance();
+			lm.showSingleLookup("Model ID "+number+" : Single", "Creature Model ID "+number+" : Single", true, s -> {
+				List<Map<String, Object>> search = Database.getInstance().getCreatureDAO().search(-1, s, 100);
+				List<Creature> creatures = ConverterUtil.toObjects(Creature.class, search);
+				List<Identifier> identifiers = new ArrayList<>();
+
+				for(Creature c : creatures) {
+					if(c.getModelid1() > 0) {
+						identifiers.add(new Identifier(c.getModelid1(), -1, c.getName()));
+					} else if(c.getModelid2() > 0) {
+						identifiers.add(new Identifier(c.getModelid2(), -1, c.getName()));
+					} else if(c.getModelid3() > 0) {
+						identifiers.add(new Identifier(c.getModelid3(), -1, c.getName()));
+					} else if(c.getModelid4() > 0) {
+						identifiers.add(new Identifier(c.getModelid4(), -1, c.getName()));
+					}
+				}
+
+				return identifiers;
+			}, onSuccess);
 		});
 	}
 

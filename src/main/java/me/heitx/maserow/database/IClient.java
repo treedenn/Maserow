@@ -21,5 +21,5 @@ public interface IClient {
 
 	void setDatabase(String database);
 
-	Connection getConnection() throws SQLException;
+	Connection getConnection(Database.Selection selection) throws SQLException;
 }

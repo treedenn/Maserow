@@ -1,8 +1,6 @@
 package me.heitx.maserow.database;
 
-import me.heitx.maserow.database.dao.ICreatureDAO;
-import me.heitx.maserow.database.dao.IItemDAO;
-import me.heitx.maserow.database.dao.IQuestDAO;
+import me.heitx.maserow.database.dao.*;
 
 public interface IDatabase {
 	IClient getClient();
@@ -11,4 +9,7 @@ public interface IDatabase {
 	IItemDAO getItemDAO();
 	IQuestDAO getQuestDAO();
 	ICreatureDAO getCreatureDAO();
+	ICharacterDAO getCharacterDAO();
+	IItemInstanceDAO getItemInstanceDAO();
+	IMailDAO getMailDAO();
 }

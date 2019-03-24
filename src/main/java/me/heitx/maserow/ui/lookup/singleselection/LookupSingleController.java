@@ -7,12 +7,6 @@ import me.heitx.maserow.ui.lookup.LookupController;
 import me.heitx.maserow.ui.lookup.LookupData;
 
 public class LookupSingleController extends LookupController<Long> {
-	private boolean useEntry;
-
-	public void setUseEntry(boolean useEntry) {
-		this.useEntry = useEntry;
-	}
-
 	public void setSelected(Integer rowIndex) {
 		if(rowIndex != null) tvTable.getSelectionModel().select(rowIndex);
 	}
@@ -24,7 +18,7 @@ public class LookupSingleController extends LookupController<Long> {
 			if(!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
 				LookupData item = table.getSelectionModel().getSelectedItem();
 				if(onSuccess != null && item != null) {
-					onSuccess.call(useEntry ? item.getEntry() : item.getValue());
+					onSuccess.accept(returnEntry ? item.getEntry() : item.getValue());
 					clean();
 					close();
 				}

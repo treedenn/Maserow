@@ -72,10 +72,10 @@ public class LayoutUtil {
 		};
 	}
 
-	public static void onAltPrimaryButton(TextField tf, Callback callback) {
+	public static void onAltPrimaryButton(TextField tf, Runnable callback) {
 		tf.setOnMouseClicked(event -> {
 			if(event.isAltDown() && event.getButton() == MouseButton.PRIMARY) {
-				callback.call();
+				callback.run();
 				event.consume();
 			}
 		});
