@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public abstract class SearchController<T> implements Initializable, Updateable {
 	@FXML protected TextField tfEntry;
 	@FXML protected TableView<T> tvSearch;
-	@FXML protected TableColumn<T, Integer> tcEntry;
+	@FXML protected TableColumn<T, Long> tcEntry;
 	@FXML protected Button btnSearch;
 
 	protected Callback<T, Void> doubleClickRowCallback;
@@ -31,9 +31,7 @@ public abstract class SearchController<T> implements Initializable, Updateable {
 	}
 
 	@Override
-	public void update() {
-		btnSearch.setDisable(!Database.hasAccess(Database.Selection.WORLD));
-	}
+	public abstract void update();
 
 	public SearchController<T> setDoubleClickRowCallback(Callback<T, Void> doubleClickRowCallback) {
 		this.doubleClickRowCallback = doubleClickRowCallback;
