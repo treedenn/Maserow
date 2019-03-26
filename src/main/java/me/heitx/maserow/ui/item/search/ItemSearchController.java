@@ -23,9 +23,14 @@ public class ItemSearchController extends SearchController<Item> {
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		super.initialize(url, resourceBundle);
 
-		tcEntry.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getEntry()));
+		tcEntry.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>((long) data.getValue().getEntry()));
 		tcName.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getName()));
 		tcDescription.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getDescription()));
+	}
+
+	@Override
+	public void update() {
+		btnSearch.setDisable(!Database.hasAccess(Database.Selection.WORLD));
 	}
 
 	@Override
@@ -33,9 +38,9 @@ public class ItemSearchController extends SearchController<Item> {
 		List<Item> items;
 
 		if(tfEntry.getText().isEmpty() && tfName.getText().isEmpty()) {
-			items = Database.getInstance().getItemDAO().getAll(100);
+			items = Database.getInstance().getItemRepository().getAll(100);
 		} else {
-			items = Database.getInstance().getItemDAO().search(Integer.parseInt(tfEntry.getText()), tfName.getText(), 100);
+			items = Database.getInstance().getItemRepository().search(Integer.parseInt(tfEntry.getText()), tfName.getText(), 100);
 		}
 
 		tvSearch.setItems(FXCollections.observableList(items));

@@ -26,11 +26,9 @@ public class CreatureSearchController extends SearchController<Creature> {
 
 	@Override
 	public void update() {
-		super.update();
-
 		btnSearch.setDisable(!Database.hasAccess(Database.Selection.WORLD));
 
-		tcEntry.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getEntry()));
+		tcEntry.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>((long) data.getValue().getEntry()));
 		tcName.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getName()));
 		tcSubname.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getSubname()));
 	}
@@ -40,9 +38,9 @@ public class CreatureSearchController extends SearchController<Creature> {
 		List<Creature> creatures;
 
 		if(tfEntry.getText().isEmpty() && tfName.getText().isEmpty()) {
-			creatures = Database.getInstance().getCreatureDAO().getAll(100);
+			creatures = Database.getInstance().getCreatureRepository().getAll(100);
 		} else {
-			creatures = Database.getInstance().getCreatureDAO().search(Integer.parseInt(tfEntry.getText()), tfName.getText(), 100);
+			creatures = Database.getInstance().getCreatureRepository().search(Integer.parseInt(tfEntry.getText()), tfName.getText(), 100);
 		}
 
 		tvSearch.setItems(FXCollections.observableList(creatures));

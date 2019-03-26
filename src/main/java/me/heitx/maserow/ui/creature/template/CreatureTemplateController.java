@@ -207,7 +207,7 @@ public class CreatureTemplateController implements Initializable, Updateable {
 	private void onExecuteButtonAction(ActionEvent actionEvent) {
 		if(creature != null) {
 			updateModel();
-			ICreatureRepository dao = Database.getInstance().getCreatureDAO();
+			ICreatureRepository dao = Database.getInstance().getCreatureRepository();
 
 			if(dao.exists(creature.getEntry())) {
 				Optional<ButtonType> alert = LayoutUtil.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already a creature with given identifier! " +
@@ -350,7 +350,7 @@ public class CreatureTemplateController implements Initializable, Updateable {
 			if(Database.hasAccess(Database.Selection.WORLD)) {
 				LookupManager lm = LookupManager.getInstance();
 				lm.showSingleLookup("Model ID "+number+" : Single", "Creature Model ID "+number+" : Single", true, s -> {
-					List<Creature> creatures = Database.getInstance().getCreatureDAO().search(-1, s, 100);
+					List<Creature> creatures = Database.getInstance().getCreatureRepository().search(-1, s, 100);
 					List<Identifier> identifiers = new ArrayList<>();
 
 					for(Creature c : creatures) {

@@ -236,7 +236,7 @@ public class QuestTemplateController implements Initializable, Updateable {
 	private void onExecuteButtonAction(ActionEvent event) {
 		if(quest != null) {
 			updateModel();
-			IQuestRepository dao = Database.getInstance().getQuestDAO();
+			IQuestRepository dao = Database.getInstance().getQuestRepository();
 
 			if(dao.exists(quest.getId())) {
 				Optional<ButtonType> alert = LayoutUtil.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already a quest with given identifier! " +

@@ -40,6 +40,11 @@ public abstract class SearchController<T> implements Initializable, Updateable {
 
 	protected abstract void onButtonSearchAction(ActionEvent event);
 
+	protected void sortByEntry() {
+		tvSearch.getSortOrder().add(tcEntry);
+		tcEntry.setSortType(TableColumn.SortType.DESCENDING);
+	}
+
 	private TableRow<T> onTableViewRowSelection(TableView<T> itemTableView) {
 		TableRow<T> row = new TableRow<>();
 		row.setOnMouseClicked(event -> {

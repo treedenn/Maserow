@@ -7,61 +7,72 @@ import me.heitx.maserow.database.repository.ISmartScriptRepository;
 import me.heitx.maserow.model.Creature;
 import me.heitx.maserow.model.SimpleSearchModel;
 import me.heitx.maserow.model.SmartScript;
+import me.heitx.maserow.utils.ConverterUtil;
 import me.heitx.maserow.utils.Queries;
 import me.heitx.maserow.utils.QueryUtil;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SmartScriptRepository extends MySqlDatabase implements ISmartScriptRepository {
-
-
 	public SmartScriptRepository(IClient client) {
 		super(client);
 	}
 
 	@Override
-	public List<SimpleSearchModel> search(long entryOrGuid, long sourceType, String name, boolean withExisting, boolean withTemplate) {
-		AtomicReference<List<SimpleSearchModel>> atomic = new AtomicReference<>(new ArrayList<>());
+	public List<SimpleSearchModel> search(long sourceType, long entryOrGuid, String name, boolean withExisting) {
+		AtomicReference<List<SimpleSearchModel>> atomic = new AtomicReference<>(new ArrayList<>(0));
 
-		if(withExisting || withTemplate) {
-			execute(Database.Selection.WORLD, conn -> {
-				List<Statement> statements = new ArrayList<>();
-				List<SimpleSearchModel> searchModels = new ArrayList<>();
-				String query, existingQuery, templateQuery;
+		execute(Database.Selection.WORLD, conn -> {
+			List<SimpleSearchModel> searchModels = new ArrayList<>();
+			List<String> blocks;
 
-				if(sourceType == 0) {
-					/*  SELECT * FROM smart_scripts
-						WHERE entryorguid IN(SELECT -ABS(guid) FROM gameobject WHERE guid = @entryOrGuid OR id = @entryOrGuid) OR
-                        entryorguid IN(SELECT entry FROM gameobject_template WHERE entry = @entryOrGuid OR name LIKE CONCAT('%', @name, '%')); */
-
-					List<String> whereBlocks = new ArrayList<>();
-					if(withExisting) whereBlocks.add(getExistingQuery("creature", entryOrGuid));
-					if(withTemplate) whereBlocks.add(getTemplateQuery("creature_template", entryOrGuid, name));
-
-					QueryUtil.select(null, "smart_scripts", )
-				} else if(sourceType == 1) {
-					query = "";
+			if(sourceType == 0) {
+				if(withExisting) {
+					blocks = getExistingQuery("creature_template", "creature", entryOrGuid, name);
 				} else {
-					query = null;
+					blocks = getTemplateQuery("creature_template", entryOrGuid, name);
 				}
-
-				if(query != null) {
-					PreparedStatement ps = conn.prepareStatement(query);
-
-
-
-					statements.add(ps);
+			} else { // sourceType == 1
+				if(withExisting) {
+					blocks = getExistingQuery("gameobject_template", "gameobject", entryOrGuid, name);
+				} else {
+					blocks = getTemplateQuery("gameobject_template", entryOrGuid, name);
 				}
+			}
 
-				atomic.set(searchModels);
-				return statements.toArray(new Statement[0]);
-			});
-		}
+			blocks.add(QueryUtil.limit(100));
+
+			PreparedStatement ps = conn.prepareStatement(QueryUtil.buildNewLineFormat(false, blocks));
+			System.out.println(ps.toString());
+			ResultSet rs = ps.executeQuery();
+
+			if(withExisting) {
+				// Entry is template, which is why only one should be added.
+				Set<Long> addedEntries = new HashSet<>();
+				while(rs.next()) {
+					long entry = rs.getLong("entry");
+
+					searchModels.add(new SimpleSearchModel(rs.getLong("guid"), rs.getString("name")));
+					if(!addedEntries.contains(entry)) {
+						searchModels.add(new SimpleSearchModel(rs.getLong("entry"), rs.getString("name")));
+						addedEntries.add(entry);
+					}
+				}
+			} else {
+				while(rs.next()) {
+					searchModels.add(new SimpleSearchModel(rs.getLong("entry"), rs.getString("name")));
+				}
+			}
+
+
+			atomic.set(searchModels);
+			return new Statement[] { ps };
+		});
 
 		return atomic.get();
 	}
@@ -73,24 +84,63 @@ public class SmartScriptRepository extends MySqlDatabase implements ISmartScript
 
 	@Override
 	public boolean replace(List<SmartScript> smartScripts) {
-		return false;
+		AtomicBoolean atomic = new AtomicBoolean(false);
+
+		if(smartScripts.size() > 0) {
+			SmartScript smartScript = smartScripts.get(0);
+			final int entryOrGuid = smartScript.getEntryOrGuid();
+			final int sourceType = smartScript.getSourceType();
+
+			execute(Database.Selection.WORLD, conn -> {
+				Statement ps = conn.createStatement();
+
+				List<String> orBlocks = new ArrayList<>();
+				orBlocks.add("entryorguid = " + entryOrGuid);
+				orBlocks.add("source_type = " + sourceType);
+
+				System.out.println(QueryUtil.delete("smart_scripts", QueryUtil.and(orBlocks)));
+				for(SmartScript script : smartScripts) {
+					System.out.println(QueryUtil.insert("smart_scripts", ConverterUtil.toAttributes(script)));
+				}
+
+				return new Statement[] { ps };
+			});
+		}
+
+		return atomic.get();
 	}
 
-	private String getExistingQuery(String table, long guid) {
-		List<String> orBlocks = new ArrayList<>(2);
-		orBlocks.add("guid = " + guid);
-		orBlocks.add("id = " + guid);
+	private List<String> getExistingQuery(String table, String joinTable, long entryOrGuid, String name) {
+//		-- with
+//		SELECT -ABS(guid) guid, entry, name FROM creature_template
+//		JOIN creature ON id = entry WHERE entry = 37965 OR guid = 37965 OR name LIKE '%Argent Commander%';
 
-		List<String> query = QueryUtil.select(Collections.singleton("-ABS(guid)"), table, QueryUtil.or(orBlocks));
-		return QueryUtil.buildNewLineFormat(false, query);
+		List<String> columns = new ArrayList<>();
+		columns.add("-ABS(guid) guid"); columns.add("entry"); columns.add("name");
+
+		List<String> blocks = new ArrayList<>(QueryUtil.select(columns, table, null));
+
+		List<String> whereBlocks = new ArrayList<>();
+		if(entryOrGuid != 0) whereBlocks.add("guid = " + entryOrGuid);
+		if(entryOrGuid != 0) whereBlocks.add("entry = " + entryOrGuid);
+		if(name != null && !name.isEmpty()) whereBlocks.add("name LIKE '%" + name + "%'");
+
+		blocks.addAll(QueryUtil.join(joinTable, "id = entry", QueryUtil.or(whereBlocks)));
+
+		return blocks;
 	}
 
-	private String getTemplateQuery(String table, long entry, String name) {
-		List<String> orBlocks = new ArrayList<>(2);
-		orBlocks.add("entry = " + entry);
-		orBlocks.add("id LIKE '%" + name + "%'");
+	private List<String> getTemplateQuery(String table, long entry, String name) {
+//		-- without
+//		SELECT entry, name FROM creature_template WHERE entry = 37965 OR name LIKE '%Argent Commander%';
 
-		List<String> query = QueryUtil.select(Collections.singleton("entry"), table, QueryUtil.or(orBlocks));
-		return QueryUtil.buildNewLineFormat(false, query);
+		List<String> columns = new ArrayList<>();
+		columns.add("entry"); columns.add("name");
+
+		List<String> orBlocks = new ArrayList<>(2);
+		if(entry != 0) orBlocks.add("entry = " + entry);
+		if(name != null && !name.isEmpty()) orBlocks.add("name LIKE '%" + name + "%'");
+
+		return QueryUtil.select(columns, table, QueryUtil.or(orBlocks));
 	}
 }

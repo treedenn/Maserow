@@ -4,11 +4,9 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import me.heitx.maserow.database.Database;
+import me.heitx.maserow.database.repository.ISmartScriptRepository;
 import me.heitx.maserow.model.Creature;
 import me.heitx.maserow.model.SimpleSearchModel;
 import me.heitx.maserow.ui.common.SearchController;
@@ -25,6 +23,7 @@ public class SmartAiSearchController extends SearchController<SimpleSearchModel>
 	@FXML private ToggleGroup tgSourceType;
 	@FXML private RadioButton rbCreature;
 	@FXML private RadioButton rbGameObject;
+	@FXML private CheckBox cbExisting;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -36,8 +35,6 @@ public class SmartAiSearchController extends SearchController<SimpleSearchModel>
 
 	@Override
 	public void update() {
-		super.update();
-
 		btnSearch.setDisable(!Database.hasAccess(Database.Selection.WORLD));
 	}
 
@@ -48,46 +45,17 @@ public class SmartAiSearchController extends SearchController<SimpleSearchModel>
 		int entry = Integer.parseInt(tfEntry.getText());
 		String name = tfName.getText();
 
-		if(tgSourceType.getSelectedToggle() == rbCreature) {
-			models = searchCreatures(entry, name);
-		} else {
-			models = searchGameObjects(entry, name);
+		if(entry != 0 || !name.isEmpty()) {
+			ISmartScriptRepository repository = Database.getInstance().getSmartScriptRepository();
+
+			if(tgSourceType.getSelectedToggle() == rbCreature) {
+				models = repository.search(0, entry, name, cbExisting.isSelected());
+			} else {
+				models = repository.search(1, entry, name, cbExisting.isSelected());
+			}
+
+			tvSearch.setItems(FXCollections.observableList(models));
+			sortByEntry();
 		}
-
-		tvSearch.setItems(FXCollections.observableList(models));
-	}
-
-	private List<SimpleSearchModel> searchCreatures(int entry, String name) {
-		List<SimpleSearchModel> creatures = new ArrayList<>();
-
-//		List<Creature> search;
-//		if(entry <= 0 && name.isEmpty()) {
-//			search = Database.getInstance().getCreatureDAO().getAll(100);
-//		} else {
-//			search = Database.getInstance().getCreatureDAO().search(entry, name, 100);
-//		}
-//
-//		for(Creature creature : search) {
-//			creatures.add(new SimpleSearchModel(creature.getEntry(), creature.getName()));
-//		}
-
-		return creatures;
-	}
-
-	private List<SimpleSearchModel> searchGameObjects(int entry, String name) {
-		List<SimpleSearchModel> creatures = new ArrayList<>();
-
-//		List<Creature> search;
-//		if(tfEntry.getText().isEmpty() && tfName.getText().isEmpty()) {
-//			search = Database.getInstance().getCreatureDAO().getAll(100);
-//		} else {
-//			search = Database.getInstance().getCreatureDAO().search(entry, name, 100);
-//		}
-//
-//		for(Creature creature : search) {
-//			creatures.add(new SimpleSearchModel(creature.getEntry(), creature.getName()));
-//		}
-
-		return creatures;
 	}
 }

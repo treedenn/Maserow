@@ -164,7 +164,7 @@ public class MailDeliveryController implements Initializable {
 		if(Database.hasAccess(Database.Selection.WORLD)) {
 			int entry = Integer.parseInt(tfItemSearchEntry.getText());
 
-			IItemRepository dao = Database.getInstance().getItemDAO();
+			IItemRepository dao = Database.getInstance().getItemRepository();
 			List<Item> items = dao.search(entry, tfItemSearchName.getText(), 100);
 
 			List<SelectorData> data = new ArrayList<>();
@@ -202,7 +202,7 @@ public class MailDeliveryController implements Initializable {
 		if(Database.hasAccess(Database.Selection.CHARACTERS)) {
 
 
-			ICharacterRepository dao = Database.getInstance().getCharacterDAO();
+			ICharacterRepository dao = Database.getInstance().getCharacterRepository();
 			List<Character> characters = dao.search(0, tfCharacterName.getText(), new int[0], new int[0], 100);
 
 			List<SelectorData> data = new ArrayList<>();
@@ -263,7 +263,7 @@ public class MailDeliveryController implements Initializable {
 				classes.add(classIdentifiers.get(index).getId());
 			}
 
-			IMailRepository mailDAO = Database.getInstance().getMailDAO();
+			IMailRepository mailDAO = Database.getInstance().getMailRepository();
 			mailDAO.send(getMail(), items, receivers, races, classes);
 		}
 	}

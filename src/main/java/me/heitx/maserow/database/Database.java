@@ -12,12 +12,13 @@ public final class Database implements IDatabase {
 
 	private IClient client;
 
-	private IItemRepository itemDAO;
-	private IQuestRepository questDAO;
-	private ICreatureRepository creatureDAO;
-	private ICharacterRepository characterDAO;
-	private IItemInstanceRepository itemInstanceDAO;
-	private IMailRepository mailDAO;
+	private IItemRepository itemRepository;
+	private IQuestRepository questRepository;
+	private ICreatureRepository creatureRepository;
+	private ICharacterRepository characterRepository;
+	private IItemInstanceRepository itemInstanceRepository;
+	private IMailRepository mailRepository;
+	private ISmartScriptRepository smartScriptRepository;
 
 	public static IDatabase getInstance() {
 		if(ourInstance == null) ourInstance = new Database();
@@ -36,42 +37,48 @@ public final class Database implements IDatabase {
 	public void setClient(IClient client) {
 		this.client = client;
 
-		itemDAO = new ItemRepository(client);
-		questDAO = new QuestRepository(client);
-		creatureDAO = new CreatureRepository(client);
-		characterDAO = new CharacterRepository(client);
-		itemInstanceDAO = new ItemInstanceRepository(client);
-		mailDAO = new MailRepository(client);
+		itemRepository = new ItemRepository(client);
+		questRepository = new QuestRepository(client);
+		creatureRepository = new CreatureRepository(client);
+		characterRepository = new CharacterRepository(client);
+		itemInstanceRepository = new ItemInstanceRepository(client);
+		mailRepository = new MailRepository(client);
+		smartScriptRepository = new SmartScriptRepository(client);
 	}
 
 	@Override
-	public IItemRepository getItemDAO() {
-		return itemDAO;
+	public IItemRepository getItemRepository() {
+		return itemRepository;
 	}
 
 	@Override
-	public IQuestRepository getQuestDAO() {
-		return questDAO;
+	public IQuestRepository getQuestRepository() {
+		return questRepository;
 	}
 
 	@Override
-	public ICreatureRepository getCreatureDAO() {
-		return creatureDAO;
+	public ICreatureRepository getCreatureRepository() {
+		return creatureRepository;
 	}
 
 	@Override
-	public ICharacterRepository getCharacterDAO() {
-		return characterDAO;
+	public ICharacterRepository getCharacterRepository() {
+		return characterRepository;
 	}
 
 	@Override
-	public IItemInstanceRepository getItemInstanceDAO() {
-		return itemInstanceDAO;
+	public IItemInstanceRepository getItemInstanceRepository() {
+		return itemInstanceRepository;
 	}
 
 	@Override
-	public IMailRepository getMailDAO() {
-		return mailDAO;
+	public IMailRepository getMailRepository() {
+		return mailRepository;
+	}
+
+	@Override
+	public ISmartScriptRepository getSmartScriptRepository() {
+		return smartScriptRepository;
 	}
 
 	public static boolean hasAccess(Selection ds) {

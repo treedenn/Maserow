@@ -84,7 +84,7 @@ public class ItemTemplateController implements Initializable, Updateable {
 
 	private void onButtonExecuteAction(ActionEvent event) {
 		if(item != null) {
-			IItemRepository dao = Database.getInstance().getItemDAO();
+			IItemRepository dao = Database.getInstance().getItemRepository();
 
 			if(dao.exists(item.getEntry())) {
 				Optional<ButtonType> alert = LayoutUtil.showAlert(Alert.AlertType.CONFIRMATION, "Conflict", "Identifier already exists..", "There exists already an item with given identifier! " +

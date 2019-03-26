@@ -6,10 +6,11 @@ public interface IDatabase {
 	IClient getClient();
 	void setClient(IClient client);
 
-	IItemRepository getItemDAO();
-	IQuestRepository getQuestDAO();
-	ICreatureRepository getCreatureDAO();
-	ICharacterRepository getCharacterDAO();
-	IItemInstanceRepository getItemInstanceDAO();
-	IMailRepository getMailDAO();
+	IItemRepository getItemRepository();
+	IQuestRepository getQuestRepository();
+	ICreatureRepository getCreatureRepository();
+	ICharacterRepository getCharacterRepository();
+	IItemInstanceRepository getItemInstanceRepository();
+	IMailRepository getMailRepository();
+	ISmartScriptRepository getSmartScriptRepository();
 }

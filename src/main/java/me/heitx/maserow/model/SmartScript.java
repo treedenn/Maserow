@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class SmartScript {
-	@Column("entryorguid") private int entryorguid;
+	@Column("entryorguid") private int entryOrGuid;
 	@Column("source_type") private int sourceType;
 	@Column("id") private int id;
 	@Column("link") private int link;

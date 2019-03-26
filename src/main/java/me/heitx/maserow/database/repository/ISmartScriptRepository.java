@@ -7,7 +7,7 @@ import java.util.List;
 
 // Uncommon type of Repository than the rest
 public interface ISmartScriptRepository {
-	List<SimpleSearchModel> search(long entryOrGuid, long sourceType, String name, boolean withExisting, boolean withTemplate);
+	List<SimpleSearchModel> search(long sourceType, long entryOrGuid, String name, boolean withExisting);
 	List<SmartScript> getAll(long entryOrGuid, int sourceType, int id);
 
 	/**
