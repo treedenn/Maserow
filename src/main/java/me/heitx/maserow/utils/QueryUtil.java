@@ -46,6 +46,22 @@ public class QueryUtil {
 		return blocks;
 	}
 
+	public static List<String> join(String table, String on) {
+		return join(table, on, null);
+	}
+
+	public static List<String> join(String table, String on, String where) {
+		List<String> blocks = new ArrayList<>();
+		blocks.add("JOIN " + table + " ON " + on);
+		if(where != null) blocks.add("WHERE " + where);
+
+		return blocks;
+	}
+
+	public static String orderBy(List<String> columns, boolean ascending) {
+		return "ORDER BY " + String.join(", ", columns) + " " + (ascending ? "ASC" : "DESC");
+	}
+
 	/**
 	 * Separates the columns with a comma and surrounds the columns with parenthesises.
 	 * @param columns any columns
