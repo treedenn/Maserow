@@ -15,6 +15,8 @@ import me.heitx.maserow.ui.lookup.LookupManager;
 import me.heitx.maserow.ui.quest.search.QuestSearchController;
 import me.heitx.maserow.ui.quest.template.QuestTemplateController;
 import me.heitx.maserow.ui.sidemenu.SidemenuController;
+import me.heitx.maserow.ui.smartai.editor.SmartAiEditorController;
+import me.heitx.maserow.ui.smartai.search.SmartAiSearchController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +42,10 @@ public class AppController implements Initializable {
 	private CreatureTemplateController creatureTemplateController;
 	private Parent characterMailDelivery;
 	private MailDeliveryController characterDeliveryController;
+	private Parent smartAiSearch;
+	private SmartAiSearchController smartAiSearchController;
+	private Parent smartAiEditor;
+	private SmartAiEditorController smartAiEditorController;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -154,6 +160,32 @@ public class AppController implements Initializable {
 
 			bpApp.setCenter(characterMailDelivery);
 		});
+
+		// Smart ai -> Search and Editor
+		smController.setSmartAiSearchCallback(() -> {
+			if(smartAiSearch == null) {
+				create(SmartAiSearchController.class, "smartaisearch", (p, c) -> {
+					smartAiSearch = p;
+					smartAiSearchController = c;
+				});
+
+				smartAiSearchController.setDoubleClickRowCallback(smartai -> {
+					createOrUpdateSmartAiEditor();
+					//smartAiEditorController.setCreature(smartai);
+					bpApp.setCenter(smartAiEditor);
+					return null;
+				});
+			} else {
+				smartAiSearchController.update();
+			}
+
+			bpApp.setCenter(smartAiSearch);
+		});
+
+		smController.setSmartAiEditorCallback(() -> {
+			createOrUpdateCreatureTemplate();
+			bpApp.setCenter(smartAiEditor);
+		});
 	}
 
 	private void createOrUpdateItemTemplate() {
@@ -183,6 +215,17 @@ public class AppController implements Initializable {
 			create(CreatureTemplateController.class, "creaturetemplate", (p, c) -> {
 				creatureTemplate = p;
 				creatureTemplateController = c;
+			});
+		} else {
+			creatureTemplateController.update();
+		}
+	}
+
+	private void createOrUpdateSmartAiEditor() {
+		if(creatureTemplate == null) {
+			create(SmartAiEditorController.class, "smartaieditor", (p, c) -> {
+				smartAiEditor = p;
+				smartAiEditorController = c;
 			});
 		} else {
 			creatureTemplateController.update();
