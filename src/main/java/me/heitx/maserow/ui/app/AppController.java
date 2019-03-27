@@ -183,7 +183,7 @@ public class AppController implements Initializable {
 		});
 
 		smController.setSmartAiEditorCallback(() -> {
-			createOrUpdateCreatureTemplate();
+			createOrUpdateSmartAiEditor();
 			bpApp.setCenter(smartAiEditor);
 		});
 	}
