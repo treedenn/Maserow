@@ -96,7 +96,7 @@
                                           <Insets left="5.0" right="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <TextField fx:id="tfItemQuantity" text="1">
+                                    <TextField fx:id="tfItemQuantity" alignment="CENTER" text="1">
                                        <VBox.margin>
                                           <Insets left="5.0" right="5.0" />
                                        </VBox.margin>

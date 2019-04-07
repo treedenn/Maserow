@@ -2,11 +2,13 @@ package me.heitx.maserow.quest.editor;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Window;
@@ -153,6 +155,7 @@ public class QuestEditorController implements Initializable, Updateable {
 		miDelete.setOnAction(this::onSaveSqlButtonAction);
 
 		currentPopup = new PopupControl();
+		currentPopup.setHideOnEscape(false);
 		currentPopup.setAutoHide(true);
 
 		final String csvPath = "csv" + File.separator + "quest" + File.separator;
@@ -444,29 +447,33 @@ public class QuestEditorController implements Initializable, Updateable {
 			tfId.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), Integer.valueOf(tfId.getText())));
 			tfQuantity.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), Integer.valueOf(tfQuantity.getText())));
 
-			VBox vboxId = new VBox(new Label("Item ID"), tfId);
-			VBox vboxAmount = new VBox(new Label("Item Quantity"), tfQuantity);
+			VBox vboxId = new VBox(5, new Label("Item ID"), tfId);
+			VBox vboxAmount = new VBox(5, new Label("Item Quantity"), tfQuantity);
 
-			// {07 Apr 2019 01:44} Heitx - TODO: Add class to hbox to make everything visible.
 			HBox hbox = new HBox(5, vboxId, vboxAmount);
 			hbox.getStyleClass().add("hbox-popup");
 			hbox.setPadding(new Insets(5));
 
-			hbox.setOnKeyPressed(event1 -> {
-				if(event1.getCode() == KeyCode.ENTER) {
+			currentPopup.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+				if(keyEvent.getCode().equals(KeyCode.ENTER)) {
 					currentPopup.hide();
-				} else if(event1.getCode() == KeyCode.ESCAPE) {
+				} else if(keyEvent.getCode().equals(KeyCode.ESCAPE)) {
 					currentPopup.setOnHidden(null);
 					currentPopup.hide();
 				}
 			});
 
 			currentPopup.setOnHidden(event1 -> {
-				currId.setText(tfId.getText());
-				currQuantity.setText(tfQuantity.getText());
-			});
-			currentPopup.getScene().setRoot(hbox);
+				try {
+					Integer.parseInt(tfId.getText());
+					Integer.parseInt(tfQuantity.getText());
 
+					currId.setText(tfId.getText());
+					currQuantity.setText(tfQuantity.getText());
+				} catch (NumberFormatException ignored) {}
+			});
+
+			currentPopup.getScene().setRoot(hbox);
 			currentPopup.show(owner, event.getScreenX(), event.getScreenY());
 		});
 	}

@@ -122,7 +122,6 @@ public class MailDeliveryController implements Initializable {
 
 		dpDelivery.setDateTimeValue(LocalDateTime.now());
 		dpExpire.setDateTimeValue(LocalDateTime.now().plusDays(30));
-
 		LayoutUtil.onAltPrimaryButton(tfClasses, () -> {
 			List<Identifier> identifiers = DelimiterReader.readColumns(CommonCSV.CLASSES);
 			List<Integer> selected = Identifier.findIndicesByValue(identifiers, Long.parseLong(tfClasses.getText()));
@@ -182,8 +181,17 @@ public class MailDeliveryController implements Initializable {
 			@Override
 			protected void updateItem(SelectorData item, boolean empty) {
 				super.updateItem(item, empty);
-				if(!empty && item != null) setText(function.apply(item));
-				else setText("");
+				if(item == null || empty) {
+					setText(null);
+				} else {
+					setText(function.apply(item));
+
+//					if(getIndex() % 2 == 0) {
+//						getStyleClass().add("even-row");
+//					} else {
+//						getStyleClass().add("odd-row");
+//					}
+				}
 			}
 		};
 	}
