@@ -1,0 +1,7 @@
+me.heitx.maserow.common.database.implementation.ItemRepository
+me.heitx.maserow.common.database.implementation.CharacterRepository
+me.heitx.maserow.common.database.implementation.CreatureRepository
+me.heitx.maserow.common.database.implementation.ItemInstanceRepository
+me.heitx.maserow.common.database.implementation.MailRepository
+me.heitx.maserow.common.database.implementation.QuestRepository
+me.heitx.maserow.common.database.implementation.SmartScriptRepository

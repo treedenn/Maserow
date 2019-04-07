@@ -10,6 +10,9 @@
         <module name="maserow" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8" />
+    <bytecodeTargetLevel target="8">
+      <module name="common" target="1.8" />
+      <module name="core" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

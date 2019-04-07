@@ -1,0 +1,87 @@
+package me.heitx.maserow.common.model;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.math.BigInteger;
+
+@Getter
+@Setter
+public class Character {
+	@Column("guid") private long guid;
+	@Column("account") private long account;
+	@Column("name") private String name;
+	@Column("race") private int race;
+	@Column("class") private int cclass;
+	@Column("gender") private int gender;
+	@Column("level") private int level;
+	@Column("xp") private long xp;
+	@Column("money") private long money;
+	@Column("skin") private int skin;
+	@Column("face") private int face;
+	@Column("hairStyle") private int hairStyle;
+	@Column("hairColor") private int hairColor;
+	@Column("facialStyle") private int facialStyle;
+	@Column("bankSlots") private int bankSlots;
+	@Column("restState") private int restState;
+	@Column("playerFlags") private long playerFlags;
+	@Column("position_x") private float positionX;
+	@Column("position_y") private float positionY;
+	@Column("position_z") private float positionZ;
+	@Column("map") private int map;
+	@Column("instance_id") private long instanceId;
+	@Column("instance_mode_mask") private int instanceModeMask;
+	@Column("orientation") private float orientation;
+	@Column("taximask") private String taximask;
+	@Column("online") private int online;
+	@Column("cinematic") private int cinematic;
+	@Column("totaltime") private long totaltime;
+	@Column("leveltime") private long leveltime;
+	@Column("logout_time") private long logoutTime;
+	@Column("is_logout_resting") private int isLogoutResting;
+	@Column("rest_bonus") private float restBonus;
+	@Column("resettalents_cost") private long resettalentsCost;
+	@Column("resettalents_time") private long resettalentsTime;
+	@Column("trans_x") private float transX;
+	@Column("trans_y") private float transY;
+	@Column("trans_z") private float transZ;
+	@Column("trans_o") private float transO;
+	@Column("transguid") private int transguid;
+	@Column("extra_flags") private int extraFlags;
+	@Column("stable_slots") private int stableSlots;
+	@Column("at_login") private int atLogin;
+	@Column("zone") private int zone;
+	@Column("death_expire_time") private long deathExpireTime;
+	@Column("taxi_path") private String taxiPath;
+	@Column("arenaPoints") private long arenaPoints;
+	@Column("totalHonorPoints") private long totalHonorPoints;
+	@Column("todayHonorPoints") private long todayHonorPoints;
+	@Column("yesterdayHonorPoints") private long yesterdayHonorPoints;
+	@Column("totalKills") private long totalKills;
+	@Column("todayKills") private int todayKills;
+	@Column("yesterdayKills") private int yesterdayKills;
+	@Column("chosenTitle") private long chosenTitle;
+	@Column("knownCurrencies") private BigInteger knownCurrencies;
+	@Column("watchedFaction") private long watchedFaction;
+	@Column("drunk") private int drunk;
+	@Column("health") private long health;
+	@Column("power1") private long power1;
+	@Column("power2") private long power2;
+	@Column("power3") private long power3;
+	@Column("power4") private long power4;
+	@Column("power5") private long power5;
+	@Column("power6") private long power6;
+	@Column("power7") private long power7;
+	@Column("latency") private int latency;
+	@Column("talentGroupsCount") private int talentGroupsCount;
+	@Column("activeTalentGroup") private int activeTalentGroup;
+	@Column("exploredZones") private String exploredZones;
+	@Column("equipmentCache") private String equipmentCache;
+	@Column("ammoId") private long ammoId;
+	@Column("knownTitles") private String knownTitles;
+	@Column("actionBars") private int actionBars;
+	@Column("grantableLevels") private int grantableLevels;
+	@Column("deleteInfos_Account") private Long deleteInfosAccount;
+	@Column("deleteInfos_Name") private String deleteInfosName;
+	@Column("deleteDate") private Long deleteDate;
+}

@@ -1,8 +1,8 @@
 package me.heitx.maserow;
 
 import javafx.application.Application;
-import me.heitx.maserow.io.config.Config;
-import me.heitx.maserow.ui.App;
+import me.heitx.maserow.common.io.config.Config;
+import me.heitx.maserow.core.JavaFX;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,6 +18,6 @@ public class Main {
 		Config.getInstance().load();
 
 		LOGGER.info("Initialized config, default database selected and application started.");
-		Application.launch(App.class, args);
+		Application.launch(JavaFX.class, args);
 	}
 }
