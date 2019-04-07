@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
 import me.heitx.maserow.common.database.Database;
 import me.heitx.maserow.common.database.repository.IItemRepository;
 import me.heitx.maserow.common.model.Item;

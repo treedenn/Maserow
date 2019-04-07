@@ -2,6 +2,7 @@ package me.heitx.maserow.core.sidebar;
 
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -56,40 +57,7 @@ public class SidebarController implements Initializable, ISidebar {
 
 		vboxTop.addEventFilter(ActionEvent.ACTION, event -> {
 			SideElement selected = (SideElement) ((Button) event.getTarget()).getParent();
-			LinkedList<SideElement> selectedElements = (LinkedList<SideElement>) getRoots(selected);
-
-			if(activeElements == null) activeElements = selectedElements;
-
-			// removes all the previous active elements if selected elements are not a match
-			for(int i = 0; i < Math.min(selectedElements.size(), activeElements.size()); i++) {
-				SideElement selectedElement = selectedElements.get(i);
-				SideElement activeElement = activeElements.get(i);
-
-				if(selectedElement != activeElement) {
-					// hides all elements from the first element
-					// where selected and active are not equal.
-					for(int j = i; j < activeElements.size(); j++) {
-						SideElement element = activeElements.get(j);
-						element.pseudoClassStateChanged(SELECTED_PSEUDO, false);
-						element.getContainer().setManaged(false);
-						element.getContainer().setVisible(false);
-					}
-					break;
-				}
-			}
-
-			// toggles the sub elements
-			if(selected.getElements().size() > 0) {
-				VBox container = selected.getContainer();
-				container.setManaged(!container.isManaged());
-				container.setVisible(!container.isVisible());
-			}
-
-			for(SideElement selectedElement : selectedElements) {
-				selectedElement.pseudoClassStateChanged(SELECTED_PSEUDO, true);
-			}
-
-			activeElements = selectedElements;
+			select(selected);
 		});
 	}
 
@@ -101,6 +69,57 @@ public class SidebarController implements Initializable, ISidebar {
 			vboxBottom.getChildren().add(element);
 		}
 	}
+
+	@Override
+	public void setSelected(SideElement element) {
+		select(element);
+	}
+
+	private void select(SideElement selected) {
+		LinkedList<SideElement> selectedElements = (LinkedList<SideElement>) getRoots(selected);
+
+		if(activeElements == null) activeElements = selectedElements;
+
+		// removes all the previous active elements if selected elements are not a match
+		for(int i = 0; i < Math.min(selectedElements.size(), activeElements.size()); i++) {
+			SideElement selectedElement = selectedElements.get(i);
+			SideElement activeElement = activeElements.get(i);
+
+			if(selectedElement != activeElement) {
+				// hides all elements from the first element
+				// where selected and active are not equal.
+				deactivateSelected(i);
+				break;
+			}
+		}
+
+		// toggles the sub elements
+		if(selected.getElements().size() > 0) {
+			VBox container = selected.getContainer();
+			container.setManaged(true);
+			container.setVisible(true);
+		}
+
+		for(SideElement selectedElement : selectedElements) {
+			selectedElement.pseudoClassStateChanged(SELECTED_PSEUDO, true);
+		}
+
+		activeElements = selectedElements;
+	}
+
+	private void deactivateSelected(int i) {
+		for(; i < activeElements.size(); i++) {
+			SideElement element = activeElements.get(i);
+			element.pseudoClassStateChanged(SELECTED_PSEUDO, false);
+			element.getContainer().setManaged(false);
+			element.getContainer().setVisible(false);
+		}
+	}
+
+	/*
+			RECURSIVE STUFF FOR TOGGLE ICONS,
+			AND HIDE SUBCATEGORIES AND MORE.
+	 */
 
 	private void onToggleAction(ActionEvent event) {
 		for(Node child : vboxTop.getChildren()) {
@@ -129,10 +148,6 @@ public class SidebarController implements Initializable, ISidebar {
 		}
 
 		initElement.getButton().setContentDisplay(isShrinked ? ContentDisplay.LEFT : ContentDisplay.GRAPHIC_ONLY);
-	}
-
-	private void hideAt(int index, List<SideElement> elements) {
-
 	}
 
 	public void hideAllElements() {

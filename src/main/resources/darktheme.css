@@ -31,7 +31,7 @@
 #vboxSidemenu {
     -fx-background-color: -bg0-color;
     -fx-border-width: 0 1px 0 0;
-    -fx-border-color: transparent -bg1-color transparent transparent;
+    -fx-border-color: transparent -bg3-color transparent transparent;
 }
 
 #vboxSidemenu #btnToggle {
@@ -95,7 +95,7 @@
 }
 
 #vboxSidemenu > VBox > SideElement:selected > VBox {
-    -fx-border-color: transparent transparent -bg1-color transparent;
+    -fx-border-color: transparent transparent -bg3-color transparent;
     -fx-border-width: 0 0 2px 0;
     -fx-border-style: dashed;
 }

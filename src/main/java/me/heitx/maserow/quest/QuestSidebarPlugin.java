@@ -19,8 +19,15 @@ public class QuestSidebarPlugin implements ISidebarPlugin {
 	private QuestSearchController searchController;
 	private QuestEditorController editorController;
 
+	private ISidebar sidebar;
+	private SideElement category;
+	private SideElement search;
+	private SideElement editor;
+
 	@Override
 	public void onStart(MainPageController mainPageController, ISidebar sidebar) {
+		this.sidebar = sidebar;
+
 		StackedFontIcon cIcon = new StackedFontIcon();
 		StackedFontIcon sIcon = new StackedFontIcon();
 		StackedFontIcon eIcon = new StackedFontIcon();
@@ -29,9 +36,9 @@ public class QuestSidebarPlugin implements ISidebarPlugin {
 		sIcon.setIconCodeLiterals(FontAwesomeSolid.SEARCH.getDescription());
 		eIcon.setIconCodeLiterals(FontAwesomeSolid.EDIT.getDescription());
 
-		SideElement category = new SideElement(cIcon, "Quest");
-		SideElement search = new SideElement(sIcon, "Search");
-		SideElement editor = new SideElement(eIcon, "Editor");
+		category = new SideElement(cIcon, "Quest");
+		search = new SideElement(sIcon, "Search");
+		editor = new SideElement(eIcon, "Editor");
 
 		category.addElement(search);
 		category.addElement(editor);
@@ -47,6 +54,12 @@ public class QuestSidebarPlugin implements ISidebarPlugin {
 			Pair<Parent, QuestSearchController> layout = LayoutUtil.loadLayout(QuestSearchController.class, "questsearch.fxml");
 			searchParent = layout.getKey();
 			searchController = layout.getValue();
+
+			searchController.setDoubleClickRowCallback(quest -> {
+				onEditorAction(controller);
+				editorController.setQuest(quest);
+				sidebar.setSelected(editor);
+			});
 		} else {
 			searchController.update();
 		}

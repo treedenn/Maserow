@@ -38,6 +38,6 @@ public class MainPageController implements Initializable {
 			plugin.onStart(this, sidebarController);
 		}
 
-//		sidebarController.hideAllElements();
+		sidebarController.hideAllElements();
 	}
 }

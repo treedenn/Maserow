@@ -21,8 +21,15 @@ public class CreatureSidebarPlugin implements ISidebarPlugin {
 	private CreatureSearchController searchController;
 	private CreatureEditorController editorController;
 
+	private ISidebar sidebar;
+	private SideElement category;
+	private SideElement search;
+	private SideElement editor;
+
 	@Override
 	public void onStart(MainPageController mainPageController, ISidebar sidebar) {
+		this.sidebar = sidebar;
+
 		StackedFontIcon cIcon = new StackedFontIcon();
 		StackedFontIcon sIcon = new StackedFontIcon();
 		StackedFontIcon eIcon = new StackedFontIcon();
@@ -31,9 +38,9 @@ public class CreatureSidebarPlugin implements ISidebarPlugin {
 		sIcon.setIconCodeLiterals(FontAwesomeSolid.SEARCH.getDescription());
 		eIcon.setIconCodeLiterals(FontAwesomeSolid.EDIT.getDescription());
 
-		SideElement category = new SideElement(cIcon, "Creature");
-		SideElement search = new SideElement(sIcon, "Search");
-		SideElement editor = new SideElement(eIcon, "Editor");
+		category = new SideElement(cIcon, "Creature");
+		search = new SideElement(sIcon, "Search");
+		editor = new SideElement(eIcon, "Editor");
 
 		category.addElement(search);
 		category.addElement(editor);
@@ -49,6 +56,12 @@ public class CreatureSidebarPlugin implements ISidebarPlugin {
 			Pair<Parent, CreatureSearchController> layout = LayoutUtil.loadLayout(CreatureSearchController.class, "creaturesearch.fxml");
 			searchParent = layout.getKey();
 			searchController = layout.getValue();
+
+			searchController.setDoubleClickRowCallback(creature -> {
+				onEditorAction(controller);
+				editorController.setCreature(creature);
+				sidebar.setSelected(editor);
+			});
 		} else {
 			searchController.update();
 		}

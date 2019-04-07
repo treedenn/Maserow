@@ -11,6 +11,7 @@ import me.heitx.maserow.common.Updateable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public abstract class SearchController<T> implements Initializable, Updateable {
 	@FXML protected TextField tfEntry;
@@ -18,7 +19,7 @@ public abstract class SearchController<T> implements Initializable, Updateable {
 	@FXML protected TableColumn<T, Long> tcEntry;
 	@FXML protected Button btnSearch;
 
-	protected Callback<T, Void> doubleClickRowCallback;
+	private Consumer<T> doubleClickRowCallback;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -32,8 +33,8 @@ public abstract class SearchController<T> implements Initializable, Updateable {
 	@Override
 	public abstract void update();
 
-	public SearchController<T> setDoubleClickRowCallback(Callback<T, Void> doubleClickRowCallback) {
-		this.doubleClickRowCallback = doubleClickRowCallback;
+	public SearchController<T> setDoubleClickRowCallback(Consumer<T> callback) {
+		this.doubleClickRowCallback = callback;
 		return this;
 	}
 
@@ -50,14 +51,12 @@ public abstract class SearchController<T> implements Initializable, Updateable {
 			if(!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
 				T selectedItem = tvSearch.getSelectionModel().getSelectedItem();
 				if(selectedItem != null) {
-					// TODO: Use same reference or get a new one? Perhaps a setting?
+					// {08 Apr 2019 00:08} Heitx - TODO: Use same reference or get a new one? Perhaps a setting?
 					// Uses reference for now.
-					if(doubleClickRowCallback != null) doubleClickRowCallback.call(selectedItem);
+					if(doubleClickRowCallback != null) doubleClickRowCallback.accept(selectedItem);
 				}
 			}
 		});
 		return row;
 	}
-
-
 }

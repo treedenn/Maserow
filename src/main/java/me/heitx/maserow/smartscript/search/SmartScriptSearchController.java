@@ -15,6 +15,7 @@ import me.heitx.maserow.common.ui.SearchController;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class SmartScriptSearchController extends SearchController<SimpleSearchModel> {
 	@FXML private TextField tfName;
@@ -60,7 +61,7 @@ public class SmartScriptSearchController extends SearchController<SimpleSearchMo
 	}
 
 	@Override
-	public SearchController<SimpleSearchModel> setDoubleClickRowCallback(Callback<SimpleSearchModel, Void> doubleClickRowCallback) {
-		return super.setDoubleClickRowCallback(doubleClickRowCallback);
+	public SearchController<SimpleSearchModel> setDoubleClickRowCallback(Consumer<SimpleSearchModel> callback) {
+		return super.setDoubleClickRowCallback(callback);
 	}
 }
