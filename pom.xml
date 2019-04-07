@@ -6,10 +6,10 @@
 
   <groupId>me.heitx.maserow</groupId>
   <artifactId>maserow</artifactId>
-  <version>0.0.7</version>
+  <packaging>jar</packaging>
+  <version>0.1.0</version>
 
   <name>maserow</name>
-  <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
@@ -68,37 +68,37 @@
       <!--<version>8.0.8</version>-->
     <!--</dependency>-->
 
-    <!-- https://bintray.com/jerady/maven/FontAwesomeFX/8.15 -->
+    <!-- IKONLI -->
+
     <dependency>
-      <groupId>de.jensd</groupId>
-      <artifactId>fontawesomefx-commons</artifactId>
-      <version>8.15</version>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-core</artifactId>
+      <version>2.4.0</version>
     </dependency>
 
     <dependency>
-      <groupId>de.jensd</groupId>
-      <artifactId>fontawesomefx-materialicons</artifactId>
-      <version>2.2.0-5</version>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-javafx</artifactId>
+      <version>2.4.0</version>
     </dependency>
 
     <dependency>
-      <groupId>de.jensd</groupId>
-      <artifactId>fontawesomefx-materialdesignfont</artifactId>
-      <version>1.7.22-4</version>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-material-pack</artifactId>
+      <version>2.4.0</version>
     </dependency>
 
     <dependency>
-      <groupId>de.jensd</groupId>
-      <artifactId>fontawesomefx-materialstackicons</artifactId>
-      <version>2.1-5</version>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-materialdesign-pack</artifactId>
+      <version>2.4.0</version>
     </dependency>
 
     <dependency>
-      <groupId>de.jensd</groupId>
-      <artifactId>fontawesomefx-fontawesome</artifactId>
-      <version>4.7.0-5</version>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-fontawesome5-pack</artifactId>
+      <version>2.4.0</version>
     </dependency>
-
   </dependencies>
 
   <build>
