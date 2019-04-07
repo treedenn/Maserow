@@ -1,9 +1,7 @@
-
-
 .root {
     /* PALETTE */
     -primary-color: #ff9100;
-    -secondary-color: #03a9f4;
+    -secondary-color: #8d2663;
     -bg0-color: #060606;
     -bg1-color: #121212;
     -bg2-color: #212121;
@@ -15,105 +13,152 @@
     -bg8-color: #e0e0e0;
     -bg9-color: #eeeeee;
     -text-color: #FFFFFF;
-
-    -icons-color: -primary-color; /* Used for glyph icons */
-    -fx-background-color: -bg1-color;
 }
 
-.glyph-icon {
-    -fx-text-fill: -icons-color;
-    -fx-fill: -icons-color;
+/*********************
+        MAIN PAGE
+ ********************/
+
+#bpApp {
+    -fx-background-color: -bg0-color;
 }
 
-.glyph-icon:hover {
+/*********************
+        SIDEBAR
+ ********************/
 
+/* SIDEBAR */
+#vboxSidemenu {
+    -fx-background-color: -bg0-color;
+    -fx-border-width: 0 1px 0 0;
+    -fx-border-color: transparent -bg1-color transparent transparent;
 }
 
+#vboxSidemenu #btnToggle {
+    -fx-background-color: -bg0-color;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+
+/* TITLE */
+#vboxSidemenu #labelTitle {
+    -fx-text-fill: -text-color;
+    -fx-padding: 10px 0 10px 0;
+    -fx-opacity: 0.7;
+}
+
+/* SIDEBAR - FIRST BUTTONS (TOGGLE AND TOP CATEGORIES) */
+#vboxSidemenu > VBox Button .stacked-ikonli-font-icon, #vboxSidemenu > Button .stacked-ikonli-font-icon {
+    -fx-icon-color: -primary-color;
+    -fx-icon-size: 24;
+}
+
+#vboxSidemenu > VBox Button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text-color;
+    -fx-font-size: 14;
+    -fx-padding: 10px 0 10px 10px;
+    -fx-background-radius: 0;
+}
+
+/* SIDEBAR - SECOND BUTTONS */
+#vboxSidemenu > VBox VBox .stacked-ikonli-font-icon {
+    -fx-icon-color: -primary-color;
+    -fx-icon-size: 16;
+}
+
+#vboxSidemenu > VBox VBox Button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text-color;
+    -fx-font-size: 14;
+    -fx-padding: 5px 0 5px 18px;
+    -fx-background-radius: 0;
+}
+
+/* SIDEBAR - THIRD BUTTONS */
+#vboxSidemenu > VBox VBox VBox .stacked-ikonli-font-icon {
+    -fx-icon-color: -primary-color;
+    -fx-icon-size: 10;
+}
+
+#vboxSidemenu > VBox VBox VBox Button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text-color;
+    -fx-font-size: 8;
+    -fx-padding: 5px 0 5px 26px;
+    -fx-background-radius: 0;
+}
+
+/* SELECTED ELEMENTS */
+#vboxSidemenu SideElement:selected .stacked-ikonli-font-icon {
+    -fx-icon-color: -secondary-color;
+}
+
+#vboxSidemenu > VBox > SideElement:selected > VBox {
+    -fx-border-color: transparent transparent -bg1-color transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-style: dashed;
+}
+
+/* SHRINKED ELEMENTS */
+#vboxSidemenu:shrinked {
+    -fx-pref-width: 75px;
+}
+
+#vboxSidemenu:shrinked SideElement Button {
+    -fx-padding: 10px 0;
+}
+
+/* SIDEBAR - HOVER BUTTONS */
+#vboxSidemenu .button:hover {
+    -fx-background-color: -bg2-color;
+}
+
+#vboxSidemenu #btnToggle:hover .stacked-ikonli-font-icon {
+    -fx-icon-color: -secondary-color;
+}
+
+/*********************
+        DEFAULTS
+ ********************/
+
+/* LABELS */
 .label {
     -fx-text-fill: -text-color;
-    -fx-fill: -text-color;
 }
 
-.scroll-pane, .split-pane, VBox, HBox, GridPane {
-    -fx-background-color: -bg1-color;
-    -fx-border-color: -bg1-color;
+/* ICONS */
+.stacked-ikonli-font-icon {
+    -fx-icon-color: -primary-color;
 }
 
-.split-pane-divider {
-    -fx-background-color: -bg2-color;
-}
-
-/* Begin TableView */
-
-.table-view {
-    -fx-background-color: transparent;
-}
-
-.table-view:focused {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: -bg2-color;
-}
-
-.table-view .column-header-background .label {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-}
-
-.table-view .column-header {
-    -fx-background-color: transparent;
-}
-
-.table-row-cell {
-    -fx-table-cell-border-color: -bg3-color;
-}
-
-.table-view .table-cell {
-    -fx-text-fill: white;
-    /*
-    -fx-border-color: #424242;
-    -fx-border-width: 0 1 0 0;
-    */
-}
-
-.table-row-cell:even {
-    -fx-background-color: -bg1-color;
-}
-
-.table-row-cell:odd {
-    -fx-background-color: -bg2-color;
-}
-
-.table-row-cell:selected {
-    -fx-background-color: -primary-color;
-}
-
-/* End TableView */
-
+/* SEPERATOR */
 .separator .line {
     -fx-border-color: -secondary-color;
     -fx-border-width: 1;
 }
 
-/* TEXT-, PASS-, TEXTAREA- FIELDS */
+/* MISC */
+VBox, HBox, TilePane {
+    -fx-background-color: transparent;
+}
 
+GridPane {
+    -fx-background-color: transparent;
+}
+
+/* TEXTFIELD, PASSWORD-FIELD, TEXTAREA */
 .text-field, .password-field, .text-area {
     -fx-text-fill: -text-color;
     -fx-background-radius: 0;
-    -fx-background-color: -bg3-color;
+    -fx-background-color: -bg2-color;
     -fx-border-color: transparent;
     -fx-border-width: 0;
 }
 
 .text-area .content {
-    -fx-background-color: -bg3-color;
+    -fx-background-color: -bg2-color;
     -fx-background-radius: 0;
-}
-
-.text-area .scroll-pane {
-    -fx-padding: 0;
 }
 
 .text-area:focused {
@@ -121,10 +166,32 @@
     -fx-padding: 0px;
 }
 
-/* CHECKBOX */
+/* SCROLL-PANE AND SCROLL-BAR */
+.scroll-pane {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
 
+.scroll-pane .viewport {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-radius: 0;
+    -fx-background-color: -bg1-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-radius: 0;
+    -fx-background-color: -bg3-color;
+}
+
+/* CHECKBOX */
 .check-box {
     -fx-text-fill: -text-color;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
     -fx-background-radius: 0;
 }
 
@@ -135,38 +202,33 @@
 }
 
 .check-box:selected .mark {
-    -fx-background-color: transparent;
-    -fx-border-color: -primary-color;
+    -fx-shape: "M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z";
+    -fx-background-color: -primary-color;
+    -fx-border-color: transparent;
+}
+
+/* LIST VIEW */
+.list-view {
+    -fx-background-color: -bg1-color;
 }
 
 /* COMBOBOX */
-
 .combo-box {
-    -fx-background-color: -bg3-color;
-    -fx-background-radius: 0;
-}
-
-.combo-box .scroll-bar {
-    -fx-background-radius: 0;
-    -fx-background-color: -bg3-color;
-}
-
-.combo-box .scroll-bar .thumb {
-    -fx-background-color: -bg3-color;
+    -fx-background-color: -bg2-color;
     -fx-background-radius: 0;
 }
 
 .combo-box .arrow {
-    -fx-background-color: -secondary-color;
+    -fx-background-color: -primary-color;
 }
 
 .combo-box .list-view {
-    -fx-background-color: -bg3-color;
-    -fx-text-fill: white;
+    -fx-background-color: -bg2-color;
+    -fx-text-fill: -text-color;
 }
 
 .combo-box .list-cell {
-    -fx-background-color: -bg3-color;
+    -fx-background-color: -bg2-color;
     -fx-text-fill: -text-color;
 }
 
@@ -175,7 +237,6 @@
 }
 
 /* BUTTON */
-
 .button {
     -fx-text-fill: -text-color;
     -fx-background-color: -bg2-color;
@@ -205,14 +266,13 @@
 }
 
 /* MENU ELEMENTS */
-
 .menu-button {
     -fx-background-color: -bg3-color;
     -fx-background-radius: 0;
 }
 
 .menu-button:hover {
-    -fx-background-color: -bg4-color;;
+    -fx-background-color: -bg4-color;
 }
 
 .menu-button .arrow-button .arrow {
@@ -228,12 +288,11 @@
     -fx-text-fill: -primary-color;
 }
 
-.context-menu {
+.menu-item .context-menu {
     -fx-background-color: -bg4-color;
 }
 
 /* RADIO BUTTON */
-
 .radio-button {
     -fx-background-color: transparent;
     -fx-text-fill: -text-color;
@@ -248,18 +307,18 @@
 }
 
 /* TITLED PANE */
-
 .titled-pane {
-    -fx-background-color: -bg2-color;
+    -fx-background-color: -bg1-color;
 }
 
 .titled-pane .title {
-    -fx-background-color: -bg2-color;
+    -fx-background-color: -bg1-color;
     -fx-background-radius: 0;
 }
 
 .titled-pane .content {
-    -fx-border-color: -bg2-color;
+    -fx-background-color: -bg1-color;
+    -fx-border-color: -bg1-color;
 }
 
 .titled-pane .text {
@@ -267,5 +326,226 @@
 }
 
 .titled-pane .arrow {
+    -fx-background-color: -primary-color;
+}
+
+/* TABLE VIEW */
+.table-view {
+    -fx-background-color: -bg1-color;
+}
+
+.table-view:focused {
+    -fx-background-color: -bg1-color;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -bg2-color;
+}
+
+.table-view .column-header-background .label {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent -bg5-color transparent transparent;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.table-view .column-header:last-visible {
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-border-width: 0 0 0 0;
+}
+
+.table-row-cell {
+    -fx-table-cell-border-color: -bg3-color;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: white;
+    /*
+    -fx-border-color: #424242;
+    -fx-border-width: 0 1 0 0;
+    */
+}
+
+.table-row-cell:even {
+    -fx-background-color: -bg1-color;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: -bg2-color;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: -primary-color;
+}
+
+/* DATE (TIME) PICKER */
+.datetime-picker {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.datetime-picker > .arrow-button {
+    -fx-background-color: -bg1-color;
+    -fx-background-insets: 0;
+}
+.datetime-picker > .arrow-button > .arrow {
+    -fx-background-color: -primary-color;
+}
+.datetime-picker > .text-field {
+    -fx-background-color: -bg2-color;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+.datetime-picker:contains-focus {
+    -fx-background-color: -bg3-color;
+}
+.datetime-picker:focused > .text-field,
+.datetime-picker > .text-field:focused {
+    -fx-background-color: -bg3-color;
+}
+.datetime-picker:focused > .arrow-button {
+    -fx-background-color: -bg2-color;
+}
+
+/* POPUP */
+.date-picker-popup {
+    -fx-background-color: -bg1-color;
+}
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: -bg2-color;
+}
+.date-picker-popup > * > .spinner {
+    -fx-background-color: -bg2-color;
+    -fx-background-radius: 0;
+}
+.date-picker-popup > * > .spinner > .button {
+    -fx-background-color: -bg2-color;
+}
+.date-picker-popup > * > .spinner > .button:focused {
+    -fx-background-color: -bg2-color;
+}
+.date-picker-popup > * > .spinner > .button:hover {
+    -fx-color: -bg4-color;
+}
+
+/*.date-picker-popup > * > .spinner > .button:armed*/
+
+/*.date-picker-popup > * > .spinner > .left-button,*/
+/*.date-picker-popup > * > .spinner > .right-button {*/
+/*    -fx-background-color: -secondary-color;*/
+/*}*/
+.date-picker-popup > * > .spinner > .button > .left-arrow,
+.date-picker-popup > * > .spinner > .button > .right-arrow {
+    -fx-background-color: -primary-color;
+}
+.date-picker-popup > * > .spinner > .button:hover > .left-arrow,
+.date-picker-popup > * > .spinner > .button:hover > .right-arrow {
+    -fx-background-color: -text-color;
+}
+.date-picker-popup > * > .spinner > .button:pressed > .left-arrow,
+.date-picker-popup > * > .spinner > .button:pressed > .right-arrow {
     -fx-background-color: -secondary-color;
+}
+/*.date-picker-popup > * > .spinner > .button > .left-arrow {*/
+/*    */
+/*}*/
+/*.date-picker-popup > * > .spinner > .button > .right-arrow {*/
+/*    */
+/*}*/
+.date-picker-popup > * > .spinner > .label {
+    -fx-text-fill: -text-color;
+}
+.date-picker-popup > .month-year-pane > .secondary-label {
+    -fx-text-fill: -primary-color;
+}
+.date-picker-popup > .calendar-grid {
+    -fx-background-color: -bg1-color;
+}
+.date-picker-popup > * > .date-cell {
+    -fx-text-fill: -text-color;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+.date-picker-popup > * > .day-name-cell {
+    -fx-background-color: transparent;
+}
+.date-picker-popup > * > .week-number-cell {
+    -fx-background-color: -bg1-color;
+    -fx-background: yellow;
+    -fx-text-fill: -bg5-color;
+}
+.date-picker-popup > * > .day-cell {
+    -fx-background-color: -bg4-color;
+    -fx-text-fill: -text-color;
+}
+/*.date-picker-popup > * > .hijrah-day-cell {*/
+
+/*}*/
+.date-picker-popup > * > .day-cell > .secondary-text {
+    -fx-fill: -text-color;
+}
+.date-picker-popup > * > .today {
+    -fx-background-color: -secondary-color;
+}
+/*.date-picker-popup > * > .day-cell:hover,*/
+/*.date-picker-popup > * > .selected,*/
+/*.date-picker-popup > * > .previous-month.selected,*/
+/*.date-picker-popup > * > .next-month.selected {*/
+/*    -fx-background: red;*/
+/*}*/
+/*.date-picker-popup > * > .previous-month:hover,*/
+/*.date-picker-popup > * > .next-month:hover {*/
+/*    -fx-background: blue;*/
+/*}*/
+/*.date-picker-popup > * > .today:hover,*/
+/*.date-picker-popup > * > .today.selected {*/
+/*    -fx-background-color: pink;*/
+/*}*/
+.date-picker-popup > * > .day-cell:focused,
+.date-picker-popup > * > .today:focused {
+    -fx-background-color: green;
+}
+.date-picker-popup > * > .day-cell:focused:hover,
+.date-picker-popup > * > .today:focused:hover,
+.date-picker-popup > * > .selected:focused,
+.date-picker-popup > * > .today.selected:focused {
+    -fx-background-color: -primary-color;
+}
+.date-picker-popup > * > .previous-month,
+.date-picker-popup > * > .next-month {
+    -fx-background-color: -bg3-color;
+    -fx-text-color: -text-color;
+}
+.date-picker-popup > * > .day-cell:hover > .secondary-text,
+.date-picker-popup > * > .previous-month > .secondary-text,
+.date-picker-popup > * > .next-month > .secondary-text,
+.date-picker-popup > * > .selected > .secondary-text {
+    -fx-fill: -secondary-color;
+}
+.date-picker-popup > * > .previous-month.today,
+.date-picker-popup > * > .next-month.today {
+    -fx-background-color: -bg4-color;
+}
+
+.date-picker-popup > * > .previous-month.today:hover,
+.date-picker-popup > * > .next-month.today:hover {
+    -fx-background-color: -bg5-color;
+}
+
+
+/*********************
+    CUSTOM CLASSES
+ ********************/
+
+/* Used for Quest Popups (item id and quantity) */
+.hbox-popup {
+    -fx-background-color: -bg1-color;
 }
