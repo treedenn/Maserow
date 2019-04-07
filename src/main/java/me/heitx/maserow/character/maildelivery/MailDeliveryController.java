@@ -185,12 +185,6 @@ public class MailDeliveryController implements Initializable {
 					setText(null);
 				} else {
 					setText(function.apply(item));
-
-//					if(getIndex() % 2 == 0) {
-//						getStyleClass().add("even-row");
-//					} else {
-//						getStyleClass().add("odd-row");
-//					}
 				}
 			}
 		};

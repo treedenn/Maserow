@@ -210,7 +210,35 @@ GridPane {
 /* LIST VIEW */
 .list-view {
     -fx-background-color: -bg1-color;
+    -fx-background-insets: 0;
 }
+
+.list-view:focused {
+    -fx-background-color: -bg1-color;
+}
+
+.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:even {
+    -fx-text-fill: -text-color;
+    -fx-background-color: -bg3-color;
+}
+
+.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:odd {
+    -fx-text-fill: -text-color;
+    -fx-background-color: -bg4-color;
+}
+
+.list-view:focused > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected {
+    -fx-text-fill: -text-color;
+    -fx-background-color: -primary-color;
+}
+
+/*.list-view > * > .even-row {*/
+/*    -fx-background-color: -bg2-color;*/
+/*}*/
+
+/*.list-view > * > .odd-row {*/
+/*    -fx-background-color: -bg3-color;*/
+/*}*/
 
 /* COMBOBOX */
 .combo-box {
