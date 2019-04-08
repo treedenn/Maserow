@@ -9,8 +9,6 @@ import me.heitx.maserow.common.ui.SideElement;
 import me.heitx.maserow.core.mainpage.MainPageController;
 import me.heitx.maserow.creature.editor.CreatureEditorController;
 import me.heitx.maserow.creature.search.CreatureSearchController;
-import me.heitx.maserow.item.editor.ItemEditorController;
-import me.heitx.maserow.item.search.ItemSearchController;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.StackedFontIcon;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;

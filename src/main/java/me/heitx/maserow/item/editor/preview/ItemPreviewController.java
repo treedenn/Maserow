@@ -277,7 +277,7 @@ public class ItemPreviewController implements Initializable, Updateable {
 	private void updateContent() {
 		List<Identifier> bondings = DelimiterReader.readColumns(ItemCSV.ITEM_BONDING);
 		List<Identifier> inventoryType = DelimiterReader.readColumns(ItemCSV.ITEM_INVENTORY_TYPE);
-		List<Identifier> subclass = DelimiterReader.getSubclasses(item.get_class());
+		List<Identifier> subclass = DelimiterReader.getSubclasses(item.getClazz());
 
 		long[] sellMoney = MoneyUtil.totalToGSC(item.getSellPrice());
 		long[] buyMoney = MoneyUtil.totalToGSC(item.getBuyPrice());
@@ -317,10 +317,10 @@ public class ItemPreviewController implements Initializable, Updateable {
 		LayoutUtil.toggle(labelBonding, item.getBonding() != 0); // 0 = NO_BOUNDS
 		LayoutUtil.toggle(labelUnique, item.getMaxCount() != 0); // no max count
 		LayoutUtil.toggle(labelSlot, item.getInventoryType() != 0); // 0 = NON_EQUIPABLE
-		LayoutUtil.toggle(labelType, item.get_class() != 12); //
+		LayoutUtil.toggle(labelType, item.getClazz() != 12); //
 		LayoutUtil.toggle(gpSlotType, labelSlot.isVisible() || labelType.isVisible());
-		LayoutUtil.toggle(paneDamage, item.get_class() == 2); // 2 = WEAPON
-		LayoutUtil.toggle(labelDPS, item.get_class() == 2); // 2 = WEAPON
+		LayoutUtil.toggle(paneDamage, item.getClazz() == 2); // 2 = WEAPON
+		LayoutUtil.toggle(labelDPS, item.getClazz() == 2); // 2 = WEAPON
 		LayoutUtil.toggle(hboxArmor, item.getArmor() != 0);
 		LayoutUtil.toggle(hboxBlock, item.getBlock() != 0);
 		LayoutUtil.toggle(vboxStats, item.getStatsCount() != 0);

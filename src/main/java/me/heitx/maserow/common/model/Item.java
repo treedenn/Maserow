@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter @Setter
 public class Item {
 	@Column("entry") private int entry;
-	@Column("class") private int _class;
+	@Column("class") private int clazz;
 	@Column("subclass") private int subclass;
 	@Column("name") private String name;
 	@Column("displayid") private int displayId;
@@ -174,7 +174,7 @@ public class Item {
 
 	public void reset() {
 		entry = 0;
-		_class = 0;
+		clazz = 0;
 		subclass = 0;
 		name = "Default Template";
 		displayId = 0;
