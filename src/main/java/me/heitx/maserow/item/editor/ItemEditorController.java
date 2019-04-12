@@ -40,7 +40,7 @@ public class ItemEditorController implements Initializable, Updateable {
 	@FXML private CheckBox cbPreview;
 
 	@FXML private Parent build;
-	@FXML private ItemBuildController buildController;
+//	@FXML private ItemBuildController buildController;
 	@FXML private Parent preview;
 	@FXML private ItemPreviewController previewController;
 
@@ -60,7 +60,7 @@ public class ItemEditorController implements Initializable, Updateable {
 		cbPreview.setOnAction(this::onCheckBoxPreviewAction);
 
 		item = new Item();
-		buildController.setItem(item);
+//		buildController.setItem(item);
 		previewController.setItem(item);
 	}
 
@@ -76,7 +76,7 @@ public class ItemEditorController implements Initializable, Updateable {
 	public void setItem(Item item) {
 		this.item = item;
 
-		buildController.setItem(item);
+//		buildController.setItem(item);
 		previewController.setItem(item);
 
 		previewController.update();

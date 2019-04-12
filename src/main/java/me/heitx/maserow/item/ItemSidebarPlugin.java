@@ -73,7 +73,7 @@ public class ItemSidebarPlugin implements ISidebarPlugin {
 			editorParent = layout.getKey();
 			editorController = layout.getValue();
 		} else {
-			editorController.update();
+//			editorController.update();
 		}
 
 		controller.setContent(editorParent);

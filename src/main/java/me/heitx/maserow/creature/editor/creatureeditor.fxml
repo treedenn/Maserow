@@ -107,7 +107,7 @@
                        <TextField fx:id="tfMaxLevel" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                          <children>
-                           <TextField fx:id="tfMinGold" prefWidth="60.0" text="0" />
+                           <TextField fx:id="tfMinGold" prefWidth="60.0" text="0" HBox.hgrow="ALWAYS" />
                            <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                              <image>
                                <Image url="currency/money-gold.png" />
@@ -129,7 +129,7 @@
                        </HBox>
                        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                          <children>
-                           <TextField fx:id="tfMaxGold" prefWidth="60.0" text="0" />
+                           <TextField fx:id="tfMaxGold" prefWidth="60.0" text="0" HBox.hgrow="ALWAYS" />
                            <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                              <image>
                                <Image url="currency/money-gold.png" />

@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="5.0">
+         <children>
+            <Button fx:id="btnExecute" mnemonicParsing="false" text="Execute" />
+            <Button fx:id="btnScreenshot" mnemonicParsing="false" text="Save as Image" />
+            <MenuButton fx:id="mbSQL" mnemonicParsing="false" text="Save as SQL">
+               <items>
+                  <MenuItem fx:id="miInsert" mnemonicParsing="false" text="INSERT" />
+                  <MenuItem fx:id="miUpdate" mnemonicParsing="false" text="UPDATE" />
+                  <MenuItem fx:id="miDelete" mnemonicParsing="false" text="DELETE" />
+               </items>
+            </MenuButton>
+            <CheckBox fx:id="cbPreview" mnemonicParsing="false" text="Preview" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox>
+               <children>
+                  <ScrollPane fitToWidth="true" prefWidth="500.0" HBox.hgrow="ALWAYS">
+                     <content>
+                        <VBox>
+                           <children>
+                              <TitledPane animated="false" collapsible="false" expanded="false" text="General">
+                                 <content>
+                                    <GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" vgap="5.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="73.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="75.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="140.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Entry:" />
+                                          <TextField GridPane.columnIndex="1" />
+                                          <Label text="Display ID:" GridPane.rowIndex="2" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label text="Quality:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <TextField GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <Label text="Name:" GridPane.columnIndex="2" />
+                                          <TextField GridPane.columnIndex="3" GridPane.columnSpan="2147483647" />
+                                          <Label text="Description:" GridPane.rowIndex="1" />
+                                          <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" collapsible="false" text="Equipment">
+                                 <content>
+                                    <GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" vgap="5.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="140.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="75.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="140.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Class:" />
+                                          <TextField GridPane.columnIndex="1" />
+                                          <Label text="Req Level:" GridPane.rowIndex="3" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label text="Item Level:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <TextField GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                          <Label text="Subclass:" GridPane.rowIndex="1" />
+                                          <TextField GridPane.columnIndex="3" GridPane.columnSpan="2147483647" />
+                                          <Label text="Inventory:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Bonding:" GridPane.columnIndex="2" />
+                                          <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Label text="Sheath:" GridPane.rowIndex="2" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Label text="Item Set:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <TextField GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" collapsible="false" expanded="false" text="Vendor &amp; Stacks">
+                                 <content>
+                                    <GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" vgap="5.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="87.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="113.0" minWidth="10.0" prefWidth="85.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="140.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Sell Price:" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label text="Buy Price:" GridPane.rowIndex="1" />
+                                          <Label text="Max Count:" GridPane.rowIndex="2" />
+                                          <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="5.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647">
+                                             <children>
+                                                <TextField fx:id="tfMinGold" prefWidth="60.0" text="0" HBox.hgrow="ALWAYS" />
+                                                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="currency/money-gold.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <TextField fx:id="tfMinSilver" prefWidth="42.0" text="0" />
+                                                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@/currency/money-silver.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <TextField fx:id="tfMinCopper" prefWidth="42.0" text="0" />
+                                                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@/currency/money-copper.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="5.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                             <children>
+                                                <TextField fx:id="tfMinGold1" prefWidth="60.0" text="0" HBox.hgrow="ALWAYS" />
+                                                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="currency/money-gold.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <TextField fx:id="tfMinSilver1" prefWidth="42.0" text="0" />
+                                                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@/currency/money-silver.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <TextField fx:id="tfMinCopper1" prefWidth="42.0" text="0" />
+                                                <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@/currency/money-copper.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </HBox>
+                                          <Label text="Max Stacks:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <TextField GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" collapsible="false" contentDisplay="CENTER" text="Requirements">
+                                 <content>
+                                    <GridPane maxHeight="-Infinity">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="140.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="140.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Skill-Rank:" GridPane.rowIndex="1" />
+                                          <Label text="Spell:" GridPane.rowIndex="2" />
+                                          <Label text="Skill:" />
+                                          <Label text="Honor Rank:" GridPane.columnIndex="2" />
+                                          <Label text="City Rank:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <Label text="Rep Faction:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <Label text="Rep Rank:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <TextField GridPane.columnIndex="1" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField GridPane.columnIndex="3" />
+                                          <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <TextField GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <TextField GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" collapsible="false" contentDisplay="CENTER" text="Spells">
+                                 <content>
+                                    <GridPane maxHeight="-Infinity">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="66.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="72.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="80.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="104.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="104.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="104.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="104.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Charges:" GridPane.columnIndex="2" />
+                                          <Label text="PPM Rate:" GridPane.columnIndex="3" />
+                                          <Label text="Entry:" />
+                                          <Label text="Trigger:" GridPane.columnIndex="1" />
+                                          <Label text="Cooldown:" GridPane.columnIndex="4" />
+                                          <Label text="Category:" GridPane.columnIndex="5" />
+                                          <Label text="Cat-Cooldown:" GridPane.columnIndex="6" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.rowIndex="1" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" collapsible="false" contentDisplay="CENTER" text="Miscellaneous">
+                                 <content>
+                                    <GridPane maxHeight="-Infinity">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="96.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="104.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Skill-Rank:" GridPane.rowIndex="2" />
+                                          <Label text="Spell:" GridPane.rowIndex="3" />
+                                          <Label text="Level:" />
+                                          <Label text="Skill:" GridPane.rowIndex="1" />
+                                          <Label text="Honor Rank:" GridPane.rowIndex="4" />
+                                          <Label text="City Rank:" GridPane.rowIndex="5" />
+                                          <Label text="Rep Faction:" GridPane.rowIndex="6" />
+                                          <Label text="Rep Rank:" GridPane.rowIndex="7" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane fitToWidth="true" HBox.hgrow="ALWAYS">
+                     <content>
+                        <VBox>
+                           <children>
+                              <TitledPane animated="false" collapsible="false" contentDisplay="CENTER" text="Weapon">
+                                 <content>
+                                    <GridPane hgap="5.0" maxHeight="-Infinity">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Speed:" GridPane.rowIndex="2" />
+                                          <Label text="Ammo Type:" GridPane.rowIndex="3" />
+                                          <Label text="Mod Range:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <TextField maxWidth="1.7976931348623157E308" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.rowIndex="1" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <Label text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="-" GridPane.columnIndex="1" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Stats">
+                                 <content>
+                                    <GridPane hgap="5.0" maxHeight="-Infinity" vgap="2.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="75.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Type:" />
+                                          <Label text="Value:" GridPane.columnIndex="1" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="1" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="2" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="3" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="4" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="5" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="6" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="7" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="8" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="9" />
+                                          <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="10" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane collapsible="false" contentDisplay="CENTER" expanded="false" text="Defensive">
+                                 <content>
+                                    <GridPane maxHeight="-Infinity">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="96.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="104.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Holy:" GridPane.rowIndex="2" />
+                                          <Label text="Fire:" GridPane.rowIndex="3" />
+                                          <Label text="Armor:" />
+                                          <Label text="Block:" GridPane.rowIndex="1" />
+                                          <Label text="Nature:" GridPane.rowIndex="4" />
+                                          <Label text="Frost:" GridPane.rowIndex="5" />
+                                          <Label text="Shadow:" GridPane.rowIndex="6" />
+                                          <Label text="Arcane:" GridPane.rowIndex="7" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" expanded="false" text="Sockets:">
+                                 <content>
+                                    <GridPane maxHeight="-Infinity">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="96.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="104.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Socket 3:" GridPane.rowIndex="2" />
+                                          <Label text="Bonus:" GridPane.rowIndex="3" />
+                                          <Label text="Socket 1:" />
+                                          <Label text="Socket 2:" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <right>
+      <VBox spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="100.0" prefWidth="200.0" />
+            <CheckBox mnemonicParsing="false" text="Defensive" />
+            <CheckBox mnemonicParsing="false" text="Spells" />
+            <CheckBox mnemonicParsing="false" text="Sockets" />
+            <CheckBox mnemonicParsing="false" text="Requirements" />
+         </children>
+      </VBox>
+   </right>
+</BorderPane>
