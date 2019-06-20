@@ -7,7 +7,7 @@
   <groupId>me.heitx.maserow</groupId>
   <artifactId>maserow</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.0</version>
+  <version>1.0.0</version>
 
   <name>maserow</name>
   <url>http://www.example.com</url>
