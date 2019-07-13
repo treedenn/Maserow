@@ -76,4 +76,5 @@ public class Creature {
 	@Column("spell_school_immune_mask") private long spellSchoolImmuneMask;
 	@Column("flags_extra") private long flagsExtra;
 	@Column("ScriptName") private String scriptName;
+	@Column("VerifiedBuild") private String verifiedBuild;
 }

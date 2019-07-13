@@ -8,6 +8,7 @@ public class Item {
 	@Column("entry") private int entry;
 	@Column("class") private int clazz;
 	@Column("subclass") private int subclass;
+	@Column("SoundOverrideSubclass") private int soundOverrideSubclass;
 	@Column("name") private String name;
 	@Column("displayid") private int displayId;
 	@Column("Quality") private int quality;
@@ -142,40 +143,13 @@ public class Item {
 	@Column("minMoneyLoot") private long minMoneyLoot;
 	@Column("maxMoneyLoot") private long maxMoneyLoot;
 	@Column("flagsCustom") private long flagsCustom;
+	@Column("VerifiedBuild") private String verifiedBuild;
 
 	public Item() {
-		reset();
-	}
-
-	public int[] getStatTypes() {
-		return new int[] {
-				statType1, statType2, statType3,
-				statType4, statType5, statType6,
-				statType7, statType8, statType9,
-				statType10
-		};
-	}
-
-	public int[] getStatValues() {
-		return new int[] {
-				statValue1, statValue2, statValue3,
-				statValue4, statValue5, statValue6,
-				statValue7, statValue8, statValue9,
-				statValue10
-		};
-	}
-
-	public int[] getResistance() {
-		return new int[] {
-				holyRes, fireRes, frostRes,
-				natureRes, shadowRes, arcaneRes
-		};
-	}
-
-	public void reset() {
 		entry = 0;
 		clazz = 0;
 		subclass = 0;
+		soundOverrideSubclass = -1;
 		name = "Default Template";
 		displayId = 0;
 		quality = 0;
@@ -310,5 +284,31 @@ public class Item {
 		minMoneyLoot = 0;
 		maxMoneyLoot = 0;
 		flagsCustom = 0;
+		verifiedBuild = "";
+	}
+
+	public int[] getStatTypes() {
+		return new int[] {
+				statType1, statType2, statType3,
+				statType4, statType5, statType6,
+				statType7, statType8, statType9,
+				statType10
+		};
+	}
+
+	public int[] getStatValues() {
+		return new int[] {
+				statValue1, statValue2, statValue3,
+				statValue4, statValue5, statValue6,
+				statValue7, statValue8, statValue9,
+				statValue10
+		};
+	}
+
+	public int[] getResistance() {
+		return new int[] {
+				holyRes, fireRes, frostRes,
+				natureRes, shadowRes, arcaneRes
+		};
 	}
 }

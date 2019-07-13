@@ -106,8 +106,10 @@ public class Quest {
 	@Column("RequiredItemCount5") private int requiredItemCount5;
 	@Column("RequiredItemId6") private int requiredItemId6;
 	@Column("RequiredItemCount6") private int requiredItemCount6;
+	@Column("Unknown0") private String unknown0;
 	@Column("ObjectiveText1") private String objectiveText1;
 	@Column("ObjectiveText2") private String objectiveText2;
 	@Column("ObjectiveText3") private String objectiveText3;
 	@Column("ObjectiveText4") private String objectiveText4;
+	@Column("VerifiedBuild") private String verifiedBuild;
 }
