@@ -30,8 +30,7 @@
   <center>
     <VBox spacing="5.0" BorderPane.alignment="CENTER">
       <children>
-        <fx:include source="preview/itempreview.fxml" />
-        <FlowPane columnHalignment="CENTER" hgap="5.0" prefWrapLength="10.0" vgap="5.0" />
+            <fx:include source="build/itembuild_new.fxml" />
       </children>
       <BorderPane.margin>
         <Insets left="5.0" />
