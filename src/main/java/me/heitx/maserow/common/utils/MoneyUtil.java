@@ -1,16 +1,18 @@
 package me.heitx.maserow.common.utils;
 
+import java.util.*;
+
 public class MoneyUtil {
-	public static long[] totalToGSC(long total) {
-		long[] money = new long[3];
+	public static Collection<Long> totalToGSC(long total) {
+		List<Long> money = new ArrayList<>();
 
-		money[0] = total / 10000;
+		money.add(total / 10000); // gold
 		total = total % 10000;
-		money[1] = total / 100;
+		money.add(total / 100); // silver
 		total = total % 100;
-		money[2] = total;
+		money.add(total); // copper (leftover)
 
-		return money;
+		return Collections.unmodifiableCollection(money);
 	}
 
 	public static int gscToTotal(String gold, String silver, String copper) {

@@ -15,14 +15,13 @@ import me.heitx.maserow.common.io.ItemCSV;
 import me.heitx.maserow.common.model.Item;
 import me.heitx.maserow.common.ui.LayoutUtil;
 import me.heitx.maserow.common.Updateable;
+import me.heitx.maserow.common.utils.JavafxUtil;
 import me.heitx.maserow.common.utils.MoneyUtil;
 import me.heitx.maserow.common.utils.NumberUtil;
 import me.heitx.maserow.common.utils.ResourceUtil;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ItemPreviewController implements Initializable, Updateable {
 	@FXML public VBox vboxPreview;
@@ -279,8 +278,10 @@ public class ItemPreviewController implements Initializable, Updateable {
 		List<Identifier> inventoryType = DelimiterReader.readColumns(ItemCSV.ITEM_INVENTORY_TYPE);
 		List<Identifier> subclass = DelimiterReader.getSubclasses(item.getClazz());
 
-		long[] sellMoney = MoneyUtil.totalToGSC(item.getSellPrice());
-		long[] buyMoney = MoneyUtil.totalToGSC(item.getBuyPrice());
+		Collection<Long> sellMoney = MoneyUtil.totalToGSC(item.getSellPrice());
+		Collection<Long> buyMoney = MoneyUtil.totalToGSC(item.getBuyPrice());
+		Set<Label> sellLabels = new HashSet<>(Arrays.asList(labelSellGold, labelSellSilver, labelSellCopper));
+		Set<Label> buyLabels = new HashSet<>(Arrays.asList(labelBuyGold, labelBuySilver, labelBuyCopper));
 
 		String durability = String.valueOf(item.getMaxDurability());
 
@@ -304,12 +305,8 @@ public class ItemPreviewController implements Initializable, Updateable {
 		labelDurability.setText(durability + " / " + durability);
 		labelRequiredLevel.setText(String.valueOf(item.getRequiredLevel()));
 		labelItemLevel.setText(String.valueOf(item.getItemLevel()));
-		labelSellGold.setText(String.valueOf(sellMoney[0]));
-		labelSellSilver.setText(String.valueOf(sellMoney[1]));
-		labelSellCopper.setText(String.valueOf(sellMoney[2]));
-		labelBuyGold.setText(String.valueOf(buyMoney[0]));
-		labelBuySilver.setText(String.valueOf(buyMoney[1]));
-		labelBuyCopper.setText(String.valueOf(buyMoney[2]));
+		JavafxUtil.assignValuesToTextfields(sellLabels, sellMoney);
+		JavafxUtil.assignValuesToTextfields(buyLabels, buyMoney);
 		labelDescription.setText("\"" + item.getDescription() + "\"");
 	}
 

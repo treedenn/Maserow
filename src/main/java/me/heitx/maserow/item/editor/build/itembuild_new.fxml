@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="5.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.item.build.ItemBuildNewController">
+<VBox spacing="5.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.item.editor.build.ItemBuildNewController">
    <children>
       <HBox>
          <children>
@@ -90,7 +90,7 @@
                               </GridPane>
                            </content>
                         </TitledPane>
-                        <TitledPane animated="false" expanded="false" text="Vendor &amp; Stacks">
+                        <TitledPane animated="false" text="Vendor &amp; Stacks">
                            <content>
                               <GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" vgap="5.0">
                                  <columnConstraints>
@@ -345,7 +345,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="Speed:" GridPane.rowIndex="2" />
+                                    <Label text="Delay:" GridPane.rowIndex="2" />
                                     <Label text="Ammo Type:" GridPane.rowIndex="3" />
                                     <Label text="Mod Range:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                                     <TextField fx:id="tfDamageMin1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
@@ -356,7 +356,7 @@
                                     <TextField fx:id="tfDamageMax2" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                     <Label text="-" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                     <Label text="-" GridPane.columnIndex="2" />
-                                    <TextField fx:id="tfSpeed" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="tfDelay" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="tfModRange" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                                     <ChoiceBox fx:id="cbAmmoType" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label text="Damage 1:" />
@@ -439,7 +439,7 @@
                               </VBox>
                            </content>
                         </TitledPane>
-                        <TitledPane animated="false" contentDisplay="CENTER" expanded="false" text="Defensive">
+                        <TitledPane animated="false" contentDisplay="CENTER" expanded="false" text="Defence">
                            <content>
                               <GridPane hgap="2.0" maxHeight="-Infinity">
                                  <columnConstraints>
@@ -465,11 +465,11 @@
                                     <Label text="Shadow:" GridPane.rowIndex="4" />
                                     <Label text="Arcane:" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                                     <Label text="Durability:" GridPane.rowIndex="1" />
-                                    <Label text="Armor Modifier:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Label text="Armor/Dmg Modifier:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                     <TextField fx:id="tfArmor" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
                                     <TextField fx:id="tfBlock" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" />
                                     <TextField fx:id="tfDurability" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="tfArmorMod" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <TextField fx:id="tfArmorDamageMod" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                     <TextField fx:id="tfResHoly" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="tfResNature" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <TextField fx:id="tfResShadow" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -480,7 +480,7 @@
                               </GridPane>
                            </content>
                         </TitledPane>
-                        <TitledPane animated="false" contentDisplay="CENTER" text="Sockets">
+                        <TitledPane animated="false" contentDisplay="CENTER" expanded="false" text="Sockets">
                            <content>
                               <GridPane maxHeight="-Infinity">
                                  <columnConstraints>

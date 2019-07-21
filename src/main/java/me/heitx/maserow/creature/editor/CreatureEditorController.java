@@ -22,6 +22,7 @@ import me.heitx.maserow.common.ui.LayoutUtil;
 import me.heitx.maserow.common.Updateable;
 import me.heitx.maserow.common.lookup.LookupManager;
 import me.heitx.maserow.common.utils.ConverterUtil;
+import me.heitx.maserow.common.utils.JavafxUtil;
 import me.heitx.maserow.common.utils.MoneyUtil;
 import me.heitx.maserow.common.utils.Queries;
 import org.controlsfx.control.CheckComboBox;
@@ -387,14 +388,11 @@ public class CreatureEditorController implements Initializable, Updateable {
 		tfMinLevel.setText(String.valueOf(creature.getMinlevel()));
 		tfMaxLevel.setText(String.valueOf(creature.getMaxlevel()));
 
-		long[] minGold = MoneyUtil.totalToGSC(creature.getMingold());
-		tfMinGold.setText(String.valueOf(minGold[0]));
-		tfMinSilver.setText(String.valueOf(minGold[1]));
-		tfMinCopper.setText(String.valueOf(minGold[2]));
-		long[] maxGold = MoneyUtil.totalToGSC(creature.getMaxgold());
-		tfMaxGold.setText(String.valueOf(maxGold[0]));
-		tfMaxSilver.setText(String.valueOf(maxGold[1]));
-		tfMaxCopper.setText(String.valueOf(maxGold[2]));
+		Set<TextField> minFields = new HashSet<>(Arrays.asList(tfMinGold, tfMinSilver, tfMinCopper));
+		Set<TextField> maxFields = new HashSet<>(Arrays.asList(tfMaxGold, tfMaxSilver, tfMaxCopper));
+
+		JavafxUtil.assignValuesToTextfields(minFields, MoneyUtil.totalToGSC(creature.getMingold()));
+		JavafxUtil.assignValuesToTextfields(maxFields, MoneyUtil.totalToGSC(creature.getMaxgold()));
 
 		tfFaction.setText(String.valueOf(creature.getFaction()));
 		ccbFlags.getCheckModel().checkIndices(ConverterUtil.toPrimitive(Identifier.findIndicesByValue(flags, creature.getNpcflag())));
