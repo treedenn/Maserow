@@ -111,5 +111,5 @@ public class Quest {
 	@Column("ObjectiveText2") private String objectiveText2;
 	@Column("ObjectiveText3") private String objectiveText3;
 	@Column("ObjectiveText4") private String objectiveText4;
-	@Column("VerifiedBuild") private String verifiedBuild;
+	@Column("VerifiedBuild") private int verifiedBuild;
 }

@@ -272,6 +272,7 @@ GridPane {
     -fx-background-color: -bg2-color;
     -fx-background-radius: 0;
     -fx-border-width: 0;
+    -fx-background-insets: 0;
     -fx-border-color: transparent;
 }
 
@@ -293,6 +294,10 @@ GridPane {
 
 .button:default:pressed {
     -fx-background-color: -secondary-color;
+}
+
+ButtonedTextField {
+
 }
 
 /* MENU ELEMENTS */

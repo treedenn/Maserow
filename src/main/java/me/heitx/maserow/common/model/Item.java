@@ -143,7 +143,7 @@ public class Item {
 	@Column("minMoneyLoot") private long minMoneyLoot;
 	@Column("maxMoneyLoot") private long maxMoneyLoot;
 	@Column("flagsCustom") private long flagsCustom;
-	@Column("VerifiedBuild") private String verifiedBuild;
+	@Column("VerifiedBuild") private int verifiedBuild;
 
 	public Item() {
 		entry = 0;
@@ -284,7 +284,7 @@ public class Item {
 		minMoneyLoot = 0;
 		maxMoneyLoot = 0;
 		flagsCustom = 0;
-		verifiedBuild = "";
+		verifiedBuild = 12340;
 	}
 
 	public int[] getStatTypes() {

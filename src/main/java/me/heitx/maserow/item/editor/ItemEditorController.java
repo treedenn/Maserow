@@ -40,7 +40,7 @@ public class ItemEditorController implements Initializable, Updateable {
 	@FXML private CheckBox cbPreview;
 
 	@FXML private Parent build;
-//	@FXML private ItemBuildController buildController;
+	@FXML private ItemBuildController buildController;
 	@FXML private Parent preview;
 	@FXML private ItemPreviewController previewController;
 
@@ -48,8 +48,6 @@ public class ItemEditorController implements Initializable, Updateable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		LayoutUtil.hide(preview);
-
 		update();
 
 		btnExecute.setOnAction(this::onButtonExecuteAction);
@@ -59,9 +57,7 @@ public class ItemEditorController implements Initializable, Updateable {
 		miDelete.setOnAction(this::onMenuButtonAction);
 		cbPreview.setOnAction(this::onCheckBoxPreviewAction);
 
-		item = new Item();
-//		buildController.setItem(item);
-		previewController.setItem(item);
+		buildController.setPreviewController(previewController);
 	}
 
 	@Override
@@ -76,10 +72,8 @@ public class ItemEditorController implements Initializable, Updateable {
 	public void setItem(Item item) {
 		this.item = item;
 
-//		buildController.setItem(item);
+		buildController.setItem(item);
 		previewController.setItem(item);
-
-		previewController.update();
 	}
 
 	private void onButtonExecuteAction(ActionEvent event) {
@@ -113,14 +107,14 @@ public class ItemEditorController implements Initializable, Updateable {
 	}
 
 	private void onCheckBoxPreviewAction(ActionEvent event) {
-		if(cbPreview.isSelected()) {
-			previewController.update();
-			LayoutUtil.show(preview);
-			LayoutUtil.hide(build);
-		} else {
-			LayoutUtil.show(build);
-			LayoutUtil.hide(preview);
-		}
+//		if(cbPreview.isSelected()) {
+//			previewController.update();
+//			LayoutUtil.show(preview);
+//			LayoutUtil.hide(build);
+//		} else {
+//			LayoutUtil.show(build);
+//			LayoutUtil.hide(preview);
+//		}
 	}
 
 	// TODO: Place these inside IO folder

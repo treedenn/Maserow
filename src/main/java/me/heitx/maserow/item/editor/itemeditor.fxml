@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.item.editor.ItemEditorController">
   <top>
     <HBox alignment="CENTER_LEFT" spacing="5.0">
       <children>
@@ -30,7 +30,7 @@
   <center>
     <VBox spacing="5.0" BorderPane.alignment="CENTER">
       <children>
-            <fx:include source="build/itembuild_new.fxml" />
+            <fx:include fx:id="build" source="build/itembuild.fxml" />
       </children>
       <BorderPane.margin>
         <Insets left="5.0" />
@@ -40,7 +40,7 @@
   <right>
     <VBox spacing="5.0" BorderPane.alignment="CENTER">
       <children>
-        <fx:include source="preview/itempreview.fxml" />
+        <fx:include fx:id="preview" source="preview/itempreview.fxml" />
             <FlowPane columnHalignment="CENTER" hgap="5.0" prefWrapLength="10.0" vgap="5.0" />
       </children>
          <BorderPane.margin>

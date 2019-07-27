@@ -22,16 +22,14 @@ import me.heitx.maserow.common.model.Quest;
 import me.heitx.maserow.common.ui.LayoutUtil;
 import me.heitx.maserow.common.Updateable;
 import me.heitx.maserow.common.utils.ConverterUtil;
+import me.heitx.maserow.common.utils.JavafxUtil;
 import me.heitx.maserow.common.utils.MoneyUtil;
 import me.heitx.maserow.common.utils.Queries;
 import org.controlsfx.control.CheckComboBox;
 
 import java.io.File;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class QuestEditorController implements Initializable, Updateable {
 	// Buttons
@@ -336,8 +334,14 @@ public class QuestEditorController implements Initializable, Updateable {
 			labelChoiceId5.setText(String.valueOf(quest.getRewardChoiceItemId5()));
 			labelChoiceQuantity6.setText(String.valueOf(quest.getRewardChoiceItemQuantity6()));
 			labelChoiceId6.setText(String.valueOf(quest.getRewardChoiceItemId6()));
-			setMoneyTextfields(MoneyUtil.totalToGSC(quest.getRewardMoney()), tfRewardGold, tfRewardSilver, tfRewardCopper);
-			setMoneyTextfields(MoneyUtil.totalToGSC(quest.getRewardBonusMoney()), tfRewardMaxGold, tfRewardMaxSilver, tfRewardMaxCopper);
+
+			Set<Control> moneyRewardCtls = new HashSet<>(Arrays.asList(tfRewardGold, tfRewardSilver, tfRewardCopper));
+			Set<Control> moneyMaxRewardCtls = new HashSet<>(Arrays.asList(tfRewardMaxGold, tfRewardMaxSilver, tfRewardMaxCopper));
+			Collection<Long> moneyReward = MoneyUtil.totalToGSC(quest.getRewardMoney());
+			Collection<Long> moneyMaxReward = MoneyUtil.totalToGSC(quest.getRewardBonusMoney());
+			JavafxUtil.assignValuesToTextfields(moneyRewardCtls, moneyReward);
+			JavafxUtil.assignValuesToTextfields(moneyMaxRewardCtls, moneyMaxReward);
+
 			tfExperienceDifficulty.setText(String.valueOf(quest.getRewardXPDifficulty()));
 			labelRewardQuantity1.setText(String.valueOf(quest.getRewardAmount1()));
 			labelRewardId1.setText(String.valueOf(quest.getRewardItem1()));
@@ -431,12 +435,6 @@ public class QuestEditorController implements Initializable, Updateable {
 			quest.setObjectiveText3(tfObjectiveText3.getText());
 			quest.setObjectiveText4(tfObjectiveText4.getText());
 		}
-	}
-
-	private void setMoneyTextfields(long[] money, TextField gold, TextField silver, TextField copper) {
-		gold.setText(String.valueOf(money[0]));
-		silver.setText(String.valueOf(money[1]));
-		copper.setText(String.valueOf(money[2]));
 	}
 
 	private void setMouseClickOnHBoxShowPopup(HBox owner, Label currId, Label currQuantity) {

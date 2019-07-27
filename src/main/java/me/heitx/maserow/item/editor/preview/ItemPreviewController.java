@@ -113,6 +113,8 @@ public class ItemPreviewController implements Initializable, Updateable {
 
 	public void setItem(Item item) {
 		this.item = item;
+
+		update();
 	}
 
 	private float calculateDPS() {

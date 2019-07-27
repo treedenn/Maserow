@@ -2,6 +2,7 @@ package me.heitx.maserow.item;
 
 import javafx.scene.Parent;
 import javafx.util.Pair;
+import me.heitx.maserow.common.model.Item;
 import me.heitx.maserow.common.ui.LayoutUtil;
 import me.heitx.maserow.common.ui.SideElement;
 import me.heitx.maserow.common.services.ISidebar;
@@ -56,9 +57,11 @@ public class ItemSidebarPlugin implements ISidebarPlugin {
 			searchController = layout.getValue();
 
 			searchController.setDoubleClickRowCallback(item -> {
-				onEditorAction(controller);
+				loadOrUpdateEditor(null);
 				editorController.setItem(item);
 				sidebar.setSelected(editor);
+
+				controller.setContent(editorParent);
 			});
 		} else {
 			searchController.update();
@@ -68,14 +71,19 @@ public class ItemSidebarPlugin implements ISidebarPlugin {
 	}
 
 	private void onEditorAction(MainPageController controller) {
+		loadOrUpdateEditor(new Item());
+		controller.setContent(editorParent);
+	}
+
+	private void loadOrUpdateEditor(Item item) {
 		if(editorParent == null && editorController == null) {
 			Pair<Parent, ItemEditorController> layout = LayoutUtil.loadLayout(ItemEditorController.class, "itemeditor.fxml");
 			editorParent = layout.getKey();
 			editorController = layout.getValue();
+			if(item != null) editorController.setItem(item);
 		} else {
 //			editorController.update();
 		}
 
-		controller.setContent(editorParent);
 	}
 }
