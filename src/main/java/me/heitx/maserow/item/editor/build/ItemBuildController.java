@@ -3,31 +3,39 @@ package me.heitx.maserow.item.editor.build;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
+import me.heitx.maserow.common.io.DelimiterReader;
+import me.heitx.maserow.common.io.ICSV;
+import me.heitx.maserow.common.io.Identifier;
+import me.heitx.maserow.common.lookup.LookupManager;
 import me.heitx.maserow.common.model.Item;
-import me.heitx.maserow.common.ui.ButtonedTextField;
 import me.heitx.maserow.common.utils.JavafxUtil;
 import me.heitx.maserow.common.utils.MoneyUtil;
 import me.heitx.maserow.item.editor.preview.ItemPreviewController;
 
+import java.io.File;
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ItemBuildController implements Initializable {
     @FXML private TitledPane tpGeneral;
     @FXML private TextField tfEntry;
     @FXML private TextField tfDisplayID;
-    @FXML private ButtonedTextField tfQuality;
+    @FXML private TextField tfQuality;
+    @FXML private Button btnQualityLookup;
     @FXML private TextField tfName;
     @FXML private TextField tfDescription;
 
     @FXML private TextField tfClass;
+    @FXML private Button btnClassLookup;
     @FXML private TextField tfSheath;
+    @FXML private Button btnSheathLookup;
     @FXML private TextField tfItemLevel;
     @FXML private TextField tfBonding;
+    @FXML private Button btnBondingLookup;
     @FXML private TextField tfSubclass;
+    @FXML private Button btnSubclassLookup;
     @FXML private TextField tfInventory;
+    @FXML private Button btnInventoryLookup;
     @FXML private TextField tfItemSet;
 
     @FXML private TextField tfSellGold;
@@ -168,6 +176,8 @@ public class ItemBuildController implements Initializable {
     @FXML private RadioButton rbSocketPrismatic3;
     @FXML private ChoiceBox<?> cbSocketBonus;
 
+    private final String csvPath = ICSV.CSV_FOLDER_NAME + File.separator + "item" + File.separator;
+
     private ItemPreviewController previewController;
     private Item item;
 
@@ -195,7 +205,7 @@ public class ItemBuildController implements Initializable {
         for (RadioButton socket : blueSockets) { socketValues.put(socket, 8); }
         for (RadioButton socket : prisSockets) { socketValues.put(socket, 14); }
 
-        initaliseEventListeners();
+        initialiseEvents();
     }
 
     public void setPreviewController(ItemPreviewController previewController) {
@@ -218,19 +228,100 @@ public class ItemBuildController implements Initializable {
         updateSocketsLayout();
     }
 
-    // // {22 Jul 2019 19:17} Heitx - TODO: Create a new component for textfields with a button beside it.
+    private void initialiseEvents() {
+        Set<TextField> general = new HashSet<>(Arrays.asList(tfEntry, tfDisplayID, tfQuality, tfName, tfDescription));
 
-    private void initaliseEventListeners() {
-        Set<Control> general = new HashSet<>(Arrays.asList(tfEntry, tfDisplayID, tfQuality.getTextField(), tfName, tfDescription));
-
-        for(Control control : general) {
-            control.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+        for(TextField tf : general) {
+            tf.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if(aBoolean && !t1) {
-                    updateGeneralAttributes();
-                    previewController.update();
+                    if(!tf.getText().isEmpty()) {
+                        updateGeneralAttributes();
+                        previewController.update();
+                    }
                 }
             });
         }
+
+        btnQualityLookup.setOnAction(event -> {
+            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_quality", true, false);
+            Integer selected = Integer.valueOf(tfQuality.getText());
+
+            LookupManager lm = LookupManager.getInstance();
+            lm.showSingleLookup("Item Quality", "Item Building - Quality", true,
+                    identifiers, selected, aLong -> {
+                        item.setQuality(Math.toIntExact(aLong));
+                        tfQuality.setText(String.valueOf(aLong));
+                        previewController.update();
+                    });
+        });
+
+        btnClassLookup.setOnAction(event -> {
+            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_classes", true, false);
+            Integer selected = Integer.valueOf(tfClass.getText());
+
+            LookupManager lm = LookupManager.getInstance();
+            lm.showSingleLookup("Item Class", "Item Building - Class", true,
+                    identifiers, selected, aLong -> {
+                        tfSubclass.setText("0");
+                        item.setSubclass(0);
+                        item.setClazz(Math.toIntExact(aLong));
+                        tfClass.setText(String.valueOf(aLong));
+                        previewController.update();
+                    });
+        });
+
+        btnSubclassLookup.setOnAction(event -> {
+            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_subclasses" + File.separator +
+                    "item_subclass_" + String.format("%02d", Integer.valueOf(tfClass.getText())), true, true);
+            Integer selected = Integer.valueOf(tfSubclass.getText());
+
+            LookupManager lm = LookupManager.getInstance();
+            lm.showSingleLookup("Item Subclass", "Item Building - Subclass", false,
+                    identifiers, selected, aLong -> {
+                        item.setSubclass(Math.toIntExact(aLong));
+                        tfSubclass.setText(String.valueOf(aLong));
+                        previewController.update();
+                    });
+        });
+
+        btnSheathLookup.setOnAction(event -> {
+            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_sheath", true, false);
+            Integer selected = Integer.valueOf(tfSheath.getText());
+
+            LookupManager lm = LookupManager.getInstance();
+            lm.showSingleLookup("Item Sheath", "Item Building - Sheath", true,
+                    identifiers, selected, aLong -> {
+                        item.setSheath(Math.toIntExact(aLong));
+                        tfSheath.setText(String.valueOf(aLong));
+                        previewController.update();
+                    });
+        });
+
+        btnBondingLookup.setOnAction(event -> {
+            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_bonding", true, false);
+            Integer selected = Integer.valueOf(tfBonding.getText());
+
+            LookupManager lm = LookupManager.getInstance();
+            lm.showSingleLookup("Item Bonding", "Item Building - Bonding", true,
+                    identifiers, selected, aLong -> {
+                        item.setBonding(Math.toIntExact(aLong));
+                        tfBonding.setText(String.valueOf(aLong));
+                        previewController.update();
+                    });
+        });
+
+        btnInventoryLookup.setOnAction(event -> {
+            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_inventory_type", true, false);
+            Integer selected = Integer.valueOf(tfInventory.getText());
+
+            LookupManager lm = LookupManager.getInstance();
+            lm.showSingleLookup("Item Subclass", "Item Building - Subclass", true,
+                    identifiers, selected, aLong -> {
+                        item.setInventoryType(Math.toIntExact(aLong));
+                        tfInventory.setText(String.valueOf(aLong));
+                        previewController.update();
+                    });
+        });
     }
 
     // ********************
@@ -240,7 +331,7 @@ public class ItemBuildController implements Initializable {
     private void updateGeneralLayout() {
         tfEntry.setText(String.valueOf(item.getEntry()));
         tfDisplayID.setText(String.valueOf(item.getDisplayId()));
-        tfQuality.getTextField().setText(String.valueOf(item.getQuality()));
+        tfQuality.setText(String.valueOf(item.getQuality()));
         tfName.setText(item.getName());
         tfDescription.setText(item.getDescription());
     }
@@ -248,7 +339,7 @@ public class ItemBuildController implements Initializable {
     private void updateGeneralAttributes() {
         item.setEntry(Integer.parseInt(tfEntry.getText()));
         item.setDisplayId(Integer.parseInt(tfDisplayID.getText()));
-        item.setQuality(Integer.parseInt(tfQuality.getTextField().getText()));
+        item.setQuality(Integer.parseInt(tfQuality.getText()));
         item.setName(tfName.getText());
         item.setDescription(tfDescription.getText());
     }
@@ -268,7 +359,7 @@ public class ItemBuildController implements Initializable {
         tfMaxCount.setText(String.valueOf(item.getMaxCount()));
     }
 
-    private void updateEquipmentttributes() {
+    private void updateEquipmenAttributes() {
         item.setClazz(Integer.parseInt(tfClass.getText()));
         item.setSheath(Integer.parseInt(tfSheath.getText()));
         item.setItemLevel(Integer.parseInt(tfItemLevel.getText()));

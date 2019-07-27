@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -16,9 +17,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import me.heitx.maserow.common.ui.ButtonedTextField?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import org.kordamp.ikonli.javafx.StackedFontIcon?>
 
-<VBox spacing="5.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.item.editor.build.ItemBuildController">
+<VBox spacing="5.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow.item.editor.build.ItemBuildController">
    <children>
       <HBox>
          <children>
@@ -50,12 +52,25 @@
                                     <TextField fx:id="tfName" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" />
                                     <Label text="Description:" GridPane.rowIndex="1" />
                                     <TextField fx:id="tfDescription" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
-                                    <ButtonedTextField fx:id="tfQuality" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <HBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                       <children>
+                                          <TextField fx:id="tfQuality" />
+                                          <Button fx:id="btnQualityLookup" mnemonicParsing="false">
+                                             <graphic>
+                                                <StackedFontIcon>
+                                                   <children>
+                                                      <FontIcon iconLiteral="mdi-chevron-double-right" />
+                                                   </children>
+                                                </StackedFontIcon>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                  </children>
                               </GridPane>
                            </content>
                         </TitledPane>
-                        <TitledPane animated="false" expanded="false" text="Equipment">
+                        <TitledPane animated="false" text="Equipment">
                            <content>
                               <GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" vgap="5.0">
                                  <columnConstraints>
@@ -72,17 +87,82 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Class:" />
-                                    <TextField fx:id="tfClass" GridPane.columnIndex="1" />
+                                    <HBox alignment="CENTER" GridPane.columnIndex="1">
+                                       <children>
+                                          <TextField fx:id="tfClass" />
+                                          <Button fx:id="btnClassLookup" mnemonicParsing="false">
+                                             <graphic>
+                                                <StackedFontIcon>
+                                                   <children>
+                                                      <FontIcon iconLiteral="mdi-chevron-double-right" />
+                                                   </children>
+                                                </StackedFontIcon>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                     <Label text="Req Level:" GridPane.rowIndex="3" />
-                                    <TextField fx:id="tfSheath" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <children>
+                                          <TextField fx:id="tfSheath" />
+                                          <Button fx:id="btnSheathLookup" mnemonicParsing="false">
+                                             <graphic>
+                                                <StackedFontIcon>
+                                                   <children>
+                                                      <FontIcon iconLiteral="mdi-chevron-double-right" />
+                                                   </children>
+                                                </StackedFontIcon>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                     <Label text="Item Level:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                                     <TextField fx:id="tfItemLevel" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                                     <Label text="Subclass:" GridPane.rowIndex="1" />
-                                    <TextField fx:id="tfBonding" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" />
+                                    <HBox alignment="CENTER" GridPane.columnIndex="3" GridPane.columnSpan="2147483647">
+                                       <children>
+                                          <TextField fx:id="tfBonding" />
+                                          <Button fx:id="btnBondingLookup" mnemonicParsing="false">
+                                             <graphic>
+                                                <StackedFontIcon>
+                                                   <children>
+                                                      <FontIcon iconLiteral="mdi-chevron-double-right" />
+                                                   </children>
+                                                </StackedFontIcon>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                     <Label text="Inventory:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                    <TextField fx:id="tfSubclass" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <TextField fx:id="tfSubclass" />
+                                          <Button fx:id="btnSubclassLookup" mnemonicParsing="false">
+                                             <graphic>
+                                                <StackedFontIcon>
+                                                   <children>
+                                                      <FontIcon iconLiteral="mdi-chevron-double-right" />
+                                                   </children>
+                                                </StackedFontIcon>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                     <Label text="Bonding:" GridPane.columnIndex="2" />
-                                    <TextField fx:id="tfInventory" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <HBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <children>
+                                          <TextField fx:id="tfInventory" />
+                                          <Button fx:id="btnInventoryLookup" mnemonicParsing="false">
+                                             <graphic>
+                                                <StackedFontIcon>
+                                                   <children>
+                                                      <FontIcon iconLiteral="mdi-chevron-double-right" />
+                                                   </children>
+                                                </StackedFontIcon>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                     <Label text="Sheath:" GridPane.rowIndex="2" />
                                     <TextField fx:id="tfReqLevel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label text="Item Set:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
@@ -115,7 +195,7 @@
                                           <TextField fx:id="tfSellGold" prefWidth="60.0" text="0" HBox.hgrow="ALWAYS" />
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="currency/money-gold.png" />
+                                                <Image url="@/currency/money-gold.png" />
                                              </image>
                                           </ImageView>
                                           <TextField fx:id="tfSellSilver" prefWidth="42.0" text="0" />
@@ -137,7 +217,7 @@
                                           <TextField fx:id="tfBuyGold" prefWidth="60.0" text="0" HBox.hgrow="ALWAYS" />
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="currency/money-gold.png" />
+                                                <Image url="@/currency/money-gold.png" />
                                              </image>
                                           </ImageView>
                                           <TextField fx:id="tfBuySilver" prefWidth="42.0" text="0" />
@@ -503,32 +583,32 @@
                                  <children>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                                        <image>
-                                          <Image url="socket/none.png" />
+                                          <Image url="@/socket/none.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                                        <image>
-                                          <Image url="socket/meta.png" />
+                                          <Image url="@/socket/meta.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                                        <image>
-                                          <Image url="socket/red.png" />
+                                          <Image url="@/socket/red.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                                        <image>
-                                          <Image url="socket/yellow.png" />
+                                          <Image url="@/socket/yellow.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                                        <image>
-                                          <Image url="socket/blue.png" />
+                                          <Image url="@/socket/blue.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
                                        <image>
-                                          <Image url="socket/prismatic.png" />
+                                          <Image url="@/socket/prismatic.png" />
                                        </image>
                                     </ImageView>
                                     <Label text="Socket 1:" GridPane.rowIndex="1" />
