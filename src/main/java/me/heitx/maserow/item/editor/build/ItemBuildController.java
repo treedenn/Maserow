@@ -1,5 +1,6 @@
 package me.heitx.maserow.item.editor.build;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -242,86 +243,13 @@ public class ItemBuildController implements Initializable {
             });
         }
 
-        btnQualityLookup.setOnAction(event -> {
-            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_quality", true, false);
-            Integer selected = Integer.valueOf(tfQuality.getText());
 
-            LookupManager lm = LookupManager.getInstance();
-            lm.showSingleLookup("Item Quality", "Item Building - Quality", true,
-                    identifiers, selected, aLong -> {
-                        item.setQuality(Math.toIntExact(aLong));
-                        tfQuality.setText(String.valueOf(aLong));
-                        previewController.update();
-                    });
-        });
-
-        btnClassLookup.setOnAction(event -> {
-            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_classes", true, false);
-            Integer selected = Integer.valueOf(tfClass.getText());
-
-            LookupManager lm = LookupManager.getInstance();
-            lm.showSingleLookup("Item Class", "Item Building - Class", true,
-                    identifiers, selected, aLong -> {
-                        tfSubclass.setText("0");
-                        item.setSubclass(0);
-                        item.setClazz(Math.toIntExact(aLong));
-                        tfClass.setText(String.valueOf(aLong));
-                        previewController.update();
-                    });
-        });
-
-        btnSubclassLookup.setOnAction(event -> {
-            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_subclasses" + File.separator +
-                    "item_subclass_" + String.format("%02d", Integer.valueOf(tfClass.getText())), true, true);
-            Integer selected = Integer.valueOf(tfSubclass.getText());
-
-            LookupManager lm = LookupManager.getInstance();
-            lm.showSingleLookup("Item Subclass", "Item Building - Subclass", false,
-                    identifiers, selected, aLong -> {
-                        item.setSubclass(Math.toIntExact(aLong));
-                        tfSubclass.setText(String.valueOf(aLong));
-                        previewController.update();
-                    });
-        });
-
-        btnSheathLookup.setOnAction(event -> {
-            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_sheath", true, false);
-            Integer selected = Integer.valueOf(tfSheath.getText());
-
-            LookupManager lm = LookupManager.getInstance();
-            lm.showSingleLookup("Item Sheath", "Item Building - Sheath", true,
-                    identifiers, selected, aLong -> {
-                        item.setSheath(Math.toIntExact(aLong));
-                        tfSheath.setText(String.valueOf(aLong));
-                        previewController.update();
-                    });
-        });
-
-        btnBondingLookup.setOnAction(event -> {
-            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_bonding", true, false);
-            Integer selected = Integer.valueOf(tfBonding.getText());
-
-            LookupManager lm = LookupManager.getInstance();
-            lm.showSingleLookup("Item Bonding", "Item Building - Bonding", true,
-                    identifiers, selected, aLong -> {
-                        item.setBonding(Math.toIntExact(aLong));
-                        tfBonding.setText(String.valueOf(aLong));
-                        previewController.update();
-                    });
-        });
-
-        btnInventoryLookup.setOnAction(event -> {
-            List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_inventory_type", true, false);
-            Integer selected = Integer.valueOf(tfInventory.getText());
-
-            LookupManager lm = LookupManager.getInstance();
-            lm.showSingleLookup("Item Subclass", "Item Building - Subclass", true,
-                    identifiers, selected, aLong -> {
-                        item.setInventoryType(Math.toIntExact(aLong));
-                        tfInventory.setText(String.valueOf(aLong));
-                        previewController.update();
-                    });
-        });
+        btnQualityLookup.setOnAction(this::handleQualityLookupAction);
+        btnClassLookup.setOnAction(this::handleClassLookupAction);
+        btnSubclassLookup.setOnAction(this::handleSubclassLookupAction);
+        btnSheathLookup.setOnAction(this::handleSheathLookupAction);
+        btnBondingLookup.setOnAction(this::handleBondingLookupAction);
+        btnInventoryLookup.setOnAction(this::handleInventoryLookupAction);
     }
 
     // ********************
@@ -713,5 +641,92 @@ public class ItemBuildController implements Initializable {
 //        item.setSocketColor_3();
 //        item.setSocketBonus();
     }
+
+    // ********************
+    // LOOKUPS
+    //*********************
+
+    private void handleQualityLookupAction(ActionEvent event) {
+        List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_quality", true, false);
+        Integer selected = Integer.valueOf(tfQuality.getText());
+
+        LookupManager lm = LookupManager.getInstance();
+        lm.showSingleLookup("Item Quality", "Item Building - Quality", true,
+                identifiers, selected, aLong -> {
+                    item.setQuality(Math.toIntExact(aLong));
+                    tfQuality.setText(String.valueOf(aLong));
+                    previewController.update();
+                });
+    }
+
+    private void handleClassLookupAction(ActionEvent event) {
+        List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_classes", true, false);
+        Integer selected = Integer.valueOf(tfClass.getText());
+
+        LookupManager lm = LookupManager.getInstance();
+        lm.showSingleLookup("Item Class", "Item Building - Class", true,
+                identifiers, selected, aLong -> {
+                    item.setClazz(Math.toIntExact(aLong));
+                    tfClass.setText(String.valueOf(aLong));
+                    // reset subclass
+                    tfSubclass.setText("0");
+                    item.setSubclass(0);
+                    previewController.update();
+                });
+    }
+
+    private void handleSubclassLookupAction(ActionEvent event) {
+        List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_subclasses" + File.separator +
+                "item_subclass_" + String.format("%02d", Integer.valueOf(tfClass.getText())), true, true);
+        Integer selected = Integer.valueOf(tfSubclass.getText());
+
+        LookupManager lm = LookupManager.getInstance();
+        lm.showSingleLookup("Item Subclass", "Item Building - Subclass", false,
+                identifiers, selected, aLong -> {
+                    item.setSubclass(Math.toIntExact(aLong));
+                    tfSubclass.setText(String.valueOf(aLong));
+                    previewController.update();
+                });
+    }
+
+    private void handleSheathLookupAction(ActionEvent event) {
+        List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_sheath", true, false);
+        Integer selected = Integer.valueOf(tfSheath.getText());
+
+        LookupManager lm = LookupManager.getInstance();
+        lm.showSingleLookup("Item Sheath", "Item Building - Sheath", true,
+                identifiers, selected, aLong -> {
+                    item.setSheath(Math.toIntExact(aLong));
+                    tfSheath.setText(String.valueOf(aLong));
+                    previewController.update();
+                });
+    }
+
+    private void handleBondingLookupAction(ActionEvent event) {
+        List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_bonding", true, false);
+        Integer selected = Integer.valueOf(tfBonding.getText());
+
+        LookupManager lm = LookupManager.getInstance();
+        lm.showSingleLookup("Item Bonding", "Item Building - Bonding", true,
+                identifiers, selected, aLong -> {
+                    item.setBonding(Math.toIntExact(aLong));
+                    tfBonding.setText(String.valueOf(aLong));
+                    previewController.update();
+                });
+    }
+
+    private void handleInventoryLookupAction(ActionEvent event) {
+        List<Identifier> identifiers = DelimiterReader.readColumns(csvPath + "item_inventory_type", true, false);
+        Integer selected = Integer.valueOf(tfInventory.getText());
+
+        LookupManager lm = LookupManager.getInstance();
+        lm.showSingleLookup("Item Subclass", "Item Building - Subclass", true,
+                identifiers, selected, aLong -> {
+                    item.setInventoryType(Math.toIntExact(aLong));
+                    tfInventory.setText(String.valueOf(aLong));
+                    previewController.update();
+                });
+    }
+
 }
 
