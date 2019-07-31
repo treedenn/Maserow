@@ -53,6 +53,15 @@ public class TableViewMultiController implements Initializable {
 			return property;
 		});
 
+		// simple validation
+		tfBitmask.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if(!newValue) { // when focus lost
+				if(!tfBitmask.getText().matches("^\\d+$")) {
+					tfBitmask.setText("0");
+				}
+			}
+		});
+
 		btnConvert.setOnAction(this::handleConvertAction);
 
 		tvTable.setRowFactory(this::handleRowMouseClick);
