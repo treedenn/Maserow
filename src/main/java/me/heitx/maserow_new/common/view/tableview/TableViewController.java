@@ -1,4 +1,4 @@
-package me.heitx.maserow_new.common.views.tableview;
+package me.heitx.maserow_new.common.view.tableview;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

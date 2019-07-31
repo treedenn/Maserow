@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 
-<StackPane fx:id="spRoot" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow_new.common.views.tableview_textarea.TableViewTextAreaController">
+<StackPane fx:id="spRoot" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow_new.common.view.tableview_textarea.TableViewTextAreaController">
    <children>
       <SplitPane dividerPositions="0.5">
          <items>

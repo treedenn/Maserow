@@ -1,24 +1,18 @@
 package me.heitx.maserow_new.core.mainpage;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
-import me.heitx.maserow_new.common.services.ITablePlugin;
+import me.heitx.maserow_new.common.service.ITablePlugin;
 import org.kordamp.ikonli.javafx.StackedFontIcon;
 import org.kordamp.ikonli.material.Material;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -53,8 +47,8 @@ public class MainPageController implements Initializable {
 		breadcrumbs.add(previous);
 	}
 
-	public void setContent(Region next) {
-		bpRoot.setCenter(next);
+	public void setContent(Region region) {
+		bpRoot.setCenter(region);
 	}
 
 	public void setContent(Region current, Region next) {

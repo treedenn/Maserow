@@ -1,4 +1,4 @@
-package me.heitx.maserow_new.common.services;
+package me.heitx.maserow_new.common.service;
 
 import javafx.scene.control.Button;
 import me.heitx.maserow_new.core.mainpage.MainPageController;

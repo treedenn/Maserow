@@ -1,4 +1,4 @@
-package me.heitx.maserow_new.common.views.tableview_textarea;
+package me.heitx.maserow_new.common.view.tableview_textarea;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
