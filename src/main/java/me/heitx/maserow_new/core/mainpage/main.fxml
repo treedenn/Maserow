@@ -6,9 +6,9 @@
 
 <BorderPane fx:id="bpRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow_new.core.mainpage.MainPageController">
    <center>
-      <ScrollPane fx:id="spTableNames" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="spCenter" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" BorderPane.alignment="CENTER">
          <content>
-            <TilePane fx:id="tpTableNames" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefColumns="8" prefRows="14" tileAlignment="TOP_LEFT" />
+            <TilePane fx:id="tpMenu" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefColumns="8" prefRows="14" tileAlignment="TOP_LEFT" />
          </content>
       </ScrollPane>
    </center>

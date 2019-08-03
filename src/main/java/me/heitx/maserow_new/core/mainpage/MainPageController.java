@@ -18,8 +18,8 @@ import java.util.*;
 
 public class MainPageController implements Initializable {
 	@FXML private BorderPane bpRoot;
-	@FXML private ScrollPane spTableNames;
-	@FXML private TilePane tpTableNames;
+	@FXML private ScrollPane spCenter;
+	@FXML private TilePane tpMenu;
 
 	private Stack<Region> breadcrumbs;
 
@@ -31,16 +31,12 @@ public class MainPageController implements Initializable {
 		tables = new HashMap<>();
 
 		loadPlugins();
-
-
-
-//		loadTables();
 	}
 
-	public void addTable(Button button) {
+	public void addMenu(Button button) {
 		addBackButtonHandler(button);
 		button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		tpTableNames.getChildren().add(button);
+		tpMenu.getChildren().add(button);
 	}
 
 	public void addToBreadcrumbs(Region previous) {
@@ -79,7 +75,7 @@ public class MainPageController implements Initializable {
 			// if breadcrumbs is empty, set default otherwise pop.
 			backButton.setOnAction(event1 -> {
 				if(breadcrumbs.empty()) {
-					bpRoot.setCenter(tpTableNames);
+					bpRoot.setCenter(tpMenu);
 					bpRoot.setLeft(null);
 				} else {
 					Region pop = breadcrumbs.pop();

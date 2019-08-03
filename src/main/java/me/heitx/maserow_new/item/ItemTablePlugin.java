@@ -22,7 +22,7 @@ public class ItemTablePlugin implements ITablePlugin {
 		Button btnItemTemplate = new Button("item___template");
 		btnItemTemplate.setOnAction(this::handleItemTemplateAction);
 
-		mainPageController.addTable(btnItemTemplate);
+		mainPageController.addMenu(btnItemTemplate);
 	}
 
 	private void handleItemTemplateAction(ActionEvent event) {

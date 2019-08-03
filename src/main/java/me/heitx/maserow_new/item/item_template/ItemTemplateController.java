@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 public class ItemTemplateController {
-	private final String csvItemFolder = CSVPath.ITEM;
-
 	private TilePane container;
 	private Button btnClassSubclass;
 	private Button btnStatType;
@@ -26,6 +24,8 @@ public class ItemTemplateController {
 	private Button btnFlagsExtra;
 	private Button btnFlagsCustom;
 	private Button btnInventoryType;
+	private Button btnClasses;
+	private Button btnRaces;
 	private Button btnQuality;
 	private Button btnSpellTrigger;
 	private Button btnBonding;
@@ -44,26 +44,28 @@ public class ItemTemplateController {
 
 		container = new TilePane();
 		btnClassSubclass = new Button("class + subclass");
+		btnQuality = new Button("quality");
 		btnStatType = new Button("stat type");
 		btnFlags = new Button("flags");
 		btnFlagsExtra = new Button("flags extra");
 		btnFlagsCustom = new Button("flags custom");
 		btnInventoryType = new Button("inventory type");
-		btnQuality = new Button("quality");
+		btnClasses = new Button("allowable classes");
+		btnRaces = new Button("allowable races");
 		btnSpellTrigger = new Button("spell trigger");
 		btnBonding = new Button("bonding");
 		btnSheath = new Button("sheath");
 		btnRepRank = new Button("reputation rank");
 		btnMaterial = new Button("material");
-		btnBagFamily = new Button("material");
+		btnBagFamily = new Button("bag family");
 		btnTotemCategory = new Button("totem category");
 		btnSocketColor = new Button("socket color");
 		btnFoodType = new Button("food type");
 
 		handleActions();
 
-		Set<Button> columns = new LinkedHashSet<>(Arrays.asList(btnClassSubclass, btnStatType, btnFlags, btnFlagsExtra, btnFlagsCustom, btnInventoryType, btnQuality,
-				btnSpellTrigger, btnBonding, btnSheath, btnRepRank, btnMaterial, btnBagFamily, btnTotemCategory, btnSocketColor, btnFoodType));
+		Set<Button> columns = new LinkedHashSet<>(Arrays.asList(btnClassSubclass, btnQuality, btnStatType, btnFlags, btnFlagsExtra, btnFlagsCustom, btnInventoryType,
+				btnClasses, btnRaces, btnSpellTrigger, btnBonding, btnSheath, btnRepRank, btnMaterial, btnBagFamily, btnTotemCategory, btnSocketColor, btnFoodType));
 
 		for(Button column : columns) {
 			column.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -81,105 +83,119 @@ public class ItemTemplateController {
 				-> mainPageController.setContent(container, region)));
 
 		btnStatType.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_stat_types", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_stat_types", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnFlags.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_flags", false, true);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_flags", false, true);
 			controller.setTableContent(identifiers);
 			controller.hideColumnId();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnFlagsExtra.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_flags_extra", false, true);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_flags_extra", false, true);
 			controller.setTableContent(identifiers);
 			controller.hideColumnId();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnFlagsCustom.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_flags_custom", false, true);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_flags_custom", false, true);
+			controller.setTableContent(identifiers);
+			controller.hideColumnId();
+			mainPageController.setContent(container, region);
+		}));
+
+		btnClasses.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.COMMON + "classes", true, true);
+			controller.setTableContent(identifiers);
+			controller.hideColumnId();
+			mainPageController.setContent(container, region);
+		}));
+
+		btnRaces.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.COMMON + "races", true, true);
 			controller.setTableContent(identifiers);
 			controller.hideColumnId();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnInventoryType.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_inventory_type", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_inventory_type", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnQuality.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_quality", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_quality", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnSpellTrigger.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_spell_trigger", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_spell_trigger", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnBonding.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_bonding", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_bonding", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnSheath.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_sheath", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_sheath", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnRepRank.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_required_reputation_faction", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_required_reputation_faction", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnMaterial.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_material", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_material", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
 		}));
 
-		btnBagFamily.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_bag_family", true, false);
+		btnBagFamily.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_bag_family", false, true);
 			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
+			controller.hideColumnId();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnTotemCategory.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_totem_category", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_totem_category", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnSocketColor.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_socket_color", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_socket_color", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
 		}));
 
 		btnFoodType.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(csvItemFolder + "item_food_type", true, false);
+			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_food_type", true, false);
 			controller.setTableContent(identifiers);
 			controller.hideColumnValue();
 			mainPageController.setContent(container, region);
