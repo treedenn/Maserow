@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import me.heitx.maserow.mainpage.MainPageController;
+import me.heitx.maserow.views.mainpage.MainPageController;
 
 
 public class Main extends Application {

@@ -20,7 +20,7 @@ public class Config {
 	}
 
 	private Config() {
-		file = new File(Main.jarFile.getParent(), fileName);
+//		file = new File(Main.jarFile.getParent(), fileName);
 		properties = new LinkedProperties();
 
 		for(ConfigKey key : ConfigKey.values()) {
