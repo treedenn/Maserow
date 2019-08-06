@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bpRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow_new.core.mainpage.MainPageController">
+<BorderPane fx:id="bpRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.heitx.maserow_new.core.mainpage.MainPageController">
+   <bottom>
+      <ListView fx:id="lvOpenedFiles" prefHeight="150.0" BorderPane.alignment="CENTER" />
+   </bottom>
    <center>
-      <ScrollPane fx:id="spCenter" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="spCenter" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <content>
-            <TilePane fx:id="tpMenu" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefColumns="8" prefRows="14" tileAlignment="TOP_LEFT" />
-         </content>
-      </ScrollPane>
+            <StackPane>
+               <children>
+                  <Label alignment="CENTER" text="INSTRUCTIONS&#10;You can either double-click on top section or bottom section.&#10;To open a new file, double-click on an empty row or right-click existing one." textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+         </content></ScrollPane>
    </center>
 </BorderPane>

@@ -79,126 +79,126 @@ public class ItemTemplateController {
 	}
 
 	private void handleActions() {
-		btnClassSubclass.setOnAction(event -> JavaFXUtil.loadView(ClassSubclassController.class, "class_subclass.fxml", (region, controller)
-				-> mainPageController.setContent(container, region)));
-
-		btnStatType.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_stat_types", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnFlags.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_flags", false, true);
-			controller.setTableContent(identifiers);
-			controller.hideColumnId();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnFlagsExtra.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_flags_extra", false, true);
-			controller.setTableContent(identifiers);
-			controller.hideColumnId();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnFlagsCustom.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_flags_custom", false, true);
-			controller.setTableContent(identifiers);
-			controller.hideColumnId();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnClasses.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.COMMON + "classes", true, true);
-			controller.setTableContent(identifiers);
-			controller.hideColumnId();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnRaces.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.COMMON + "races", true, true);
-			controller.setTableContent(identifiers);
-			controller.hideColumnId();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnInventoryType.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_inventory_type", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnQuality.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_quality", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnSpellTrigger.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_spell_trigger", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnBonding.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_bonding", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnSheath.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_sheath", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnRepRank.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_required_reputation_faction", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnMaterial.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_material", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnBagFamily.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_bag_family", false, true);
-			controller.setTableContent(identifiers);
-			controller.hideColumnId();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnTotemCategory.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_totem_category", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnSocketColor.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_socket_color", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
-
-		btnFoodType.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
-			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_food_type", true, false);
-			controller.setTableContent(identifiers);
-			controller.hideColumnValue();
-			mainPageController.setContent(container, region);
-		}));
+//		btnClassSubclass.setOnAction(event -> JavaFXUtil.loadView(ClassSubclassController.class, "class_subclass.fxml", (region, controller)
+//				-> mainPageController.setContent(container, region)));
+//
+//		btnStatType.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_stat_types", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnFlags.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_flags", false, true);
+//			controller.setTableContent(identifiers);
+//			controller.hideIdColumn();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnFlagsExtra.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_flags_extra", false, true);
+//			controller.setTableContent(identifiers);
+//			controller.hideIdColumn();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnFlagsCustom.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_flags_custom", false, true);
+//			controller.setTableContent(identifiers);
+//			controller.hideIdColumn();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnClasses.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.COMMON + "classes", true, true);
+//			controller.setTableContent(identifiers);
+//			controller.hideIdColumn();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnRaces.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.COMMON + "races", true, true);
+//			controller.setTableContent(identifiers);
+//			controller.hideIdColumn();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnInventoryType.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_inventory_type", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnQuality.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_quality", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnSpellTrigger.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_spell_trigger", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnBonding.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_bonding", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnSheath.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_sheath", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnRepRank.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_required_reputation_faction", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnMaterial.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_material", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnBagFamily.setOnAction(event -> JavaFXUtil.loadView(TableViewMultiController.class, "tableview_multi.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_bag_family", false, true);
+//			controller.setTableContent(identifiers);
+//			controller.hideIdColumn();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnTotemCategory.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_totem_category", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnSocketColor.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_socket_color", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
+//
+//		btnFoodType.setOnAction(event -> JavaFXUtil.loadView(TableViewController.class, "tableview.fxml", (region, controller) -> {
+//			List<Identifier> identifiers = DelimiterReader.readColumns(CSVPath.ITEM + "item_food_type", true, false);
+//			controller.setTableContent(identifiers);
+//			controller.hideColumnValue();
+//			mainPageController.setContent(container, region);
+//		}));
 	}
 }

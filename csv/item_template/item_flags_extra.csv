@@ -1,3 +1,4 @@
+BITMASK;NAME
 1;Horde Only
 2;Alliance Only
 4;When item uses ExtendedCost in npc_vendor, gold is also required

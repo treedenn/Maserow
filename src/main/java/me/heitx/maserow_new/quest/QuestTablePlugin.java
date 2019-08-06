@@ -22,7 +22,7 @@ public class QuestTablePlugin implements ITablePlugin {
 		Button btnQuestTemplate = new Button("quest___template");
 		btnQuestTemplate.setOnAction(this::handleQuestTemplateAction);
 
-		mainPageController.addMenu(btnQuestTemplate);
+//		mainPageController.addMenu(btnQuestTemplate);
 	}
 
 	private void handleQuestTemplateAction(ActionEvent event) {

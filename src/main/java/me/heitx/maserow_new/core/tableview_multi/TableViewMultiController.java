@@ -1,4 +1,4 @@
-package me.heitx.maserow_new.common.view.tableview_multi;
+package me.heitx.maserow_new.core.tableview_multi;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -10,34 +10,39 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
 import me.heitx.maserow_new.common.io.Identifier;
+import me.heitx.maserow_new.reader.CSVData;
+import me.heitx.maserow_new.reader.CSVFile;
 
 import java.net.URL;
 import java.util.*;
 
 public class TableViewMultiController implements Initializable {
-	@FXML private TableView<Identifier> tvTable;
-	@FXML private TableColumn<Identifier, Integer> tcId;
-	@FXML private TableColumn<Identifier, Long> tcValue;
-	@FXML private TableColumn<Identifier, String> tcName;
-	@FXML private TableColumn<Identifier, Boolean> tcSelected;
+	@FXML private TableView<CSVData> tvTable;
+	@FXML private TableColumn<CSVData, Integer> tcId;
+	@FXML private TableColumn<CSVData, Long> tcBitmask;
+	@FXML private TableColumn<CSVData, String> tcName;
+	@FXML private TableColumn<CSVData, Boolean> tcSelected;
+	@FXML private TableColumn<CSVData, String> tcDescription;
 
+	@FXML private HBox hboxBitmask;
 	@FXML private TextField tfBitmask;
 	@FXML private Button btnConvert;
 
 	@FXML private Label labelStatus;
 
-	private ObservableMap<Identifier, Boolean> selected;
+	private ObservableMap<CSVData, Boolean> selected;
 
-	// {31 Jul 2019 02:21} Heitx - TODO: Create a new object for the data..
-	// {31 Jul 2019 02:42} Heitx - TODO: Maybe rename Identifier to CSVData
+	// {31 Jul 2019 02:21} Heitx - TODO: Create a new object for the selective data.
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		selected = FXCollections.observableHashMap();
 
 		tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tcValue.setCellValueFactory(new PropertyValueFactory<>("value"));
+		tcBitmask.setCellValueFactory(new PropertyValueFactory<>("bitmask"));
 		tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		tcSelected.setCellFactory(CheckBoxTableCell.forTableColumn(tcSelected));
 		tcSelected.setCellValueFactory(param -> {
 			SimpleBooleanProperty property = new SimpleBooleanProperty(selected.get(param.getValue()));
@@ -65,7 +70,7 @@ public class TableViewMultiController implements Initializable {
 
 	private void handleConvertAction(ActionEvent event) {
 		// reset
-		for(Identifier identifier : selected.keySet()) {
+		for(CSVData identifier : selected.keySet()) {
 			selected.put(identifier, false);
 		}
 
@@ -74,29 +79,29 @@ public class TableViewMultiController implements Initializable {
 		convertBitmask();
 	}
 
-	public void setTableContent(Collection<Identifier> identifiers) {
+	public void setTableContent(Collection<CSVData> csvData) {
 		selected.clear();
 
 		// insert
-		for(Identifier identifier : identifiers) {
-			selected.put(identifier, false);
+		for(CSVData data : csvData) {
+			selected.put(data, false);
 		}
 
 		tvTable.getItems().clear();
-		tvTable.getItems().addAll(identifiers);
+		tvTable.getItems().addAll(csvData);
 	}
 
 	// {31 Jul 2019 03:57} Heitx - TODO: Return a list of bitmasks not used.
 	private void convertBitmask() {
 		long l = Long.valueOf(tfBitmask.getText());
 
-		List<Identifier> items = new ArrayList<>(tvTable.getItems());
+		List<CSVData> items = new ArrayList<>(tvTable.getItems());
 		Collections.reverse(items);
 
-		for(Identifier item : items) {
-			if(item.getValue() <= l) {
+		for(CSVData item : items) {
+			if(item.getBitmask() <= l) {
 				selected.put(item, true);
-				l -= item.getValue();
+				l -= item.getBitmask();
 			}
 
 			if(l == 0) break;
@@ -106,35 +111,50 @@ public class TableViewMultiController implements Initializable {
 	private long calculateBitmask() {
 		long l = 0;
 
-		for(Map.Entry<Identifier, Boolean> entry : selected.entrySet()) {
+		for(Map.Entry<CSVData, Boolean> entry : selected.entrySet()) {
 			if(entry.getValue()) {
-				l += entry.getKey().getValue();
+				l += entry.getKey().getBitmask();
 			}
 		}
 		
 		return l;
 	}
 
-	public void hideColumnId() {
+	public void hideIdColumn() {
 		tcId.setVisible(false);
 	}
 
-	public void hideColumnValue() {
-		tcValue.setVisible(false);
+	public void hideBitmaskColumns() {
+		tcBitmask.setVisible(false);
+		tcSelected.setVisible(false);
 	}
 
-	private TableRow<Identifier> handleRowMouseClick(TableView<Identifier> tv) {
-		TableRow<Identifier> row = new TableRow<>();
-		row.setOnMouseClicked(event -> {
-			if(!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-				Identifier item = row.getTableView().getSelectionModel().getSelectedItem();
-				selected.put(item, !selected.get(item));
+	public void hideBitmaskElements() {
+		hboxBitmask.setVisible(false);
+		hboxBitmask.setManaged(false);
+		labelStatus.setVisible(false);
+		labelStatus.setManaged(false);
+	}
 
-				refreshSelections();
+	public void hideDescriptionColumn() {
+		tcDescription.setVisible(false);
+	}
 
-				tfBitmask.setText(String.valueOf(calculateBitmask()));
-			}
-		});
+	private TableRow<CSVData> handleRowMouseClick(TableView<CSVData> tv) {
+		TableRow<CSVData> row = new TableRow<>();
+
+		if(tcSelected.isVisible()) {
+			row.setOnMouseClicked(event -> {
+				if(!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+					CSVData item = row.getTableView().getSelectionModel().getSelectedItem();
+					selected.put(item, !selected.get(item));
+
+					refreshSelections();
+
+					tfBitmask.setText(String.valueOf(calculateBitmask()));
+				}
+			});
+		}
 
 		return row;
 	}
