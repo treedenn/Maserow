@@ -1,4 +1,4 @@
-package me.heitx.maserow_new.reader;
+package me.heitx.maserow.reader;
 
 import lombok.Getter;
 

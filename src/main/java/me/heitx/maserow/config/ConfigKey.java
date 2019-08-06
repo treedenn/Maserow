@@ -1,4 +1,4 @@
-package me.heitx.maserow_new.common.io.config;
+package me.heitx.maserow.config;
 
 public enum ConfigKey {
 	HOSTNAME("db-hostname", "127.0.0.1"),

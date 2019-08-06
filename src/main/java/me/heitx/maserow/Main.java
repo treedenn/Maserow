@@ -1,15 +1,11 @@
-package me.heitx.maserow_new;
+package me.heitx.maserow;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
-import me.heitx.maserow_new.core.mainpage.MainPageController;
+import me.heitx.maserow.mainpage.MainPageController;
 
 
 public class Main extends Application {

@@ -1,4 +1,4 @@
-package me.heitx.maserow_new.common.io.config;
+package me.heitx.maserow.config;
 
 import java.util.*;
 
