@@ -181,13 +181,13 @@ public class MainPageController implements Initializable {
 
 			controller.setTableContent(file.getData());
 
-			if(file.containsId() && file.containsBitmask()) {
-				// .. no idea..
-			} else if(file.containsId()) {
+			if(!file.containsId()) {
+				controller.hideIdColumn();
+			}
+
+			if(!file.containsBitmask()) {
 				controller.hideBitmaskColumns();
 				controller.hideBitmaskElements();
-			} else if(file.containsBitmask()) {
-				controller.hideIdColumn();
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
