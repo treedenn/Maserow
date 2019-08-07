@@ -27,122 +27,151 @@ public class MainPageController implements Initializable {
 	private CSVFile openedFile;
 
 	// TEST PURPOSES
-	private final File startDirectory = new File("C:\\Users\\Denni\\IdeaProjects\\Maserow\\csv\\item_template");
+	private final File startDirectory = new File("C:\\Users\\Denni\\IdeaProjects\\Maserow\\csv\\world\\item_template");
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		views = new HashMap<>();
 
-		spCenter.setOnMouseClicked(event -> {
-			if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-				addFile();
-			}
-		});
-
-		lvOpenedFiles.setOnMouseClicked(event -> {
-			if(lvOpenedFiles.getItems().size() == 0 && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-				addFile();
-			}
-		});
-
-		lvOpenedFiles.setCellFactory(param -> {
-			ListCell<CSVFile> cell = new ListCell<CSVFile>() {
-				@Override
-				protected void updateItem(CSVFile item, boolean empty) {
-					super.updateItem(item, empty);
-
-					if(item != null && !empty) {
-						setText(item.getFile().getParentFile().getName() + " > " + item.getFile().getName());
-					} else {
-						setText("");
-					}
-				}
-			};
-
-			cell.setOnMouseClicked(event -> onListCellMouseClick(event, cell));
-
-			return cell;
-		});
+		spCenter.setOnMouseClicked(this::onScrollPaneMouseClick);
+		lvOpenedFiles.setOnMouseClicked(this::onListViewMouseClick);
+		lvOpenedFiles.setCellFactory(this::setListViewCelLFactory);
 	}
 
-	private void onListCellMouseClick(MouseEvent event, Cell<CSVFile> cell) {
+	private void onScrollPaneMouseClick(MouseEvent event) {
+		if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+			// double-clicking on the scroll pane
+			newFilesToListView();
+		}
+	}
+
+	private void onListViewMouseClick(MouseEvent event) {
+		if(lvOpenedFiles.getItems().size() == 0 && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+			// double-clicking the listview when it is empty
+			newFilesToListView();
+		}
+	}
+
+	private ListCell<CSVFile> setListViewCelLFactory(ListView<CSVFile> lv) {
+		ListCell<CSVFile> cell = new ListCell<CSVFile>() {
+			@Override
+			protected void updateItem(CSVFile item, boolean empty) {
+				super.updateItem(item, empty);
+
+				if(item != null && !empty) {
+					setText(item.getFile().getParentFile().getName() + " > " + item.getFile().getName());
+				} else {
+					setText("");
+				}
+			}
+		};
+
+		cell.setOnMouseClicked(event -> onListViewCellMouseClick(event, cell));
+
+		return cell;
+	}
+
+	private void onListViewCellMouseClick(MouseEvent event, Cell<CSVFile> cell) {
 		// {06 Aug 2019 14:04} Heitx - TODO: Place within the if/else to avoid double reference set.
 		CSVFile selectedItem = lvOpenedFiles.getSelectionModel().getSelectedItem();
 
 		if(!cell.isEmpty()) {
 			if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-				refreshFile(selectedItem);
+				// double-clicking on a not empty cell
+				reloadLayout(selectedItem);
 			} else if(event.getButton() == MouseButton.SECONDARY) {
-				List<MenuItem> menuItems = new ArrayList<>();
-
+				// right-clicking on a not empty cell
 				MenuItem reload = new MenuItem("Reload");
 				MenuItem remove = new MenuItem("Remove");
-				MenuItem _new = new MenuItem("New");
+				MenuItem newFile = new MenuItem("New File");
 
+				List<MenuItem> menuItems = new ArrayList<>();
 				if(!cell.isEmpty()) {
 					menuItems.add(reload);
 					menuItems.add(remove);
 				}
 
-				menuItems.add(_new);
+				menuItems.add(newFile);
 
 				reload.setOnAction(action -> {
-					refreshFile(selectedItem);
+					reloadLayout(selectedItem);
 				});
 
 				remove.setOnAction(action -> {
-					ObservableList<CSVFile> items = lvOpenedFiles.getItems();
-
-					int index = items.indexOf(selectedItem);
-					items.remove(selectedItem);
-
-					if(items.size() > 0) {
-						index = index < items.size() ? index : index - 1;
-						lvOpenedFiles.getSelectionModel().select(index);
-						refreshFile(items.get(index));
-					} else {
-						spCenter.setContent(null);
-					}
-
-					views.remove(selectedItem);
+					removeFromListView(selectedItem);
 				});
 
-				_new.setOnAction(action -> {
-					addFile();
+				newFile.setOnAction(action -> {
+					newFilesToListView();
 				});
 
 				ContextMenu cm = new ContextMenu(menuItems.toArray(new MenuItem[0]));
 				cell.setContextMenu(cm);
 			}
 		} else if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-			addFile();
+			// double-clicking on an empty cell
+			newFilesToListView();
 		}
 	}
 
-	private void addFile() {
+	private void removeFromListView(CSVFile csvFile) {
+		ObservableList<CSVFile> items = lvOpenedFiles.getItems();
+
+		int index = items.indexOf(csvFile);
+		items.remove(csvFile);
+
+		// reload content by loading at same index, loading the previous added layout, or
+		// setting the content to null (no files left)
+		if(items.size() > 0) {
+			index = index < items.size() ? index : index - 1;
+			lvOpenedFiles.getSelectionModel().select(index);
+
+			reloadLayout(items.get(index));
+		} else {
+			// empty listview
+			spCenter.setContent(null);
+		}
+
+		views.remove(csvFile);
+	}
+
+	private void newFilesToListView() {
+		List<File> files = getFilesFromDialog();
+		List<CSVFile> csvFiles = readFiles(files);
+
+		for(CSVFile csvFile : csvFiles) {
+			Node node = loadLayout(csvFile);
+			views.put(csvFile, node);
+			lvOpenedFiles.getItems().add(csvFile);
+		}
+
+		ObservableList<CSVFile> items = lvOpenedFiles.getItems();
+		Node node = views.get(items.get(items.size() - 1)); // last added node
+
+		spCenter.setContent(node);
+	}
+
+	private List<File> getFilesFromDialog() {
 		FileChooser fc = new FileChooser();
 
 		fc.setInitialDirectory(startDirectory);
-		List<File> files = fc.showOpenMultipleDialog(spCenter.getScene().getWindow());
+		return fc.showOpenMultipleDialog(spCenter.getScene().getWindow());
+	}
+
+	private List<CSVFile> readFiles(List<File> files) {
+		List<CSVFile> csvFiles = new ArrayList<>();
 
 		if(files != null && files.size() > 0) {
 			for(File file : files) {
-				CSVFile csv = CSVReader.read(file);
-				lvOpenedFiles.getItems().add(csv);
+				CSVFile csvFile = CSVReader.read(file);
+				csvFiles.add(csvFile);
 			}
-
-			loadFile(lvOpenedFiles.getItems().get(lvOpenedFiles.getItems().size() - 1));
 		}
+
+		return csvFiles;
 	}
 
-	private void refreshFile(CSVFile file) {
-		if(openedFile != file) {
-			openedFile = file;
-			spCenter.setContent(views.get(file));
-		}
-	}
-
-	private void loadFile(CSVFile file) {
+	private Node loadLayout(CSVFile file) {
 		Node node = null;
 
 		try {
@@ -164,10 +193,13 @@ public class MainPageController implements Initializable {
 			e.printStackTrace();
 		}
 
-		if(node != null) {
+		return node;
+	}
+
+	private void reloadLayout(CSVFile file) {
+		if(openedFile != file) {
 			openedFile = file;
-			views.put(file, node);
-			spCenter.setContent(node);
+			spCenter.setContent(views.get(file));
 		}
 	}
 }
