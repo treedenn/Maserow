@@ -10,7 +10,22 @@ import java.util.*;
 public class CSVReader {
 //	private static final List<String> availableHeaders = Arrays.asList("ID", "BITMASK", "NAME", "DESCRIPTION");
 
+	public static List<CSVFile> read(List<File> files) {
+		if(files == null || files.size() == 0) return null;
+
+		List<CSVFile> csvFiles = new ArrayList<>();
+
+		for(File file : files) {
+			CSVFile read = read(file);
+			csvFiles.add(read);
+		}
+
+		return csvFiles;
+	}
+
 	public static CSVFile read(File file) {
+		if(file == null) return null;
+
 		List<CSVData> data = new ArrayList<>();
 
 		try {

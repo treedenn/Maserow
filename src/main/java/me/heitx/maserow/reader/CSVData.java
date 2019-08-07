@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class CSVData {
 	private Integer id;
-	private Long bitmask;
+	private Long bitmask; // use for bitmasks (this can also be an id e.g. subclasses in item_template)
 	private String name;
 	private String description; // comment/description
 
