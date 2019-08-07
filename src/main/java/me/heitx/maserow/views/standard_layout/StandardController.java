@@ -1,4 +1,4 @@
-package me.heitx.maserow.views.tableview_multi;
+package me.heitx.maserow.views.standard_layout;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -12,11 +12,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import me.heitx.maserow.reader.CSVData;
+import me.heitx.maserow.views.tableview_dual.TableviewDualController;
 
 import java.net.URL;
 import java.util.*;
 
-public class TableViewMultiController implements Initializable {
+public class StandardController implements Initializable {
 	@FXML private TableView<CSVData> tvTable;
 	@FXML private TableColumn<CSVData, Integer> tcId;
 	@FXML private TableColumn<CSVData, Long> tcBitmask;
@@ -37,10 +38,7 @@ public class TableViewMultiController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		selected = FXCollections.observableHashMap();
 
-		tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tcBitmask.setCellValueFactory(new PropertyValueFactory<>("bitmask"));
-		tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+		TableviewDualController.bindTableColumnsToCSVData(tcId, tcBitmask, tcName, tcDescription);
 		tcSelected.setCellFactory(CheckBoxTableCell.forTableColumn(tcSelected));
 		tcSelected.setCellValueFactory(param -> {
 			SimpleBooleanProperty property = new SimpleBooleanProperty(selected.get(param.getValue()));

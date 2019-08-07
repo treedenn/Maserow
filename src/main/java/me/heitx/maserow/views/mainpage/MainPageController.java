@@ -10,9 +10,12 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.util.Pair;
+import me.heitx.maserow.reader.CSVData;
 import me.heitx.maserow.reader.CSVFile;
 import me.heitx.maserow.reader.CSVReader;
-import me.heitx.maserow.views.tableview_multi.TableViewMultiController;
+import me.heitx.maserow.views.standard_layout.StandardController;
+import me.heitx.maserow.views.tableview_dual.TableviewDualController;
 
 import java.io.*;
 import java.net.URL;
@@ -144,7 +147,7 @@ public class MainPageController implements Initializable {
 
 	private void newFilesToListView() {
 		List<File> files = getFilesFromDialog();
-		List<CSVFile> csvFiles = readFiles(files);
+		List<CSVFile> csvFiles = CSVReader.read(files);
 
 		for(CSVFile csvFile : csvFiles) {
 			Node node = loadLayout(csvFile);
@@ -165,24 +168,19 @@ public class MainPageController implements Initializable {
 		return fc.showOpenMultipleDialog(spCenter.getScene().getWindow());
 	}
 
-	private List<CSVFile> readFiles(List<File> files) {
-		List<CSVFile> csvFiles = new ArrayList<>();
-
-		if(files != null && files.size() > 0) {
-			for(File file : files) {
-				CSVFile csvFile = CSVReader.read(file);
-				csvFiles.add(csvFile);
-			}
-		}
-
-		return csvFiles;
-	}
-
 	private Node loadLayout(CSVFile csvFile) {
 		Node node = null;
 
 		try {
-			if(csvFile.getFile().getName().equalsIgnoreCase("item_classes")) {
+			if(csvFile.getFile().getName().equalsIgnoreCase("item_classes.csv")) {
+				File subclassFile = new File(csvFile.getFile().getParent(), "item_subclasses.csv");
+
+				if(subclassFile.exists() && subclassFile.isFile()) {
+					CSVFile csvSubclasFile = CSVReader.read(subclassFile);
+					node = useTableViewDualForClassSubclass(csvFile, csvSubclasFile);
+				} else {
+					node = useStandardLayout(csvFile);
+				}
 
 			} else {
 				node = useStandardLayout(csvFile);
@@ -194,22 +192,71 @@ public class MainPageController implements Initializable {
 		return node;
 	}
 
-	private Node useStandardLayout(CSVFile file) throws IOException {
-		FXMLLoader loader = new FXMLLoader(TableViewMultiController.class.getResource("tableview_multi.fxml"));
+	private Node useStandardLayout(CSVFile csvFile) throws IOException {
+		FXMLLoader loader = new FXMLLoader(StandardController.class.getResource("standard_layout.fxml"));
 		Node node = loader.load();
-		TableViewMultiController controller = loader.getController();
+		StandardController controller = loader.getController();
 
-		controller.setTableContent(file.getData());
+		controller.setTableContent(csvFile.getData());
 
-		if(!file.containsId()) {
+		if(!csvFile.containsId()) {
 			controller.hideIdColumn();
 		}
 
-		if(!file.containsBitmask()) {
+		if(!csvFile.containsBitmask()) {
 			controller.hideBitmaskColumns();
 			controller.hideBitmaskElements();
 		}
 
 		return node;
+	}
+
+	private Pair<Node, TableviewDualController> useTableViewDual() throws IOException {
+		FXMLLoader loader = new FXMLLoader(TableviewDualController.class.getResource("tableview_dual.fxml"));
+		Node node = loader.load();
+		TableviewDualController controller = loader.getController();
+
+		return new Pair<>(node, controller);
+	}
+
+	private Node useTableViewDualForClassSubclass(CSVFile classFile, CSVFile subclassFile) throws IOException {
+		Pair<Node, TableviewDualController> pair = useTableViewDual();
+
+		// creates 16 new lists since 16 subclasses exist
+		Map<Integer, List<CSVData>> subclasses = new HashMap<>();
+		for(int i = 0; i < 17; i++) {
+			subclasses.put(i, new ArrayList<>());
+		}
+
+		// sorts the subclasses by their ids
+		for(CSVData data : subclassFile.getData()) {
+			subclasses.get(data.getId()).add(data);
+		}
+
+		TableviewDualController controller = pair.getValue();
+
+		// when clicking on a row, update the second tableview
+		// by adding the subclasses based on the class' id
+		controller.setFirstTableViewRowConsumer(mouseEvent -> {
+			Integer id = controller.getTableViewFirst().getSelectionModel().getSelectedItem().getId();
+
+			ObservableList<CSVData> items = controller.getTableViewSecond().getItems();
+			items.clear();
+			items.addAll(subclasses.get(id));
+		});
+
+
+		controller.getLabelFirst().setText("Class");
+		controller.getLabelSecond().setText("Subclass");
+
+		controller.getSecondBitmask().setText("id");
+
+		controller.getFirstBitmask().setVisible(false);
+		controller.getSecondId().setVisible(false);
+
+		controller.getTableViewFirst().getItems().addAll(classFile.getData());
+		controller.getTableViewSecond().getItems().addAll(subclasses.get(0));
+
+		return pair.getKey();
 	}
 }
