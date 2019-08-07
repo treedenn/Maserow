@@ -114,6 +114,13 @@ public class MainPageController implements Initializable {
 		}
 	}
 
+	private void reloadLayout(CSVFile file) {
+		if(openedFile != file) {
+			openedFile = file;
+			spCenter.setContent(views.get(file));
+		}
+	}
+
 	private void removeFromListView(CSVFile csvFile) {
 		ObservableList<CSVFile> items = lvOpenedFiles.getItems();
 
@@ -171,23 +178,14 @@ public class MainPageController implements Initializable {
 		return csvFiles;
 	}
 
-	private Node loadLayout(CSVFile file) {
+	private Node loadLayout(CSVFile csvFile) {
 		Node node = null;
 
 		try {
-			FXMLLoader loader = new FXMLLoader(TableViewMultiController.class.getResource("tableview_multi.fxml"));
-			node = loader.load();
-			TableViewMultiController controller = loader.getController();
+			if(csvFile.getFile().getName().equalsIgnoreCase("item_classes")) {
 
-			controller.setTableContent(file.getData());
-
-			if(!file.containsId()) {
-				controller.hideIdColumn();
-			}
-
-			if(!file.containsBitmask()) {
-				controller.hideBitmaskColumns();
-				controller.hideBitmaskElements();
+			} else {
+				node = useStandardLayout(csvFile);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -196,10 +194,22 @@ public class MainPageController implements Initializable {
 		return node;
 	}
 
-	private void reloadLayout(CSVFile file) {
-		if(openedFile != file) {
-			openedFile = file;
-			spCenter.setContent(views.get(file));
+	private Node useStandardLayout(CSVFile file) throws IOException {
+		FXMLLoader loader = new FXMLLoader(TableViewMultiController.class.getResource("tableview_multi.fxml"));
+		Node node = loader.load();
+		TableViewMultiController controller = loader.getController();
+
+		controller.setTableContent(file.getData());
+
+		if(!file.containsId()) {
+			controller.hideIdColumn();
 		}
+
+		if(!file.containsBitmask()) {
+			controller.hideBitmaskColumns();
+			controller.hideBitmaskElements();
+		}
+
+		return node;
 	}
 }
