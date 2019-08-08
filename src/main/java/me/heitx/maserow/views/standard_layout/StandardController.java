@@ -116,6 +116,11 @@ public class StandardController implements Initializable {
 		return l;
 	}
 
+	public void hideStatus() {
+		labelStatus.setVisible(false);
+		labelStatus.setManaged(false);
+	}
+
 	public void hideIdColumn() {
 		tcId.setVisible(false);
 	}

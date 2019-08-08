@@ -198,6 +198,7 @@ public class MainPageController implements Initializable {
 		StandardController controller = loader.getController();
 
 		controller.setTableContent(csvFile.getData());
+		controller.hideStatus();
 
 		if(!csvFile.containsId()) {
 			controller.hideIdColumn();
