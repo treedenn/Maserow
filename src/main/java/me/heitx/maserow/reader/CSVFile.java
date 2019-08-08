@@ -2,16 +2,16 @@ package me.heitx.maserow.reader;
 
 import lombok.Getter;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 
 @Getter
 public class CSVFile {
-	private File file;
+	private Path path;
 	private List<CSVData> data;
 
-	public CSVFile(File file, List<CSVData> data) {
-		this.file = file;
+	public CSVFile(Path path, List<CSVData> data) {
+		this.path = path;
 		this.data = data;
 	}
 

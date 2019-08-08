@@ -4,32 +4,32 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 // {06 Aug 2019 17:16} Heitx - TODO: Asynchronous the read file process
 public class CSVReader {
 //	private static final List<String> availableHeaders = Arrays.asList("ID", "BITMASK", "NAME", "DESCRIPTION");
 
-	public static List<CSVFile> read(List<File> files) {
-		if(files == null || files.size() == 0) return null;
-
+	public static List<CSVFile> read(List<Path> paths) {
 		List<CSVFile> csvFiles = new ArrayList<>();
 
-		for(File file : files) {
-			CSVFile read = read(file);
+		for(Path path : paths) {
+			CSVFile read = read(path);
 			csvFiles.add(read);
 		}
 
 		return csvFiles;
 	}
 
-	public static CSVFile read(File file) {
-		if(file == null) return null;
+	public static CSVFile read(Path path) {
+		if(path == null || Files.notExists(path)) return null;
 
 		List<CSVData> data = new ArrayList<>();
 
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+			BufferedReader reader = Files.newBufferedReader(path);
 
 			if(reader.ready()) {
 				// loops until it reaches the end or a not empty line e.g. headers
@@ -59,6 +59,6 @@ public class CSVReader {
 			e.printStackTrace();
 		}
 
-		return new CSVFile(file, data);
+		return new CSVFile(path, data);
 	}
 }

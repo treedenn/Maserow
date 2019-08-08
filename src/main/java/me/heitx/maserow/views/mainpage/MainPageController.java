@@ -17,8 +17,13 @@ import me.heitx.maserow.reader.CSVReader;
 import me.heitx.maserow.views.standard_layout.StandardController;
 import me.heitx.maserow.views.tableview_dual.TableviewDualController;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class MainPageController implements Initializable {
@@ -29,8 +34,10 @@ public class MainPageController implements Initializable {
 	private Map<CSVFile, Node> views;
 	private CSVFile openedFile;
 
+	private Path lastSelectedPath;
+
 	// TEST PURPOSES
-	private final File startDirectory = new File("C:\\Users\\Denni\\IdeaProjects\\Maserow\\csv\\world\\item_template");
+//	private final File startDirectory = new File("C:\\Users\\Denni\\IdeaProjects\\Maserow\\csv\\world\\item_template");
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -62,7 +69,7 @@ public class MainPageController implements Initializable {
 				super.updateItem(item, empty);
 
 				if(item != null && !empty) {
-					setText(item.getFile().getParentFile().getName() + " > " + item.getFile().getName());
+					setText(item.getPath().getParent().getFileName() + " > " + item.getPath().getFileName());
 				} else {
 					setText("");
 				}
@@ -146,38 +153,63 @@ public class MainPageController implements Initializable {
 	}
 
 	private void newFilesToListView() {
-		List<File> files = getFilesFromDialog();
-		List<CSVFile> csvFiles = CSVReader.read(files);
+		List<Path> files = getFilesFromDialog();
 
-		for(CSVFile csvFile : csvFiles) {
-			Node node = loadLayout(csvFile);
-			views.put(csvFile, node);
-			lvOpenedFiles.getItems().add(csvFile);
+		if(files != null && files.size() > 0) {
+			List<CSVFile> csvFiles = CSVReader.read(files);
+
+			for(CSVFile csvFile : csvFiles) {
+				Node node = loadLayout(csvFile);
+				views.put(csvFile, node);
+				lvOpenedFiles.getItems().add(csvFile);
+			}
+
+			ObservableList<CSVFile> items = lvOpenedFiles.getItems();
+			Node node = views.get(items.get(items.size() - 1)); // last added node
+
+			spCenter.setContent(node);
 		}
-
-		ObservableList<CSVFile> items = lvOpenedFiles.getItems();
-		Node node = views.get(items.get(items.size() - 1)); // last added node
-
-		spCenter.setContent(node);
 	}
 
-	private List<File> getFilesFromDialog() {
+	private List<Path> getFilesFromDialog() {
 		FileChooser fc = new FileChooser();
 
-		fc.setInitialDirectory(startDirectory);
-		return fc.showOpenMultipleDialog(spCenter.getScene().getWindow());
+		// set initial directory to last selected file if not null,
+		// otherwise set it to the location of the run environment
+		if(lastSelectedPath != null) {
+			fc.setInitialDirectory(lastSelectedPath.getParent().toFile());
+		} else {
+			// get location of the run environment (classes or *.jar)
+			URL location = getClass().getProtectionDomain().getCodeSource().getLocation();
+			Path locationPath = Paths.get(URI.create(location.toString()));
+			Path csvFolder = locationPath.getParent().resolve("csv");
+			fc.setInitialDirectory(csvFolder.toFile());
+		}
+
+
+		List<File> files = fc.showOpenMultipleDialog(spCenter.getScene().getWindow());
+		List<Path> paths = new ArrayList<>();
+
+		if(files != null) files.forEach(file -> paths.add(file.toPath()));
+
+		// after selected the files, set last file in array to last selected file
+		if(paths.size() > 0) {
+			lastSelectedPath = paths.get(paths.size() - 1);
+		}
+
+		return paths;
 	}
 
 	private Node loadLayout(CSVFile csvFile) {
 		Node node = null;
 
 		try {
-			if(csvFile.getFile().getName().equalsIgnoreCase("item_classes.csv")) {
-				File subclassFile = new File(csvFile.getFile().getParent(), "item_subclasses.csv");
+			if(csvFile.getPath().toFile().getName().equalsIgnoreCase("item_classes.csv")) {
+				Path subclassFile = csvFile.getPath().getParent().resolve("item_subclasses.csv");
 
-				if(subclassFile.exists() && subclassFile.isFile()) {
-					CSVFile csvSubclasFile = CSVReader.read(subclassFile);
-					node = useTableViewDualForClassSubclass(csvFile, csvSubclasFile);
+				if(Files.exists(subclassFile) & Files.isReadable(subclassFile)) {
+					CSVFile csvSubclassFile = CSVReader.read(subclassFile);
+					node = useTableViewDualForClassSubclass(csvFile, csvSubclassFile);
 				} else {
 					node = useStandardLayout(csvFile);
 				}
